@@ -52,7 +52,7 @@ class ProgressScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 18),
               Row(children: [
-                Expanded(child: _statCard('Réponses', '$answered/${allIds.length}', Icons.edit_note)),
+                Expanded(child: _statCard('Exercices réussis', '$answered/${allIds.length}', Icons.edit_note)),
                 const SizedBox(width: 10),
                 Expanded(child: _statCard('Bonnes réponses', '$correct', Icons.check_circle_outline)),
               ]),
