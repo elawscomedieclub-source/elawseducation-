@@ -14,6 +14,7 @@ class ExerciseScreen extends StatefulWidget {
 class _ExerciseScreenState extends State<ExerciseScreen> {
   final Map<String, int> _selectedAnswers = {};
   final Set<String> _answeredIds = {};
+  final Map<String, String> _feedback = {};
   bool _loading = true;
 
   @override
@@ -40,14 +41,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       isCorrect: isCorrect,
     );
     if (!mounted) return;
-    setState(() => _answeredIds.add(exercise.id));
-    final message = earnedXp
-        ? 'Bonne réponse ! +10 XP'
-        : isCorrect
-            ? 'Bonne réponse ! Cet exercice a déjà été comptabilisé.'
-            : 'Pas tout à fait. La réponse a été enregistrée.';
+    setState(() {
+      if (isCorrect) _answeredIds.add(exercise.id);
+      _feedback[exercise.id] = isCorrect
+          ? (earnedXp ? 'Bonne réponse ! +10 XP' : 'Bonne réponse !')
+          : 'Pas tout à fait. Relis l’explication et essaie encore.';
+    });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+      SnackBar(content: Text(_feedback[exercise.id]!)),
     );
   }
 
@@ -108,6 +109,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               title: Text(exercise.options[index]),
                             );
                           }),
+                          if (_feedback.containsKey(exercise.id) && !answered)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                _feedback[exercise.id]!,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
                           if (!answered)
                             SizedBox(
                               width: double.infinity,
