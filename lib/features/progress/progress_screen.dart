@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/progress_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/models/models.dart';
 import '../../shared/widgets/menu_button.dart';
 
 class ProgressScreen extends ConsumerWidget {
