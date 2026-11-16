@@ -28,7 +28,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
     _tts.setCompletionHandler(() {
       if (mounted) setState(() => _speaking = false);
     });
-    _tts.setCancelHandler((_) {
+    _tts.setCancelHandler(() {
       if (mounted) setState(() => _speaking = false);
     });
     _tts.setErrorHandler((_) {
