@@ -1,0 +1,78 @@
+name: ProfTogo - Web et APK Android
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: proftogo-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le projet
+        uses: actions/checkout@v4
+
+      - name: Vérifier les fichiers Flutter
+        run: |
+          if [ ! -f pubspec.yaml ]; then
+            echo "Le projet Flutter ProfTogo (pubspec.yaml) doit être ajouté à la racine du dépôt."
+            exit 1
+          fi
+
+      - name: Installer Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Installer Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Générer les plateformes Web et Android si nécessaire
+        run: |
+          if [ ! -d web ] || [ ! -d android ]; then
+            flutter create --platforms=web,android --org tg.proftogo .
+          fi
+
+      - name: Installer les dépendances
+        run: flutter pub get
+
+      - name: Construire le site Web
+        run: flutter build web --release --base-href "/elawseducation-/"
+
+      - name: Construire l'APK Android
+        run: flutter build apk --release
+
+      - name: Publier le site GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+      - name: Conserver l'APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ProfTogo-Android-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
