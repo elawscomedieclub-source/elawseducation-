@@ -1,0 +1,33 @@
+import 'package:equatable/equatable.dart';
+
+enum SchoolLevel { sixieme, cinquieme, quatrieme, troisieme, seconde, premiere, terminale }
+extension SchoolLevelX on SchoolLevel {
+  String get label => switch (this) {
+    SchoolLevel.sixieme => '6ème', SchoolLevel.cinquieme => '5ème', SchoolLevel.quatrieme => '4ème', SchoolLevel.troisieme => '3ème', SchoolLevel.seconde => '2nde', SchoolLevel.premiere => '1ère', SchoolLevel.terminale => 'Terminale',
+  };
+}
+class Subject extends Equatable {
+  final String id, name, iconName, colorHex; final SchoolLevel level; final int totalChapters, completedChapters; final double progress;
+  const Subject({required this.id, required this.name, required this.iconName, required this.colorHex, required this.level, required this.totalChapters, this.completedChapters = 0, this.progress = 0.0});
+  @override List<Object?> get props => [id, name, level];
+}
+class Chapter extends Equatable {
+  final String id, subjectId, title; final int order; final bool isCompleted; final int totalLessons, completedLessons;
+  const Chapter({required this.id, required this.subjectId, required this.title, required this.order, this.isCompleted = false, this.totalLessons = 0, this.completedLessons = 0});
+  @override List<Object?> get props => [id, subjectId, title];
+}
+class Lesson extends Equatable {
+  final String id, chapterId, title, content, summary; final int durationMinutes; final bool isCompleted; final List<String> keyPoints;
+  const Lesson({required this.id, required this.chapterId, required this.title, required this.content, required this.summary, this.durationMinutes = 15, this.isCompleted = false, this.keyPoints = const []});
+  @override List<Object?> get props => [id, chapterId, title];
+}
+class Exercise extends Equatable {
+  final String id, lessonId, question; final List<String> options; final int correctIndex; final String explanation;
+  const Exercise({required this.id, required this.lessonId, required this.question, required this.options, required this.correctIndex, required this.explanation});
+  @override List<Object?> get props => [id, lessonId];
+}
+class UserProgress extends Equatable {
+  final String userId; final SchoolLevel level; final int totalXp, currentStreak, longestStreak; final Map<String, double> subjectProgress;
+  const UserProgress({required this.userId, required this.level, this.totalXp = 0, this.currentStreak = 0, this.longestStreak = 0, this.subjectProgress = const {}});
+  @override List<Object?> get props => [userId, level, totalXp, currentStreak];
+}
