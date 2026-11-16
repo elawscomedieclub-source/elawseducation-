@@ -16,21 +16,10 @@ concurrency:
 
 jobs:
   build:
-    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Récupérer le dépôt
+      - name: Récupérer le code source
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Décompresser le projet ProfTogo
-        run: |
-          tar -xzf ProfTogo-source.tar.gz -C /tmp
-          cp -a /tmp/ProfTogo/. .
-          rm -rf /tmp/ProfTogo ProfTogo-source.tar.gz
-          mkdir -p assets/fonts assets/icons assets/images
-          touch assets/fonts/.gitkeep assets/icons/.gitkeep assets/images/.gitkeep
 
       - name: Installer Java
         uses: actions/setup-java@v4
@@ -47,38 +36,31 @@ jobs:
       - name: Générer les plateformes Web et Android
         run: flutter create --platforms=web,android --org tg.proftogo .
 
-      - name: Enregistrer les vrais fichiers du projet dans GitHub
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "Import ProfTogo Flutter source [skip ci]"
-            git push origin HEAD:main
-          fi
-
       - name: Installer les dépendances
         run: flutter pub get
 
-      - name: Construire le site web
+      - name: Vérifier le projet
+        run: flutter analyze
+
+      - name: Construire le site Web
         run: flutter build web --release --base-href "/elawseducation-/"
 
       - name: Construire l'APK Android
         run: flutter build apk --release
 
-      - name: Préparer le site pour GitHub Pages
+      - name: Préparer GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
 
-      - name: Conserver l'APK Android
+      - name: Conserver l'APK
         uses: actions/upload-artifact@v4
         with:
           name: ProfTogo-APK-Android
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
 
-      - name: Publier une version Android téléchargeable
+      - name: Publier la version Android
         uses: softprops/action-gh-release@v2
         with:
           tag_name: proftogo-build-${{ github.run_number }}
@@ -93,6 +75,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Déployer le site
+      - name: Publier le site
         id: deployment
         uses: actions/deploy-pages@v4
