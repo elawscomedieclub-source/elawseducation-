@@ -36,7 +36,7 @@ jobs:
       - name: Générer les plateformes Web et Android
         run: flutter create --platforms=web,android --org tg.proftogo .
 
-      - name: Autoriser le service vocal Android
+      - name: Autoriser les services vocaux Android
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -44,16 +44,45 @@ jobs:
 
           manifest = Path("android/app/src/main/AndroidManifest.xml")
           xml = manifest.read_text(encoding="utf-8")
-          if "android.intent.action.TTS_SERVICE" not in xml:
-              query = """
-              <queries>
+
+          for permission in (
+              "android.permission.INTERNET",
+              "android.permission.RECORD_AUDIO",
+          ):
+              if permission not in xml:
+                  xml = re.sub(
+                      r"(<manifest\\b[^>]*>)",
+                      r"\\1\\n    <uses-permission android:name=\\""
+                      + permission
+                      + "\\" />",
+                      xml,
+                      count=1,
+                  )
+
+          tts_query = """
                   <intent>
                       <action android:name="android.intent.action.TTS_SERVICE" />
                   </intent>
-              </queries>
           """
-              xml = re.sub(r"(<manifest\b[^>]*>)", r"\1" + query, xml, count=1)
-              manifest.write_text(xml, encoding="utf-8")
+          speech_query = """
+                  <intent>
+                      <action android:name="android.speech.RecognitionService" />
+                  </intent>
+          """
+
+          if "<queries>" not in xml:
+              xml = xml.replace(
+                  "<application",
+                  "<queries>\\n" + tts_query + speech_query + "    </queries>\\n    <application",
+                  1,
+              )
+          else:
+              if "android.intent.action.TTS_SERVICE" not in xml:
+                  xml = xml.replace("</queries>", tts_query + "    </queries>", 1)
+              if "android.speech.RecognitionService" not in xml:
+                  xml = xml.replace("</queries>", speech_query + "    </queries>", 1)
+
+          manifest.write_text(xml, encoding="utf-8")
           PY
 
       - name: Installer les dépendances
