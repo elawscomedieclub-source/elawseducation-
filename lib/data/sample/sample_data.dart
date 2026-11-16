@@ -28,6 +28,11 @@ const demoSubjects = <Subject>[
   Subject(id:'ce2_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.ce2,totalChapters:1,progress:0),
   Subject(id:'ce2_eveil',name:'Sciences et découverte du milieu',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.ce2,totalChapters:1,progress:0),
   Subject(id:'ce2_en',name:'Initiation à l’anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.ce2,totalChapters:1,progress:0),
+
+  Subject(id:'cm1_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.cm1,totalChapters:1,progress:0),
+  Subject(id:'cm1_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.cm1,totalChapters:1,progress:0),
+  Subject(id:'cm1_sci',name:'Sciences et technologie',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.cm1,totalChapters:1,progress:0),
+  Subject(id:'cm1_en',name:'Anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.cm1,totalChapters:1,progress:0),
 ];
 
 const demoChapters = <Chapter>[
@@ -62,6 +67,11 @@ const demoChapters = <Chapter>[
   Chapter(id:'ce2_f1',subjectId:'ce2_fr',title:'Conjugaison et expression écrite',order:1,totalLessons:2),
   Chapter(id:'ce2_e1',subjectId:'ce2_eveil',title:'L’eau, l’air et notre environnement',order:1,totalLessons:2),
   Chapter(id:'ce2_a1',subjectId:'ce2_en',title:'Numbers, colours and family',order:1,totalLessons:2),
+
+  Chapter(id:'cm1_m1',subjectId:'cm1_math',title:'Fractions, opérations et mesures',order:1,totalLessons:2),
+  Chapter(id:'cm1_f1',subjectId:'cm1_fr',title:'Grammaire et conjugaison',order:1,totalLessons:2),
+  Chapter(id:'cm1_s1',subjectId:'cm1_sci',title:'Le corps humain et la matière',order:1,totalLessons:2),
+  Chapter(id:'cm1_a1',subjectId:'cm1_en',title:'Daily routines and time',order:1,totalLessons:2),
 ];
 
 const demoLessons = <Lesson>[
@@ -123,6 +133,15 @@ const demoLessons = <Lesson>[
   Lesson(id:'ce2_el2',chapterId:'ce2_e1',title:'Protéger notre environnement',summary:'Adopter des gestes simples pour garder le milieu propre.',content:'L’environnement comprend l’air, l’eau, le sol, les plantes, les animaux et les êtres humains. Les déchets jetés dans la nature peuvent salir les lieux et polluer l’eau. Pour protéger notre milieu, nous pouvons utiliser les poubelles, éviter de gaspiller l’eau, planter et entretenir les arbres et garder les espaces communs propres.',keyPoints:['Ne pas jeter les déchets dans la nature.','Économiser l’eau et protéger les arbres.','Garder la maison, l’école et le quartier propres.']),
   Lesson(id:'ce2_al1',chapterId:'ce2_a1',title:'Numbers and colours',summary:'Compter et nommer quelques couleurs en anglais.',content:'Practise numbers from one to twenty: one, two, three, four, five, six, seven, eight, nine, ten. Learn colours: red, blue, green, yellow, black and white. You can say: “I have three blue pencils.” Repeat the words aloud and point to objects with the matching colour.',keyPoints:['One, two, three… ten.','Red = rouge; blue = bleu.','Green = vert; yellow = jaune.']),
   Lesson(id:'ce2_al2',chapterId:'ce2_a1',title:'Talking about my family',summary:'Présenter quelques membres de sa famille.',content:'Use these words: mother, father, brother, sister and family. You can say: “This is my mother” or “I have one brother.” Ask a friend: “Have you got a sister?” Practise with simple sentences and speak clearly.',keyPoints:['Mother = mère; father = père.','Brother = frère; sister = sœur.','This is my family. = Voici ma famille.']),
+
+  Lesson(id:'cm1_ml1',chapterId:'cm1_m1',title:'Découvrir les fractions',summary:'Représenter une partie d’une unité ou d’un ensemble.',content:'Une fraction représente une ou plusieurs parts égales d’une unité. Dans 3/4, le dénominateur 4 indique que l’unité est partagée en quatre parts égales et le numérateur 3 indique que l’on prend trois parts. Une fraction peut être représentée par un dessin, une bande ou un partage concret. Il faut toujours que les parts soient égales.',keyPoints:['Le dénominateur indique le nombre de parts égales.','Le numérateur indique le nombre de parts prises.','Dans 3/4, on prend 3 parts sur 4.']),
+  Lesson(id:'cm1_ml2',chapterId:'cm1_m1',title:'Les multiples et la division',summary:'Reconnaître des multiples et effectuer une division simple.',content:'Un multiple d’un nombre est le résultat de sa multiplication par un nombre entier. Les multiples de 5 sont 5, 10, 15, 20, 25… Pour diviser, on cherche combien de fois le diviseur est contenu dans le dividende. Par exemple, 36 ÷ 6 = 6 car 6 × 6 = 36. On vérifie le résultat par la multiplication.',keyPoints:['Les multiples de 5 se terminent par 0 ou 5.','36 ÷ 6 = 6.','La multiplication permet de vérifier une division exacte.']),
+  Lesson(id:'cm1_fl1',chapterId:'cm1_f1',title:'Le sujet et le verbe',summary:'Identifier le sujet et accorder le verbe avec lui.',content:'Dans une phrase, le sujet indique de qui ou de quoi on parle. Le verbe exprime généralement une action ou un état. Pour trouver le sujet, on peut poser la question « qui est-ce qui ? » avant le verbe. Le verbe s’accorde avec son sujet : « Les élèves travaillent » ; « L’élève travaille ».',keyPoints:['Le sujet commande l’accord du verbe.','Pour trouver le sujet, poser « qui est-ce qui ? ».','Un sujet pluriel entraîne généralement un verbe au pluriel.']),
+  Lesson(id:'cm1_fl2',chapterId:'cm1_f1',title:'Le passé, le présent et le futur',summary:'Situer une action dans le temps.',content:'Le présent indique une action qui se déroule maintenant ou une habitude. Le passé indique une action déjà réalisée. Le futur indique une action qui se déroulera plus tard. Les indicateurs de temps aident à choisir le temps : hier, aujourd’hui, demain, autrefois, bientôt. Il faut garder la cohérence des temps dans un texte.',keyPoints:['Hier : passé.','Aujourd’hui : présent.','Demain : futur.']),
+  Lesson(id:'cm1_sl1',chapterId:'cm1_s1',title:'Les organes et leurs fonctions',summary:'Découvrir quelques organes et leur rôle dans le corps.',content:'Le corps humain est composé de plusieurs organes qui travaillent ensemble. Le cœur fait circuler le sang. Les poumons permettent les échanges respiratoires. L’estomac participe à la digestion des aliments. Le cerveau commande et coordonne de nombreuses activités du corps. Une bonne hygiène aide à préserver la santé.',keyPoints:['Le cœur fait circuler le sang.','Les poumons permettent de respirer.','L’estomac participe à la digestion.','Le cerveau coordonne le corps.']),
+  Lesson(id:'cm1_sl2',chapterId:'cm1_s1',title:'Solides, liquides et gaz',summary:'Comparer les propriétés des trois états de la matière.',content:'La matière peut se présenter sous forme solide, liquide ou gazeuse. Un solide conserve généralement sa forme. Un liquide s’écoule et prend la forme du récipient. Un gaz se répand et occupe l’espace disponible. L’eau est un exemple de matière que l’on peut observer sous ces trois états : glace, eau liquide et vapeur.',keyPoints:['Un solide conserve sa forme.','Un liquide prend la forme du récipient.','Un gaz se répand dans l’espace disponible.']),
+  Lesson(id:'cm1_al1',chapterId:'cm1_a1',title:'Talking about daily routines',summary:'Décrire quelques activités quotidiennes en anglais.',content:'Use simple sentences to talk about your day: “I wake up”, “I go to school”, “I eat lunch” and “I do my homework”. Use “in the morning”, “in the afternoon” and “in the evening” to say when you do an activity. Practise with a partner and pronounce each sentence clearly.',keyPoints:['I wake up. = Je me réveille.','I go to school. = Je vais à l’école.','In the morning = le matin.']),
+  Lesson(id:'cm1_al2',chapterId:'cm1_a1',title:'Telling the time',summary:'Demander et donner l’heure en anglais.',content:'To ask the time, say “What time is it?” You can answer “It is seven o’clock” for 7:00. For 7:30, say “It is half past seven”. Practise reading the time on a clock and saying the hours aloud.',keyPoints:['What time is it? = Quelle heure est-il ?','Seven o’clock = sept heures.','Half past seven = sept heures et demie.']),
 ];
 
 const demoExercises = <Exercise>[
@@ -184,4 +203,13 @@ const demoExercises = <Exercise>[
   Exercise(id:'ce2_ee2',lessonId:'ce2_el2',question:'Quel geste protège l’environnement ?',options:['Jeter les déchets dans la rivière','Brûler les plastiques près des maisons','Utiliser une poubelle'],correctIndex:2,explanation:'Mettre les déchets dans une poubelle évite de salir le milieu.'),
   Exercise(id:'ce2_ae1',lessonId:'ce2_al1',question:'What colour is “green”?',options:['Rouge','Vert','Jaune'],correctIndex:1,explanation:'“Green” signifie « vert ».'),
   Exercise(id:'ce2_ae2',lessonId:'ce2_al2',question:'What does “sister” mean?',options:['Sœur','Mère','Frère'],correctIndex:0,explanation:'“Sister” signifie « sœur ».'),
+
+  Exercise(id:'cm1_me1',lessonId:'cm1_ml1',question:'Dans la fraction 2/5, que représente le chiffre 5 ?',options:['Le nombre de parts prises','Le nombre de parts égales de l’unité','La valeur de l’unité'],correctIndex:1,explanation:'Le dénominateur 5 indique que l’unité est partagée en cinq parts égales.'),
+  Exercise(id:'cm1_me2',lessonId:'cm1_ml2',question:'Combien vaut 42 ÷ 7 ?',options:['5','6','7'],correctIndex:1,explanation:'42 ÷ 7 = 6 car 7 × 6 = 42.'),
+  Exercise(id:'cm1_fe1',lessonId:'cm1_fl1',question:'Dans « Les enfants jouent », quel est le sujet ?',options:['jouent','Les enfants','enfants jouent'],correctIndex:1,explanation:'« Les enfants » est le groupe sujet du verbe « jouent ».'),
+  Exercise(id:'cm1_fe2',lessonId:'cm1_fl2',question:'Quel temps indique le mot « demain » ?',options:['Le passé','Le présent','Le futur'],correctIndex:2,explanation:'« Demain » annonce un moment à venir : le futur.'),
+  Exercise(id:'cm1_se1',lessonId:'cm1_sl1',question:'Quel organe fait circuler le sang ?',options:['Le cœur','L’estomac','Les poumons'],correctIndex:0,explanation:'Le cœur agit comme une pompe et fait circuler le sang.'),
+  Exercise(id:'cm1_se2',lessonId:'cm1_sl2',question:'Quelle propriété correspond à un liquide ?',options:['Il conserve toujours sa forme','Il prend la forme du récipient','Il occupe tout l’espace comme un gaz'],correctIndex:1,explanation:'Un liquide s’écoule et prend la forme du récipient qui le contient.'),
+  Exercise(id:'cm1_ae1',lessonId:'cm1_al1',question:'What does “I go to school” mean?',options:['Je vais à l’école','Je mange','Je dors'],correctIndex:0,explanation:'“I go to school” signifie « Je vais à l’école ».'),
+  Exercise(id:'cm1_ae2',lessonId:'cm1_al2',question:'How do you say 7:00 in English?',options:['Half past seven','Seven o’clock','Six o’clock'],correctIndex:1,explanation:'7:00 se dit “seven o’clock”.'),
 ];
