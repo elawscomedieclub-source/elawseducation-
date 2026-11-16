@@ -36,6 +36,26 @@ jobs:
       - name: Générer les plateformes Web et Android
         run: flutter create --platforms=web,android --org tg.proftogo .
 
+      - name: Autoriser le service vocal Android
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          manifest = Path("android/app/src/main/AndroidManifest.xml")
+          xml = manifest.read_text(encoding="utf-8")
+          if "android.intent.action.TTS_SERVICE" not in xml:
+              query = """
+              <queries>
+                  <intent>
+                      <action android:name="android.intent.action.TTS_SERVICE" />
+                  </intent>
+              </queries>
+          """
+              xml = re.sub(r"(<manifest\\b[^>]*>)", r"\\1" + query, xml, count=1)
+              manifest.write_text(xml, encoding="utf-8")
+          PY
+
       - name: Installer les dépendances
         run: flutter pub get
 
