@@ -13,6 +13,11 @@ const demoSubjects = <Subject>[
   Subject(id:'cp1_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.cp1,totalChapters:1,progress:0),
   Subject(id:'cp1_eveil',name:'Éveil au milieu',iconName:'globe',colorHex:'#0288D1',level:SchoolLevel.cp1,totalChapters:1,progress:0),
   Subject(id:'cp1_en',name:'Initiation à l’anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.cp1,totalChapters:1,progress:0),
+
+  Subject(id:'cp2_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.cp2,totalChapters:1,progress:0),
+  Subject(id:'cp2_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.cp2,totalChapters:1,progress:0),
+  Subject(id:'cp2_eveil',name:'Éveil au milieu',iconName:'globe',colorHex:'#0288D1',level:SchoolLevel.cp2,totalChapters:1,progress:0),
+  Subject(id:'cp2_en',name:'Initiation à l’anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.cp2,totalChapters:1,progress:0),
 ];
 
 const demoChapters = <Chapter>[
@@ -32,6 +37,11 @@ const demoChapters = <Chapter>[
   Chapter(id:'cp1_f1',subjectId:'cp1_fr',title:'Écouter, parler et découvrir les lettres',order:1,totalLessons:2),
   Chapter(id:'cp1_e1',subjectId:'cp1_eveil',title:'Découvrir son environnement',order:1,totalLessons:2),
   Chapter(id:'cp1_a1',subjectId:'cp1_en',title:'Premiers mots en anglais',order:1,totalLessons:2),
+
+  Chapter(id:'cp2_m1',subjectId:'cp2_math',title:'Nombres, additions et soustractions',order:1,totalLessons:2),
+  Chapter(id:'cp2_f1',subjectId:'cp2_fr',title:'Lecture et construction de phrases',order:1,totalLessons:2),
+  Chapter(id:'cp2_e1',subjectId:'cp2_eveil',title:'Le corps, la santé et le milieu',order:1,totalLessons:2),
+  Chapter(id:'cp2_a1',subjectId:'cp2_en',title:'Greetings and classroom words',order:1,totalLessons:2),
 ];
 
 const demoLessons = <Lesson>[
@@ -66,6 +76,15 @@ const demoLessons = <Lesson>[
   Lesson(id:'cp1_el2',chapterId:'cp1_e1',title:'Propreté et hygiène',summary:'Adopter des gestes simples pour rester propre.',content:'Pour rester propre et en bonne santé, on se lave les mains avec de l’eau propre et du savon, on se brosse les dents et on garde ses vêtements propres. On jette les déchets dans une poubelle et on participe à la propreté de la classe et de la maison.',keyPoints:['Se laver les mains avant de manger et après les toilettes.','Se brosser les dents régulièrement.','Jeter les déchets dans une poubelle.']),
   Lesson(id:'cp1_al1',chapterId:'cp1_a1',title:'Greetings: Hello and goodbye',summary:'Dire bonjour et au revoir en anglais.',content:'En anglais, on peut saluer une personne avec “Hello” ou “Good morning”. Pour prendre congé, on dit “Goodbye” ou “Bye”. Répète les expressions à voix haute avec ton enseignant ou un camarade.',keyPoints:['Hello = Bonjour.','Good morning = Bonjour le matin.','Goodbye = Au revoir.']),
   Lesson(id:'cp1_al2',chapterId:'cp1_a1',title:'Numbers from one to five',summary:'Découvrir les nombres de un à cinq en anglais.',content:'Les cinq premiers nombres en anglais sont one, two, three, four et five. On peut les apprendre en comptant les doigts de la main : one, two, three, four, five. Répète lentement puis essaie de les dire sans regarder.',keyPoints:['One = un.','Two = deux.','Three = trois.','Four = quatre.','Five = cinq.']),
+
+  Lesson(id:'cp2_ml1',chapterId:'cp2_m1',title:'Lire et écrire les nombres jusqu’à 100',summary:'Lire, écrire, décomposer et comparer les nombres jusqu’à 100.',content:'Les nombres servent à compter et à mesurer. Un nombre à deux chiffres comprend des dizaines et des unités. Par exemple, 47 = 4 dizaines et 7 unités. Pour comparer deux nombres, on regarde d’abord les dizaines, puis les unités si les dizaines sont égales. On peut représenter les nombres avec des bâtonnets groupés par dix et des unités isolées.',keyPoints:['Une dizaine vaut dix unités.','47 = 40 + 7.','On compare d’abord les dizaines puis les unités.']),
+  Lesson(id:'cp2_ml2',chapterId:'cp2_m1',title:'Addition et soustraction simples',summary:'Calculer des additions et des soustractions sans perdre le sens des opérations.',content:'L’addition sert à réunir des quantités ou à ajouter. Exemple : 23 + 14 = 37. La soustraction sert à enlever ou à chercher une différence. Exemple : 38 − 12 = 26. Pour poser un calcul, on aligne les unités sous les unités et les dizaines sous les dizaines. On peut vérifier une soustraction en ajoutant la différence au nombre enlevé.',keyPoints:['Additionner, c’est réunir ou ajouter.','Soustraire, c’est enlever ou comparer.','Aligner unités et dizaines.']),
+  Lesson(id:'cp2_fl1',chapterId:'cp2_f1',title:'Lire un petit texte',summary:'Lire un texte court et retrouver les informations importantes.',content:'Avant de lire, on observe le titre et les images. Ensuite, on lit chaque phrase et on cherche les personnages, le lieu et les actions. Pour répondre à une question, on reprend les informations du texte avec une phrase claire. On peut relire le passage pour vérifier sa réponse.',keyPoints:['Observer le titre.','Repérer qui fait quoi et où.','Relire le texte pour vérifier sa réponse.']),
+  Lesson(id:'cp2_fl2',chapterId:'cp2_f1',title:'Construire une phrase simple',summary:'Écrire une phrase avec une majuscule et un point.',content:'Une phrase simple exprime une idée complète. Elle commence par une majuscule et se termine par un point, un point d’interrogation ou un point d’exclamation. Exemple : « Afi joue dans la cour. » On peut trouver le sujet, qui indique de qui on parle, et le verbe, qui exprime l’action ou l’état.',keyPoints:['Commencer par une majuscule.','Exprimer une idée complète.','Terminer par un signe de ponctuation.']),
+  Lesson(id:'cp2_el1',chapterId:'cp2_e1',title:'Les parties du corps et les sens',summary:'Nommer quelques parties du corps et leurs fonctions.',content:'Le corps humain comporte la tête, le tronc, les bras et les jambes. Les yeux permettent de voir, les oreilles d’entendre, le nez de sentir, la langue de goûter et la peau de toucher. Il faut protéger son corps et éviter les gestes dangereux.',keyPoints:['Les yeux servent à voir.','Les oreilles servent à entendre.','La peau permet de sentir le contact.']),
+  Lesson(id:'cp2_el2',chapterId:'cp2_e1',title:'Protéger sa santé et son environnement',summary:'Appliquer des règles simples d’hygiène et de propreté.',content:'Pour rester en bonne santé, on se lave les mains, on boit de l’eau potable, on mange des aliments propres et on garde les lieux propres. Les déchets doivent être déposés dans une poubelle. Il faut aussi éviter l’eau stagnante et signaler aux adultes les endroits dangereux.',keyPoints:['Se laver les mains avec de l’eau propre et du savon.','Boire de l’eau potable.','Garder la cour et la maison propres.']),
+  Lesson(id:'cp2_al1',chapterId:'cp2_a1',title:'Greetings and polite words',summary:'Utiliser des salutations et des mots de politesse en anglais.',content:'In English, we say “Hello” to greet someone and “Goodbye” when leaving. We can say “Please” when asking for something and “Thank you” to show gratitude. Practise these words with a partner.',keyPoints:['Hello = Bonjour.','Please = S’il te plaît.','Thank you = Merci.','Goodbye = Au revoir.']),
+  Lesson(id:'cp2_al2',chapterId:'cp2_a1',title:'Classroom objects',summary:'Nommer des objets simples de la classe en anglais.',content:'Here are useful classroom words: book, pen, pencil, ruler, bag and chair. You can say “This is a book” to identify an object. Listen, repeat and point to the correct object in the classroom.',keyPoints:['Book = livre.','Pencil = crayon.','Ruler = règle.','Bag = sac.']),
 ];
 
 const demoExercises = <Exercise>[
@@ -100,4 +119,13 @@ const demoExercises = <Exercise>[
   Exercise(id:'cp1_ee2',lessonId:'cp1_el2',question:'Avec quoi se lave-t-on les mains ?',options:['Du sable seulement','De l’eau propre et du savon','De l’huile'],correctIndex:1,explanation:'L’eau propre et le savon aident à nettoyer les mains.'),
   Exercise(id:'cp1_ae1',lessonId:'cp1_al1',question:'What does “Hello” mean?',options:['Au revoir','Bonjour','Merci'],correctIndex:1,explanation:'“Hello” signifie « Bonjour ».'),
   Exercise(id:'cp1_ae2',lessonId:'cp1_al2',question:'What is “three” in French?',options:['Deux','Trois','Cinq'],correctIndex:1,explanation:'“Three” signifie « trois ».'),
+
+  Exercise(id:'cp2_me1',lessonId:'cp2_ml1',question:'Dans le nombre 56, combien y a-t-il de dizaines ?',options:['5','6','56'],correctIndex:0,explanation:'56 contient 5 dizaines et 6 unités.'),
+  Exercise(id:'cp2_me2',lessonId:'cp2_ml2',question:'Combien font 24 + 13 ?',options:['27','37','47'],correctIndex:1,explanation:'24 + 13 = 37 : 20 + 10 = 30 et 4 + 3 = 7.'),
+  Exercise(id:'cp2_fe1',lessonId:'cp2_fl1',question:'Que faut-il repérer dans un texte pour bien le comprendre ?',options:['Les personnages et les actions','La couleur du cahier','Le nombre de lettres du titre seulement'],correctIndex:0,explanation:'Les personnages, les lieux et les actions aident à comprendre le texte.'),
+  Exercise(id:'cp2_fe2',lessonId:'cp2_fl2',question:'Quel signe peut terminer une phrase déclarative ?',options:['Une majuscule','Un point','Une virgule obligatoirement'],correctIndex:1,explanation:'Une phrase déclarative se termine généralement par un point.'),
+  Exercise(id:'cp2_ee1',lessonId:'cp2_el1',question:'Quel organe permet d’entendre ?',options:['Les yeux','Les oreilles','Le nez'],correctIndex:1,explanation:'Les oreilles permettent d’entendre les sons.'),
+  Exercise(id:'cp2_ee2',lessonId:'cp2_el2',question:'Où faut-il jeter les déchets ?',options:['Dans la rue','Dans une rivière','Dans une poubelle'],correctIndex:2,explanation:'Les déchets doivent être déposés dans une poubelle pour garder le milieu propre.'),
+  Exercise(id:'cp2_ae1',lessonId:'cp2_al1',question:'What does “Thank you” mean?',options:['Merci','Bonjour','Au revoir'],correctIndex:0,explanation:'“Thank you” signifie « Merci ».'),
+  Exercise(id:'cp2_ae2',lessonId:'cp2_al2',question:'What is “pencil” in French?',options:['Un livre','Un crayon','Une chaise'],correctIndex:1,explanation:'“Pencil” signifie « un crayon ».'),
 ];
