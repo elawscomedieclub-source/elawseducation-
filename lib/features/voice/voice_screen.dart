@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
+import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import '../../shared/widgets/menu_button.dart';
 
-class VoiceScreen extends StatefulWidget {
+class VoiceScreen extends ConsumerStatefulWidget {
   const VoiceScreen({super.key});
 
   @override
-  State<VoiceScreen> createState() => _VoiceScreenState();
+  ConsumerState<VoiceScreen> createState() => _VoiceScreenState();
 }
 
-class _VoiceScreenState extends State<VoiceScreen> {
+class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   final FlutterTts _tts = FlutterTts();
   final SpeechToText _speech = SpeechToText();
   final TextEditingController _textController = TextEditingController();
@@ -126,7 +128,19 @@ class _VoiceScreenState extends State<VoiceScreen> {
         .where((word) => word.length > 2 && !ignored.contains(word))
         .toSet();
 
-    final scored = demoLessons.map((lesson) {
+    final selectedLevel = ref.read(schoolLevelProvider);
+    final selectedSubjectIds = demoSubjects
+        .where((subject) => subject.level == selectedLevel)
+        .map((subject) => subject.id)
+        .toSet();
+    final selectedChapterIds = demoChapters
+        .where((chapter) => selectedSubjectIds.contains(chapter.subjectId))
+        .map((chapter) => chapter.id)
+        .toSet();
+    final lessonsForLevel = demoLessons
+        .where((lesson) => selectedChapterIds.contains(lesson.chapterId));
+
+    final scored = lessonsForLevel.map((lesson) {
       final text = _normalise(
         '${lesson.title} ${lesson.summary} ${lesson.content} ${lesson.keyPoints.join(' ')}',
       );
