@@ -1,3 +1,4 @@
+import '../../shared/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 import '../../data/sample/sample_data.dart';
 import '../subjects/subject_detail_screen.dart';
@@ -9,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const ProfTogoMenuButton(),
         title: const Text('ProfTogo', style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
