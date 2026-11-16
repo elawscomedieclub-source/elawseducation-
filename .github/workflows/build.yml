@@ -1,4 +1,4 @@
-name: ProfTogo - Web et APK Android
+name: ProfTogo - publication Web et APK
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -16,17 +16,21 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Récupérer le projet
+      - name: Récupérer le dépôt
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Vérifier les fichiers Flutter
+      - name: Décompresser le projet ProfTogo
         run: |
-          if [ ! -f pubspec.yaml ]; then
-            echo "Le projet Flutter ProfTogo (pubspec.yaml) doit être ajouté à la racine du dépôt."
-            exit 1
-          fi
+          tar -xzf ProfTogo-source.tar.gz -C /tmp
+          cp -a /tmp/ProfTogo/. .
+          rm -rf /tmp/ProfTogo ProfTogo-source.tar.gz
+          mkdir -p assets/fonts assets/icons assets/images
+          touch assets/fonts/.gitkeep assets/icons/.gitkeep assets/images/.gitkeep
 
       - name: Installer Java
         uses: actions/setup-java@v4
@@ -40,31 +44,47 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Générer les plateformes Web et Android si nécessaire
+      - name: Générer les plateformes Web et Android
+        run: flutter create --platforms=web,android --org tg.proftogo .
+
+      - name: Enregistrer les vrais fichiers du projet dans GitHub
         run: |
-          if [ ! -d web ] || [ ! -d android ]; then
-            flutter create --platforms=web,android --org tg.proftogo .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Import ProfTogo Flutter source [skip ci]"
+            git push origin HEAD:main
           fi
 
       - name: Installer les dépendances
         run: flutter pub get
 
-      - name: Construire le site Web
+      - name: Construire le site web
         run: flutter build web --release --base-href "/elawseducation-/"
 
       - name: Construire l'APK Android
         run: flutter build apk --release
 
-      - name: Publier le site GitHub Pages
+      - name: Préparer le site pour GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
 
-      - name: Conserver l'APK
+      - name: Conserver l'APK Android
         uses: actions/upload-artifact@v4
         with:
-          name: ProfTogo-Android-APK
+          name: ProfTogo-APK-Android
           path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+
+      - name: Publier une version Android téléchargeable
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: proftogo-build-${{ github.run_number }}
+          name: ProfTogo - APK ${{ github.run_number }}
+          files: build/app/outputs/flutter-apk/app-release.apk
+          generate_release_notes: true
 
   deploy:
     needs: build
@@ -73,6 +93,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Déployer sur GitHub Pages
+      - name: Déployer le site
         id: deployment
         uses: actions/deploy-pages@v4
