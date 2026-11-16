@@ -1,0 +1,5 @@
+import 'package:flutter/material.dart';
+import '../../data/models/models.dart';
+import '../../data/sample/sample_data.dart';
+import '../lesson/lesson_screen.dart';
+class SubjectDetailScreen extends StatelessWidget { final Subject subject; const SubjectDetailScreen({super.key,required this.subject}); @override Widget build(BuildContext context){final chapters=demoChapters.where((c)=>c.subjectId==subject.id).toList();return Scaffold(appBar:AppBar(title:Text(subject.name)),body:ListView(padding:const EdgeInsets.all(16),children:[Text('Programme de ${subject.level.label}',style:const TextStyle(fontWeight:FontWeight.bold,fontSize:18)),const SizedBox(height:12),if(chapters.isEmpty)const Text('Les chapitres de cette matière seront ajoutés progressivement.'),...chapters.map((c)=>Card(child:ListTile(title:Text(c.title),subtitle:Text('${c.totalLessons} leçons'),trailing:const Icon(Icons.chevron_right),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>LessonScreen(chapter:c))))))]));}}
