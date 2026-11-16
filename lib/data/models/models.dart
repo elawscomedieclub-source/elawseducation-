@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-enum SchoolLevel { sixieme, cinquieme, quatrieme, troisieme, seconde, premiere, terminale }
+enum SchoolLevel { cp1, cp2, ce1, ce2, cm1, cm2, sixieme, cinquieme, quatrieme, troisieme, seconde, premiere, terminale }
 extension SchoolLevelX on SchoolLevel {
   String get label => switch (this) {
+    SchoolLevel.cp1 => 'CP1', SchoolLevel.cp2 => 'CP2', SchoolLevel.ce1 => 'CE1', SchoolLevel.ce2 => 'CE2', SchoolLevel.cm1 => 'CM1', SchoolLevel.cm2 => 'CM2',
     SchoolLevel.sixieme => '6ème', SchoolLevel.cinquieme => '5ème', SchoolLevel.quatrieme => '4ème', SchoolLevel.troisieme => '3ème', SchoolLevel.seconde => '2nde', SchoolLevel.premiere => '1ère', SchoolLevel.terminale => 'Terminale',
   };
 }
+
+const allSchoolLevels = SchoolLevel.values;
 class Subject extends Equatable {
   final String id, name, iconName, colorHex; final SchoolLevel level; final int totalChapters, completedChapters; final double progress;
   const Subject({required this.id, required this.name, required this.iconName, required this.colorHex, required this.level, required this.totalChapters, this.completedChapters = 0, this.progress = 0.0});
