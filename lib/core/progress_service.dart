@@ -37,10 +37,10 @@ class ProgressService {
 
     if (answered.contains(exerciseId)) return false;
 
+    if (!isCorrect) return false;
+
     answered.add(exerciseId);
     await prefs.setStringList(_answeredKey, answered.toList());
-
-    if (!isCorrect) return false;
     correct.add(exerciseId);
     await prefs.setStringList(_correctKey, correct.toList());
     await prefs.setInt(_xpKey, (prefs.getInt(_xpKey) ?? 0) + 10);
