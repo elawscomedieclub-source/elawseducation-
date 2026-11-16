@@ -1,1 +1,34 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ProfTogo — Design System</title><style>body{font-family:Arial,sans-serif;margin:0;padding:32px;background:#f7faf8;color:#18352b}header{background:#006a4e;color:white;padding:28px;border-radius:18px}h1{margin:0}section{background:white;padding:22px;margin-top:18px;border-radius:16px} .swatches{display:flex;gap:12px;flex-wrap:wrap}.swatch{padding:22px;color:white;border-radius:10px;background:#006a4e}.yellow{background:#ffce00;color:#222}.red{background:#d21034}</style></head><body><header><h1>ProfTogo</h1><p>Design system — Apprendre, progresser, réussir.</p></header><section><h2>Couleurs de marque</h2><div class="swatches"><div class="swatch">Vert #006A4E</div><div class="swatch yellow">Jaune #FFCE00</div><div class="swatch red">Rouge #D21034</div></div></section><section><h2>Principes</h2><p>Interface claire, lisible sur téléphone, navigation simple et progression pédagogique.</p></section></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#006a4e">
+<title>ProfTogo — Guide de design</title>
+<style>
+:root{--green:#006a4e;--green2:#004d39;--yellow:#ffce00;--red:#d21034;--ink:#18352b;--muted:#64756e;--paper:#f4f8f5;--line:#e2ebe5}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:24px}.hero{background:linear-gradient(135deg,var(--green2),var(--green));color:#fff;padding:34px;border-radius:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;box-shadow:0 14px 34px #003b2920}
+.brand{display:flex;align-items:center;gap:14px}.logo{width:58px;height:58px;border-radius:18px;background:#fff;color:var(--green);display:grid;place-items:center;font-size:27px;font-weight:900}.hero h1{font-size:clamp(30px,5vw,46px);margin:0}.hero p{margin:6px 0 0;color:#d9eee5}.tag{border:1px solid #ffffff66;border-radius:999px;padding:8px 13px;font-size:13px}
+section{background:#fff;margin-top:20px;padding:24px;border:1px solid var(--line);border-radius:20px;box-shadow:0 5px 18px #173b2910}h2{margin:0 0 6px;font-size:22px}h3{margin:20px 0 10px;font-size:16px}.muted{color:var(--muted);margin:0 0 18px}.swatches,.samples,.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.swatch{padding:16px;border-radius:14px;color:#fff;min-height:92px;display:flex;flex-direction:column;justify-content:flex-end;font-weight:700}.swatch small{font-weight:500;opacity:.9}.green{background:var(--green)}.yellow{background:var(--yellow);color:#252525}.red{background:var(--red)}.dark{background:#18352b}
+.sample{padding:16px;border:1px solid var(--line);border-radius:14px}.btn{display:inline-block;background:var(--green);color:white;padding:11px 18px;border-radius:12px;font-weight:700}.btn.alt{background:#e7f4ee;color:var(--green)}.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#e7f4ee;color:var(--green);font-size:12px;font-weight:700}.card{border:1px solid var(--line);border-radius:16px;padding:16px}.card strong{display:block;margin-bottom:5px}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav span{padding:9px 12px;background:#f0f6f2;border-radius:10px;font-size:14px}
+footer{text-align:center;color:var(--muted);padding:26px;font-size:13px}
+@media(max-width:520px){.wrap{padding:14px}.hero,section{padding:20px}.logo{width:48px;height:48px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+<div class="brand"><div class="logo">P</div><div><h1>ProfTogo</h1><p>Apprendre, progresser, réussir.</p></div></div>
+<div class="tag">Guide visuel officiel · Version 1.0</div>
+</header>
+<section><h2>À quoi sert cette page ?</h2><p class="muted">Ce document présente les règles visuelles de ProfTogo : couleurs, boutons, cartes et navigation. C’est un guide complémentaire pour les développeurs, pas l’écran principal de l’application Flutter.</p><span class="pill">Mobile d’abord</span> <span class="pill">Lisible</span> <span class="pill">Éducatif</span></section>
+<section><h2>Couleurs de marque</h2><p class="muted">Palette inspirée du drapeau togolais, avec le vert comme couleur principale.</p><div class="swatches"><div class="swatch green">Vert principal<small>#006A4E</small></div><div class="swatch yellow">Jaune<small>#FFCE00</small></div><div class="swatch red">Rouge<small>#D21034</small></div><div class="swatch dark">Texte foncé<small>#18352B</small></div></div></section>
+<section><h2>Composants d’interface</h2><p class="muted">Exemples de styles à réutiliser dans les écrans.</p><div class="grid"><div class="sample"><h3>Bouton principal</h3><span class="btn">Commencer un cours</span></div><div class="sample"><h3>Bouton secondaire</h3><span class="btn alt">Voir les matières</span></div><div class="sample"><h3>Étiquette</h3><span class="pill">Progression · 65 %</span></div></div></section>
+<section><h2>Carte de cours</h2><div class="card"><strong>Mathématiques · 6ème</strong><p class="muted">Les nombres entiers et les opérations.</p><div style="height:8px;background:#e8efea;border-radius:9px;overflow:hidden"><div style="width:65%;height:8px;background:#006a4e"></div></div><p style="font-size:13px;margin-bottom:0">65 % terminé</p></div></section>
+<section><h2>Navigation recommandée</h2><p class="muted">Les rubriques principales de l’application mobile.</p><div class="nav"><span>⌂ Accueil</span><span>▤ Matières</span><span>◉ Vocal</span><span>↗ Progrès</span><span>☺ Profil</span></div></section>
+<section><h2>Principes d’expérience</h2><div class="grid"><div class="card"><strong>Simple</strong>Une action claire par écran.</div><div class="card"><strong>Accessible</strong>Textes lisibles et boutons adaptés au téléphone.</div><div class="card"><strong>Progressif</strong>Les cours, exercices et résultats doivent guider l’élève.</div></div></section>
+<footer>ProfTogo · Guide de design · Conçu pour une expérience d’apprentissage claire sur téléphone.</footer>
+</main>
+</body>
+</html>
