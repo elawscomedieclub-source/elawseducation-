@@ -52,7 +52,7 @@ jobs:
                   </intent>
               </queries>
           """
-              xml = re.sub(r"(<manifest\\b[^>]*>)", r"\\1" + query, xml, count=1)
+              xml = re.sub(r"(<manifest\b[^>]*>)", r"\1" + query, xml, count=1)
               manifest.write_text(xml, encoding="utf-8")
           PY
 
