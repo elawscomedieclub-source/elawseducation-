@@ -18,6 +18,11 @@ const demoSubjects = <Subject>[
   Subject(id:'cp2_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.cp2,totalChapters:1,progress:0),
   Subject(id:'cp2_eveil',name:'Éveil au milieu',iconName:'globe',colorHex:'#0288D1',level:SchoolLevel.cp2,totalChapters:1,progress:0),
   Subject(id:'cp2_en',name:'Initiation à l’anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.cp2,totalChapters:1,progress:0),
+
+  Subject(id:'ce1_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.ce1,totalChapters:1,progress:0),
+  Subject(id:'ce1_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.ce1,totalChapters:1,progress:0),
+  Subject(id:'ce1_eveil',name:'Sciences et découverte du milieu',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.ce1,totalChapters:1,progress:0),
+  Subject(id:'ce1_en',name:'Initiation à l’anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.ce1,totalChapters:1,progress:0),
 ];
 
 const demoChapters = <Chapter>[
@@ -42,6 +47,11 @@ const demoChapters = <Chapter>[
   Chapter(id:'cp2_f1',subjectId:'cp2_fr',title:'Lecture et construction de phrases',order:1,totalLessons:2),
   Chapter(id:'cp2_e1',subjectId:'cp2_eveil',title:'Le corps, la santé et le milieu',order:1,totalLessons:2),
   Chapter(id:'cp2_a1',subjectId:'cp2_en',title:'Greetings and classroom words',order:1,totalLessons:2),
+
+  Chapter(id:'ce1_m1',subjectId:'ce1_math',title:'Nombres, calcul et problèmes',order:1,totalLessons:2),
+  Chapter(id:'ce1_f1',subjectId:'ce1_fr',title:'Grammaire et lecture',order:1,totalLessons:2),
+  Chapter(id:'ce1_e1',subjectId:'ce1_eveil',title:'Les plantes et les animaux',order:1,totalLessons:2),
+  Chapter(id:'ce1_a1',subjectId:'ce1_en',title:'Myself and my school',order:1,totalLessons:2),
 ];
 
 const demoLessons = <Lesson>[
@@ -85,6 +95,15 @@ const demoLessons = <Lesson>[
   Lesson(id:'cp2_el2',chapterId:'cp2_e1',title:'Protéger sa santé et son environnement',summary:'Appliquer des règles simples d’hygiène et de propreté.',content:'Pour rester en bonne santé, on se lave les mains, on boit de l’eau potable, on mange des aliments propres et on garde les lieux propres. Les déchets doivent être déposés dans une poubelle. Il faut aussi éviter l’eau stagnante et signaler aux adultes les endroits dangereux.',keyPoints:['Se laver les mains avec de l’eau propre et du savon.','Boire de l’eau potable.','Garder la cour et la maison propres.']),
   Lesson(id:'cp2_al1',chapterId:'cp2_a1',title:'Greetings and polite words',summary:'Utiliser des salutations et des mots de politesse en anglais.',content:'In English, we say “Hello” to greet someone and “Goodbye” when leaving. We can say “Please” when asking for something and “Thank you” to show gratitude. Practise these words with a partner.',keyPoints:['Hello = Bonjour.','Please = S’il te plaît.','Thank you = Merci.','Goodbye = Au revoir.']),
   Lesson(id:'cp2_al2',chapterId:'cp2_a1',title:'Classroom objects',summary:'Nommer des objets simples de la classe en anglais.',content:'Here are useful classroom words: book, pen, pencil, ruler, bag and chair. You can say “This is a book” to identify an object. Listen, repeat and point to the correct object in the classroom.',keyPoints:['Book = livre.','Pencil = crayon.','Ruler = règle.','Bag = sac.']),
+
+  Lesson(id:'ce1_ml1',chapterId:'ce1_m1',title:'Les nombres jusqu’à 1 000',summary:'Lire, écrire, décomposer et comparer les nombres jusqu’à 1 000.',content:'Un nombre peut être composé de centaines, de dizaines et d’unités. Dans 326, il y a 3 centaines, 2 dizaines et 6 unités : 326 = 300 + 20 + 6. Pour comparer deux nombres, on compare d’abord les centaines, puis les dizaines et enfin les unités. On peut utiliser les signes <, > et =.',keyPoints:['Une centaine vaut 100 unités.','326 = 300 + 20 + 6.','Comparer les chiffres en commençant par la gauche.']),
+  Lesson(id:'ce1_ml2',chapterId:'ce1_m1',title:'Résoudre un problème additif',summary:'Choisir une opération pour résoudre une situation simple.',content:'Pour résoudre un problème, on lit l’énoncé, on repère les informations utiles et on cherche ce que l’on doit trouver. Si l’on réunit deux quantités, on peut faire une addition. Si l’on enlève une quantité ou cherche ce qui reste, on peut faire une soustraction. On écrit le calcul puis une phrase-réponse avec l’unité.',keyPoints:['Lire attentivement la question.','Choisir l’opération adaptée à la situation.','Vérifier le calcul et rédiger une réponse.']),
+  Lesson(id:'ce1_fl1',chapterId:'ce1_f1',title:'Le nom et le déterminant',summary:'Repérer le nom et le petit mot qui l’accompagne.',content:'Le nom désigne une personne, un animal, un objet ou une idée. Il peut être accompagné d’un déterminant : le, la, les, un, une, des. Dans « une maison », maison est le nom et une est le déterminant. Le déterminant s’accorde généralement en genre et en nombre avec le nom.',keyPoints:['Le nom désigne une personne, un animal ou une chose.','Le déterminant accompagne le nom.','Exemples : le garçon, une fille, des livres.']),
+  Lesson(id:'ce1_fl2',chapterId:'ce1_f1',title:'Lire et raconter un récit',summary:'Comprendre les personnages, le lieu et les étapes d’une histoire.',content:'Un récit raconte des événements. Pour le comprendre, on identifie les personnages, le lieu et le moment de l’histoire. On cherche ensuite ce qui se passe au début, les événements importants et la fin. Pour raconter à son tour, on respecte l’ordre des événements et on utilise des phrases complètes.',keyPoints:['Identifier les personnages et le lieu.','Repérer le début, les événements et la fin.','Raconter dans l’ordre chronologique.']),
+  Lesson(id:'ce1_el1',chapterId:'ce1_e1',title:'Les parties d’une plante',summary:'Découvrir les principales parties d’une plante.',content:'Une plante comporte généralement des racines, une tige et des feuilles. Certaines plantes produisent aussi des fleurs, des fruits et des graines. Les racines fixent souvent la plante dans le sol et absorbent l’eau. La tige soutient les feuilles et les fleurs. Les feuilles utilisent la lumière pour fabriquer la matière nécessaire à la croissance.',keyPoints:['Les racines absorbent l’eau et ancrent la plante.','La tige soutient la plante.','Les feuilles captent la lumière.']),
+  Lesson(id:'ce1_el2',chapterId:'ce1_e1',title:'Les animaux et leur milieu',summary:'Observer les animaux et les milieux où ils vivent.',content:'Les animaux vivent dans des milieux différents : la forêt, la savane, les mares, les rivières ou les habitations. Ils ont besoin d’eau, de nourriture et d’un abri. Leurs caractéristiques les aident à vivre dans leur milieu. Il faut observer les animaux sans les blesser et respecter leur habitat.',keyPoints:['Les animaux ont besoin de nourriture, d’eau et d’un abri.','Les animaux vivent dans des milieux variés.','Respecter les êtres vivants et leur habitat.']),
+  Lesson(id:'ce1_al1',chapterId:'ce1_a1',title:'Introducing yourself',summary:'Dire son nom et son âge en anglais.',content:'To introduce yourself, you can say: “Hello. My name is Kossi. I am eight years old.” To ask a friend’s name, say: “What is your name?” Listen to the answer and practise with a partner. Speak slowly and clearly.',keyPoints:['My name is… = Je m’appelle…','I am eight years old. = J’ai huit ans.','What is your name? = Comment t’appelles-tu ?']),
+  Lesson(id:'ce1_al2',chapterId:'ce1_a1',title:'School subjects and classroom instructions',summary:'Nommer quelques matières et comprendre des consignes simples.',content:'Useful school subjects include English, French, mathematics and science. In class, the teacher may say “Listen”, “Repeat”, “Read” or “Write”. Listen carefully and follow the instruction. Practise saying the words and matching them to classroom activities.',keyPoints:['Mathematics = mathématiques.','Listen = écoute.','Read = lis.','Write = écris.']),
 ];
 
 const demoExercises = <Exercise>[
@@ -128,4 +147,13 @@ const demoExercises = <Exercise>[
   Exercise(id:'cp2_ee2',lessonId:'cp2_el2',question:'Où faut-il jeter les déchets ?',options:['Dans la rue','Dans une rivière','Dans une poubelle'],correctIndex:2,explanation:'Les déchets doivent être déposés dans une poubelle pour garder le milieu propre.'),
   Exercise(id:'cp2_ae1',lessonId:'cp2_al1',question:'What does “Thank you” mean?',options:['Merci','Bonjour','Au revoir'],correctIndex:0,explanation:'“Thank you” signifie « Merci ».'),
   Exercise(id:'cp2_ae2',lessonId:'cp2_al2',question:'What is “pencil” in French?',options:['Un livre','Un crayon','Une chaise'],correctIndex:1,explanation:'“Pencil” signifie « un crayon ».'),
+
+  Exercise(id:'ce1_me1',lessonId:'ce1_ml1',question:'Dans 482, quel chiffre représente les dizaines ?',options:['4','8','2'],correctIndex:1,explanation:'Dans 482, 4 représente les centaines, 8 les dizaines et 2 les unités.'),
+  Exercise(id:'ce1_me2',lessonId:'ce1_ml2',question:'Afi a 12 mangues et en reçoit 5 autres. Quelle opération faut-il faire ?',options:['12 + 5','12 − 5','12 × 5'],correctIndex:0,explanation:'On réunit 12 mangues et 5 mangues : 12 + 5 = 17.'),
+  Exercise(id:'ce1_fe1',lessonId:'ce1_fl1',question:'Dans « une école », quel mot est le déterminant ?',options:['école','une','aucun'],correctIndex:1,explanation:'« une » accompagne le nom « école » : c’est le déterminant.'),
+  Exercise(id:'ce1_fe2',lessonId:'ce1_fl2',question:'Que faut-il repérer pour comprendre un récit ?',options:['Les personnages et les événements','Seulement le nombre de lignes','La couleur des pages'],correctIndex:0,explanation:'Les personnages, le lieu et les événements permettent de comprendre l’histoire.'),
+  Exercise(id:'ce1_ee1',lessonId:'ce1_el1',question:'Quelle partie de la plante absorbe souvent l’eau du sol ?',options:['La fleur','Les racines','Le fruit'],correctIndex:1,explanation:'Les racines absorbent l’eau et fixent généralement la plante dans le sol.'),
+  Exercise(id:'ce1_ee2',lessonId:'ce1_el2',question:'Quel comportement respecte les animaux ?',options:['Détruire leur abri','Les blesser','Protéger leur milieu de vie'],correctIndex:2,explanation:'Protéger leur habitat permet aux animaux de vivre dans de bonnes conditions.'),
+  Exercise(id:'ce1_ae1',lessonId:'ce1_al1',question:'What does “My name is Kossi” mean?',options:['Je m’appelle Kossi','J’ai huit ans','Au revoir Kossi'],correctIndex:0,explanation:'“My name is Kossi” signifie « Je m’appelle Kossi ».'),
+  Exercise(id:'ce1_ae2',lessonId:'ce1_al2',question:'What does “Listen” mean?',options:['Écris','Écoute','Lis'],correctIndex:1,explanation:'“Listen” signifie « Écoute ».'),
 ];
