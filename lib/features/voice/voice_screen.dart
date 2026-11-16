@@ -1,3 +1,4 @@
+import '../../shared/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 
 class VoiceScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Professeur vocal')),
+      appBar: AppBar(leading: const ProfTogoMenuButton(), title: const Text('Professeur vocal')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
