@@ -1,3 +1,4 @@
+import '../../shared/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
@@ -9,7 +10,7 @@ class SubjectsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Toutes les matières')),
+      appBar: AppBar(leading: const ProfTogoMenuButton(), title: const Text('Toutes les matières')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: demoSubjects.map((subject) => Card(
