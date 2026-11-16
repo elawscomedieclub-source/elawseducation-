@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/models/models.dart';
 import '../subjects/subject_detail_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
