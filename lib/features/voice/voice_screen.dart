@@ -103,7 +103,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
   String _normalise(String value) => value
       .toLowerCase()
       .replaceAll(RegExp(r'[.,;:!?()¿¡"“”]'), ' ')
-      .replaceAll(RegExp(r'\\s+'), ' ')
+      .replaceAll(RegExp(r'\s+'), ' ')
       .trim();
 
   void _searchCourses() {
