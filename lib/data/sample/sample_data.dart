@@ -8,6 +8,11 @@ const demoSubjects = <Subject>[
   Subject(id:'svt',name:'Sciences de la vie et de la Terre',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.sixieme,totalChapters:2,progress:.0),
   Subject(id:'hist',name:'Histoire-Géographie',iconName:'globe',colorHex:'#0288D1',level:SchoolLevel.sixieme,totalChapters:2,progress:.0),
   Subject(id:'anglais',name:'Anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.sixieme,totalChapters:2,progress:.0),
+
+  Subject(id:'cp1_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.cp1,totalChapters:1,progress:0),
+  Subject(id:'cp1_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.cp1,totalChapters:1,progress:0),
+  Subject(id:'cp1_eveil',name:'Éveil au milieu',iconName:'globe',colorHex:'#0288D1',level:SchoolLevel.cp1,totalChapters:1,progress:0),
+  Subject(id:'cp1_en',name:'Initiation à l’anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.cp1,totalChapters:1,progress:0),
 ];
 
 const demoChapters = <Chapter>[
@@ -22,6 +27,11 @@ const demoChapters = <Chapter>[
   Chapter(id:'h2',subjectId:'hist',title:'Se repérer dans l’espace',order:2,totalLessons:2),
   Chapter(id:'a1',subjectId:'anglais',title:'Introducing yourself',order:1,totalLessons:2),
   Chapter(id:'a2',subjectId:'anglais',title:'School and everyday life',order:2,totalLessons:2),
+
+  Chapter(id:'cp1_m1',subjectId:'cp1_math',title:'Découvrir les nombres et les formes',order:1,totalLessons:2),
+  Chapter(id:'cp1_f1',subjectId:'cp1_fr',title:'Écouter, parler et découvrir les lettres',order:1,totalLessons:2),
+  Chapter(id:'cp1_e1',subjectId:'cp1_eveil',title:'Découvrir son environnement',order:1,totalLessons:2),
+  Chapter(id:'cp1_a1',subjectId:'cp1_en',title:'Premiers mots en anglais',order:1,totalLessons:2),
 ];
 
 const demoLessons = <Lesson>[
@@ -47,6 +57,15 @@ const demoLessons = <Lesson>[
   Lesson(id:'l20',chapterId:'a1',title:'Asking how someone is',summary:'Demander et dire comment on va.',content:'To ask how someone is, say: How are you? Possible answers include: I am fine, thank you. And you? / I am well. Remember to use please and thank you to be polite.',keyPoints:['How are you? = Comment vas-tu ?','I am fine, thank you. = Je vais bien, merci.']),
   Lesson(id:'l21',chapterId:'a2',title:'Classroom objects',summary:'Nommer quelques objets de la classe.',content:'Useful words: a book (un livre), a pen (un stylo), a pencil (un crayon), a ruler (une règle), a bag (un sac), a desk (un bureau). Example: This is my book.',keyPoints:['A book = un livre.','A pen = un stylo.','This is… = C’est…']),
   Lesson(id:'l22',chapterId:'a2',title:'Days of the week',summary:'Apprendre les jours de la semaine.',content:'The days of the week are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday. In English, the days begin with a capital letter.',keyPoints:['Monday = lundi.','Friday = vendredi.','Sunday = dimanche.']),
+
+  Lesson(id:'cp1_ml1',chapterId:'cp1_m1',title:'Compter de 0 à 10',summary:'Reconnaître, nommer et compter les quantités de 0 à 10.',content:'Compter consiste à associer un nombre à chaque objet d’une collection. Les nombres de 0 à 10 sont : zéro, un, deux, trois, quatre, cinq, six, sept, huit, neuf et dix. On peut compter des graines, des crayons ou des cailloux en touchant chaque objet une seule fois.',keyPoints:['Compter chaque objet une seule fois.','Le dernier nombre prononcé indique la quantité totale.','Zéro signifie qu’il n’y a aucun objet.']),
+  Lesson(id:'cp1_ml2',chapterId:'cp1_m1',title:'Reconnaître les formes',summary:'Identifier le cercle, le carré et le triangle.',content:'Les objets autour de nous ont différentes formes. Un cercle est rond. Un carré possède quatre côtés de même longueur et quatre coins. Un triangle possède trois côtés et trois coins. On peut chercher ces formes dans la classe et à la maison.',keyPoints:['Le cercle est rond.','Le carré a quatre côtés égaux.','Le triangle a trois côtés.']),
+  Lesson(id:'cp1_fl1',chapterId:'cp1_f1',title:'Écouter et prononcer des sons',summary:'Écouter attentivement et répéter des mots simples.',content:'Pour bien apprendre à lire, on écoute les mots, on répète les sons et on observe les mouvements de la bouche. On peut commencer par les sons des mots connus : maman, papa, ami, école. Il faut parler clairement et écouter les autres sans les interrompre.',keyPoints:['Écouter avant de répéter.','Prononcer les mots clairement.','Respecter la personne qui parle.']),
+  Lesson(id:'cp1_fl2',chapterId:'cp1_f1',title:'Découvrir les lettres',summary:'Reconnaître quelques lettres de l’alphabet.',content:'L’alphabet français comporte 26 lettres. Chaque lettre a un nom et peut représenter un ou plusieurs sons. On commence par reconnaître les lettres de son prénom, puis on apprend progressivement les autres lettres en majuscules et en minuscules.',keyPoints:['L’alphabet comporte 26 lettres.','Les lettres peuvent être écrites en majuscules ou en minuscules.','Le prénom est un bon point de départ pour reconnaître les lettres.']),
+  Lesson(id:'cp1_el1',chapterId:'cp1_e1',title:'La famille et l’école',summary:'Nommer les personnes et les lieux de son quotidien.',content:'La famille et l’école font partie de notre environnement proche. Dans la famille, on peut nommer les parents, les enfants et les autres proches. À l’école, on trouve des élèves, un enseignant, une salle de classe et une cour. Chacun doit respecter les autres et prendre soin du matériel.',keyPoints:['Nommer les personnes de son entourage.','Respecter les camarades et les adultes.','Prendre soin du matériel scolaire.']),
+  Lesson(id:'cp1_el2',chapterId:'cp1_e1',title:'Propreté et hygiène',summary:'Adopter des gestes simples pour rester propre.',content:'Pour rester propre et en bonne santé, on se lave les mains avec de l’eau propre et du savon, on se brosse les dents et on garde ses vêtements propres. On jette les déchets dans une poubelle et on participe à la propreté de la classe et de la maison.',keyPoints:['Se laver les mains avant de manger et après les toilettes.','Se brosser les dents régulièrement.','Jeter les déchets dans une poubelle.']),
+  Lesson(id:'cp1_al1',chapterId:'cp1_a1',title:'Greetings: Hello and goodbye',summary:'Dire bonjour et au revoir en anglais.',content:'En anglais, on peut saluer une personne avec “Hello” ou “Good morning”. Pour prendre congé, on dit “Goodbye” ou “Bye”. Répète les expressions à voix haute avec ton enseignant ou un camarade.',keyPoints:['Hello = Bonjour.','Good morning = Bonjour le matin.','Goodbye = Au revoir.']),
+  Lesson(id:'cp1_al2',chapterId:'cp1_a1',title:'Numbers from one to five',summary:'Découvrir les nombres de un à cinq en anglais.',content:'Les cinq premiers nombres en anglais sont one, two, three, four et five. On peut les apprendre en comptant les doigts de la main : one, two, three, four, five. Répète lentement puis essaie de les dire sans regarder.',keyPoints:['One = un.','Two = deux.','Three = trois.','Four = quatre.','Five = cinq.']),
 ];
 
 const demoExercises = <Exercise>[
@@ -72,4 +91,13 @@ const demoExercises = <Exercise>[
   Exercise(id:'e20',lessonId:'l20',question:'How do you ask someone how they are?',options:['How are you?','What is this?','Good night'],correctIndex:0,explanation:'“How are you?” signifie « Comment vas-tu ? ».'),
   Exercise(id:'e21',lessonId:'l21',question:'What is “a book” in French?',options:['Un stylo','Un livre','Une règle'],correctIndex:1,explanation:'“A book” signifie « un livre ».'),
   Exercise(id:'e22',lessonId:'l22',question:'Which day means “lundi”?',options:['Sunday','Monday','Friday'],correctIndex:1,explanation:'Monday signifie lundi.'),
+
+  Exercise(id:'cp1_me1',lessonId:'cp1_ml1',question:'Tu as trois crayons. Combien de crayons as-tu ?',options:['Deux','Trois','Quatre'],correctIndex:1,explanation:'En comptant les crayons : un, deux, trois. Il y en a trois.'),
+  Exercise(id:'cp1_me2',lessonId:'cp1_ml2',question:'Combien de côtés possède un triangle ?',options:['Deux','Trois','Quatre'],correctIndex:1,explanation:'Un triangle possède trois côtés.'),
+  Exercise(id:'cp1_fe1',lessonId:'cp1_fl1',question:'Que faut-il faire avant de répéter un mot ?',options:['Écouter','Courir','Fermer son cahier'],correctIndex:0,explanation:'On écoute attentivement le mot avant de le répéter.'),
+  Exercise(id:'cp1_fe2',lessonId:'cp1_fl2',question:'Combien de lettres comporte l’alphabet français ?',options:['20','24','26'],correctIndex:2,explanation:'L’alphabet français comporte 26 lettres.'),
+  Exercise(id:'cp1_ee1',lessonId:'cp1_el1',question:'Comment doit-on traiter ses camarades ?',options:['Avec respect','En les insultant','En les poussant'],correctIndex:0,explanation:'À l’école, on doit respecter les autres.'),
+  Exercise(id:'cp1_ee2',lessonId:'cp1_el2',question:'Avec quoi se lave-t-on les mains ?',options:['Du sable seulement','De l’eau propre et du savon','De l’huile'],correctIndex:1,explanation:'L’eau propre et le savon aident à nettoyer les mains.'),
+  Exercise(id:'cp1_ae1',lessonId:'cp1_al1',question:'What does “Hello” mean?',options:['Au revoir','Bonjour','Merci'],correctIndex:1,explanation:'“Hello” signifie « Bonjour ».'),
+  Exercise(id:'cp1_ae2',lessonId:'cp1_al2',question:'What is “three” in French?',options:['Deux','Trois','Cinq'],correctIndex:1,explanation:'“Three” signifie « trois ».'),
 ];
