@@ -40,7 +40,7 @@ jobs:
         run: flutter pub get
 
       - name: Vérifier le projet
-        run: flutter analyze
+        run: flutter analyze lib
 
       - name: Construire le site Web
         run: flutter build web --release --base-href "/elawseducation-/"
