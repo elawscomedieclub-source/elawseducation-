@@ -109,9 +109,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               title: Text(exercise.options[index]),
                             );
                           }),
-                          if (_feedback.containsKey(exercise.id) && !answered)
+                          if (_feedback.containsKey(exercise.id) && !answered) ...[
                             Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
+                              padding: const EdgeInsets.only(bottom: 8),
                               child: Text(
                                 _feedback[exercise.id]!,
                                 style: TextStyle(
@@ -120,6 +120,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 ),
                               ),
                             ),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(12),
+                              margin: const EdgeInsets.only(bottom: 10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text('Explication : ${exercise.explanation}'),
+                            ),
+                          ],
                           if (!answered)
                             SizedBox(
                               width: double.infinity,
