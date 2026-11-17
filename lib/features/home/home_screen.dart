@@ -13,8 +13,10 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedLevel = ref.watch(schoolLevelProvider);
+    final selectedTrack = ref.watch(schoolTrackProvider);
+    final selectedSeries = ref.watch(schoolSeriesProvider);
     final subjects = demoSubjects
-        .where((subject) => subject.level == selectedLevel)
+        .where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries))
         .toList();
 
     return Scaffold(
