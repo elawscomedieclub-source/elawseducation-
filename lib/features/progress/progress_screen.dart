@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/progress_service.dart';
+import '../../core/evaluation_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
-import '../../data/models/models.dart';
 import '../../shared/widgets/menu_button.dart';
 
 class ProgressScreen extends ConsumerWidget {
@@ -14,8 +14,11 @@ class ProgressScreen extends ConsumerWidget {
     final selectedLevel = ref.watch(schoolLevelProvider);
     return Scaffold(
       appBar: AppBar(leading: const ProfTogoMenuButton(), title: const Text('Ma progression')),
-      body: FutureBuilder<ProgressSnapshot>(
-        future: ProgressService.load(),
+      body: FutureBuilder<List<dynamic>>(
+        future: Future.wait<dynamic>([
+          ProgressService.load(),
+          EvaluationService.loadHistory(),
+        ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -23,7 +26,9 @@ class ProgressScreen extends ConsumerWidget {
           if (snapshot.hasError || !snapshot.hasData) {
             return const Center(child: Text('Impossible de charger la progression pour le moment.'));
           }
-          final progress = snapshot.data!;
+          final progress = snapshot.data![0] as ProgressSnapshot;
+          final allHistory = snapshot.data![1] as List<EvaluationRecord>;
+          final history = allHistory.where((r) => r.level == selectedLevel.label).toList();
           final subjects = demoSubjects.where((s) => s.level == selectedLevel).toList();
           final exercisesBySubject = <String, List<String>>{};
           for (final subject in subjects) {
@@ -37,6 +42,8 @@ class ProgressScreen extends ConsumerWidget {
           final correct = allIds.where(progress.correctExerciseIds.contains).length;
           final xp = correct * 10;
           final overall = allIds.isEmpty ? 0.0 : answered / allIds.length;
+          final average = history.isEmpty ? 0.0 : history.map((r) => r.score).reduce((a, b) => a + b) / history.length;
+          final best = history.isEmpty ? 0 : history.map((r) => r.score).reduce((a, b) => a > b ? a : b);
 
           return ListView(
             padding: const EdgeInsets.all(18),
@@ -64,6 +71,28 @@ class ProgressScreen extends ConsumerWidget {
               const SizedBox(height: 6),
               Text('${(overall * 100).round()} % des exercices répondus'),
               const SizedBox(height: 24),
+              const Text('Résultats des évaluations', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              Row(children: [
+                Expanded(child: _statCard('Moyenne', history.isEmpty ? '—' : '${average.toStringAsFixed(1)}/20', Icons.functions)),
+                const SizedBox(width: 10),
+                Expanded(child: _statCard('Meilleure note', history.isEmpty ? '—' : '$best/20', Icons.emoji_events_outlined)),
+              ]),
+              const SizedBox(height: 10),
+              Text('${history.length} évaluation(s) effectuée(s) en ${selectedLevel.label}.'),
+              const SizedBox(height: 12),
+              if (history.isEmpty)
+                const Text('Tes notes apparaîtront ici après tes premières évaluations.')
+              else
+                ...history.take(5).map((record) => ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.assignment_turned_in_outlined, color: Color(0xFF006A4E)),
+                  title: Text('${record.subjectName} : ${record.score}/20'),
+                  subtitle: Text('${record.correct}/${record.total} bonnes réponses • ${record.date.day.toString().padLeft(2, '0')}/${record.date.month.toString().padLeft(2, '0')}/${record.date.year}'),
+                  trailing: Icon(record.score >= 10 ? Icons.check_circle : Icons.trending_up,
+                    color: record.score >= 10 ? Colors.green : Colors.orange),
+                )),
+              const SizedBox(height: 24),
               const Text('Progression par matière', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 12),
               if (subjects.isEmpty) const Text('Aucune matière disponible pour ce niveau.')
@@ -87,7 +116,7 @@ class ProgressScreen extends ConsumerWidget {
               }),
               const SizedBox(height: 10),
               Text(
-                'La progression est enregistrée sur cet appareil. Elle ne se synchronise pas encore entre plusieurs téléphones.',
+                'La progression et les notes sont enregistrées sur cet appareil. Elles ne se synchronisent pas encore entre plusieurs téléphones.',
                 style: TextStyle(color: Theme.of(context).hintColor, fontSize: 12),
               ),
             ],
