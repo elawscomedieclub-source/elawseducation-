@@ -34,7 +34,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
       selected.addAll(pool.take(_selectedSubjectId == null ? 2 : 10));
     }
     selected.shuffle(Random());
-    return selected.take(10).toList();
+    return selected.take(_selectedSubjectId == null ? 20 : 10).toList();
   }
 
   void _start() {
@@ -83,7 +83,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Text('Composition d’entraînement', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                const Text('Choisis un trimestre et une matière. Tu peux préparer un sujet mélangé ou t’entraîner dans une seule matière. Les questions disponibles sont tirées au hasard.'),
+                const Text('Choisis un trimestre et une matière. Tu peux préparer un sujet mélangé ou t’entraîner dans une seule matière. Les questions disponibles sont tirées au hasard. Un sujet mélangé peut contenir jusqu’à 20 questions, selon les matières et exercices disponibles.'),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String?>(
                   value: _selectedSubjectId,
