@@ -4,6 +4,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import 'exercise_screen.dart';
+import 'apc_lesson_guide.dart';
 
 class LessonScreen extends StatelessWidget {
   final Chapter chapter;
@@ -112,12 +113,70 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   @override
   Widget build(BuildContext context) {
     final lesson = widget.lesson;
+    final chapter = demoChapters.firstWhere(
+      (item) => item.id == lesson.chapterId,
+      orElse: () => demoChapters.first,
+    );
+    final apc = ApcLessonGuide.forLesson(lesson, chapter);
 
     return Scaffold(
       appBar: AppBar(title: Text(lesson.title)),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8F5F0),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: const Color(0xFFB7DCCB)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Row(children: [
+                  Icon(Icons.lightbulb_outline, color: Color(0xFF006A4E)),
+                  SizedBox(width: 8),
+                  Expanded(child: Text('APPRENDRE AVEC L’APC', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF006A4E)))),
+                ]),
+                const SizedBox(height: 12),
+                const Text('Compétence visée', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                Text(apc.competence),
+                const SizedBox(height: 12),
+                const Text('Situation-problème', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                Text(apc.situation),
+                const SizedBox(height: 12),
+                const Text('Ta mission', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                Text(apc.mission),
+                const SizedBox(height: 12),
+                const Text('Démarche de travail', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                ...apc.steps.asMap().entries.map((entry) => Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Text('${entry.key + 1}. ${entry.value}'),
+                )),
+                const SizedBox(height: 8),
+                const Text('Production attendue', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                Text(apc.production),
+                const SizedBox(height: 12),
+                const Text('Critères de réussite', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                ...apc.criteria.map((criterion) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const Icon(Icons.check_circle_outline, size: 18, color: Color(0xFF006A4E)),
+                    const SizedBox(width: 6),
+                    Expanded(child: Text(criterion)),
+                  ]),
+                )),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
           Text(
             lesson.summary,
             style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
