@@ -125,7 +125,7 @@ const demoChapters = <Chapter>[
   Chapter(id:'cm1_a1',subjectId:'cm1_en',title:'Daily routines and time',order:1,totalLessons:2),
 
   Chapter(id:'cm2_m1',subjectId:'cm2_math',title:'Nombres décimaux, fractions et géométrie',order:1,totalLessons:2),
-  Chapter(id:'cm2_m2',subjectId:'cm2_math',title:'Résolution de problèmes et proportionnalité',order:2,totalLessons:2),
+  Chapter(id:'cm2_m2',subjectId:'cm2_math',title:'Résolution de problèmes et proportionnalité',order:2,totalLessons:3),
   Chapter(id:'cm2_f1',subjectId:'cm2_fr',title:'Lecture, grammaire et rédaction',order:1,totalLessons:6),
   Chapter(id:'cm2_s1',subjectId:'cm2_sci',title:'Énergie, environnement et santé',order:1,totalLessons:3),
   Chapter(id:'cm2_s2',subjectId:'cm2_sci',title:'Milieux de vie et protection de l’environnement',order:2,totalLessons:2),
@@ -345,6 +345,8 @@ const demoLessons = <Lesson>[
 
 
 
+
+  Lesson(id:'cm2_ml5_budget_ce pd',chapterId:'cm2_m2',title:'Problèmes du CEPD : budget, achats et monnaie',summary:'Résoudre un problème à plusieurs étapes en organisant les données et les opérations.',content:'PRÉPARATION AU CEPD — PROBLÈMES DE BUDGET.\n\n1. Lire l’énoncé. Repère la somme disponible, les prix, les quantités et ce que la question demande. Souligne les données utiles et vérifie les unités.\n\n2. Calculer une dépense. Si un article coûte 1 500 F et qu’on en achète 3, la dépense est 1 500 × 3 = 4 500 F. Pour plusieurs achats, additionne les dépenses.\n\n3. Calculer la monnaie. Monnaie = somme donnée − dépense totale. Exemple : avec 10 000 F et une dépense de 6 750 F, la monnaie est 3 250 F.\n\n4. Organiser les étapes. Écris une opération par ligne, indique le résultat avec son unité et rédige une phrase réponse. Vérifie que le résultat est raisonnable.\n\nEXEMPLE : Awa achète 2 cahiers à 500 F chacun et un sac à 3 000 F. Dépense : 2 × 500 + 3 000 = 4 000 F. Avec 5 000 F, elle reçoit 1 000 F.\n\nMISSION APC : prépare le budget d’une petite liste de fournitures scolaires avec trois articles. Calcule la dépense totale et la monnaie sur 10 000 F.',keyPoints:['Identifier les données utiles et la question posée.','Calculer le prix de plusieurs articles par multiplication.','Additionner les dépenses puis calculer la monnaie.','Présenter les opérations et une phrase réponse avec les unités.']),
 const demoExercises = <Exercise>[
   Exercise(id:'ce1_en_colour',lessonId:'ce1_al_colours',question:'What is the English word for « vert » ?',options:['Green','Blue','Red'],correctIndex:0,explanation:'Green signifie « vert » en français.'),
   Exercise(id:'ce1_en_number',lessonId:'ce1_al_colours',question:'How do you say « quinze » in English ?',options:['Fifty','Fifteen','Five'],correctIndex:1,explanation:'Fifteen signifie quinze. Attention à ne pas le confondre avec fifty (cinquante).'),
@@ -829,5 +831,10 @@ const demoExercises = <Exercise>[
   Exercise(id:'trois_math_annale_e2',lessonId:'trois_math_annale_bepc',question:'Quelle égalité permet de vérifier qu’un triangle de côtés 5, 12 et 13 est rectangle ?',options:['5² + 12² = 13²','5 + 12 = 13','5² + 13² = 12²'],correctIndex:0,explanation:'25 + 144 = 169, soit 13². Le triangle est rectangle, avec 13 comme hypoténuse.'),
   Exercise(id:'trois_math_annale_e3',lessonId:'trois_math_annale_bepc',question:'Quelle est la solution de 3x + 5 = 20 ?',options:['x = 15','x = 5','x = 25'],correctIndex:1,explanation:'3x = 20 − 5 = 15, donc x = 15 ÷ 3 = 5.'),
   Exercise(id:'trois_math_annale_e4',lessonId:'trois_math_annale_bepc',question:'Un rectangle mesure 30 m sur 20 m. Quelle est son aire ?',options:['100 m²','50 m²','600 m²'],correctIndex:2,explanation:'Aire = longueur × largeur = 30 × 20 = 600 m².'),
+
+  Exercise(id:'cm2_ml5_budget_e1',lessonId:'cm2_ml5_budget_ce pd',question:'Un cahier coûte 500 F. Combien coûtent 4 cahiers ?',options:['1 000 F','2 000 F','2 500 F'],correctIndex:1,explanation:'4 × 500 = 2 000 F.'),
+  Exercise(id:'cm2_ml5_budget_e2',lessonId:'cm2_ml5_budget_ce pd',question:'Un élève achète 2 cahiers à 500 F et un sac à 3 000 F. Quelle est la dépense totale ?',options:['3 500 F','4 000 F','4 500 F'],correctIndex:1,explanation:'2 × 500 = 1 000 F, puis 1 000 + 3 000 = 4 000 F.'),
+  Exercise(id:'cm2_ml5_budget_e3',lessonId:'cm2_ml5_budget_ce pd',question:'Avec 5 000 F, quelle monnaie reçoit-on après une dépense de 4 000 F ?',options:['500 F','1 000 F','9 000 F'],correctIndex:1,explanation:'5 000 − 4 000 = 1 000 F.'),
+  Exercise(id:'cm2_ml5_budget_e4',lessonId:'cm2_ml5_budget_ce pd',question:'Quelle opération calcule le prix de 3 stylos à 200 F chacun ?',options:['200 + 3','200 × 3','200 − 3'],correctIndex:1,explanation:'Pour des objets de même prix, on multiplie le prix unitaire par la quantité : 200 × 3 = 600 F.'),
 ];
 
