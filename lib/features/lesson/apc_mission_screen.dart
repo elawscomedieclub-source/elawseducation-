@@ -36,14 +36,22 @@ class _ApcMissionScreenState extends State<ApcMissionScreen> {
   }
 
   Future<void> _loadAnswer() async {
-    final prefs = await SharedPreferences.getInstance();
-    final answer = prefs.getString(_storageKey) ?? '';
-    if (!mounted) return;
-    _answerController.text = answer;
-    setState(() {
-      _saved = answer.trim().isNotEmpty;
-      _loading = false;
-    });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final answer = prefs.getString(_storageKey) ?? '';
+      if (!mounted) return;
+      _answerController.text = answer;
+      setState(() {
+        _saved = answer.trim().isNotEmpty;
+        _loading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _loading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Impossible de charger ta production enregistrée.')),
+      );
+    }
   }
 
   Future<void> _saveAnswer() async {
@@ -55,16 +63,28 @@ class _ApcMissionScreenState extends State<ApcMissionScreen> {
       return;
     }
     setState(() => _saving = true);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_storageKey, answer);
-    if (!mounted) return;
-    setState(() {
-      _saving = false;
-      _saved = true;
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Ta production APC est enregistrée sur cet appareil.')),
-    );
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final success = await prefs.setString(_storageKey, answer);
+      if (!mounted) return;
+      setState(() {
+        _saving = false;
+        _saved = success;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(success
+              ? 'Ta production APC est enregistrée sur cet appareil.'
+              : 'L’enregistrement a échoué. Réessaie.'),
+        ),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Impossible d’enregistrer ta production. Réessaie.')),
+      );
+    }
   }
 
   @override
