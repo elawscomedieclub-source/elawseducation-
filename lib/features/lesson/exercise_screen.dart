@@ -18,6 +18,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   final Set<String> _checkingIds = {};
   final Map<String, String> _feedback = {};
   bool _loading = true;
+  bool _progressUnavailable = false;
 
   @override
   void initState() {
@@ -26,13 +27,21 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   Future<void> _loadProgress() async {
-    final progress = await ProgressService.load();
-    if (!mounted) return;
-    setState(() {
-      _answeredIds.addAll(progress.answeredExerciseIds);
-      _correctIds.addAll(progress.correctExerciseIds);
-      _loading = false;
-    });
+    try {
+      final progress = await ProgressService.load();
+      if (!mounted) return;
+      setState(() {
+        _answeredIds.addAll(progress.answeredExerciseIds);
+        _correctIds.addAll(progress.correctExerciseIds);
+        _loading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _progressUnavailable = true;
+        _loading = false;
+      });
+    }
   }
 
   Future<void> _checkAnswer(Exercise exercise) async {
@@ -91,6 +100,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           : ListView(
               padding: const EdgeInsets.all(18),
               children: [
+                if (_progressUnavailable)
+                  const Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Text('La progression enregistrée ne peut pas être chargée pour le moment. Tu peux continuer les exercices, mais vérifie le stockage de ton appareil avant de quitter.'),
+                    ),
+                  ),
                 const Text(
                   'Réponds aux questions et gagne 10 XP pour chaque bonne réponse.',
                   style: TextStyle(fontSize: 15),
