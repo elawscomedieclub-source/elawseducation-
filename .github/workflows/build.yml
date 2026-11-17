@@ -94,7 +94,7 @@ jobs:
               if permission not in xml:
                   xml = xml.replace(
                       "<application",
-                      f'    <uses-permission android:name="{permission}" />\\n    <application',
+                      f'    <uses-permission android:name="{permission}" />\n    <application',
                       1,
                   )
 
@@ -112,7 +112,7 @@ jobs:
           if "<queries>" not in xml:
               xml = xml.replace(
                   "<application",
-                  "    <queries>\\n" + tts_query + speech_query + "    </queries>\\n    <application",
+                  "    <queries>\n" + tts_query + speech_query + "    </queries>\n    <application",
                   1,
               )
           else:
