@@ -586,5 +586,22 @@ const demoExercises = <Exercise>[
   Exercise(id:'ce2_al1_colour',lessonId:'ce2_al1',question:'What colour is the grass ?',options:['Green','Blue','Black'],correctIndex:0,explanation:'Grass is usually green.'),
   Exercise(id:'ce2_al2_family',lessonId:'ce2_al2',question:'What does « mother » mean in French ?',options:['Père','Mère','Frère'],correctIndex:1,explanation:'« Mother » signifie « mère ».'),
   Exercise(id:'ce2_al2_sister',lessonId:'ce2_al2',question:'How do you say « sœur » in English ?',options:['Brother','Father','Sister'],correctIndex:2,explanation:'« Sister » signifie « sœur ».'),
+
+  Exercise(id:'cm1_ml1_fraction1',lessonId:'cm1_ml1',question:'Quelle fraction représente une part sur quatre parts égales ?',options:['1/2','1/3','1/4'],correctIndex:2,explanation:'Une part parmi quatre parts égales se note 1/4.'),
+  Exercise(id:'cm1_ml1_fraction2',lessonId:'cm1_ml1',question:'Dans la fraction 3/5, quel nombre indique le nombre de parts prises ?',options:['3','5','8'],correctIndex:0,explanation:'Le numérateur, placé au-dessus, indique les parts prises : ici 3.'),
+  Exercise(id:'cm1_ml2_multiple1',lessonId:'cm1_ml2',question:'Lequel est un multiple de 8 ?',options:['18','24','30'],correctIndex:1,explanation:'8 × 3 = 24 : 24 est donc un multiple de 8.'),
+  Exercise(id:'cm1_ml2_division1',lessonId:'cm1_ml2',question:'Combien font 56 ÷ 7 ?',options:['6','7','8'],correctIndex:2,explanation:'7 × 8 = 56, donc 56 ÷ 7 = 8.'),
+  Exercise(id:'cm1_fl1_sujet',lessonId:'cm1_fl1',question:'Dans « Les enfants jouent », quel est le sujet ?',options:['Les enfants','jouent','Les'],correctIndex:0,explanation:'« Les enfants » indique qui fait l’action : c’est le sujet.'),
+  Exercise(id:'cm1_fl1_verbe',lessonId:'cm1_fl1',question:'Dans « Awa prépare le repas », quel est le verbe ?',options:['Awa','prépare','repas'],correctIndex:1,explanation:'« Prépare » exprime l’action : c’est le verbe.'),
+  Exercise(id:'cm1_fl2_temps',lessonId:'cm1_fl2',question:'Dans « Hier, nous avons visité le marché », à quel temps est le verbe ?',options:['Présent','Passé','Futur'],correctIndex:1,explanation:'« Hier » indique une action passée ; « avons visité » est au passé composé.'),
+  Exercise(id:'cm1_fl2_futur',lessonId:'cm1_fl2',question:'Quel mot annonce souvent une action future ?',options:['Demain','Hier','Autrefois'],correctIndex:0,explanation:'« Demain » situe l’action dans le futur.'),
+  Exercise(id:'cm1_sl1_coeur',lessonId:'cm1_sl1',question:'Quel organe fait circuler le sang dans le corps ?',options:['Le cœur','L’estomac','Le poumon'],correctIndex:0,explanation:'Le cœur agit comme une pompe et propulse le sang.'),
+  Exercise(id:'cm1_sl1_respiration',lessonId:'cm1_sl1',question:'Quels organes permettent principalement de respirer ?',options:['Les reins','Les poumons','Les os'],correctIndex:1,explanation:'Les poumons permettent les échanges gazeux pendant la respiration.'),
+  Exercise(id:'cm1_sl2_etat',lessonId:'cm1_sl2',question:'La vapeur d’eau est à l’état…',options:['Solide','Liquide','Gazeux'],correctIndex:2,explanation:'La vapeur d’eau est de l’eau à l’état gazeux.'),
+  Exercise(id:'cm1_sl2_fusion',lessonId:'cm1_sl2',question:'Comment appelle-t-on le passage de la glace à l’eau liquide ?',options:['La fusion','La solidification','L’évaporation'],correctIndex:0,explanation:'La fusion est le passage de l’état solide à l’état liquide.'),
+  Exercise(id:'cm1_al1_routine',lessonId:'cm1_al1',question:'What does « I wake up » mean?',options:['Je me réveille','Je mange','Je dors'],correctIndex:0,explanation:'« I wake up » signifie « je me réveille ».'),
+  Exercise(id:'cm1_al1_breakfast',lessonId:'cm1_al1',question:'Which expression means « prendre le petit-déjeuner »?',options:['Go to school','Have breakfast','Go to bed'],correctIndex:1,explanation:'« Have breakfast » signifie prendre le petit-déjeuner.'),
+  Exercise(id:'cm1_al2_time',lessonId:'cm1_al2',question:'How do you say 7:00 in English?',options:['It is seven o’clock','It is half past seven','It is six o’clock'],correctIndex:0,explanation:'Pour une heure pile, on dit « seven o’clock ».'),
+  Exercise(id:'cm1_al2_half',lessonId:'cm1_al2',question:'What time is « half past three »?',options:['3:00','3:30','4:30'],correctIndex:1,explanation:'« Half past three » signifie trois heures et demie : 3:30.'),
 ];
 
