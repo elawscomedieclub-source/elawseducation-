@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
@@ -13,13 +14,14 @@ class EvaluationScreen extends StatefulWidget {
 
 class _EvaluationScreenState extends State<EvaluationScreen> {
   final Map<String, int> _answers = {};
+  late final List<Exercise> _questions;
   List<EvaluationRecord> _history = [];
   bool _loading = true;
   bool _submitted = false;
   bool _saving = false;
   int _correct = 0;
 
-  List<Exercise> get _questions {
+  List<Exercise> _buildQuestions() {
     final chapterIds = demoChapters
         .where((chapter) => chapter.subjectId == widget.subject.id)
         .map((chapter) => chapter.id)
@@ -29,14 +31,18 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
         .where((lesson) => chapterIds.contains(lesson.chapterId))
         .map((lesson) => lesson.id)
         .toSet();
-    return demoExercises
+    final pool = demoExercises
         .where((exercise) => lessonIds.contains(exercise.lessonId))
-        .toList();
+        .toList()
+      ..shuffle(Random());
+    // Une évaluation reste courte et réalisable sur téléphone.
+    return pool.take(20).toList();
   }
 
   @override
   void initState() {
     super.initState();
+    _questions = _buildQuestions();
     _loadHistory();
   }
 
@@ -126,7 +132,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                           const SizedBox(height: 6),
                           Text('Classe : ${widget.subject.level.label} • ${questions.length} question(s)'),
                           const SizedBox(height: 6),
-                          const Text('Réponds à toutes les questions. La note sera calculée sur 20.'),
+                          const Text('Réponds à toutes les questions. La note sera calculée sur 20. Un tirage aléatoire de 20 questions maximum est proposé à chaque nouvelle évaluation.'),
                         ],
                       ),
                     ),
