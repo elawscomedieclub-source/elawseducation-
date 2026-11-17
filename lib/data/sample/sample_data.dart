@@ -620,5 +620,18 @@ const demoExercises = <Exercise>[
   Exercise(id:'cm2_al1_straight',lessonId:'cm2_al1',question:'How do you say « tout droit » in English?',options:['Go straight','Turn back','Turn right'],correctIndex:0,explanation:'« Go straight » signifie aller tout droit.'),
   Exercise(id:'cm2_al2_yesterday',lessonId:'cm2_al2',question:'Which word means « hier »?',options:['Tomorrow','Yesterday','Today'],correctIndex:1,explanation:'« Yesterday » signifie hier.'),
   Exercise(id:'cm2_al2_tomorrow',lessonId:'cm2_al2',question:'Complete: « Tomorrow, I ___ visit my friend. »',options:['will','was','am yesterday'],correctIndex:0,explanation:'« Will » permet d’exprimer une action future : I will visit.'),
+
+  Exercise(id:'sixieme_nombres_rangs',lessonId:'l1',question:'Dans 5 284, quel est le chiffre des dizaines ?',options:['2','8','4'],correctIndex:1,explanation:'Dans 5 284, 5 représente les milliers, 2 les centaines, 8 les dizaines et 4 les unités.'),
+  Exercise(id:'sixieme_nombres_comparer',lessonId:'l1',question:'Quel signe convient : 3 405 ___ 3 450 ?',options:['>','<','='],correctIndex:1,explanation:'Les milliers et les centaines sont identiques ; 0 dizaine est inférieur à 5 dizaines. Donc 3 405 < 3 450.'),
+  Exercise(id:'sixieme_decimal_dixieme',lessonId:'l2',question:'Dans 7,36, quel chiffre représente les dixièmes ?',options:['7','3','6'],correctIndex:1,explanation:'Le premier chiffre après la virgule représente les dixièmes : ici 3.'),
+  Exercise(id:'sixieme_decimal_compare',lessonId:'l2',question:'Quel est le plus grand nombre ?',options:['4,08','4,8','4,18'],correctIndex:1,explanation:'4,8 = 4,80, qui est supérieur à 4,18 et 4,08.'),
+  Exercise(id:'sixieme_addition',lessonId:'l3',question:'Calcule 125,5 + 24,25.',options:['149,75','150,75','149,25'],correctIndex:0,explanation:'125,50 + 24,25 = 149,75.'),
+  Exercise(id:'sixieme_soustraction',lessonId:'l3',question:'Calcule 80 − 36,5.',options:['43,5','44,5','46,5'],correctIndex:0,explanation:'80,0 − 36,5 = 43,5.'),
+  Exercise(id:'sixieme_multiplication',lessonId:'l4',question:'Combien font 125 × 4 ?',options:['400','500','520'],correctIndex:1,explanation:'125 × 4 = 500.'),
+  Exercise(id:'sixieme_produit',lessonId:'l4',question:'Un cahier coûte 250 F. Combien coûtent 6 cahiers ?',options:['1 250 F','1 500 F','1 750 F'],correctIndex:1,explanation:'250 × 6 = 1 500 F.'),
+  Exercise(id:'sixieme_longueur_conversion',lessonId:'l5',question:'Combien de centimètres y a-t-il dans 3 mètres ?',options:['30 cm','300 cm','3 000 cm'],correctIndex:1,explanation:'1 m = 100 cm, donc 3 m = 300 cm.'),
+  Exercise(id:'sixieme_longueur_addition',lessonId:'l5',question:'Une corde mesure 2 m et une autre 150 cm. Quelle est leur longueur totale en centimètres ?',options:['170 cm','250 cm','350 cm'],correctIndex:2,explanation:'2 m = 200 cm ; 200 + 150 = 350 cm.'),
+  Exercise(id:'sixieme_perimetre_carre',lessonId:'l6',question:'Un carré a un côté de 7 cm. Quel est son périmètre ?',options:['14 cm','28 cm','49 cm'],correctIndex:1,explanation:'Le périmètre du carré vaut 4 × côté : 4 × 7 = 28 cm.'),
+  Exercise(id:'sixieme_perimetre_rect',lessonId:'l6',question:'Un rectangle mesure 9 cm sur 5 cm. Quel est son périmètre ?',options:['14 cm','28 cm','45 cm'],correctIndex:1,explanation:'P = 2 × (9 + 5) = 28 cm.'),
 ];
 
