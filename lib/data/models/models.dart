@@ -46,3 +46,10 @@ class UserProgress extends Equatable {
   const UserProgress({required this.userId, required this.level, this.totalXp = 0, this.currentStreak = 0, this.longestStreak = 0, this.subjectProgress = const {}});
   @override List<Object?> get props => [userId, level, totalXp, currentStreak];
 }
+
+bool subjectMatchesPath(Subject subject, SchoolLevel level, SchoolTrack track, String series) {
+  if (subject.level != level) return false;
+  if (subject.track == null) return true;
+  if (subject.track != track) return false;
+  return subject.series == null || subject.series == series;
+}
