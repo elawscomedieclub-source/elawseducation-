@@ -32,7 +32,7 @@ class ApcLessonGuide {
     if (name.contains('math')) {
       return ApcLessonGuide(
         competence: 'Résoudre une situation concrète en mobilisant les notions de mathématiques étudiées : ${lesson.title.toLowerCase()}.',
-        situation: 'Au marché de $context, une famille doit organiser ses achats et vérifier ses calculs. Elle te demande de l’aider en utilisant les connaissances de cette leçon.',
+        situation: 'Au marché ou $context, une famille doit organiser ses achats et vérifier ses calculs. Elle te demande de l’aider en utilisant les connaissances de cette leçon.',
         mission: 'Repère les données utiles, choisis une méthode de calcul, résous le problème et explique pourquoi ta réponse est correcte.',
         steps: [
           'Observer la situation et relever les informations importantes.',
