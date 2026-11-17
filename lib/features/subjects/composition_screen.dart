@@ -94,6 +94,19 @@ class _CompositionScreenState extends State<CompositionScreen> {
                 const Text('Composition d’entraînement', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 const Text('Choisis un trimestre et une matière. Tu peux préparer un sujet mélangé ou t’entraîner dans une seule matière. Les questions disponibles sont tirées au hasard. Un sujet mélangé peut contenir jusqu’à 20 questions, selon les matières et exercices disponibles.'),
+                const SizedBox(height: 8),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Text(
+                    'Information : les leçons ne sont pas encore classées par trimestre. Le choix T1, T2 ou T3 sert à identifier le résultat ; il ne filtre pas encore les questions.',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String?>(
                   value: _selectedSubjectId,
