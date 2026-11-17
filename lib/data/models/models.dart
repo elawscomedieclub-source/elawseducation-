@@ -1,5 +1,17 @@
 import 'package:equatable/equatable.dart';
 
+enum SchoolTrack { generalLiterary, scientific, technicalTertiary, technicalIndustrial }
+extension SchoolTrackX on SchoolTrack {
+  String get label => switch (this) {
+    SchoolTrack.generalLiterary => 'Lycée général / littéraire',
+    SchoolTrack.scientific => 'Lycée scientifique',
+    SchoolTrack.technicalTertiary => 'Lycée technique – tertiaire',
+    SchoolTrack.technicalIndustrial => 'Lycée technique – industriel',
+  };
+}
+const technicalTertiarySeries = ['G1', 'G2', 'G3'];
+const technicalIndustrialSeries = ['E', 'F1', 'F2', 'F3', 'F4', 'Ti/1'];
+
 enum SchoolLevel { cp1, cp2, ce1, ce2, cm1, cm2, sixieme, cinquieme, quatrieme, troisieme, seconde, premiere, terminale }
 extension SchoolLevelX on SchoolLevel {
   String get label => switch (this) {
@@ -10,9 +22,9 @@ extension SchoolLevelX on SchoolLevel {
 
 const allSchoolLevels = SchoolLevel.values;
 class Subject extends Equatable {
-  final String id, name, iconName, colorHex; final SchoolLevel level; final int totalChapters, completedChapters; final double progress;
-  const Subject({required this.id, required this.name, required this.iconName, required this.colorHex, required this.level, required this.totalChapters, this.completedChapters = 0, this.progress = 0.0});
-  @override List<Object?> get props => [id, name, level];
+  final String id, name, iconName, colorHex; final SchoolLevel level; final SchoolTrack? track; final String? series; final int totalChapters, completedChapters; final double progress;
+  const Subject({required this.id, required this.name, required this.iconName, required this.colorHex, required this.level, this.track, this.series, required this.totalChapters, this.completedChapters = 0, this.progress = 0.0});
+  @override List<Object?> get props => [id, name, level, track, series];
 }
 class Chapter extends Equatable {
   final String id, subjectId, title; final int order; final bool isCompleted; final int totalLessons, completedLessons;
