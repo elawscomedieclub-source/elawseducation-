@@ -14,6 +14,7 @@ class ExerciseScreen extends StatefulWidget {
 class _ExerciseScreenState extends State<ExerciseScreen> {
   final Map<String, int> _selectedAnswers = {};
   final Set<String> _answeredIds = {};
+  final Set<String> _correctIds = {};
   final Map<String, String> _feedback = {};
   bool _loading = true;
 
@@ -28,6 +29,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     if (!mounted) return;
     setState(() {
       _answeredIds.addAll(progress.answeredExerciseIds);
+      _correctIds.addAll(progress.correctExerciseIds);
       _loading = false;
     });
   }
@@ -143,18 +145,20 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             )
                           else ...[
                             Text(
-                              selected == exercise.correctIndex
-                                  ? 'Bonne réponse'
-                                  : 'Réponse déjà enregistrée',
+                              _correctIds.contains(exercise.id)
+                                  ? 'Exercice déjà validé'
+                                  : 'Exercice déjà enregistré',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: selected == exercise.correctIndex
+                                color: _correctIds.contains(exercise.id)
                                     ? Colors.green
                                     : Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                             const SizedBox(height: 6),
-                            Text(exercise.explanation),
+                            Text('Bonne réponse : ${exercise.options[exercise.correctIndex]}'),
+                            const SizedBox(height: 6),
+                            Text('Explication : ${exercise.explanation}'),
                           ],
                         ],
                       ),
