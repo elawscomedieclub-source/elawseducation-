@@ -531,5 +531,18 @@ const demoExercises = <Exercise>[
   Exercise(id:'cp1_es_dechets',lessonId:'cp1_es_lecon1',question:'Où jeter un papier ?',options:['Par terre','Dans la poubelle','Sur la table'],correctIndex:1,explanation:'On met les déchets dans la poubelle pour garder l’école propre.'),
   Exercise(id:'cp1_es_route',lessonId:'cp1_es_lecon1',question:'Pour traverser la route, que fais-tu ?',options:['Tu cours seul','Tu joues sur la route','Tu demandes l’aide d’un adulte'],correctIndex:2,explanation:'Un adulte aide l’enfant à traverser en sécurité.'),
   Exercise(id:'cp1_es_respect',lessonId:'cp1_es_lecon1',question:'Quel geste est gentil ?',options:['Frapper un camarade','Partager un crayon','Se moquer d’un ami'],correctIndex:1,explanation:'Partager le matériel est un geste de respect et d’entraide.'),
+
+  Exercise(id:'cp2_ml1_dizaines',lessonId:'cp2_ml1',question:'Dans le nombre 63, combien y a-t-il de dizaines ?',options:['3 dizaines','6 dizaines','63 dizaines'],correctIndex:1,explanation:'Dans 63, le chiffre 6 indique six dizaines, soit 60, et le chiffre 3 indique trois unités.'),
+  Exercise(id:'cp2_ml1_decomposer',lessonId:'cp2_ml1',question:'Quelle décomposition correspond au nombre 58 ?',options:['50 + 8','5 + 8','80 + 5'],correctIndex:0,explanation:'58 comprend 5 dizaines et 8 unités : 50 + 8.'),
+  Exercise(id:'cp2_fl2_majuscule',lessonId:'cp2_fl2',question:'Comment commence une phrase correctement écrite ?',options:['Par une majuscule','Par une virgule','Par un point'],correctIndex:0,explanation:'Une phrase commence par une lettre majuscule.'),
+  Exercise(id:'cp2_fl2_point',lessonId:'cp2_fl2',question:'Quel signe termine cette phrase : « Afi va à l’école » ?',options:['Une virgule','Un point','Deux-points'],correctIndex:1,explanation:'Une phrase déclarative se termine généralement par un point.'),
+  Exercise(id:'cp2_el1_sens',lessonId:'cp2_el1',question:'Quel organe nous permet d’entendre les sons ?',options:['Les oreilles','Les yeux','Le nez'],correctIndex:0,explanation:'Les oreilles servent à entendre les sons.'),
+  Exercise(id:'cp2_el1_yeux',lessonId:'cp2_el1',question:'Quel sens utilisons-nous pour regarder un dessin ?',options:['Le goût','La vue','L’odorat'],correctIndex:1,explanation:'Nous utilisons les yeux et le sens de la vue pour regarder.'),
+  Exercise(id:'cp2_el2_eau',lessonId:'cp2_el2',question:'Quelle eau faut-il boire ?',options:['L’eau sale d’un caniveau','L’eau potable','L’eau contenant des déchets'],correctIndex:1,explanation:'L’eau potable est une eau que l’on peut boire sans danger lorsqu’elle est correctement traitée et conservée.'),
+  Exercise(id:'cp2_el2_dechets',lessonId:'cp2_el2',question:'Que faut-il faire des déchets de la cour ?',options:['Les jeter dans le caniveau','Les laisser près du puits','Les mettre dans une poubelle'],correctIndex:2,explanation:'Mettre les déchets dans une poubelle aide à garder la cour propre et évite de boucher les caniveaux.'),
+  Exercise(id:'cp2_al1_thanks',lessonId:'cp2_al1',question:'What does “Thank you” mean in French ?',options:['Au revoir','Merci','S’il te plaît'],correctIndex:1,explanation:'“Thank you” means “Merci”.'),
+  Exercise(id:'cp2_al1_goodbye',lessonId:'cp2_al1',question:'Which word do we use when we leave ?',options:['Goodbye','Hello','Please'],correctIndex:0,explanation:'We say “Goodbye” when we leave.'),
+  Exercise(id:'cp2_al2_pencil',lessonId:'cp2_al2',question:'What is “pencil” in French ?',options:['Une chaise','Un crayon','Un sac'],correctIndex:1,explanation:'“Pencil” means “crayon”.'),
+  Exercise(id:'cp2_al2_book',lessonId:'cp2_al2',question:'Choose the correct English word for « livre ».',options:['Book','Bag','Ruler'],correctIndex:0,explanation:'“Book” means “livre”.'),
 ];
 
