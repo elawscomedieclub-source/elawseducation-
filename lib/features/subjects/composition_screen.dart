@@ -29,7 +29,9 @@ class _CompositionScreenState extends State<CompositionScreen> {
       final chapterIds = demoChapters.where((c) => c.subjectId == subject.id).map((c) => c.id).toSet();
       final lessonIds = demoLessons.where((l) => chapterIds.contains(l.chapterId)).map((l) => l.id).toSet();
       final pool = demoExercises.where((e) => lessonIds.contains(e.lessonId)).toList()..shuffle(Random());
-      selected.addAll(pool.take(2));
+      // Une composition par matière peut utiliser jusqu’à 10 questions.
+      // En mode mixte, on limite chaque matière à 2 questions pour varier.
+      selected.addAll(pool.take(_selectedSubjectId == null ? 2 : 10));
     }
     selected.shuffle(Random());
     return selected.take(10).toList();
@@ -115,7 +117,14 @@ class _CompositionScreenState extends State<CompositionScreen> {
           if (_started && _questions.isEmpty)
             const Padding(padding: EdgeInsets.all(20), child: Text('Aucun exercice disponible pour cette classe pour le moment.')),
           if (_started && _questions.isNotEmpty) ...[
-            Card(child: Padding(padding: const EdgeInsets.all(14), child: Text('Classe : ${widget.level.label} • Trimestre : T$_term • ${_selectedSubjectId == null ? 'Toutes les matières' : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name} • ${_questions.length} questions • Note sur 20'))),
+            Card(child: Padding(padding: const EdgeInsets.all(14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('Classe : ${widget.level.label} • Trimestre : T$_term'),
+              Text('Matière : ${_selectedSubjectId == null ? 'Toutes les matières' : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name}'),
+              Text('${_questions.length} questions • Note sur 20 • ${(20 / _questions.length).toStringAsFixed(1)} point(s) par bonne réponse'),
+              const SizedBox(height: 8),
+              LinearProgressIndicator(value: _answers.length / _questions.length),
+              Text('${_answers.length} réponse(s) sur ${_questions.length}', style: const TextStyle(fontSize: 12)),
+            ]))),
             if (_submitted)
               Card(color: const Color(0xFFE8F5F0), child: Padding(
                 padding: const EdgeInsets.all(18),
@@ -134,7 +143,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(14),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text('Question ${index + 1}', style: const TextStyle(color: Color(0xFF006A4E), fontWeight: FontWeight.bold)),
+                    Text('Question ${index + 1} • ${(20 / _questions.length).toStringAsFixed(1)} point(s)', style: const TextStyle(color: Color(0xFF006A4E), fontWeight: FontWeight.bold)),
                     const SizedBox(height: 6),
                     Text(q.question, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                     ...List.generate(q.options.length, (i) => RadioListTile<int>(
