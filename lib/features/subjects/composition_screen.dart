@@ -14,6 +14,7 @@ class CompositionScreen extends StatefulWidget {
 
 class _CompositionScreenState extends State<CompositionScreen> {
   int _term = 1;
+  String? _selectedSubjectId;
   List<Exercise> _questions = [];
   final Map<String, int> _answers = {};
   bool _started = false;
@@ -22,7 +23,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
   int _correct = 0;
 
   List<Exercise> _buildQuestions() {
-    final subjects = demoSubjects.where((s) => s.level == widget.level).toList();
+    final subjects = demoSubjects.where((s) => s.level == widget.level && (_selectedSubjectId == null || s.id == _selectedSubjectId)).toList();
     final selected = <Exercise>[];
     for (final subject in subjects) {
       final chapterIds = demoChapters.where((c) => c.subjectId == subject.id).map((c) => c.id).toSet();
@@ -80,7 +81,17 @@ class _CompositionScreenState extends State<CompositionScreen> {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Text('Composition d’entraînement', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                const Text('Choisis un trimestre. Le sujet mélange les matières et les exercices déjà disponibles pour ta classe. Les questions sont tirées au hasard.'),
+                const Text('Choisis un trimestre et une matière. Tu peux préparer un sujet mélangé ou t’entraîner dans une seule matière. Les questions disponibles sont tirées au hasard.'),
+                const SizedBox(height: 12),
+                DropdownButtonFormField<String?>(
+                  value: _selectedSubjectId,
+                  decoration: const InputDecoration(labelText: 'Matière', border: OutlineInputBorder()),
+                  items: [
+                    const DropdownMenuItem<String?>(value: null, child: Text('Toutes les matières')),
+                    ...demoSubjects.where((s) => s.level == widget.level).map((s) => DropdownMenuItem<String?>(value: s.id, child: Text(s.name))),
+                  ],
+                  onChanged: _started ? null : (value) => setState(() => _selectedSubjectId = value),
+                ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<int>(
                   value: _term,
@@ -104,7 +115,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
           if (_started && _questions.isEmpty)
             const Padding(padding: EdgeInsets.all(20), child: Text('Aucun exercice disponible pour cette classe pour le moment.')),
           if (_started && _questions.isNotEmpty) ...[
-            Card(child: Padding(padding: const EdgeInsets.all(14), child: Text('Classe : ${widget.level.label} • Trimestre : T$_term • ${_questions.length} questions • Note sur 20'))),
+            Card(child: Padding(padding: const EdgeInsets.all(14), child: Text('Classe : ${widget.level.label} • Trimestre : T$_term • ${_selectedSubjectId == null ? 'Toutes les matières' : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name} • ${_questions.length} questions • Note sur 20'))),
             if (_submitted)
               Card(color: const Color(0xFFE8F5F0), child: Padding(
                 padding: const EdgeInsets.all(18),
