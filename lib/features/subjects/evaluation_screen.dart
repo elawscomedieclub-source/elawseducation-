@@ -16,6 +16,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   List<EvaluationRecord> _history = [];
   bool _loading = true;
   bool _submitted = false;
+  bool _saving = false;
   int _correct = 0;
 
   List<Exercise> get _questions {
@@ -50,7 +51,12 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
 
   Future<void> _finishEvaluation() async {
     final questions = _questions;
-    if (questions.isEmpty || _answers.length != questions.length || _submitted) return;
+    if (questions.isEmpty ||
+        _answers.length != questions.length ||
+        _submitted ||
+        _saving) {
+      return;
+    }
     final correct = questions.where((q) => _answers[q.id] == q.correctIndex).length;
     final score = (correct * 20 / questions.length).round();
     final record = EvaluationRecord(
@@ -62,13 +68,26 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
       total: questions.length,
       date: DateTime.now(),
     );
-    await EvaluationService.save(record);
-    if (!mounted) return;
-    setState(() {
-      _correct = correct;
-      _submitted = true;
-      _history.insert(0, record);
-    });
+
+    setState(() => _saving = true);
+    try {
+      await EvaluationService.save(record);
+      if (!mounted) return;
+      setState(() {
+        _correct = correct;
+        _submitted = true;
+        _saving = false;
+        _history.insert(0, record);
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Impossible d’enregistrer la note. Réessaie avant de quitter.'),
+        ),
+      );
+    }
   }
 
   @override
@@ -158,13 +177,13 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                     }),
                     if (!_submitted)
                       FilledButton.icon(
-                        onPressed: _answers.length == questions.length ? _finishEvaluation : null,
+                        onPressed: _answers.length == questions.length && !_saving ? _finishEvaluation : null,
                         icon: const Icon(Icons.check_circle_outline),
-                        label: Text('Terminer et voir ma note (${_answers.length}/${questions.length})'),
+                        label: Text(_saving ? 'Enregistrement…' : 'Terminer et voir ma note (${_answers.length}/${questions.length})'),
                       )
                     else
                       OutlinedButton.icon(
-                        onPressed: () => setState(() { _answers.clear(); _submitted = false; _correct = 0; }),
+                        onPressed: () => setState(() { _answers.clear(); _submitted = false; _saving = false; _correct = 0; }),
                         icon: const Icon(Icons.refresh),
                         label: const Text('Recommencer cette évaluation'),
                       ),
