@@ -53,8 +53,7 @@ class SubjectsScreen extends ConsumerWidget {
           : ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                if (selectedLevel.index <= SchoolLevel.cm2.index)
-                  Card(
+                Card(
                     child: ListTile(
                       leading: const Icon(Icons.assignment_turned_in, color: Color(0xFF006A4E), size: 30),
                       title: const Text('Compositions trimestrielles', style: TextStyle(fontWeight: FontWeight.bold)),
