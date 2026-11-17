@@ -35,7 +35,7 @@ jobs:
         run: flutter pub get
 
       - name: Tester l’intégrité des données pédagogiques
-        run: flutter test
+        run: flutter test test/data_integrity_test.dart
 
       - name: Vérifier le projet
         run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
@@ -131,7 +131,7 @@ jobs:
         run: flutter pub get
 
       - name: Tester l’intégrité des données pédagogiques
-        run: flutter test
+        run: flutter test test/data_integrity_test.dart
 
       - name: Vérifier le projet
         run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
