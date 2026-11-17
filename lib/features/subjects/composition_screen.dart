@@ -75,8 +75,8 @@ class _CompositionScreenState extends State<CompositionScreen> {
     final score = _questions.isEmpty ? 0 : (correct * 20 / _questions.length).round();
     try {
       await EvaluationService.save(EvaluationRecord(
-        subjectId: 'composition_${widget.level.name}_T$_term',
-        subjectName: 'Composition du trimestre $_term',
+        subjectId: 'composition_${widget.level.name}_${widget.track.name}_${widget.series}_T$_term',
+        subjectName: widget.level == SchoolLevel.premiere ? 'Préparation BAC I • trimestre $_term' : widget.level == SchoolLevel.terminale ? 'Préparation BAC II • trimestre $_term' : 'Composition du trimestre $_term',
         level: widget.level.label,
         score: score,
         correct: correct,
@@ -103,7 +103,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Compositions • ${widget.level.label}')),
+      appBar: AppBar(title: Text(widget.level == SchoolLevel.premiere ? 'Préparation BAC I' : widget.level == SchoolLevel.terminale ? 'Préparation BAC II' : 'Compositions • ${widget.level.label}')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -111,7 +111,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('Composition d’entraînement', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(widget.level == SchoolLevel.premiere ? 'Entraînement au BAC I' : widget.level == SchoolLevel.terminale ? 'Entraînement au BAC II' : 'Composition d’entraînement', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 const Text('Choisis un trimestre et une matière. Tu peux préparer un sujet mélangé ou t’entraîner dans une seule matière. Les questions disponibles sont tirées au hasard. Un sujet mélangé peut contenir jusqu’à 20 questions, selon les matières et exercices disponibles.'),
                 const SizedBox(height: 8),
