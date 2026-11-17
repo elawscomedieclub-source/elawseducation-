@@ -41,12 +41,20 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   }
 
   Future<void> _loadHistory() async {
-    final records = await EvaluationService.loadHistory();
-    if (!mounted) return;
-    setState(() {
-      _history = records.where((r) => r.subjectId == widget.subject.id).toList();
-      _loading = false;
-    });
+    try {
+      final records = await EvaluationService.loadHistory();
+      if (!mounted) return;
+      setState(() {
+        _history = records.where((r) => r.subjectId == widget.subject.id).toList();
+        _loading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _loading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('L’historique des notes est momentanément indisponible.')),
+      );
+    }
   }
 
   Future<void> _finishEvaluation() async {
