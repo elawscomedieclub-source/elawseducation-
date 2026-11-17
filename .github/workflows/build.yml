@@ -34,6 +34,9 @@ jobs:
       - name: Installer les dépendances
         run: flutter pub get
 
+      - name: Tester l’intégrité des données pédagogiques
+        run: flutter test
+
       - name: Vérifier le projet
         run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
 
@@ -126,6 +129,9 @@ jobs:
 
       - name: Installer les dépendances
         run: flutter pub get
+
+      - name: Tester l’intégrité des données pédagogiques
+        run: flutter test
 
       - name: Vérifier le projet
         run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
