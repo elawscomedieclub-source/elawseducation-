@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
-import '../../data/sample/sample_data.dart';
+import '../../data/sample/sample_data.dart' hide Lesson;
 
 class EvaluationScreen extends StatefulWidget {
   final Subject subject;
@@ -24,6 +24,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
         .map((chapter) => chapter.id)
         .toSet();
     final lessonIds = demoLessons
+        .whereType<Lesson>()
         .where((lesson) => chapterIds.contains(lesson.chapterId))
         .map((lesson) => lesson.id)
         .toSet();
