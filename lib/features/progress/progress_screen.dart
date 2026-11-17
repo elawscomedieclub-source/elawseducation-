@@ -40,7 +40,6 @@ class ProgressScreen extends ConsumerWidget {
           }
           final allIds = exercisesBySubject.values.expand((ids) => ids).toSet();
           final answered = allIds.where(progress.answeredExerciseIds.contains).length;
-          final correct = allIds.where(progress.correctExerciseIds.contains).length;
           final xp = progress.xp;
           final overall = allIds.isEmpty ? 0.0 : answered / allIds.length;
           final average = history.isEmpty ? 0.0 : history.map((r) => r.score).reduce((a, b) => a + b) / history.length;
