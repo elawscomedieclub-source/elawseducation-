@@ -44,7 +44,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     );
     if (!mounted) return;
     setState(() {
-      if (isCorrect) _answeredIds.add(exercise.id);
+      if (isCorrect) {
+        _answeredIds.add(exercise.id);
+        _correctIds.add(exercise.id);
+      }
       _feedback[exercise.id] = isCorrect
           ? (earnedXp ? 'Bonne réponse ! +10 XP' : 'Bonne réponse !')
           : 'Pas tout à fait. Relis l’explication et essaie encore.';
@@ -80,7 +83,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 ...items.map((exercise) {
                   final answered = _answeredIds.contains(exercise.id);
                   final selected = _selectedAnswers[exercise.id];
-                  final correct = selected == exercise.correctIndex;
                   return Card(
                     margin: const EdgeInsets.only(bottom: 18),
                     child: Padding(
@@ -100,7 +102,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             return RadioListTile<int>(
                               contentPadding: EdgeInsets.zero,
                               value: index,
-                              groupValue: selected,
+                              groupValue: _correctIds.contains(exercise.id)
+                                  ? exercise.correctIndex
+                                  : selected,
                               onChanged: answered
                                   ? null
                                   : (value) {
