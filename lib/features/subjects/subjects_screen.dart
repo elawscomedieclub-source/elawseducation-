@@ -14,8 +14,10 @@ class SubjectsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedLevel = ref.watch(schoolLevelProvider);
+    final selectedTrack = ref.watch(schoolTrackProvider);
+    final selectedSeries = ref.watch(schoolSeriesProvider);
     final subjects = demoSubjects
-        .where((subject) => subject.level == selectedLevel)
+        .where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries))
         .toList();
 
     return Scaffold(
@@ -61,7 +63,7 @@ class SubjectsScreen extends ConsumerWidget {
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => CompositionScreen(level: selectedLevel)),
+                        MaterialPageRoute(builder: (_) => CompositionScreen(level: selectedLevel, track: selectedTrack, series: selectedSeries)),
                       ),
                     ),
                   ),
@@ -86,7 +88,7 @@ class SubjectsScreen extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Text(
-                    'Classe : ' + selectedLevel.label,
+                    'Classe : ' + selectedLevel.label + (selectedLevel.index >= SchoolLevel.seconde.index ? ' • ' + selectedTrack.label + ' • Série ' + selectedSeries : ''),
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),

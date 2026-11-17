@@ -12,6 +12,9 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(themeModeProvider);
     final schoolLevel = ref.watch(schoolLevelProvider);
+    final schoolTrack = ref.watch(schoolTrackProvider);
+    final schoolSeries = ref.watch(schoolSeriesProvider);
+    final availableSeries = seriesForTrack(schoolTrack);
 
     return Scaffold(
       appBar: AppBar(
@@ -52,9 +55,49 @@ class ProfileScreen extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 10),
+          if (schoolLevel.index >= SchoolLevel.seconde.index) ...[
+            const Text('Mon parcours au lycée',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            DropdownButtonFormField<SchoolTrack>(
+              value: schoolTrack,
+              isExpanded: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.account_tree_outlined),
+                labelText: 'Choisir mon parcours',
+              ),
+              items: SchoolTrack.values.map((track) => DropdownMenuItem(
+                value: track, child: Text(track.label),
+              )).toList(),
+              onChanged: (track) {
+                if (track != null) {
+                  ref.read(schoolTrackProvider.notifier).setTrack(track);
+                  final first = seriesForTrack(track).first;
+                  ref.read(schoolSeriesProvider.notifier).setSeries(first);
+                }
+              },
+            ),
+            const SizedBox(height: 10),
+            DropdownButtonFormField<String>(
+              value: availableSeries.contains(schoolSeries) ? schoolSeries : availableSeries.first,
+              isExpanded: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.school_outlined),
+                labelText: 'Choisir ma série',
+              ),
+              items: availableSeries.map((series) => DropdownMenuItem(
+                value: series, child: Text('Série $series'),
+              )).toList(),
+              onChanged: (series) {
+                if (series != null) ref.read(schoolSeriesProvider.notifier).setSeries(series);
+              },
+            ),
+            const SizedBox(height: 10),
+          ],
           Text(
-            'Ta classe est mémorisée sur cet appareil. Les cours disponibles '
-            'seront affichés selon le niveau sélectionné.',
+            'Ta classe, ton parcours et ta série sont mémorisés sur cet appareil. Les matières et entraînements seront adaptés à ton choix.',
             style: TextStyle(color: Theme.of(context).hintColor),
           ),
           const SizedBox(height: 24),
