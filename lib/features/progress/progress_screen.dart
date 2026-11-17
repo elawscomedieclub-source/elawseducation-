@@ -41,7 +41,7 @@ class ProgressScreen extends ConsumerWidget {
           final allIds = exercisesBySubject.values.expand((ids) => ids).toSet();
           final answered = allIds.where(progress.answeredExerciseIds.contains).length;
           final correct = allIds.where(progress.correctExerciseIds.contains).length;
-          final xp = correct * 10;
+          final xp = progress.xp;
           final overall = allIds.isEmpty ? 0.0 : answered / allIds.length;
           final average = history.isEmpty ? 0.0 : history.map((r) => r.score).reduce((a, b) => a + b) / history.length;
           final best = history.isEmpty ? 0 : history.map((r) => r.score).reduce((a, b) => a > b ? a : b);
@@ -63,7 +63,7 @@ class ProgressScreen extends ConsumerWidget {
               Row(children: [
                 Expanded(child: _statCard('Exercices validés', '$answered/${allIds.length}', Icons.edit_note)),
                 const SizedBox(width: 10),
-                Expanded(child: _statCard('Bonnes réponses', '$correct', Icons.check_circle_outline)),
+                Expanded(child: _statCard('Exercices restants', '${allIds.length - answered}', Icons.pending_actions)),
               ]),
               const SizedBox(height: 22),
               const Text('Progression générale', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
