@@ -20,7 +20,7 @@ Application éducative destinée aux élèves au Togo, du CP1 à la Terminale.
 
 ## Base pédagogique actuelle
 
-La base d'exemple contient 61 matières, 73 chapitres, 188 leçons et 552 exercices. Les contenus sont des ressources pédagogiques de travail, à vérifier et enrichir avec les documents officiels homologués et les enseignants. Ils ne constituent pas une publication homologuée par le ministère.
+La base pédagogique actuelle contient 97 matières, 109 chapitres, 224 leçons et 770 exercices. Elle inclut les parcours du lycée général/littéraire (A4), scientifique (C, D), technique tertiaire (G1, G2, G3) et technique industriel (E, F1, F2, F3, F4, Ti/1). Les contenus sont des ressources pédagogiques de travail, à vérifier et enrichir avec les documents officiels homologués et les enseignants. Ils ne constituent pas une publication homologuée par le ministère.
 
 ## Limites connues
 
