@@ -55,7 +55,7 @@ class ProgressScreen extends ConsumerWidget {
                   const Text('Tes points d’apprentissage', style: TextStyle(color: Color(0xFF245B48))),
                   const SizedBox(height: 5),
                   Text('$xp XP', style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF006A4E))),
-                  Text('Niveau ${selectedLevel.label}'),
+                  const Text('Tous niveaux confondus sur cet appareil'),
                 ]),
               ),
               const SizedBox(height: 18),
