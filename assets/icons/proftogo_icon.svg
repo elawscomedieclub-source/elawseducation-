@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b9b52"/><stop offset="1" stop-color="#034b30"/></linearGradient><linearGradient id="book" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#cce8ff"/></linearGradient></defs>
+<rect width="512" height="512" rx="112" fill="url(#bg)"/><rect x="24" y="24" width="464" height="464" rx="92" fill="#fff" stroke="#f6c928" stroke-width="10"/>
+<path d="M256 92 112 166l144 68 144-68z" fill="#102c55"/><path d="M166 169v42c48 37 132 37 180 0v-42l-90 43z" fill="#1d477b"/><path d="M395 169v94" stroke="#d69a13" stroke-width="10" stroke-linecap="round"/><circle cx="395" cy="273" r="12" fill="#eab52d"/>
+<path d="M92 300q80-40 164 10 84-50 164-10v105q-80-35-164 13-84-48-164-13z" fill="url(#book)" stroke="#1672c5" stroke-width="9"/><path d="M256 310v108M118 330q58-18 108 9M118 356q58-18 108 9M394 330q-58-18-108 9M394 356q-58-18-108 9" fill="none" stroke="#6ba9e5" stroke-width="7" stroke-linecap="round"/>
+<circle cx="256" cy="254" r="22" fill="#079447"/><path d="M256 280 211 326l45-17 45 17z" fill="#079447"/><path d="m256 188 13 27 30 4-22 21 5 30-26-14-26 14 5-30-22-21 30-4z" fill="#f6c928"/>
+<rect x="55" y="435" width="402" height="42" rx="21" fill="#075b38"/><text x="256" y="465" font-family="Arial,sans-serif" font-size="31" font-weight="bold" text-anchor="middle" fill="#fff">ProfTogo</text>
+<path d="M385 24h80v80z" fill="#e21b36"/><path d="m426 39 8 17 19 2-14 13 3 19-16-9-16 9 3-19-14-13 19-2z" fill="#fff"/>
+</svg>
