@@ -6,7 +6,9 @@ import '../../data/sample/sample_data.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
-  const CompositionScreen({super.key, required this.level});
+  final SchoolTrack track;
+  final String series;
+  const CompositionScreen({super.key, required this.level, this.track = SchoolTrack.generalLiterary, this.series = 'A4'});
 
   @override
   State<CompositionScreen> createState() => _CompositionScreenState();
@@ -23,7 +25,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
   int _correct = 0;
 
   List<Exercise> _buildQuestions() {
-    final subjects = demoSubjects.where((s) => s.level == widget.level && (_selectedSubjectId == null || s.id == _selectedSubjectId)).toList();
+    final subjects = demoSubjects.where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series) && (_selectedSubjectId == null || s.id == _selectedSubjectId)).toList();
     final selected = <Exercise>[];
     for (final subject in subjects) {
       final chapterIds = demoChapters.where((c) => c.subjectId == subject.id).map((c) => c.id).toSet();
@@ -39,7 +41,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
 
   int _availableExerciseCount() {
     final subjects = demoSubjects
-        .where((s) => s.level == widget.level &&
+        .where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series) &&
             (_selectedSubjectId == null || s.id == _selectedSubjectId))
         .toList();
     final chapterIds = demoChapters
@@ -131,7 +133,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
                   decoration: const InputDecoration(labelText: 'Matière', border: OutlineInputBorder()),
                   items: [
                     const DropdownMenuItem<String?>(value: null, child: Text('Toutes les matières')),
-                    ...demoSubjects.where((s) => s.level == widget.level).map((s) => DropdownMenuItem<String?>(value: s.id, child: Text(s.name))),
+                    ...demoSubjects.where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series)).map((s) => DropdownMenuItem<String?>(value: s.id, child: Text(s.name))),
                   ],
                   onChanged: _started ? null : (value) => setState(() => _selectedSubjectId = value),
                 ),
@@ -173,7 +175,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
             const Padding(padding: EdgeInsets.all(20), child: Text('Aucun exercice disponible pour cette classe pour le moment.')),
           if (_started && _questions.isNotEmpty) ...[
             Card(child: Padding(padding: const EdgeInsets.all(14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Classe : ${widget.level.label} • Trimestre : T$_term'),
+              Text('Classe : ${widget.level.label}${widget.level.index >= SchoolLevel.seconde.index ? ' • ${widget.track.label} • Série ${widget.series}' : ''} • Trimestre : T$_term'),
               Text('Matière : ${_selectedSubjectId == null ? 'Toutes les matières' : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name}'),
               Text('${_questions.length} questions • Note sur 20 • ${(20 / _questions.length).toStringAsFixed(1)} point(s) par bonne réponse'),
               const SizedBox(height: 8),
