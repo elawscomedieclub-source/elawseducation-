@@ -13,6 +13,8 @@ class ProgressScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedLevel = ref.watch(schoolLevelProvider);
+    final selectedTrack = ref.watch(schoolTrackProvider);
+    final selectedSeries = ref.watch(schoolSeriesProvider);
     return Scaffold(
       appBar: AppBar(leading: const ProfTogoMenuButton(), title: const Text('Ma progression')),
       body: FutureBuilder<List<dynamic>>(
@@ -29,8 +31,9 @@ class ProgressScreen extends ConsumerWidget {
           }
           final progress = snapshot.data![0] as ProgressSnapshot;
           final allHistory = snapshot.data![1] as List<EvaluationRecord>;
-          final history = allHistory.where((r) => r.level == selectedLevel.label).toList();
-          final subjects = demoSubjects.where((s) => s.level == selectedLevel).toList();
+          final subjects = demoSubjects.where((s) => subjectMatchesPath(s, selectedLevel, selectedTrack, selectedSeries)).toList();
+          final subjectIds = subjects.map((s) => s.id).toSet();
+          final history = allHistory.where((r) => r.level == selectedLevel.label && (subjectIds.contains(r.subjectId) || r.subjectId.startsWith('composition_${selectedLevel.name}_${selectedTrack.name}_${selectedSeries}_'))).toList();
           final exercisesBySubject = <String, List<String>>{};
           for (final subject in subjects) {
             final chapterIds = demoChapters.where((c) => c.subjectId == subject.id).map((c) => c.id).toSet();
@@ -55,7 +58,7 @@ class ProgressScreen extends ConsumerWidget {
                   const Text('Tes points d’apprentissage', style: TextStyle(color: Color(0xFF245B48))),
                   const SizedBox(height: 5),
                   Text('$xp XP', style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF006A4E))),
-                  const Text('Tous niveaux confondus sur cet appareil'),
+                  Text(selectedLevel.label + (selectedLevel.index >= SchoolLevel.seconde.index ? ' • ${selectedTrack.label} • Série $selectedSeries' : '')),
                 ]),
               ),
               const SizedBox(height: 18),
