@@ -1,4 +1,4 @@
-name: ProfTogo - publication Web et APK
+name: ProfTogo - publication Web prioritaire et APK
 
 on:
   push:
@@ -11,11 +11,54 @@ permissions:
   id-token: write
 
 concurrency:
-  group: proftogo-pages
-  cancel-in-progress: false
+  group: proftogo-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  web:
+    name: Construire et publier le site Web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: Installer Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Générer les plateformes
+        run: flutter create --platforms=web,android --org tg.proftogo .
+
+      - name: Installer les dépendances
+        run: flutter pub get
+
+      - name: Vérifier le projet
+        run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
+
+      - name: Construire le site Web
+        run: flutter build web --release --base-href "/elawseducation-/"
+
+      - name: Préparer le site pour GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy-web:
+    name: Publier immédiatement le site Web
+    needs: web
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publier ProfTogo
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  android:
+    name: Construire et publier l’APK Android
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le code source
@@ -33,7 +76,7 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Générer les plateformes Web et Android
+      - name: Générer les plateformes
         run: flutter create --platforms=web,android --org tg.proftogo .
 
       - name: Autoriser les services vocaux Android
@@ -51,7 +94,7 @@ jobs:
               if permission not in xml:
                   xml = xml.replace(
                       "<application",
-                      f'    <uses-permission android:name="{permission}" />\n    <application',
+                      f'    <uses-permission android:name="{permission}" />\\n    <application',
                       1,
                   )
 
@@ -69,7 +112,7 @@ jobs:
           if "<queries>" not in xml:
               xml = xml.replace(
                   "<application",
-                  "    <queries>\n" + tts_query + speech_query + "    </queries>\n    <application",
+                  "    <queries>\\n" + tts_query + speech_query + "    </queries>\\n    <application",
                   1,
               )
           else:
@@ -87,18 +130,10 @@ jobs:
       - name: Vérifier le projet
         run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
 
-      - name: Construire le site Web
-        run: flutter build web --release --base-href "/elawseducation-/"
-
-      - name: Construire l'APK Android
+      - name: Construire l’APK Android
         run: flutter build apk --release
 
-      - name: Préparer GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build/web
-
-      - name: Conserver l'APK
+      - name: Conserver l’APK
         uses: actions/upload-artifact@v4
         with:
           name: ProfTogo-APK-Android
@@ -112,14 +147,3 @@ jobs:
           name: ProfTogo - APK ${{ github.run_number }}
           files: build/app/outputs/flutter-apk/app-release.apk
           generate_release_notes: true
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Publier le site
-        id: deployment
-        uses: actions/deploy-pages@v4
