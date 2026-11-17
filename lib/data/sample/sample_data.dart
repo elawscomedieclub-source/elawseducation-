@@ -782,5 +782,10 @@ const demoExercises = <Exercise>[
   Exercise(id:'cm2_fl6_e3',lessonId:'cm2_fl6',question:'Que faut-il faire avant de rédiger un récit ?',options:['Préparer les idées et organiser les événements','Écrire sans lire le sujet','Commencer par la signature'],correctIndex:0,explanation:'La préparation aide à respecter le sujet et à raconter les événements dans un ordre logique.'),
   Exercise(id:'cm2_fl6_e4',lessonId:'cm2_fl6',question:'Quel élément doit-on vérifier pendant la relecture ?',options:['Les accords, les verbes et la ponctuation','La couleur des chaussures','Le nombre de dessins'],correctIndex:0,explanation:'La relecture permet de corriger la langue et de vérifier que le récit est compréhensible.')
 
+  Exercise(id:'cm2_ml3_steps1',lessonId:'cm2_ml3',question:'Une classe achète 12 cahiers à 275 F chacun et 4 stylos à 150 F chacun. Quelle est la dépense totale ?',options:['3 900 F','3 600 F','4 100 F'],correctIndex:0,explanation:'12 × 275 = 3 300 F ; 4 × 150 = 600 F ; 3 300 + 600 = 3 900 F.'),
+  Exercise(id:'cm2_ml3_steps2',lessonId:'cm2_ml3',question:'Une coopérative possède 10 000 F. Elle achète 12 cahiers à 275 F chacun et 4 stylos à 150 F chacun. Combien lui reste-t-il ?',options:['6 100 F','6 900 F','5 900 F'],correctIndex:0,explanation:'Les achats coûtent 12 × 275 + 4 × 150 = 3 900 F. Le reste est 10 000 − 3 900 = 6 100 F.'),
+  Exercise(id:'cm2_ml3_steps3',lessonId:'cm2_ml3',question:'Pour une sortie, 35 élèves paient chacun 500 F de transport. Le transporteur reçoit 15 000 F d’avance. Combien faut-il encore lui payer ?',options:['2 500 F','3 500 F','4 500 F'],correctIndex:0,explanation:'Le coût total est 35 × 500 = 17 500 F. Après l’avance : 17 500 − 15 000 = 2 500 F.'),
+  Exercise(id:'cm2_ml3_steps4',lessonId:'cm2_ml3',question:'Une école reçoit 4 cartons contenant chacun 24 livres. Elle partage tous les livres également entre 6 classes. Combien chaque classe reçoit-elle ?',options:['12 livres','16 livres','18 livres'],correctIndex:1,explanation:'Nombre total : 4 × 24 = 96 livres. Partage : 96 ÷ 6 = 16 livres par classe.')
+
 ];
 
