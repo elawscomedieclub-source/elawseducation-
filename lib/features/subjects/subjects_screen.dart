@@ -6,6 +6,7 @@ import '../../data/sample/sample_data.dart';
 import '../../data/models/models.dart';
 import 'subject_detail_screen.dart';
 import 'primary_year_plan_screen.dart';
+import 'composition_screen.dart';
 
 class SubjectsScreen extends ConsumerWidget {
   const SubjectsScreen({super.key});
@@ -52,6 +53,19 @@ class SubjectsScreen extends ConsumerWidget {
           : ListView(
               padding: const EdgeInsets.all(16),
               children: [
+                if (selectedLevel.index <= SchoolLevel.cm2.index)
+                  Card(
+                    child: ListTile(
+                      leading: const Icon(Icons.assignment_turned_in, color: Color(0xFF006A4E), size: 30),
+                      title: const Text('Compositions trimestrielles', style: TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: const Text('Sujets d’entraînement avec note sur 20 et corrigés'),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => CompositionScreen(level: selectedLevel)),
+                      ),
+                    ),
+                  ),
                 if (selectedLevel.index <= SchoolLevel.cm2.index)
                   Card(
                     color: const Color(0xFFE8F5EF),
