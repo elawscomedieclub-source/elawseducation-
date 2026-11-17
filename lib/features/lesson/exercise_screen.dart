@@ -15,6 +15,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   final Map<String, int> _selectedAnswers = {};
   final Set<String> _answeredIds = {};
   final Set<String> _correctIds = {};
+  final Set<String> _checkingIds = {};
   final Map<String, String> _feedback = {};
   bool _loading = true;
 
@@ -36,25 +37,40 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   Future<void> _checkAnswer(Exercise exercise) async {
     final answer = _selectedAnswers[exercise.id];
-    if (answer == null || _answeredIds.contains(exercise.id)) return;
+    if (answer == null ||
+        _answeredIds.contains(exercise.id) ||
+        _checkingIds.contains(exercise.id)) {
+      return;
+    }
+
     final isCorrect = answer == exercise.correctIndex;
-    final earnedXp = await ProgressService.recordAnswer(
-      exerciseId: exercise.id,
-      isCorrect: isCorrect,
-    );
-    if (!mounted) return;
-    setState(() {
-      if (isCorrect) {
-        _answeredIds.add(exercise.id);
-        _correctIds.add(exercise.id);
-      }
-      _feedback[exercise.id] = isCorrect
-          ? (earnedXp ? 'Bonne réponse ! +10 XP' : 'Bonne réponse !')
-          : 'Pas tout à fait. Relis l’explication et essaie encore.';
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(_feedback[exercise.id]!)),
-    );
+    setState(() => _checkingIds.add(exercise.id));
+    try {
+      final earnedXp = await ProgressService.recordAnswer(
+        exerciseId: exercise.id,
+        isCorrect: isCorrect,
+      );
+      if (!mounted) return;
+      setState(() {
+        _checkingIds.remove(exercise.id);
+        if (isCorrect) {
+          _answeredIds.add(exercise.id);
+          _correctIds.add(exercise.id);
+        }
+        _feedback[exercise.id] = isCorrect
+            ? (earnedXp ? 'Bonne réponse ! +10 XP' : 'Bonne réponse !')
+            : 'Pas tout à fait. Relis l’explication et essaie encore.';
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(_feedback[exercise.id]!)),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _checkingIds.remove(exercise.id));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Enregistrement impossible. Vérifie puis réessaie.')),
+      );
+    }
   }
 
   @override
@@ -141,10 +157,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             SizedBox(
                               width: double.infinity,
                               child: FilledButton(
-                                onPressed: selected == null
+                                onPressed: selected == null || _checkingIds.contains(exercise.id)
                                     ? null
                                     : () => _checkAnswer(exercise),
-                                child: const Text('Vérifier ma réponse'),
+                                child: Text(_checkingIds.contains(exercise.id)
+                                    ? 'Vérification…'
+                                    : 'Vérifier ma réponse'),
                               ),
                             )
                           else ...[
