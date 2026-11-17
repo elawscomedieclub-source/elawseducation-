@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
 import '../../data/models/models.dart';
+import '../../core/progress_service.dart';
 import '../subjects/subject_detail_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -66,11 +67,20 @@ class HomeScreen extends ConsumerWidget {
           const Text('Ta progression',
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
-          Row(children: [
-            _stat('⭐', '0 XP', 'Points'),
-            _stat('🔥', '1 jour', 'Série'),
-            _stat('📚', '0', 'Leçons'),
-          ]),
+          FutureBuilder<ProgressSnapshot>(
+            future: ProgressService.load(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LinearProgressIndicator(minHeight: 3);
+              }
+              final progress = snapshot.data;
+              return Row(children: [
+                _stat('⭐', '${progress?.xp ?? 0} XP', 'Points'),
+                _stat('✓', '${progress?.correctExerciseIds.length ?? 0}', 'Validés'),
+                _stat('📚', '${demoExercises.length}', 'Exercices'),
+              ]);
+            },
+          ),
           const SizedBox(height: 24),
           const Text('Matières à découvrir',
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
