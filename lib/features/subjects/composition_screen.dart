@@ -37,6 +37,24 @@ class _CompositionScreenState extends State<CompositionScreen> {
     return selected.take(_selectedSubjectId == null ? 20 : 10).toList();
   }
 
+  int _availableExerciseCount() {
+    final subjects = demoSubjects
+        .where((s) => s.level == widget.level &&
+            (_selectedSubjectId == null || s.id == _selectedSubjectId))
+        .toList();
+    final chapterIds = demoChapters
+        .where((c) => subjects.any((subject) => subject.id == c.subjectId))
+        .map((c) => c.id)
+        .toSet();
+    final lessonIds = demoLessons
+        .where((lesson) => chapterIds.contains(lesson.chapterId))
+        .map((lesson) => lesson.id)
+        .toSet();
+    return demoExercises
+        .where((exercise) => lessonIds.contains(exercise.lessonId))
+        .length;
+  }
+
   void _start() {
     final questions = _buildQuestions();
     setState(() {
@@ -127,6 +145,20 @@ class _CompositionScreenState extends State<CompositionScreen> {
                     DropdownMenuItem(value: 3, child: Text('Troisième trimestre')),
                   ],
                   onChanged: _started ? null : (value) { if (value != null) setState(() => _term = value); },
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.45),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    '${_availableExerciseCount()} exercice(s) disponible(s) pour cette sélection. '
+                    '${_selectedSubjectId == null ? 'Le sujet mélangé propose jusqu’à 2 questions par matière et 20 au total.' : 'Une composition dans cette matière propose jusqu’à 10 questions.'}',
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ),
                 const SizedBox(height: 12),
                 SizedBox(width: double.infinity, child: FilledButton.icon(
