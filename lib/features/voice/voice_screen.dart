@@ -6,7 +6,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
-import '../../data/sample/sample_data.dart';
+import '../../data/sample/sample_data.dart' hide Lesson;
 import '../../shared/widgets/menu_button.dart';
 
 class VoiceScreen extends ConsumerStatefulWidget {
@@ -138,6 +138,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
         .map((chapter) => chapter.id)
         .toSet();
     final lessonsForLevel = demoLessons
+        .whereType<Lesson>()
         .where((lesson) => selectedChapterIds.contains(lesson.chapterId));
 
     final scored = lessonsForLevel.map((lesson) {
