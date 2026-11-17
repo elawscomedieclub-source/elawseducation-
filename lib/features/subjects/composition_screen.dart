@@ -53,21 +53,31 @@ class _CompositionScreenState extends State<CompositionScreen> {
     setState(() => _saving = true);
     final correct = _questions.where((q) => _answers[q.id] == q.correctIndex).length;
     final score = _questions.isEmpty ? 0 : (correct * 20 / _questions.length).round();
-    await EvaluationService.save(EvaluationRecord(
-      subjectId: 'composition_${widget.level.name}_T$_term',
-      subjectName: 'Composition du trimestre $_term',
-      level: widget.level.label,
-      score: score,
-      correct: correct,
-      total: _questions.length,
-      date: DateTime.now(),
-    ));
-    if (!mounted) return;
-    setState(() {
-      _correct = correct;
-      _submitted = true;
-      _saving = false;
-    });
+    try {
+      await EvaluationService.save(EvaluationRecord(
+        subjectId: 'composition_${widget.level.name}_T$_term',
+        subjectName: 'Composition du trimestre $_term',
+        level: widget.level.label,
+        score: score,
+        correct: correct,
+        total: _questions.length,
+        date: DateTime.now(),
+      ));
+      if (!mounted) return;
+      setState(() {
+        _correct = correct;
+        _submitted = true;
+        _saving = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Impossible d’enregistrer le résultat. Réessaie avant de quitter.'),
+        ),
+      );
+    }
   }
 
   @override
