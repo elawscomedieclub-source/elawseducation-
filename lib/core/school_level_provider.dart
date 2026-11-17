@@ -72,10 +72,3 @@ List<String> seriesForTrack(SchoolTrack track) => switch (track) {
   SchoolTrack.technicalTertiary => technicalTertiarySeries,
   SchoolTrack.technicalIndustrial => technicalIndustrialSeries,
 };
-
-bool subjectMatchesPath(Subject subject, SchoolLevel level, SchoolTrack track, String series) {
-  if (subject.level != level) return false;
-  if (subject.track == null) return true;
-  if (subject.track != track) return false;
-  return subject.series == null || subject.series == series;
-}
