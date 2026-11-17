@@ -5,6 +5,7 @@ import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import 'exercise_screen.dart';
 import 'apc_lesson_guide.dart';
+import 'apc_mission_screen.dart';
 
 class LessonScreen extends StatelessWidget {
   final Chapter chapter;
@@ -211,7 +212,16 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
               title: Text(point),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            icon: const Icon(Icons.assignment_outlined),
+            label: const Text('Réaliser la mission APC'),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => ApcMissionScreen(lesson: lesson)),
+            ),
+          ),
+          const SizedBox(height: 12),
           FilledButton(
             onPressed: () => Navigator.push(
               context,
