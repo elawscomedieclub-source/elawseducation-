@@ -61,7 +61,7 @@ class ProgressScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 18),
               Row(children: [
-                Expanded(child: _statCard('Exercices répondus', '$answered/${allIds.length}', Icons.edit_note)),
+                Expanded(child: _statCard('Exercices validés', '$answered/${allIds.length}', Icons.edit_note)),
                 const SizedBox(width: 10),
                 Expanded(child: _statCard('Bonnes réponses', '$correct', Icons.check_circle_outline)),
               ]),
@@ -70,7 +70,7 @@ class ProgressScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               LinearProgressIndicator(value: overall, minHeight: 10, borderRadius: BorderRadius.circular(8)),
               const SizedBox(height: 6),
-              Text('${(overall * 100).round()} % des exercices répondus'),
+              Text('${(overall * 100).round()} % des exercices validés'),
               const SizedBox(height: 24),
               const Text('Résultats des évaluations', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
