@@ -73,11 +73,29 @@ class HomeScreen extends ConsumerWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const LinearProgressIndicator(minHeight: 3);
               }
-              final progress = snapshot.data;
+              if (snapshot.hasError || !snapshot.hasData) {
+                return const Text('La progression sera disponible dès que le stockage local fonctionnera.');
+              }
+              final progress = snapshot.data!;
+              final chapterIds = demoChapters
+                  .where((chapter) => subjects.any((subject) => subject.id == chapter.subjectId))
+                  .map((chapter) => chapter.id)
+                  .toSet();
+              final lessonIds = demoLessons
+                  .where((lesson) => chapterIds.contains(lesson.chapterId))
+                  .map((lesson) => lesson.id)
+                  .toSet();
+              final levelExerciseIds = demoExercises
+                  .where((exercise) => lessonIds.contains(exercise.lessonId))
+                  .map((exercise) => exercise.id)
+                  .toSet();
+              final validated = levelExerciseIds
+                  .where(progress.correctExerciseIds.contains)
+                  .length;
               return Row(children: [
-                _stat('⭐', '${progress?.xp ?? 0} XP', 'Points'),
-                _stat('✓', '${progress?.correctExerciseIds.length ?? 0}', 'Validés'),
-                _stat('📚', '${demoExercises.length}', 'Exercices'),
+                _stat('⭐', '${progress.xp} XP', 'Points'),
+                _stat('✓', '$validated', 'Validés'),
+                _stat('📚', '${levelExerciseIds.length}', 'Exercices de la classe'),
               ]);
             },
           ),
