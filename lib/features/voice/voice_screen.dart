@@ -6,7 +6,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
-import '../../data/sample/sample_data.dart' hide Lesson;
+import '../../data/sample/sample_data.dart';
 import '../../shared/widgets/menu_button.dart';
 
 class VoiceScreen extends ConsumerStatefulWidget {
