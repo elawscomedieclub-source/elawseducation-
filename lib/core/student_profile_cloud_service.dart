@@ -19,6 +19,24 @@ class StudentProfileCloudService {
     return snapshot.exists ? snapshot.data() : null;
   }
 
+  static Future<void> savePhoto(String photoBase64) async {
+    final document = _document();
+    if (document == null) return;
+    await document.set({
+      'photoBase64': photoBase64,
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+  static Future<void> deletePhoto() async {
+    final document = _document();
+    if (document == null) return;
+    await document.set({
+      'photoBase64': FieldValue.delete(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
   static Future<void> saveName(String name) async {
     final document = _document();
     if (document == null) return;
@@ -40,6 +58,6 @@ class StudentProfileCloudService {
       'track': track,
       'series': series,
       'updatedAt': FieldValue.serverTimestamp(),
-    });
+    }, SetOptions(merge: true));
   }
 }
