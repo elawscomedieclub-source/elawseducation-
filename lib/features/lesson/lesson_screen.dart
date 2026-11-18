@@ -238,7 +238,8 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
       ),
     );
   }
-}\n
+}
+
 List<Widget> _buildCourseBlocks(BuildContext context, String content) {
   final paragraphs = content
       .split(RegExp(r'\n\s*\n'))
