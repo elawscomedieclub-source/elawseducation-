@@ -31,6 +31,42 @@ jobs:
       - name: Générer les plateformes
         run: flutter create --platforms=web,android --org tg.proftogo .
 
+      - name: Configurer Firebase pour Android
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          settings = next((p for p in (Path("android/settings.gradle.kts"), Path("android/settings.gradle")) if p.exists()), None)
+          app = next((p for p in (Path("android/app/build.gradle.kts"), Path("android/app/build.gradle")) if p.exists()), None)
+          config = Path("android/app/google-services.json")
+
+          if settings is None or app is None:
+              raise SystemExit("Fichiers Gradle Android introuvables")
+          if not config.exists():
+              raise SystemExit("Le fichier android/app/google-services.json est introuvable")
+
+          settings_text = settings.read_text(encoding="utf-8")
+          if "com.google.gms.google-services" not in settings_text:
+              plugin_line = ('    id("com.google.gms.google-services") version "4.4.4" apply false\\n'
+                             if settings.suffix == ".kts"
+                             else "    id 'com.google.gms.google-services' version '4.4.4' apply false\\n")
+              settings_text, count = re.subn(r"(plugins\\s*\\{)", r"\\1\\n" + plugin_line.rstrip("\\n"), settings_text, count=1)
+              if count != 1:
+                  raise SystemExit("Bloc plugins introuvable dans settings Gradle")
+              settings.write_text(settings_text, encoding="utf-8")
+
+          app_text = app.read_text(encoding="utf-8")
+          if "com.google.gms.google-services" not in app_text:
+              plugin_line = ('    id("com.google.gms.google-services")\\n'
+                             if app.suffix == ".kts"
+                             else "    id 'com.google.gms.google-services'\\n")
+              app_text, count = re.subn(r"(plugins\\s*\\{)", r"\\1\\n" + plugin_line.rstrip("\\n"), app_text, count=1)
+              if count != 1:
+                  raise SystemExit("Bloc plugins introuvable dans build.gradle Android")
+              app.write_text(app_text, encoding="utf-8")
+          PY
+
       - name: Installer les dépendances
         run: flutter pub get
 
