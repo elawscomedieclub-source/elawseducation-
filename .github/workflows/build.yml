@@ -100,7 +100,7 @@ jobs:
               line = '    id("com.google.gms.google-services") version "4.4.4" apply false' if settings.suffix == ".kts" else "    id 'com.google.gms.google-services' version '4.4.4' apply false"
               if "plugins {" not in settings_text:
                   raise SystemExit("Bloc plugins introuvable dans settings Gradle")
-              settings_text = settings_text.replace("plugins {", "plugins {\\n" + line, 1)
+              settings_text = settings_text.replace("plugins {", "plugins {" + chr(10) + line, 1)
               settings.write_text(settings_text, encoding="utf-8")
 
           app_text = app.read_text(encoding="utf-8")
@@ -108,7 +108,7 @@ jobs:
               line = '    id("com.google.gms.google-services")' if app.suffix == ".kts" else "    id 'com.google.gms.google-services'"
               if "plugins {" not in app_text:
                   raise SystemExit("Bloc plugins introuvable dans build.gradle Android")
-              app_text = app_text.replace("plugins {", "plugins {\\n" + line, 1)
+              app_text = app_text.replace("plugins {", "plugins {" + chr(10) + line, 1)
               app.write_text(app_text, encoding="utf-8")
           PY
 
