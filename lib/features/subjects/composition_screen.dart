@@ -40,6 +40,22 @@ class _CompositionScreenState extends State<CompositionScreen> {
     _ => 'Revois les leçons étudiées, refais les exercices sans regarder les réponses, puis entraîne-toi avec une composition. Les corrections servent à repérer les notions à reprendre.',
   };
 
+  String get _resultAdvice {
+    final score = _questions.isEmpty
+        ? 0
+        : (_correct * 20 / _questions.length).round();
+    if (score >= 16) {
+      return 'Excellent travail ! Continue à approfondir les notions et à expliquer tes démarches.';
+    }
+    if (score >= 12) {
+      return 'Bon travail. Revois les questions ratées pour consolider tes acquis.';
+    }
+    if (score >= 10) {
+      return 'Résultat encourageant. Reprends les leçons correspondantes et refais les exercices.';
+    }
+    return 'Reprends calmement les cours, note les erreurs et recommence un entraînement après révision.';
+  }
+
   List<Exercise> _buildQuestions() {
     final subjects = demoSubjects.where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series) && (_selectedSubjectId == null || s.id == _selectedSubjectId)).toList();
     final selected = <Exercise>[];
@@ -209,6 +225,14 @@ class _CompositionScreenState extends State<CompositionScreen> {
                   const Text('Résultat de la composition', style: TextStyle(fontWeight: FontWeight.bold)),
                   Text('${(_correct * 20 / _questions.length).round()}/20', style: const TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: Color(0xFF006A4E))),
                   Text('$_correct bonne(s) réponse(s) sur ${_questions.length}'),
+                  const SizedBox(height: 10),
+                  LinearProgressIndicator(
+                    value: _questions.isEmpty ? 0 : _correct / _questions.length,
+                    minHeight: 8,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(_resultAdvice, textAlign: TextAlign.center),
                 ]),
               )),
             ...List.generate(_questions.length, (index) {
