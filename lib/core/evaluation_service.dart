@@ -77,6 +77,22 @@ class EvaluationService {
     if (collection != null) {
       try {
         final snapshot = await collection.get();
+        final cloudIds = snapshot.docs.map((doc) => doc.id).toSet();
+
+        // Migre les anciennes évaluations locales absentes du cloud.
+        // Le maximum local est de 100 enregistrements, donc un seul batch suffit.
+        final batch = FirebaseFirestore.instance.batch();
+        var hasLocalRecordsToUpload = false;
+        for (final entry in byId.entries) {
+          if (!cloudIds.contains(entry.key)) {
+            batch.set(collection.doc(entry.key), entry.value.toJson());
+            hasLocalRecordsToUpload = true;
+          }
+        }
+        if (hasLocalRecordsToUpload) {
+          await batch.commit();
+        }
+
         for (final doc in snapshot.docs) {
           final record = EvaluationRecord.fromJson(doc.data());
           byId[record.cloudId] = record;
