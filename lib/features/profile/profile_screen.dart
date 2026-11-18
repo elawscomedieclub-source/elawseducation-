@@ -1,8 +1,12 @@
 import '../../shared/widgets/menu_button.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/theme_provider.dart';
 import '../../core/school_level_provider.dart';
+import '../../core/student_profile_cloud_service.dart';
 import '../../data/models/models.dart';
 import '../auth/account_section.dart';
 
@@ -33,6 +37,7 @@ class ProfileScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           const AccountSection(),
+          const StudentProfileCloudSync(),
           const SizedBox(height: 24),
           const Text('Mon niveau scolaire',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -127,5 +132,104 @@ class ProfileScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+}
+
+class StudentProfileCloudSync extends ConsumerStatefulWidget {
+  const StudentProfileCloudSync({super.key});
+
+  @override
+  ConsumerState<StudentProfileCloudSync> createState() =>
+      _StudentProfileCloudSyncState();
+}
+
+class _StudentProfileCloudSyncState
+    extends ConsumerState<StudentProfileCloudSync> {
+  bool _ready = false;
+  late final StreamSubscription<User?> _authSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+      _ready = false;
+      if (user != null) _syncProfile();
+    });
+    if (FirebaseAuth.instance.currentUser != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _syncProfile());
+    }
+  }
+
+  Future<void> _syncProfile() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final localLevel = prefs.getString('student_school_level') ??
+          SchoolLevel.sixieme.name;
+      final localTrack = prefs.getString('student_school_track') ??
+          SchoolTrack.generalLiterary.name;
+      final localSeries = prefs.getString('student_school_series') ?? 'A4';
+
+      final cloud = await StudentProfileCloudService.load();
+      var levelName = localLevel;
+      var trackName = localTrack;
+      var seriesName = localSeries;
+
+      if (cloud != null) {
+        levelName = cloud['level'] is String ? cloud['level'] as String : localLevel;
+        trackName = cloud['track'] is String ? cloud['track'] as String : localTrack;
+        seriesName = cloud['series'] is String ? cloud['series'] as String : localSeries;
+      }
+
+      final level = SchoolLevel.values.firstWhere(
+        (item) => item.name == levelName,
+        orElse: () => SchoolLevel.sixieme,
+      );
+      final track = SchoolTrack.values.firstWhere(
+        (item) => item.name == trackName,
+        orElse: () => SchoolTrack.generalLiterary,
+      );
+      final available = seriesForTrack(track);
+      final series = available.contains(seriesName) ? seriesName : available.first;
+
+      await ref.read(schoolLevelProvider.notifier).setLevel(level);
+      await ref.read(schoolTrackProvider.notifier).setTrack(track);
+      await ref.read(schoolSeriesProvider.notifier).setSeries(series);
+
+      if (cloud == null) {
+        await StudentProfileCloudService.save(
+          level: level.name,
+          track: track.name,
+          series: series,
+        );
+      }
+      _ready = true;
+    } catch (_) {
+      _ready = true;
+    }
+  }
+
+  Future<void> _saveProfile() async {
+    if (!_ready || FirebaseAuth.instance.currentUser == null) return;
+    try {
+      await StudentProfileCloudService.save(
+        level: ref.read(schoolLevelProvider).name,
+        track: ref.read(schoolTrackProvider).name,
+        series: ref.read(schoolSeriesProvider),
+      );
+    } catch (_) {}
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen<SchoolLevel>(schoolLevelProvider, (_, __) => _saveProfile());
+    ref.listen<SchoolTrack>(schoolTrackProvider, (_, __) => _saveProfile());
+    ref.listen<String>(schoolSeriesProvider, (_, __) => _saveProfile());
+    return const SizedBox.shrink();
+  }
+
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
   }
 }
