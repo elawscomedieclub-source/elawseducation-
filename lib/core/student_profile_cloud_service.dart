@@ -19,6 +19,15 @@ class StudentProfileCloudService {
     return snapshot.exists ? snapshot.data() : null;
   }
 
+  static Future<void> saveName(String name) async {
+    final document = _document();
+    if (document == null) return;
+    await document.set({
+      'name': name.trim(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
   static Future<void> save({
     required String level,
     required String track,
