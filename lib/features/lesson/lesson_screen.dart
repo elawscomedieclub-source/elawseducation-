@@ -205,7 +205,7 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          ..._buildCourseBlocks(lesson.content),
+          ..._buildCourseBlocks(context, lesson.content),
           const SizedBox(height: 20),
           const Text(
             'À retenir',
@@ -239,9 +239,9 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
     );
   }
 }\n
-List<Widget> _buildCourseBlocks(String content) {
+List<Widget> _buildCourseBlocks(BuildContext context, String content) {
   final paragraphs = content
-      .split(RegExp(r'\\n\\s*\\n'))
+      .split(RegExp(r'\n\s*\n'))
       .map((part) => part.trim())
       .where((part) => part.isNotEmpty)
       .toList();
@@ -249,7 +249,7 @@ List<Widget> _buildCourseBlocks(String content) {
   return paragraphs.asMap().entries.map((entry) {
     final index = entry.key;
     final paragraph = entry.value;
-    final firstLine = paragraph.split('\\n').first.trim();
+    final firstLine = paragraph.split('\n').first.trim();
     final mission = RegExp(r'^(MISSION APC|MISSION|À TOI DE JOUER)', caseSensitive: false)
         .hasMatch(firstLine);
 
@@ -275,7 +275,7 @@ List<Widget> _buildCourseBlocks(String content) {
       );
     }
 
-    final numbered = RegExp(r'^(\\d+)\\.\\s*([^\\n.]+)\\.?').firstMatch(firstLine);
+    final numbered = RegExp(r'^(\d+)\.\s*([^\n.]+)\.?').firstMatch(firstLine);
     if (numbered != null) {
       final title = numbered.group(2)!.trim();
       final remainder = paragraph.substring(numbered.end).trim();
