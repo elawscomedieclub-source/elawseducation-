@@ -64,6 +64,77 @@ void main() {
       expect(tracks.length, 4);
     });
 
+    test('chaque niveau scolaire possède au moins une matière', () {
+      for (final level in SchoolLevel.values) {
+        expect(
+          demoSubjects.any((subject) => subject.level == level),
+          isTrue,
+          reason: 'Aucune matière disponible pour ${level.label}',
+        );
+      }
+    });
+
+    test('chaque série du lycée possède des matières dans les trois classes', () {
+      const seriesByTrack = <SchoolTrack, List<String>>{
+        SchoolTrack.generalLiterary: ['A4'],
+        SchoolTrack.scientific: ['C', 'D'],
+        SchoolTrack.technicalTertiary: ['G1', 'G2', 'G3'],
+        SchoolTrack.technicalIndustrial: ['E', 'F1', 'F2', 'F3', 'F4', 'Ti/1'],
+      };
+      for (final level in [
+        SchoolLevel.seconde,
+        SchoolLevel.premiere,
+        SchoolLevel.terminale,
+      ]) {
+        for (final entry in seriesByTrack.entries) {
+          for (final series in entry.value) {
+            expect(
+              demoSubjects.any((subject) =>
+                  subject.level == level &&
+                  subject.track == entry.key &&
+                  subject.series == series),
+              isTrue,
+              reason: 'Matière absente : ${level.label}, ${entry.key.label}, série $series',
+            );
+          }
+        }
+      }
+    });
+
+    test('le filtrage du parcours ne mélange pas les séries du lycée', () {
+      for (final level in [
+        SchoolLevel.seconde,
+        SchoolLevel.premiere,
+        SchoolLevel.terminale,
+      ]) {
+        for (final track in SchoolTrack.values) {
+          final allowedSeries = switch (track) {
+            SchoolTrack.generalLiterary => ['A4'],
+            SchoolTrack.scientific => ['C', 'D'],
+            SchoolTrack.technicalTertiary => ['G1', 'G2', 'G3'],
+            SchoolTrack.technicalIndustrial => ['E', 'F1', 'F2', 'F3', 'F4', 'Ti/1'],
+          };
+          for (final series in allowedSeries) {
+            final visible = demoSubjects.where((subject) =>
+                subjectMatchesPath(subject, level, track, series));
+            expect(
+              visible.where((subject) => subject.track != null).every(
+                  (subject) => subject.track == track &&
+                      (subject.series == null || subject.series == series)),
+              isTrue,
+              reason: 'Mélange de parcours détecté pour ${level.label}, série $series',
+            );
+            expect(
+              visible.any((subject) =>
+                  subject.track == track && subject.series == series),
+              isTrue,
+              reason: 'Aucune matière spécifique pour ${level.label}, série $series',
+            );
+          }
+        }
+      }
+    });
+
     test('les compteurs des matières correspondent aux chapitres réels', () {
       for (final subject in demoSubjects) {
         final actual = demoChapters.where((item) => item.subjectId == subject.id).length;
