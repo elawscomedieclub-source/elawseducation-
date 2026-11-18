@@ -1,5 +1,7 @@
 import '../../shared/widgets/menu_button.dart';
 import 'dart:async';
+import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +31,7 @@ class ProfileScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(18),
         children: [
-          const CircleAvatar(radius: 42, child: Icon(Icons.person, size: 42)),
+          const StudentPhotoSection(),
           const SizedBox(height: 12),
           const Center(
             child: Text('Élève ProfTogo',
@@ -348,6 +350,198 @@ class _StudentNameSectionState extends State<StudentNameSection> {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class StudentPhotoSection extends StatefulWidget {
+  const StudentPhotoSection({super.key});
+
+  @override
+  State<StudentPhotoSection> createState() => _StudentPhotoSectionState();
+}
+
+class _StudentPhotoSectionState extends State<StudentPhotoSection> {
+  final ImagePicker _picker = ImagePicker();
+  String? _photoBase64;
+  bool _loading = true;
+  bool _saving = false;
+  String? _message;
+
+  String get _localKey {
+    final user = FirebaseAuth.instance.currentUser;
+    return user == null ? 'student_photo_local' : 'student_photo_\${user.uid}';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPhoto();
+  }
+
+  Future<void> _loadPhoto() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      var photo = prefs.getString(_localKey);
+
+      if (FirebaseAuth.instance.currentUser != null) {
+        try {
+          final cloud = await StudentProfileCloudService.load();
+          final cloudPhoto = cloud?['photoBase64'];
+          if (cloudPhoto is String && cloudPhoto.isNotEmpty) {
+            photo = cloudPhoto;
+            await prefs.setString(_localKey, photo);
+          } else if (photo != null && photo.isNotEmpty) {
+            await StudentProfileCloudService.savePhoto(photo);
+          }
+        } catch (_) {
+          // Keep the cached photo available if the network is unavailable.
+        }
+      }
+
+      if (!mounted) return;
+      setState(() => _photoBase64 = photo);
+    } catch (_) {
+      // The profile remains usable without a saved photo.
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _choosePhoto() async {
+    if (_saving || _loading) return;
+    try {
+      final picked = await _picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 256,
+        maxHeight: 256,
+        imageQuality: 55,
+      );
+      if (picked == null) return;
+
+      final bytes = await picked.readAsBytes();
+      final encoded = base64Encode(bytes);
+      if (encoded.length > 350000) {
+        if (!mounted) return;
+        setState(() => _message =
+            'Cette photo est encore trop volumineuse. Choisis une image plus légère.');
+        return;
+      }
+
+      setState(() {
+        _saving = true;
+        _message = 'Enregistrement de la photo…';
+      });
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_localKey, encoded);
+
+      if (FirebaseAuth.instance.currentUser != null) {
+        try {
+          await StudentProfileCloudService.savePhoto(encoded);
+          if (!mounted) return;
+          setState(() {
+            _photoBase64 = encoded;
+            _message = 'Photo enregistrée et synchronisée dans ton compte.';
+          });
+        } catch (_) {
+          if (!mounted) return;
+          setState(() {
+            _photoBase64 = encoded;
+            _message = 'Photo gardée sur cet appareil. Synchronisation cloud indisponible.';
+          });
+        }
+      } else {
+        if (!mounted) return;
+        setState(() {
+          _photoBase64 = encoded;
+          _message = 'Photo enregistrée sur cet appareil. Connecte-toi pour la synchroniser.';
+        });
+      }
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _message = 'Impossible de sélectionner cette photo. Réessaie.');
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  Future<void> _removePhoto() async {
+    if (_saving) return;
+    setState(() {
+      _saving = true;
+      _message = null;
+    });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_localKey);
+      if (FirebaseAuth.instance.currentUser != null) {
+        await StudentProfileCloudService.deletePhoto();
+      }
+      if (!mounted) return;
+      setState(() {
+        _photoBase64 = null;
+        _message = 'Photo supprimée.';
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _message =
+          'Photo supprimée de cet appareil, mais sa suppression cloud a échoué.');
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ImageProvider? image;
+    if (_photoBase64 != null) {
+      try {
+        image = MemoryImage(base64Decode(_photoBase64!));
+      } catch (_) {
+        image = null;
+      }
+    }
+
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 52,
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+          backgroundImage: image,
+          child: image == null
+              ? const Icon(Icons.person, size: 52)
+              : null,
+        ),
+        const SizedBox(height: 10),
+        OutlinedButton.icon(
+          onPressed: _loading || _saving ? null : _choosePhoto,
+          icon: _saving
+              ? const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : const Icon(Icons.photo_library_outlined),
+          label: Text(_saving ? 'Patiente…' : 'Choisir une photo'),
+        ),
+        if (_photoBase64 != null)
+          TextButton.icon(
+            onPressed: _saving ? null : _removePhoto,
+            icon: const Icon(Icons.delete_outline),
+            label: const Text('Supprimer la photo'),
+          ),
+        if (_message != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              _message!,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            ),
+          ),
+      ],
     );
   }
 }
