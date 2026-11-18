@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    match /users/{userId}/progress/{progressId} {
+      allow read: if isOwner(userId) && progressId == 'main';
+
+      allow create, update: if isOwner(userId)
+        && progressId == 'main'
+        && request.resource.data.keys().hasAll([
+          'answeredExerciseIds',
+          'correctExerciseIds',
+          'xp',
+          'updatedAt'
+        ])
+        && request.resource.data.keys().hasOnly([
+          'answeredExerciseIds',
+          'correctExerciseIds',
+          'xp',
+          'updatedAt'
+        ])
+        && request.resource.data.answeredExerciseIds is list
+        && request.resource.data.answeredExerciseIds.size() <= 5000
+        && request.resource.data.correctExerciseIds is list
+        && request.resource.data.correctExerciseIds.size() <= 5000
+        && request.resource.data.xp is int
+        && request.resource.data.xp >= 0
+        && request.resource.data.updatedAt is timestamp;
+
+      allow delete: if isOwner(userId) && progressId == 'main';
+    }
+  }
+}
