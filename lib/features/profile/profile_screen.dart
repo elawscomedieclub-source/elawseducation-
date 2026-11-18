@@ -371,7 +371,7 @@ class _StudentPhotoSectionState extends State<StudentPhotoSection> {
 
   String get _localKey {
     final user = FirebaseAuth.instance.currentUser;
-    return user == null ? 'student_photo_local' : 'student_photo_\${user.uid}';
+    return user == null ? 'student_photo_local' : 'student_photo_${user.uid}';
   }
 
   @override
