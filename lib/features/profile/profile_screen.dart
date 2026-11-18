@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/theme_provider.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
+import '../auth/account_section.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -30,6 +31,8 @@ class ProfileScreen extends ConsumerWidget {
             child: Text('Élève ProfTogo',
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
           ),
+          const SizedBox(height: 20),
+          const AccountSection(),
           const SizedBox(height: 24),
           const Text('Mon niveau scolaire',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
