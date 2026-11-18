@@ -369,7 +369,7 @@ const demoChapters = <Chapter>[
   Chapter(id:"special_terminale_f3_c",subjectId:"special_terminale_f3",title:"Une machine électrique transforme l’énergie électrique en énergie mécanique ou inversement. Les moteurs doivent être protégés contre les surcharges et les défauts électriques.",order:1,totalLessons:2),
   Chapter(id:"special_terminale_f4_c",subjectId:"special_terminale_f4",title:"Le génie civil concerne la conception et la réalisation d’ouvrages. Le béton associe notamment un liant, des granulats et de l’eau ; ses propriétés dépendent du dosage et de la mise en œuvre.",order:1,totalLessons:2),
   Chapter(id:"special_terminale_ti1_c",subjectId:"special_terminale_ti1",title:"La maintenance préventive est réalisée avant la panne pour réduire les risques d’arrêt. Elle peut inclure le nettoyage, la lubrification, le contrôle et le remplacement planifié de pièces.",order:1,totalLessons:2),
-  Chapter(id:"six_math_c2",subjectId:"six_math",title:"Fractions et comparaison et approfondissement",order:2,totalLessons:2),
+  Chapter(id:"six_math_c2",subjectId:"math",title:"Fractions et comparaison et approfondissement",order:2,totalLessons:2),
   Chapter(id:"six_fr_c2",subjectId:"six_fr",title:"Lire et comprendre un texte narratif et approfondissement",order:2,totalLessons:2),
   Chapter(id:"six_svt_c2",subjectId:"six_svt",title:"Les besoins des êtres vivants et approfondissement",order:2,totalLessons:2),
   Chapter(id:"six_anglais_c2",subjectId:"six_anglais",title:"Daily routines et approfondissement",order:2,totalLessons:2),
