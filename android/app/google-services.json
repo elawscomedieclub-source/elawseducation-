@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "173026862363",
+    "project_id": "elawseducation",
+    "storage_bucket": "elawseducation.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173026862363:android:ed8da1a759eb9acad29fbe",
+        "android_client_info": {
+          "package_name": "tg.proftogo.proftogo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBafw6mozY9vC15v4kazCxkkPZ-wk_S0_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
