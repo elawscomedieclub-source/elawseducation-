@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/theme_provider.dart';
 import '../../core/school_level_provider.dart';
 import '../../core/student_profile_cloud_service.dart';
+import '../../core/progress_service.dart';
 import '../../data/models/models.dart';
 import '../auth/account_section.dart';
 
@@ -47,6 +48,8 @@ class ProfileScreen extends ConsumerWidget {
           const AccountSection(),
           const StudentNameSection(),
           const StudentProfileCloudSync(),
+          const SizedBox(height: 12),
+          const StudentProgressSummary(),
           const SizedBox(height: 24),
           const Text('Mon niveau scolaire',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -114,7 +117,7 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: 10),
           ],
           Text(
-            'Ta classe, ton parcours et ta série sont mémorisés sur cet appareil. Les matières et entraînements seront adaptés à ton choix.',
+            'Ta classe, ton parcours et ta série sont enregistrés dans ton profil et synchronisés avec ton compte lorsque tu es connecté. Les matières et entraînements seront adaptés à ton choix.',
             style: TextStyle(color: Theme.of(context).hintColor),
           ),
           const SizedBox(height: 24),
@@ -140,6 +143,103 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+
+class StudentProgressSummary extends StatefulWidget {
+  const StudentProgressSummary({super.key});
+
+  @override
+  State<StudentProgressSummary> createState() => _StudentProgressSummaryState();
+}
+
+class _StudentProgressSummaryState extends State<StudentProgressSummary> {
+  late Future<ProgressSnapshot> _progressFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _progressFuture = ProgressService.load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<ProgressSnapshot>(
+      future: _progressFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Card(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+        if (!snapshot.hasData) {
+          return const Card(
+            child: ListTile(
+              leading: Icon(Icons.trending_up),
+              title: Text('Ma progression'),
+              subtitle: Text('Progression momentanément indisponible.'),
+            ),
+          );
+        }
+
+        final progress = snapshot.data!;
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Ma progression',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Icon(Icons.stars_outlined, size: 28),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${progress.xp} XP',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Text('Points gagnés'),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Icon(Icons.task_alt, size: 28),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${progress.correctExerciseIds.length}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Text('Exercices réussis'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
