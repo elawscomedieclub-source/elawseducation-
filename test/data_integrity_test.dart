@@ -63,6 +63,24 @@ void main() {
           .toSet();
       expect(tracks.length, 4);
     });
+
+    test('les compteurs des matières correspondent aux chapitres réels', () {
+      for (final subject in demoSubjects) {
+        final actual = demoChapters.where((item) => item.subjectId == subject.id).length;
+        expect(subject.totalChapters, actual,
+            reason: 'Compteur incorrect pour ${subject.id}');
+        expect(actual, greaterThan(0),
+            reason: 'La matière ${subject.id} ne possède aucun chapitre');
+      }
+    });
+
+    test('les compteurs des chapitres correspondent aux leçons réelles', () {
+      for (final chapter in demoChapters) {
+        final actual = demoLessons.where((item) => item.chapterId == chapter.id).length;
+        expect(chapter.totalLessons, actual,
+            reason: 'Compteur incorrect pour ${chapter.id}');
+      }
+    });
   });
 }
 
