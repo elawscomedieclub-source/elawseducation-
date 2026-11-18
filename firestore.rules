@@ -33,5 +33,38 @@ service cloud.firestore {
 
       allow delete: if isOwner(userId) && progressId == 'main';
     }
+
+    match /users/{userId}/evaluations/{evaluationId} {
+      allow read: if isOwner(userId);
+
+      allow create, update: if isOwner(userId)
+        && request.resource.data.keys().hasAll([
+          'subjectId',
+          'subjectName',
+          'level',
+          'score',
+          'correct',
+          'total',
+          'date'
+        ])
+        && request.resource.data.keys().hasOnly([
+          'subjectId',
+          'subjectName',
+          'level',
+          'score',
+          'correct',
+          'total',
+          'date'
+        ])
+        && request.resource.data.subjectId is string
+        && request.resource.data.subjectName is string
+        && request.resource.data.level is string
+        && request.resource.data.score is int
+        && request.resource.data.correct is int
+        && request.resource.data.total is int
+        && request.resource.data.date is string;
+
+      allow delete: if isOwner(userId);
+    }
   }
 }
