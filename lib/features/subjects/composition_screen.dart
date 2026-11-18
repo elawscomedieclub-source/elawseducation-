@@ -24,6 +24,22 @@ class _CompositionScreenState extends State<CompositionScreen> {
   bool _saving = false;
   int _correct = 0;
 
+  String get _preparationTitle => switch (widget.level) {
+    SchoolLevel.cm2 => 'Préparation au CEPD',
+    SchoolLevel.troisieme => 'Préparation au BEPC',
+    SchoolLevel.premiere => 'Préparation au BAC I',
+    SchoolLevel.terminale => 'Préparation au BAC II',
+    _ => 'Révision et composition de passage',
+  };
+
+  String get _preparationAdvice => switch (widget.level) {
+    SchoolLevel.cm2 => 'Révise la lecture, la dictée, les mathématiques, les sciences et les repères sur le Togo. Entraîne-toi à lire les consignes et à rédiger des réponses complètes.',
+    SchoolLevel.troisieme => 'Consolide les méthodes de calcul, la rédaction, les sciences et l’analyse de documents. Pour chaque problème, écris les étapes du raisonnement avant la réponse.',
+    SchoolLevel.premiere => 'Organise tes révisions par matière et par chapitre. Entraîne-toi à justifier les calculs, construire un plan et employer le vocabulaire scientifique ou littéraire adapté.',
+    SchoolLevel.terminale => 'Travaille les notions essentielles, les exercices de synthèse et les sujets chronométrés. Après chaque entraînement, corrige tes erreurs et révise les chapitres concernés.',
+    _ => 'Revois les leçons étudiées, refais les exercices sans regarder les réponses, puis entraîne-toi avec une composition. Les corrections servent à repérer les notions à reprendre.',
+  };
+
   List<Exercise> _buildQuestions() {
     final subjects = demoSubjects.where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series) && (_selectedSubjectId == null || s.id == _selectedSubjectId)).toList();
     final selected = <Exercise>[];
@@ -111,7 +127,11 @@ class _CompositionScreenState extends State<CompositionScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(widget.level == SchoolLevel.premiere ? 'Entraînement au BAC I' : widget.level == SchoolLevel.terminale ? 'Entraînement au BAC II' : 'Composition d’entraînement', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(_preparationTitle, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Text(_preparationAdvice, style: const TextStyle(height: 1.45)),
+                const SizedBox(height: 8),
+                const Text('Méthode conseillée : 1) relire le cours ; 2) refaire les exemples ; 3) traiter les exercices seul ; 4) faire une composition ; 5) corriger ses erreurs et reprendre les points difficiles.'),
                 const SizedBox(height: 8),
                 const Text('Choisis un trimestre et une matière. Tu peux préparer un sujet mélangé ou t’entraîner dans une seule matière. Les questions disponibles sont tirées au hasard. Un sujet mélangé peut contenir jusqu’à 20 questions, selon les matières et exercices disponibles.'),
                 const SizedBox(height: 8),
