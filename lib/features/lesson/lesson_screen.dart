@@ -200,7 +200,12 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
             ),
           ),
           const SizedBox(height: 18),
-          Text(lesson.content, style: const TextStyle(fontSize: 16, height: 1.6)),
+          const Text(
+            'Le cours pas à pas',
+            style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          ..._buildCourseBlocks(lesson.content),
           const SizedBox(height: 20),
           const Text(
             'À retenir',
@@ -233,4 +238,83 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
       ),
     );
   }
+}\n
+List<Widget> _buildCourseBlocks(String content) {
+  final paragraphs = content
+      .split(RegExp(r'\\n\\s*\\n'))
+      .map((part) => part.trim())
+      .where((part) => part.isNotEmpty)
+      .toList();
+
+  return paragraphs.asMap().entries.map((entry) {
+    final index = entry.key;
+    final paragraph = entry.value;
+    final firstLine = paragraph.split('\\n').first.trim();
+    final mission = RegExp(r'^(MISSION APC|MISSION|À TOI DE JOUER)', caseSensitive: false)
+        .hasMatch(firstLine);
+
+    if (mission) {
+      return Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: const Color(0xFFE8F5F0),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFFB7DCCB)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('MISSION / APPLICATION',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF006A4E))),
+            const SizedBox(height: 6),
+            Text(paragraph, style: const TextStyle(fontSize: 15, height: 1.55)),
+          ],
+        ),
+      );
+    }
+
+    final numbered = RegExp(r'^(\\d+)\\.\\s*([^\\n.]+)\\.?').firstMatch(firstLine);
+    if (numbered != null) {
+      final title = numbered.group(2)!.trim();
+      final remainder = paragraph.substring(numbered.end).trim();
+      return Card(
+        margin: const EdgeInsets.only(bottom: 10),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('${numbered.group(1)}. $title',
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              if (remainder.isNotEmpty) ...[
+                const SizedBox(height: 7),
+                Text(remainder, style: const TextStyle(fontSize: 15, height: 1.55)),
+              ],
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: index == 0
+            ? Theme.of(context).colorScheme.surfaceContainerHighest
+            : Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Theme.of(context).dividerColor),
+      ),
+      child: Text(paragraph,
+          style: TextStyle(
+            fontSize: 15,
+            height: 1.55,
+            fontWeight: index == 0 ? FontWeight.w600 : FontWeight.normal,
+          )),
+    );
+  }).toList();
 }
