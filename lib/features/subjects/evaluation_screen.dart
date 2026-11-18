@@ -214,7 +214,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                         subtitle: Text('${record.date.day.toString().padLeft(2, '0')}/${record.date.month.toString().padLeft(2, '0')}/${record.date.year}'),
                       )),
                     const SizedBox(height: 12),
-                    Text('Les notes sont conservées sur cet appareil.', style: TextStyle(color: Theme.of(context).hintColor, fontSize: 12)),
+                    Text('Tes notes sont conservées sur cet appareil et synchronisées avec ton compte lorsque tu es connecté.', style: TextStyle(color: Theme.of(context).hintColor, fontSize: 12)),
                   ],
                 ),
     );
