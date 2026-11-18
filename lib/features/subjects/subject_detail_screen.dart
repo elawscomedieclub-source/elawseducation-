@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/models/models.dart';
-import '../../data/sample/sample_data.dart' hide Lesson;
+import '../../data/sample/sample_data.dart';
 import '../lesson/lesson_screen.dart';
 import 'evaluation_screen.dart';
 
