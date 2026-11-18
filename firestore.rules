@@ -15,8 +15,9 @@ service cloud.firestore {
           'level', 'track', 'series', 'updatedAt'
         ])
         && request.resource.data.keys().hasOnly([
-          'level', 'track', 'series', 'updatedAt'
+          'level', 'track', 'series', 'name', 'updatedAt'
         ])
+        && (!('name' in request.resource.data) || request.resource.data.name is string)
         && request.resource.data.level is string
         && request.resource.data.track is string
         && request.resource.data.series is string
