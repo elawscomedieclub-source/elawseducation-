@@ -251,17 +251,17 @@ const demoChapters = <Chapter>[
   Chapter(id:'trois_pc1',subjectId:'trois_pc',title:'Électricité et transformations chimiques',order:1,totalLessons:3),
   Chapter(id:'trois_a1',subjectId:'trois_ang',title:'Past experiences and future plans',order:1,totalLessons:3),
 
-  Chapter(id:'seconde_m1',subjectId:'seconde_math',title:'Fonctions et calcul algébrique',order:1,totalLessons:3),
+  Chapter(id:'seconde_m1',subjectId:'seconde_math',title:'Fonctions et calcul algébrique',order:1,totalLessons:4),
   Chapter(id:'seconde_f1',subjectId:'seconde_fr',title:'Littérature et méthodes d’analyse',order:1,totalLessons:2),
   Chapter(id:'seconde_s1',subjectId:'seconde_svt',title:'Cellule, information génétique et biodiversité',order:1,totalLessons:2),
   Chapter(id:'seconde_a1',subjectId:'seconde_ang',title:'Communication, opinions and experiences',order:1,totalLessons:2),
 
-  Chapter(id:'premiere_m1',subjectId:'premiere_math',title:'Suites numériques et fonctions',order:1,totalLessons:2),
+  Chapter(id:'premiere_m1',subjectId:'premiere_math',title:'Suites numériques et fonctions',order:1,totalLessons:3),
   Chapter(id:'premiere_f1',subjectId:'premiere_fr',title:'Littérature, poésie et argumentation',order:1,totalLessons:2),
   Chapter(id:'premiere_s1',subjectId:'premiere_svt',title:'Génétique et fonctionnement des organismes',order:1,totalLessons:2),
   Chapter(id:'premiere_a1',subjectId:'premiere_ang',title:'Society, science and the environment',order:1,totalLessons:2),
 
-  Chapter(id:'terminale_m1',subjectId:'terminale_math',title:'Fonctions, probabilités et statistiques',order:1,totalLessons:3),
+  Chapter(id:'terminale_m1',subjectId:'terminale_math',title:'Fonctions, probabilités et statistiques',order:1,totalLessons:4),
   Chapter(id:'terminale_f1',subjectId:'terminale_fr',title:'Philosophie et méthode de réflexion',order:1,totalLessons:2),
   Chapter(id:'terminale_s1',subjectId:'terminale_svt',title:'Génétique, évolution et santé',order:1,totalLessons:2),
   Chapter(id:'terminale_a1',subjectId:'terminale_ang',title:'Global challenges and communication',order:1,totalLessons:2),
