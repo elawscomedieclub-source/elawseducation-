@@ -245,7 +245,7 @@ const demoChapters = <Chapter>[
   Chapter(id:'quatre_s1',subjectId:'quatre_svt',title:'Reproduction et environnement',order:1,totalLessons:3),
   Chapter(id:'quatre_a1',subjectId:'quatre_ang',title:'Past events and plans',order:1,totalLessons:2),
 
-  Chapter(id:'trois_m1',subjectId:'trois_math',title:'Théorème de Pythagore et équations',order:1,totalLessons:4),
+  Chapter(id:'trois_m1',subjectId:'trois_math',title:'Théorème de Pythagore et équations',order:1,totalLessons:5),
   Chapter(id:'trois_f1',subjectId:'trois_fr',title:'Argumentation et propositions subordonnées',order:1,totalLessons:4),
   Chapter(id:'trois_s1',subjectId:'trois_svt',title:'Hérédité et équilibre des écosystèmes',order:1,totalLessons:4),
   Chapter(id:'trois_pc1',subjectId:'trois_pc',title:'Électricité et transformations chimiques',order:1,totalLessons:3),
