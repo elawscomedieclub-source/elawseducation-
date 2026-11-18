@@ -114,18 +114,39 @@ class AccountSection extends StatelessWidget {
     passwordController.dispose();
   }
 
-  Future<void> _resetPassword(BuildContext context, String email) async {
-    if (email.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Saisis ton adresse e-mail dans le champ de connexion.')),
-      );
-      return;
-    }
+  Future<void> _resetPassword(BuildContext context) async {
+    final emailController = TextEditingController();
+    final email = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Réinitialiser le mot de passe'),
+        content: TextField(
+          controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(
+            labelText: 'Adresse e-mail',
+            border: OutlineInputBorder(),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Annuler'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, emailController.text.trim()),
+            child: const Text('Envoyer'),
+          ),
+        ],
+      ),
+    );
+    emailController.dispose();
+    if (email == null || email.isEmpty) return;
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email.trim());
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Un e-mail de réinitialisation a été envoyé si le compte existe.')),
+          const SnackBar(content: Text('Si cette adresse possède un compte, un e-mail de réinitialisation a été envoyé.')),
         );
       }
     } on FirebaseAuthException catch (error) {
@@ -169,7 +190,7 @@ class AccountSection extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () => _resetPassword(context, ''),
+                        onPressed: () => _resetPassword(context),
                         child: const Text('Mot de passe oublié ?'),
                       ),
                     ],
