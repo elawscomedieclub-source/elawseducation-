@@ -1,10 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'progress_service.dart';
+class CloudProgressData {
+  final Set<String> answeredExerciseIds;
+  final Set<String> correctExerciseIds;
+  final int xp;
+
+  const CloudProgressData({
+    required this.answeredExerciseIds,
+    required this.correctExerciseIds,
+    required this.xp,
+  });
+}
 
 /// Sauvegarde cloud privée de la progression de l'élève connecté.
-/// Cette classe ne remplace pas le stockage local existant.
 class CloudProgressService {
   static DocumentReference<Map<String, dynamic>>? _progressDocument() {
     final user = FirebaseAuth.instance.currentUser;
@@ -18,7 +27,7 @@ class CloudProgressService {
   }
 
   /// Renvoie null si l'élève n'est pas connecté ou si aucune sauvegarde n'existe.
-  static Future<ProgressSnapshot?> loadForCurrentUser() async {
+  static Future<CloudProgressData?> loadForCurrentUser() async {
     final document = _progressDocument();
     if (document == null) return null;
 
@@ -32,7 +41,7 @@ class CloudProgressService {
     final correct = data['correctExerciseIds'];
     final xp = data['xp'];
 
-    return ProgressSnapshot(
+    return CloudProgressData(
       answeredExerciseIds: answered is List
           ? answered.whereType<String>().toSet()
           : <String>{},
@@ -44,17 +53,18 @@ class CloudProgressService {
   }
 
   /// Enregistre uniquement les données pédagogiques de progression.
-  /// Aucun nom, numéro de téléphone ou email n'est copié dans Firestore.
-  static Future<void> saveForCurrentUser(
-    ProgressSnapshot progress,
-  ) async {
+  static Future<void> saveForCurrentUser({
+    required Set<String> answeredExerciseIds,
+    required Set<String> correctExerciseIds,
+    required int xp,
+  }) async {
     final document = _progressDocument();
     if (document == null) return;
 
     await document.set({
-      'answeredExerciseIds': progress.answeredExerciseIds.toList()..sort(),
-      'correctExerciseIds': progress.correctExerciseIds.toList()..sort(),
-      'xp': progress.xp < 0 ? 0 : progress.xp,
+      'answeredExerciseIds': answeredExerciseIds.toList()..sort(),
+      'correctExerciseIds': correctExerciseIds.toList()..sort(),
+      'xp': xp < 0 ? 0 : xp,
       'updatedAt': FieldValue.serverTimestamp(),
     });
   }
