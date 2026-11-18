@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
-import '../../data/sample/sample_data.dart' hide Lesson;
+import '../../data/sample/sample_data.dart';
 
 class EvaluationScreen extends StatefulWidget {
   final Subject subject;
