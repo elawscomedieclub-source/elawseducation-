@@ -57,18 +57,54 @@ class _CompositionScreenState extends State<CompositionScreen> {
   }
 
   List<Exercise> _buildQuestions() {
-    final subjects = demoSubjects.where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series) && (_selectedSubjectId == null || s.id == _selectedSubjectId)).toList();
-    final selected = <Exercise>[];
+    final subjects = demoSubjects
+        .where((subject) =>
+            subjectMatchesPath(subject, widget.level, widget.track, widget.series) &&
+            (_selectedSubjectId == null || subject.id == _selectedSubjectId))
+        .toList();
+
+    // Prépare une banque mélangée par matière pour éviter les répétitions.
+    final pools = <List<Exercise>>[];
     for (final subject in subjects) {
-      final chapterIds = demoChapters.where((c) => c.subjectId == subject.id).map((c) => c.id).toSet();
-      final lessonIds = demoLessons.where((l) => chapterIds.contains(l.chapterId)).map((l) => l.id).toSet();
-      final pool = demoExercises.where((e) => lessonIds.contains(e.lessonId)).toList()..shuffle(Random());
-      // Une composition par matière peut utiliser jusqu’à 10 questions.
-      // En mode mixte, on limite chaque matière à 2 questions pour varier.
-      selected.addAll(pool.take(_selectedSubjectId == null ? 2 : 10));
+      final chapterIds = demoChapters
+          .where((chapter) => chapter.subjectId == subject.id)
+          .map((chapter) => chapter.id)
+          .toSet();
+      final lessonIds = demoLessons
+          .where((lesson) => chapterIds.contains(lesson.chapterId))
+          .map((lesson) => lesson.id)
+          .toSet();
+      final pool = demoExercises
+          .where((exercise) => lessonIds.contains(exercise.lessonId))
+          .toList()
+        ..shuffle(Random());
+      if (pool.isNotEmpty) pools.add(pool);
     }
+
+    final limit = _selectedSubjectId == null ? 20 : 10;
+    final selected = <Exercise>[];
+    final usedIds = <String>{};
+
+    // Premier tour : une question par matière autant que possible.
+    // Tours suivants : on ajoute une question par matière à chaque passage.
+    var round = 0;
+    while (selected.length < limit) {
+      var addedInRound = false;
+      for (final pool in pools) {
+        if (round < pool.length && selected.length < limit) {
+          final exercise = pool[round];
+          if (usedIds.add(exercise.id)) {
+            selected.add(exercise);
+            addedInRound = true;
+          }
+        }
+      }
+      if (!addedInRound) break;
+      round++;
+    }
+
     selected.shuffle(Random());
-    return selected.take(_selectedSubjectId == null ? 20 : 10).toList();
+    return selected;
   }
 
   int _availableExerciseCount() {
