@@ -33,9 +33,15 @@ class ProfileScreen extends ConsumerWidget {
         children: [
           const StudentPhotoSection(),
           const SizedBox(height: 12),
-          const Center(
-            child: Text('Élève ProfTogo',
-                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+          Center(
+            child: ValueListenableBuilder<String>(
+              valueListenable: StudentNameSection.nameNotifier,
+              builder: (context, name, _) => Text(
+                name.trim().isEmpty ? 'Élève ProfTogo' : name.trim(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
           const SizedBox(height: 20),
           const AccountSection(),
@@ -239,6 +245,8 @@ class _StudentProfileCloudSyncState
 
 
 class StudentNameSection extends StatefulWidget {
+  static final ValueNotifier<String> nameNotifier = ValueNotifier<String>('');
+
   const StudentNameSection({super.key});
 
   @override
@@ -271,6 +279,7 @@ class _StudentNameSectionState extends State<StudentNameSection> {
       }
       if (!mounted) return;
       _controller.text = name;
+      StudentNameSection.nameNotifier.value = name;
     } catch (_) {
       // Keep the profile usable with the name stored on this device.
     } finally {
@@ -291,6 +300,7 @@ class _StudentNameSectionState extends State<StudentNameSection> {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('student_name', name);
+      StudentNameSection.nameNotifier.value = name;
       if (FirebaseAuth.instance.currentUser != null) {
         await StudentProfileCloudService.saveName(name);
         if (!mounted) return;
