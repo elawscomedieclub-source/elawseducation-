@@ -6,6 +6,25 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
 
+    match /users/{userId}/profile/{profileId} {
+      allow read: if isOwner(userId) && profileId == 'main';
+
+      allow create, update: if isOwner(userId)
+        && profileId == 'main'
+        && request.resource.data.keys().hasAll([
+          'level', 'track', 'series', 'updatedAt'
+        ])
+        && request.resource.data.keys().hasOnly([
+          'level', 'track', 'series', 'updatedAt'
+        ])
+        && request.resource.data.level is string
+        && request.resource.data.track is string
+        && request.resource.data.series is string
+        && request.resource.data.updatedAt is timestamp;
+
+      allow delete: if isOwner(userId) && profileId == 'main';
+    }
+
     match /users/{userId}/progress/{progressId} {
       allow read: if isOwner(userId) && progressId == 'main';
 
