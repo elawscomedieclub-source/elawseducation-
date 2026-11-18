@@ -37,6 +37,7 @@ class ProfileScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           const AccountSection(),
+          const StudentNameSection(),
           const StudentProfileCloudSync(),
           const SizedBox(height: 24),
           const Text('Mon niveau scolaire',
@@ -231,5 +232,122 @@ class _StudentProfileCloudSyncState
   void dispose() {
     _authSubscription.cancel();
     super.dispose();
+  }
+}
+
+
+class StudentNameSection extends StatefulWidget {
+  const StudentNameSection({super.key});
+
+  @override
+  State<StudentNameSection> createState() => _StudentNameSectionState();
+}
+
+class _StudentNameSectionState extends State<StudentNameSection> {
+  final TextEditingController _controller = TextEditingController();
+  bool _loading = true;
+  bool _saving = false;
+  String? _message;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadName();
+  }
+
+  Future<void> _loadName() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      var name = prefs.getString('student_name') ?? '';
+      if (FirebaseAuth.instance.currentUser != null) {
+        final cloud = await StudentProfileCloudService.load();
+        final cloudName = cloud?['name'];
+        if (cloudName is String && cloudName.trim().isNotEmpty) {
+          name = cloudName;
+          await prefs.setString('student_name', name);
+        }
+      }
+      if (!mounted) return;
+      _controller.text = name;
+    } catch (_) {
+      // Keep the profile usable with the name stored on this device.
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _saveName() async {
+    final name = _controller.text.trim();
+    if (name.isEmpty) {
+      setState(() => _message = 'Écris ton nom avant d’enregistrer.');
+      return;
+    }
+    setState(() {
+      _saving = true;
+      _message = null;
+    });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('student_name', name);
+      if (FirebaseAuth.instance.currentUser != null) {
+        await StudentProfileCloudService.saveName(name);
+        if (!mounted) return;
+        setState(() => _message = 'Nom enregistré et synchronisé.');
+      } else {
+        if (!mounted) return;
+        setState(() => _message = 'Nom enregistré sur cet appareil. Connecte-toi pour le sauvegarder dans le cloud.');
+      }
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _message = 'Nom gardé sur cet appareil, synchronisation cloud indisponible.');
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text('Mon nom', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _controller,
+              enabled: !_loading && !_saving,
+              textCapitalization: TextCapitalization.words,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.person_outline),
+                labelText: 'Nom et prénom',
+                hintText: 'Ex. : Kossi Mensah',
+              ),
+              onSubmitted: (_) => _saveName(),
+            ),
+            const SizedBox(height: 10),
+            FilledButton.icon(
+              onPressed: _loading || _saving ? null : _saveName,
+              icon: _saving
+                  ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                  : const Icon(Icons.save_outlined),
+              label: Text(_saving ? 'Enregistrement…' : 'Enregistrer mon nom'),
+            ),
+            if (_message != null) ...[
+              const SizedBox(height: 8),
+              Text(_message!, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+            ],
+          ],
+        ),
+      ),
+    );
   }
 }
