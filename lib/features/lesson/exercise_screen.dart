@@ -19,6 +19,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   final Map<String, String> _feedback = {};
   bool _loading = true;
   bool _progressUnavailable = false;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -95,142 +96,219 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       );
     }
 
+    if (items.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Exercices')),
+        body: const Center(child: Text('Les exercices arrivent bientôt.')),
+      );
+    }
+
+    if (_currentIndex >= items.length) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Bilan des exercices')),
+        body: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            const SizedBox(height: 18),
+            Icon(Icons.emoji_events_rounded,
+                size: 76, color: Theme.of(context).colorScheme.primary),
+            const SizedBox(height: 14),
+            const Text('Séance terminée !',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.w800)),
+            const SizedBox(height: 8),
+            Text('$completedCount bonne(s) réponse(s) sur ${items.length}',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 14),
+            LinearProgressIndicator(value: completion, minHeight: 10),
+            const SizedBox(height: 14),
+            Text(
+              completedCount == items.length
+                  ? 'Excellent ! Tous les exercices de cette leçon sont validés.'
+                  : 'Reprends les questions non validées, relis les explications et réessaie.',
+              textAlign: TextAlign.center,
+              style: const TextStyle(height: 1.5),
+            ),
+            const SizedBox(height: 22),
+            FilledButton.icon(
+              onPressed: () => setState(() => _currentIndex = 0),
+              icon: const Icon(Icons.replay_rounded),
+              label: const Text('Revoir les exercices'),
+            ),
+            OutlinedButton.icon(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(Icons.menu_book_outlined),
+              label: const Text('Retour à la leçon'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final exercise = items[_currentIndex];
+    final answered = _answeredIds.contains(exercise.id);
+    final selected = _selectedAnswers[exercise.id];
+    final isCorrect = _correctIds.contains(exercise.id);
+    final isLast = _currentIndex == items.length - 1;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Exercices')),
-      body: items.isEmpty
-          ? const Center(child: Text('Les exercices arrivent bientôt.'))
-          : ListView(
-              padding: const EdgeInsets.all(18),
-              children: [
-                if (_progressUnavailable)
-                  const Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(12),
-                      child: Text('La progression enregistrée ne peut pas être chargée pour le moment. Tu peux continuer les exercices, mais vérifie le stockage de ton appareil avant de quitter.'),
+      appBar: AppBar(title: const Text('Exercices • question par question')),
+      body: ListView(
+        padding: const EdgeInsets.all(18),
+        children: [
+          if (_progressUnavailable)
+            const Card(
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: Text('La progression enregistrée ne peut pas être chargée pour le moment. Tu peux continuer les exercices, mais vérifie le stockage de ton appareil avant de quitter.'),
+              ),
+            ),
+          Text(
+            'Réponds à une question, vérifie ta réponse, puis passe à la suivante. Chaque bonne réponse rapporte 10 XP.',
+            style: const TextStyle(fontSize: 15, height: 1.4),
+          ),
+          const SizedBox(height: 14),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Progression de la leçon',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('${_currentIndex + 1}/${items.length}'),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  LinearProgressIndicator(
+                    value: (_currentIndex + 1) / items.length,
+                    minHeight: 8,
+                  ),
+                  const SizedBox(height: 7),
+                  Text('$completedCount exercice(s) validé(s) sur ${items.length}.'),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'QUESTION ${_currentIndex + 1}',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: .6,
                     ),
                   ),
-                const Text(
-                  'Réponds aux questions et gagne 10 XP pour chaque bonne réponse.',
-                  style: TextStyle(fontSize: 15),
-                ),
-                const SizedBox(height: 12),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(14),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Ta réussite dans cette leçon', style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text('$completedCount/${items.length}'),
-                          ],
-                        ),
-                        const SizedBox(height: 9),
-                        LinearProgressIndicator(value: completion, minHeight: 9),
-                        const SizedBox(height: 6),
-                        Text(completedCount == items.length
-                            ? 'Bravo ! Tous les exercices de cette leçon sont validés.'
-                            : 'Encore ${items.length - completedCount} exercice(s) à valider.'),
-                      ],
-                    ),
+                  const SizedBox(height: 10),
+                  Text(
+                    exercise.question,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, height: 1.35),
                   ),
-                ),
-                const SizedBox(height: 16),
-                ...items.map((exercise) {
-                  final answered = _answeredIds.contains(exercise.id);
-                  final selected = _selectedAnswers[exercise.id];
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 18),
-                    child: Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            exercise.question,
-                            style: const TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          ...List.generate(exercise.options.length, (index) {
-                            return RadioListTile<int>(
-                              contentPadding: EdgeInsets.zero,
-                              value: index,
-                              groupValue: _correctIds.contains(exercise.id)
-                                  ? exercise.correctIndex
-                                  : selected,
-                              onChanged: answered || _checkingIds.contains(exercise.id)
-                                  ? null
-                                  : (value) {
-                                      if (value != null) {
-                                        setState(() => _selectedAnswers[exercise.id] = value);
-                                      }
-                                    },
-                              title: Text(exercise.options[index]),
-                            );
-                          }),
-                          if (_feedback.containsKey(exercise.id) && !answered) ...[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Text(
-                                _feedback[exercise.id]!,
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(12),
-                              margin: const EdgeInsets.only(bottom: 10),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text('Explication : ${exercise.explanation}'),
-                            ),
-                          ],
-                          if (!answered)
-                            SizedBox(
-                              width: double.infinity,
-                              child: FilledButton(
-                                onPressed: selected == null || _checkingIds.contains(exercise.id)
-                                    ? null
-                                    : () => _checkAnswer(exercise),
-                                child: Text(_checkingIds.contains(exercise.id)
-                                    ? 'Vérification…'
-                                    : 'Vérifier ma réponse'),
-                              ),
-                            )
-                          else ...[
-                            Text(
-                              _correctIds.contains(exercise.id)
-                                  ? 'Exercice déjà validé'
-                                  : 'Exercice déjà enregistré',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: _correctIds.contains(exercise.id)
-                                    ? Colors.green
-                                    : Theme.of(context).colorScheme.secondary,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text('Bonne réponse : ${exercise.options[exercise.correctIndex]}'),
-                            const SizedBox(height: 6),
-                            Text('Explication : ${exercise.explanation}'),
-                          ],
-                        ],
+                  const SizedBox(height: 12),
+                  ...List.generate(exercise.options.length, (index) {
+                    return RadioListTile<int>(
+                      contentPadding: EdgeInsets.zero,
+                      value: index,
+                      groupValue: isCorrect ? exercise.correctIndex : selected,
+                      onChanged: answered || _checkingIds.contains(exercise.id)
+                          ? null
+                          : (value) {
+                              if (value != null) {
+                                setState(() {
+                                  _selectedAnswers[exercise.id] = value;
+                                  _feedback.remove(exercise.id);
+                                });
+                              }
+                            },
+                      title: Text(exercise.options[index]),
+                    );
+                  }),
+                  if (_feedback.containsKey(exercise.id) && !answered) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      _feedback[exercise.id]!,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  );
-                }),
-              ],
+                    const SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text('Explication : ${exercise.explanation}'),
+                    ),
+                  ],
+                  if (answered) ...[
+                    const Divider(height: 24),
+                    Text(
+                      isCorrect ? 'Bonne réponse validée !' : 'Réponse déjà enregistrée',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: isCorrect
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    Text('Bonne réponse : ${exercise.options[exercise.correctIndex]}'),
+                    const SizedBox(height: 7),
+                    Text('Explication : ${exercise.explanation}',
+                        style: const TextStyle(height: 1.45)),
+                  ],
+                  if (!answered) ...[
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton.icon(
+                        onPressed: selected == null || _checkingIds.contains(exercise.id)
+                            ? null
+                            : () => _checkAnswer(exercise),
+                        icon: const Icon(Icons.check_circle_outline),
+                        label: Text(_checkingIds.contains(exercise.id)
+                            ? 'Vérification…'
+                            : 'Vérifier ma réponse'),
+                      ),
+                    ),
+                  ] else ...[
+                    const SizedBox(height: 14),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton.icon(
+                        onPressed: () => setState(() => _currentIndex++),
+                        icon: Icon(isLast ? Icons.flag_rounded : Icons.arrow_forward_rounded),
+                        label: Text(isLast ? 'Terminer les exercices' : 'Question suivante'),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
+          ),
+          const SizedBox(height: 12),
+          TextButton.icon(
+            onPressed: _currentIndex == 0
+                ? null
+                : () => setState(() => _currentIndex--),
+            icon: const Icon(Icons.arrow_back_rounded),
+            label: const Text('Question précédente'),
+          ),
+        ],
+      ),
     );
   }
 }
