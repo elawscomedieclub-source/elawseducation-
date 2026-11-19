@@ -8,6 +8,7 @@ import 'apc_lesson_guide.dart';
 import 'apc_mission_screen.dart';
 import 'lesson_visual_support.dart';
 import 'lesson_extended_visual_support.dart';
+import 'physics_course_support.dart';
 
 class LessonScreen extends StatelessWidget {
   final Chapter chapter;
@@ -433,6 +434,7 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
           ..._buildCourseBlocks(context, lesson.content),
           LessonVisualSupport(lesson: lesson),
           ExtendedLessonVisualSupport(lesson: lesson),
+          PhysicsCourseSupport(lesson: lesson),
           const SizedBox(height: 20),
           const Text(
             'À retenir',
