@@ -7,21 +7,50 @@ import '../../data/sample/sample_data.dart';
 import '../../data/models/models.dart';
 import '../../shared/widgets/menu_button.dart';
 
-class ProgressScreen extends ConsumerWidget {
+class ProgressScreen extends ConsumerStatefulWidget {
   const ProgressScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProgressScreen> createState() => _ProgressScreenState();
+}
+
+class _ProgressScreenState extends ConsumerState<ProgressScreen> {
+  late Future<List<dynamic>> _dataFuture;
+
+  Future<List<dynamic>> _loadData() => Future.wait<dynamic>([
+        ProgressService.load(),
+        EvaluationService.loadHistory(),
+      ]);
+
+  @override
+  void initState() {
+    super.initState();
+    _dataFuture = _loadData();
+  }
+
+  void _refresh() {
+    setState(() => _dataFuture = _loadData());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selectedLevel = ref.watch(schoolLevelProvider);
     final selectedTrack = ref.watch(schoolTrackProvider);
     final selectedSeries = ref.watch(schoolSeriesProvider);
     return Scaffold(
-      appBar: AppBar(leading: const ProfTogoMenuButton(), title: const Text('Ma progression')),
+      appBar: AppBar(
+        leading: const ProfTogoMenuButton(),
+        title: const Text('Ma progression'),
+        actions: [
+          IconButton(
+            tooltip: 'Actualiser ma progression',
+            onPressed: _refresh,
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
       body: FutureBuilder<List<dynamic>>(
-        future: Future.wait<dynamic>([
-          ProgressService.load(),
-          EvaluationService.loadHistory(),
-        ]),
+        future: _dataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
