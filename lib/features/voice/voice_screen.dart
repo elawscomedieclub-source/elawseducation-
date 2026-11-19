@@ -218,7 +218,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
           ),
           const SizedBox(height: 8),
           const Text(
-            'Écris ta question ou utilise le microphone. ProfTogo cherchera des explications dans les leçons disponibles.',
+            'Écris ta question ou dicte-la. ProfTogo recherche dans les cours de ta classe et de ta série, puis peut lire les explications à voix haute.',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
@@ -254,7 +254,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                       const Expanded(
                         child: Text('Vitesse de la voix', style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                      Text(_speechRate <= 0.40 ? 'Lente' : (_speechRate >= 0.65 ? 'Rapide' : 'Normale')),
+                      Text(_speechRate <= 0.42 ? 'Lente' : (_speechRate >= 0.68 ? 'Rapide' : 'Normale')),
                     ],
                   ),
                   Slider(
@@ -328,7 +328,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                 child: Padding(
                   padding: EdgeInsets.all(16),
                   child: Text(
-                    'Je ne trouve pas encore cette notion dans les leçons disponibles. Essaie avec d’autres mots ou consulte le menu Matières et cours.',
+                    'Je ne trouve pas encore cette notion dans les leçons de ta classe. Essaie avec un mot-clé plus simple (par exemple « fraction », « cellule » ou « verbe »), ou consulte Matières et cours.',
                   ),
                 ),
               ),
