@@ -67,24 +67,29 @@ class SubjectsScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                if (selectedLevel.index <= SchoolLevel.cm2.index)
-                  Card(
-                    color: const Color(0xFFE8F5EF),
-                    child: ListTile(
-                      leading: const Icon(Icons.calendar_month,
-                          color: Color(0xFF006A4E), size: 30),
-                      title: const Text('Progression annuelle',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: const Text('Voir les trois trimestres de cette classe'),
-                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => PrimaryYearPlanScreen(level: selectedLevel),
+                Card(
+                  color: const Color(0xFFE8F5EF),
+                  child: ListTile(
+                    leading: const Icon(Icons.calendar_month,
+                        color: Color(0xFF006A4E), size: 30),
+                    title: const Text('Progression annuelle',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(selectedLevel.index >= SchoolLevel.seconde.index
+                        ? 'Voir les trois trimestres et les objectifs de la série $selectedSeries'
+                        : 'Voir les trois trimestres de cette classe'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PrimaryYearPlanScreen(
+                          level: selectedLevel,
+                          track: selectedTrack,
+                          series: selectedSeries,
                         ),
                       ),
                     ),
                   ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Text(

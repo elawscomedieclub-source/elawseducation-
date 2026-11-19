@@ -148,7 +148,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
               }),
               const SizedBox(height: 10),
               Text(
-                'La progression et les notes sont enregistrées sur cet appareil. Elles ne se synchronisent pas encore entre plusieurs téléphones.',
+                'Sans compte connecté, la progression et les notes restent sur cet appareil. Avec un compte et une connexion disponible, elles peuvent être synchronisées avec Firestore.',
                 style: TextStyle(color: Theme.of(context).hintColor, fontSize: 12),
               ),
             ],
