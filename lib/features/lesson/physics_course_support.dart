@@ -3,12 +3,13 @@ import '../../data/models/models.dart';
 
 class PhysicsCourseSupport extends StatelessWidget {
   final Lesson lesson;
-  const PhysicsCourseSupport({super.key, required this.lesson});
+  final String chapterTitle;
+  const PhysicsCourseSupport({super.key, required this.lesson, this.chapterTitle = ''});
   @override Widget build(BuildContext context) {
-    final s=(lesson.title+' '+lesson.content).toLowerCase();
+    final s=(chapterTitle+' '+lesson.title+' '+lesson.summary+' '+lesson.content).toLowerCase();
     final topics=<_Topic>[];
-    if(lesson.id=='ly_premiere_sc_c_c_l' || RegExp(r'force|équilibre|concour|solide|interaction').hasMatch(s)) topics.addAll(_mechanics);
-    if(RegExp(r'transistor|détecteur|électronique').hasMatch(s)) topics.add(_transistor);
+    if(RegExp(r'force|équilibre|concour|solide|interaction|mécanique').hasMatch(s)) topics.addAll(_mechanics);
+    if(RegExp(r'transistor|détecteur|électronique|photorésistance').hasMatch(s)) topics.add(_transistor);
     if(topics.isEmpty)return const SizedBox.shrink();
     return Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
       const SizedBox(height:22),const Text('Cours approfondi — Physique et technologie',style:TextStyle(fontSize:20,fontWeight:FontWeight.w800)),
@@ -58,7 +59,7 @@ const _transistor=_Topic('4. Un détecteur utilisant un transistor','Objectif : 
 'Un transistor bipolaire NPN possède trois bornes : base (B), collecteur (C) et émetteur (E). Il peut fonctionner comme un interrupteur électronique : un faible courant de base commande le courant entre collecteur et émetteur. Dans un détecteur de lumière, une photorésistance (LDR) change de résistance selon l’éclairement. Avec une résistance, elle forme un diviseur de tension qui commande la base. Quand la commande est suffisante, le transistor conduit et peut allumer une LED ou activer un avertisseur.',
 'La LDR et R1 forment le capteur ; R2 limite le courant de base ; le transistor commande la LED. Le branchement du diviseur détermine si la LED s’allume dans l’obscurité ou à la lumière. Le seuil dépend des résistances et du transistor.',
 'Transistor bloqué : I_C ≈ 0     •     transistor passant : I_C > 0',
-'VCC : alimentation basse tension. LDR : photorésistance. R1/R2 : résistances. B : base, C : collecteur, E : émetteur. LED : voyant. Schéma fonctionnel simplifié ; la LED doit avoir une résistance série adaptée.',3,
+'Schéma fonctionnel de principe uniquement : il montre la chaîne capteur → commande → transistor → sortie, pas les fils de câblage. Pour réaliser le montage, il faut un schéma électrique complet indiquant la polarité, la masse commune, le brochage exact B/C/E du composant et les valeurs des résistances. La LED exige une résistance série adaptée.',3,
 ['Identifier B, C et E.','Le capteur transforme la lumière en variation électrique.','La base commande le courant collecteur-émetteur.','La résistance série limite le courant de la LED.','Utiliser une alimentation basse tension sous contrôle de l’enseignant.'],
 ['Quelles sont les trois bornes du transistor bipolaire ?','Quel est son rôle dans le détecteur ?','Pourquoi placer une résistance en série avec la LED ?'],
 [['Base, collecteur, émetteur','Anode, cathode, grille','Source, drain, grille'],['Il commande le courant de la charge','Il mesure directement la lumière','Il remplace l’alimentation'],['Pour limiter le courant','Pour augmenter la tension','Pour inverser la polarité']],[0,0,0],
@@ -120,8 +121,8 @@ class _Painter extends CustomPainter{
    void block(Rect r,String title,String subtitle){
     c.drawRRect(RRect.fromRectAndRadius(r,const Radius.circular(12)),fill);
     c.drawRRect(RRect.fromRectAndRadius(r,const Radius.circular(12)),ink);
-    label(title,Offset(r.left+8,r.top+13),w:r.width-16,f:14);
-    label(subtitle,Offset(r.left+8,r.top+38),w:r.width-16,f:11);
+    label(title,Offset(r.left+8,r.top+13),w:r.width-16,f:11);
+    label(subtitle,Offset(r.left+8,r.top+38),w:r.width-16,f:9);
    }
    label('DÉTECTEUR DE LUMIÈRE — PRINCIPE',const Offset(22,12),w:320,f:14);
    block(const Rect.fromLTWH(18,82,94,76),'CAPTEUR','LDR + R1');
