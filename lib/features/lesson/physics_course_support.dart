@@ -4,12 +4,13 @@ import '../../data/models/models.dart';
 class PhysicsCourseSupport extends StatelessWidget {
   final Lesson lesson;
   final String chapterTitle;
-  const PhysicsCourseSupport({super.key, required this.lesson, this.chapterTitle = ''});
+  final String chapterId;
+  const PhysicsCourseSupport({super.key, required this.lesson, this.chapterTitle = '', this.chapterId = ''});
   @override Widget build(BuildContext context) {
     final s=(chapterTitle+' '+lesson.title+' '+lesson.summary+' '+lesson.content).toLowerCase();
     final topics=<_Topic>[];
-    if(RegExp(r'force|équilibre|concour|solide|interaction|mécanique').hasMatch(s)) topics.addAll(_mechanics);
-    if(RegExp(r'transistor|détecteur|électronique|photorésistance').hasMatch(s)) topics.add(_transistor);
+    if(chapterId == 'ly_premiere_sc_c_c_c' || RegExp(r'\bforces?\b|équilibre|concour|mécanique').hasMatch(s)) topics.addAll(_mechanics);
+    if(chapterId == 'ly_terminale_f2_f2_c' || RegExp(r'transistor|détecteur|électronique|photorésistance').hasMatch(s)) topics.add(_transistor);
     if(topics.isEmpty)return const SizedBox.shrink();
     return Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
       const SizedBox(height:22),const Text('Cours approfondi — Physique et technologie',style:TextStyle(fontSize:20,fontWeight:FontWeight.w800)),
