@@ -236,9 +236,11 @@ class _CompositionScreenState extends State<CompositionScreen> {
                 ),
                 const SizedBox(height: 12),
                 SizedBox(width: double.infinity, child: FilledButton.icon(
-                  onPressed: _submitted ? null : _start,
+                  onPressed: (_submitted || _availableExerciseCount() == 0) ? null : _start,
                   icon: const Icon(Icons.assignment),
-                  label: Text(_started ? 'Recommencer le sujet' : 'Commencer la composition'),
+                  label: Text(_availableExerciseCount() == 0
+                      ? 'Aucun exercice disponible'
+                      : (_started ? 'Recommencer le sujet' : 'Commencer la composition')),
                 )),
               ]),
             ),
