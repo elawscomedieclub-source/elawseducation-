@@ -199,87 +199,41 @@ class _StudentProgressSummaryState extends State<StudentProgressSummary> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 14),
-                Builder(
-                  builder: (context) {
-                    final answeredCount = progress.answeredExerciseIds.length;
-                    final correctCount = progress.correctExerciseIds.length;
-                    final successRate = answeredCount == 0
-                        ? 0
-                        : ((correctCount / answeredCount) * 100).round();
-                    return Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  const Icon(Icons.stars_outlined, size: 28),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    '${progress.xp} XP',
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const Text('Points gagnés'),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  const Icon(Icons.task_alt, size: 28),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    '$correctCount',
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const Text('Exercices réussis'),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  const Icon(Icons.assignment_turned_in_outlined, size: 28),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    '$answeredCount',
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const Text('Exercices faits'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 18),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Taux de réussite'),
-                            Text(
-                              '$successRate%',
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        LinearProgressIndicator(
-                          value: successRate / 100,
-                          minHeight: 8,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ],
-                    );
-                  },
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Icon(Icons.stars_outlined, size: 28),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${progress.xp} XP',
+                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const Text('Points gagnés'),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Icon(Icons.task_alt, size: 28),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${progress.correctExerciseIds.length}',
+                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const Text('Exercices validés'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Ces résultats regroupent les exercices validés sur cet appareil, tous niveaux confondus.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Theme.of(context).hintColor, fontSize: 12),
                 ),
               ],
             ),
@@ -289,6 +243,7 @@ class _StudentProgressSummaryState extends State<StudentProgressSummary> {
     );
   }
 }
+
 
 class StudentProfileCloudSync extends ConsumerStatefulWidget {
   const StudentProfileCloudSync({super.key});
