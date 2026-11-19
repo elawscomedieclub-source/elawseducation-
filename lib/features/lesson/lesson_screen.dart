@@ -20,26 +20,108 @@ class LessonScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(chapter.title)),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 10, 16, 24),
         children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.menu_book_rounded,
+                    size: 30,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${lessons.length} leçon(s) dans ce chapitre',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          )),
+                      const SizedBox(height: 3),
+                      Text('Lis chaque leçon, observe les exemples puis entraîne-toi.',
+                          style: TextStyle(
+                            height: 1.3,
+                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 14),
           if (lessons.isEmpty)
-            const Text('Les leçons de ce chapitre seront bientôt disponibles.'),
-          ...lessons.map(
-            (lesson) => Card(
-              child: ListTile(
-                leading: const Icon(Icons.article_outlined),
-                title: Text(lesson.title),
-                subtitle: Text(lesson.summary),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => LessonContentScreen(lesson: lesson),
+            const Card(
+              child: Padding(
+                padding: EdgeInsets.all(18),
+                child: Text('Les leçons de ce chapitre seront bientôt disponibles.'),
+              ),
+            ),
+          ...lessons.asMap().entries.map((entry) {
+            final index = entry.key;
+            final lesson = entry.value;
+            final exerciseCount = demoExercises
+                .where((exercise) => exercise.lessonId == lesson.id)
+                .length;
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 10),
+                  leading: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                    child: Text('${index + 1}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        )),
+                  ),
+                  title: Text(lesson.title,
+                      style: const TextStyle(fontWeight: FontWeight.w800)),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(lesson.summary,
+                            maxLines: 2, overflow: TextOverflow.ellipsis),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 12,
+                          runSpacing: 4,
+                          children: [
+                            _LessonMeta(
+                              icon: Icons.schedule_rounded,
+                              label: '${lesson.durationMinutes} min',
+                            ),
+                            _LessonMeta(
+                              icon: Icons.quiz_outlined,
+                              label: '$exerciseCount exercice(s)',
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 17),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => LessonContentScreen(lesson: lesson),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );
@@ -437,3 +519,23 @@ List<Widget> _buildCourseBlocks(BuildContext context, String content) {
     );
   }).toList();
 }
+
+class _LessonMeta extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _LessonMeta({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 14, color: Theme.of(context).colorScheme.primary),
+        const SizedBox(width: 4),
+        Text(label, style: Theme.of(context).textTheme.labelSmall),
+      ],
+    );
+  }
+}
+
