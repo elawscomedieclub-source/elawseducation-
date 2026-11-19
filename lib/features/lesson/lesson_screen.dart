@@ -434,7 +434,7 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
           ..._buildCourseBlocks(context, lesson.content),
           LessonVisualSupport(lesson: lesson),
           ExtendedLessonVisualSupport(lesson: lesson),
-          PhysicsCourseSupport(lesson: lesson),
+          PhysicsCourseSupport(lesson: lesson, chapterTitle: chapter.title),
           const SizedBox(height: 20),
           const Text(
             'À retenir',
