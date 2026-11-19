@@ -85,6 +85,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     final items = demoExercises.where((e) => e.lessonId == widget.lesson.id).toList();
+    final completedCount = items.where((e) => _correctIds.contains(e.id)).length;
+    final completion = items.isEmpty ? 0.0 : completedCount / items.length;
 
     if (_loading) {
       return Scaffold(
@@ -110,6 +112,30 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 const Text(
                   'Réponds aux questions et gagne 10 XP pour chaque bonne réponse.',
                   style: TextStyle(fontSize: 15),
+                ),
+                const SizedBox(height: 12),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(14),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Ta réussite dans cette leçon', style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('$completedCount/${items.length}'),
+                          ],
+                        ),
+                        const SizedBox(height: 9),
+                        LinearProgressIndicator(value: completion, minHeight: 9),
+                        const SizedBox(height: 6),
+                        Text(completedCount == items.length
+                            ? 'Bravo ! Tous les exercices de cette leçon sont validés.'
+                            : 'Encore ${items.length - completedCount} exercice(s) à valider.'),
+                      ],
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 ...items.map((exercise) {
@@ -137,7 +163,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               groupValue: _correctIds.contains(exercise.id)
                                   ? exercise.correctIndex
                                   : selected,
-                              onChanged: answered
+                              onChanged: answered || _checkingIds.contains(exercise.id)
                                   ? null
                                   : (value) {
                                       if (value != null) {
