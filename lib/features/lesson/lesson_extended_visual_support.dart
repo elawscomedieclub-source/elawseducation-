@@ -11,6 +11,19 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
 
   _Support? get _support {
     final text = '${lesson.title} ${lesson.content}'.toLowerCase();
+    if (RegExp(r'multiplier|multiplication|groupes égaux|partage équitable').hasMatch(text)) {
+      return const _Support(
+        title: 'La multiplication avec des groupes égaux',
+        icon: Icons.calculate,
+        nodes: ['4 groupes', '3 objets chacun', '12 objets'],
+        explanation: 'Quatre groupes de trois objets donnent 3 + 3 + 3 + 3 = 12, soit 4 × 3 = 12. La multiplication permet de compter plus rapidement des groupes égaux.',
+        activity: 'Former des groupes et vérifier une multiplication',
+        materials: '12 petits cailloux propres ou bouchons, une feuille et un crayon.',
+        steps: ['Pose 12 objets sur la table.', 'Répartis-les en 4 groupes contenant le même nombre.', 'Compte les objets dans un groupe.', 'Écris l’addition répétée puis la multiplication correspondante.', 'Recommence avec 3 groupes de 4 objets.'],
+        result: '4 groupes de 3 et 3 groupes de 4 contiennent chacun 12 objets.',
+        safety: 'Utilise des objets assez gros pour ne pas être avalés et range-les après l’activité.'
+      );
+    }
     if (RegExp(r'aimant|magnét|pôle nord|pôle sud').hasMatch(text)) {
       return const _Support(
         title: 'Le magnétisme : deux pôles',
