@@ -7,7 +7,7 @@ class PhysicsCourseSupport extends StatelessWidget {
   @override Widget build(BuildContext context) {
     final s=(lesson.title+' '+lesson.content).toLowerCase();
     final topics=<_Topic>[];
-    if(RegExp(r'force|équilibre|concour|solide|interaction').hasMatch(s)) topics.addAll(_mechanics);
+    if(lesson.id=='ly_premiere_sc_c_c_l' || RegExp(r'force|équilibre|concour|solide|interaction').hasMatch(s)) topics.addAll(_mechanics);
     if(RegExp(r'transistor|détecteur|électronique').hasMatch(s)) topics.add(_transistor);
     if(topics.isEmpty)return const SizedBox.shrink();
     return Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
