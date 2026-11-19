@@ -58,7 +58,7 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   final FlutterTts _tts = FlutterTts();
   bool _speaking = false;
   bool _paused = false;
-  double _speechRate = 0.48;
+  double _speechRate = 0.56;
 
   @override
   void initState() {
@@ -239,8 +239,8 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
                       child: Slider(
                         value: _speechRate,
                         min: 0.30,
-                        max: 0.65,
-                        divisions: 7,
+                        max: 0.75,
+                        divisions: 9,
                         label: _speechRate.toStringAsFixed(2),
                         onChanged: (value) => setState(() => _speechRate = value),
                       ),
