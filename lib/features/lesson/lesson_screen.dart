@@ -335,9 +335,44 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
             ),
           ),
           const SizedBox(height: 18),
-          Text(
-            lesson.summary,
-            style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+          Card(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.flag_rounded,
+                          color: Theme.of(context).colorScheme.onPrimaryContainer),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text('L’essentiel de la leçon',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Theme.of(context).colorScheme.onPrimaryContainer,
+                            )),
+                      ),
+                      Text('${lesson.durationMinutes} min',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          )),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    lesson.summary,
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.45,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           Card(
