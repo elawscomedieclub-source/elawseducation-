@@ -115,6 +115,71 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Réalise l’activité dans un endroit sûr, avec l’accord de ton enseignant.'
       );
     }
+    if (RegExp(r'mesurer|longueur|monnaie|centimètre|centimètres|franc cfa').hasMatch(text)) {
+      return const _Support(
+        title: 'Mesurer une longueur et calculer un prix',
+        icon: Icons.straighten,
+        nodes: ['Règle graduée', 'cm et m', 'Prix total', 'Monnaie rendue'],
+        explanation: 'On mesure une longueur avec une unité adaptée. Pour un achat, on additionne les prix ; pour trouver la monnaie rendue, on soustrait le prix de la somme donnée.',
+        activity: 'Mesurer un objet et préparer un achat fictif',
+        materials: 'Une règle graduée, deux objets de la classe, des étiquettes de prix et des billets dessinés.',
+        steps: ['Mesure un crayon en centimètres en plaçant le zéro au début.', 'Mesure un autre objet avec la même règle.', 'Additionne deux prix fictifs.', 'Soustrais le total de la somme donnée pour calculer la monnaie.'],
+        result: '1 m = 100 cm. Le prix total est une addition et la monnaie rendue est une soustraction.',
+        safety: 'Utilise des objets de classe sans les lancer et ne manipule pas d’argent réel sans autorisation.'
+      );
+    }
+    if (RegExp(r'accord.*verbe|conjugaison|sujet et le verbe|présent').hasMatch(text)) {
+      return const _Support(
+        title: 'La phrase : sujet et verbe',
+        icon: Icons.menu_book,
+        nodes: ['SUJET', 'VERBE', 'COMPLÉMENT'],
+        explanation: 'Le sujet indique qui fait l’action. Le verbe exprime l’action et change selon le sujet. Exemple : Les élèves (sujet) lisent (verbe) un texte (complément).',
+        activity: 'Construire et transformer des phrases',
+        materials: 'Des étiquettes de mots ou des petits papiers.',
+        steps: ['Écris trois sujets : je, nous, les élèves.', 'Choisis le verbe chanter et écris sa forme au présent.', 'Associe chaque sujet à la bonne forme.', 'Souligne le sujet et entoure le verbe dans chaque phrase.'],
+        result: 'Je chante ; nous chantons ; les élèves chantent. Le verbe s’accorde avec le sujet.',
+        safety: 'Relis les phrases à voix haute pour vérifier qu’elles ont du sens.'
+      );
+    }
+    if (RegExp(r'animaux|animal|herbivore|carnivore|omnivore').hasMatch(text)) {
+      return const _Support(
+        title: 'Les animaux et leurs relations alimentaires',
+        icon: Icons.pets,
+        nodes: ['Végétaux', 'Herbivore', 'Carnivore'],
+        explanation: 'Les animaux ont besoin d’eau et de nourriture. Un herbivore mange des végétaux ; un carnivore mange d’autres animaux ; un omnivore consomme les deux types d’aliments.',
+        activity: 'Classer des animaux de son environnement',
+        materials: 'Des dessins ou noms d’animaux connus et une feuille.',
+        steps: ['Choisis quatre animaux connus.', 'Indique ce que chacun mange, sans le capturer.', 'Classe-les selon leur alimentation.', 'Dessine une relation alimentaire simple avec des flèches.'],
+        result: 'Les animaux ont des régimes alimentaires différents et dépendent de leur milieu.',
+        safety: 'Observe les animaux à distance. Ne touche pas les animaux inconnus et ne détruis pas leurs habitats.'
+      );
+    }
+    if (RegExp(r'métiers|métier|communauté|services de proximité|travailleurs').hasMatch(text)) {
+      return const _Support(
+        title: 'Les métiers et les services de la communauté',
+        icon: Icons.groups,
+        nodes: ['École', 'Centre de santé', 'Marché', 'Mairie'],
+        explanation: 'Les personnes et les services répondent à des besoins différents. Ils contribuent ensemble à la vie de la communauté.',
+        activity: 'Réaliser une carte des services du quartier',
+        materials: 'Une feuille, un crayon et les noms de services connus.',
+        steps: ['Choisis trois services de ton quartier.', 'Écris le besoin auquel chacun répond.', 'Associe un métier à chaque service.', 'Présente une règle de respect pour chaque lieu.'],
+        result: 'Une communauté fonctionne grâce à la participation et au respect de ses membres.',
+        safety: 'Ne visite aucun lieu sans l’accord d’un adulte responsable.'
+      );
+    }
+    if (RegExp(r'daily routines|wake up|what time is it|o.clock|morning|afternoon').hasMatch(text)) {
+      return const _Support(
+        title: 'Organiser sa journée en anglais',
+        icon: Icons.schedule,
+        nodes: ['Morning', 'Afternoon', 'Evening', 'Night'],
+        explanation: 'Ces mots indiquent les moments de la journée. On peut les utiliser pour présenter ses habitudes et dire quand une action se déroule.',
+        activity: 'Présenter quatre moments de sa journée',
+        materials: 'Une feuille et un crayon.',
+        steps: ['Dessine quatre cases.', 'Écris Morning, Afternoon, Evening et Night.', 'Ajoute une action simple dans chaque case.', 'Présente tes phrases à un camarade en anglais.'],
+        result: 'I go to school in the morning. I sleep at night.',
+        safety: 'Écoute ton camarade et respecte son rythme de lecture.'
+      );
+    }
     return null;
   }
 
