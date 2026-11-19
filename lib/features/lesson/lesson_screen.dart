@@ -57,15 +57,17 @@ class LessonContentScreen extends StatefulWidget {
 class _LessonContentScreenState extends State<LessonContentScreen> {
   final FlutterTts _tts = FlutterTts();
   bool _speaking = false;
+  bool _paused = false;
+  double _speechRate = 0.48;
 
   @override
   void initState() {
     super.initState();
     _tts.setStartHandler(() {
-      if (mounted) setState(() => _speaking = true);
+      if (mounted) setState(() { _speaking = true; _paused = false; });
     });
     _tts.setCompletionHandler(() {
-      if (mounted) setState(() => _speaking = false);
+      if (mounted) setState(() { _speaking = false; _paused = false; });
     });
     _tts.setCancelHandler(() {
       if (mounted) setState(() => _speaking = false);
@@ -83,28 +85,52 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
     return '${widget.lesson.title}. ${widget.lesson.summary}. ${widget.lesson.content}.$points';
   }
 
-  Future<void> _toggleReading() async {
-    if (_speaking) {
-      await _tts.stop();
-      if (mounted) setState(() => _speaking = false);
-      return;
-    }
-
+  Future<void> _startReading() async {
     try {
+      await _tts.stop();
       await _tts.setLanguage('fr-FR');
-      await _tts.setSpeechRate(0.43);
+      await _tts.setSpeechRate(_speechRate);
       await _tts.setVolume(1.0);
       await _tts.setPitch(1.0);
+      if (mounted) setState(() { _speaking = true; _paused = false; });
       await _tts.speak(_lessonText);
     } catch (_) {
       if (!mounted) return;
-      setState(() => _speaking = false);
+      setState(() { _speaking = false; _paused = false; });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Lecture vocale indisponible. Vérifie les voix installées sur ton appareil.'),
+          content: Text('Lecture vocale indisponible. Vérifie que la synthèse vocale française est installée sur ton téléphone.'),
         ),
       );
     }
+  }
+
+  Future<void> _pauseReading() async {
+    try {
+      await _tts.pause();
+      if (mounted) setState(() => _paused = true);
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('La pause vocale n’est pas prise en charge par cette voix.')),
+        );
+      }
+    }
+  }
+
+  Future<void> _resumeReading() async {
+    try {
+      await _tts.setSpeechRate(_speechRate);
+      await _tts.speak(_lessonText);
+      if (mounted) setState(() { _speaking = true; _paused = false; });
+    } catch (_) {
+      if (mounted) setState(() { _speaking = false; _paused = false; });
+    }
+  }
+
+  Future<void> _stopReading() async {
+    await _tts.stop();
+    if (mounted) setState(() { _speaking = false; _paused = false; });
   }
 
   @override
@@ -193,12 +219,53 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
             style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            height: 48,
-            child: OutlinedButton.icon(
-              onPressed: _toggleReading,
-              icon: Icon(_speaking ? Icons.stop_circle_outlined : Icons.volume_up_outlined),
-              label: Text(_speaking ? 'Arrêter la lecture' : 'Écouter cette leçon'),
+          Card(
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    Icon(Icons.record_voice_over, color: Theme.of(context).colorScheme.onSecondaryContainer),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text('Écouter le cours', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer))),
+                  ]),
+                  const SizedBox(height: 4),
+                  Text('La voix lit le cours en français. Ajuste la vitesse selon ton confort.', style: Theme.of(context).textTheme.bodySmall),
+                  Row(children: [
+                    const Text('Lent'),
+                    Expanded(
+                      child: Slider(
+                        value: _speechRate,
+                        min: 0.30,
+                        max: 0.65,
+                        divisions: 7,
+                        label: _speechRate.toStringAsFixed(2),
+                        onChanged: (value) => setState(() => _speechRate = value),
+                      ),
+                    ),
+                    const Text('Rapide'),
+                  ]),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: _speaking && !_paused ? _pauseReading : (_paused ? _resumeReading : _startReading),
+                          icon: Icon(_speaking && !_paused ? Icons.pause : Icons.play_arrow),
+                          label: Text(_speaking && !_paused ? 'Pause' : (_paused ? 'Reprendre' : 'Écouter')),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton.filledTonal(
+                        tooltip: 'Arrêter la voix',
+                        onPressed: _speaking || _paused ? _stopReading : null,
+                        icon: const Icon(Icons.stop),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 18),
