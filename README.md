@@ -21,7 +21,7 @@ Application éducative destinée aux élèves au Togo, du CP1 à la Terminale.
 
 ## Base pédagogique actuelle
 
-La base contient **165 matières, 280 chapitres, 767 leçons et 2 276 exercices**, répartis sur les 13 niveaux du CP1 à la Terminale. Elle comprend les parcours et séries du lycée mentionnés ci-dessus.
+La base contient **165 matières, 280 chapitres, 793 leçons et 2 328 exercices**, répartis sur les 13 niveaux du CP1 à la Terminale. Elle comprend les parcours et séries du lycée mentionnés ci-dessus.
 
 Ces ressources sont une base pédagogique de travail. Elles doivent être comparées aux programmes officiels en vigueur au Togo et relues par des enseignants avant d’être considérées comme exhaustives ou homologuées. La présence d’un niveau et d’un grand nombre d’exercices ne garantit pas à elle seule la couverture complète de chaque trimestre ou de chaque épreuve nationale.
 

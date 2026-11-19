@@ -22,10 +22,11 @@ class ProgressService {
 
   static Future<ProgressSnapshot> load() async {
     final prefs = await SharedPreferences.getInstance();
+    final localCorrect = (prefs.getStringList(_correctKey) ?? []).toSet();
     final local = ProgressSnapshot(
       answeredExerciseIds: (prefs.getStringList(_answeredKey) ?? []).toSet(),
-      correctExerciseIds: (prefs.getStringList(_correctKey) ?? []).toSet(),
-      xp: prefs.getInt(_xpKey) ?? 0,
+      correctExerciseIds: localCorrect,
+      xp: localCorrect.length * 10,
     );
 
     if (FirebaseAuth.instance.currentUser == null) return local;
@@ -37,10 +38,13 @@ class ProgressService {
         return local;
       }
 
-      final merged = ProgressSnapshot(
-        answeredExerciseIds: {...local.answeredExerciseIds, ...cloud.answeredExerciseIds},
-        correctExerciseIds: {...local.correctExerciseIds, ...cloud.correctExerciseIds},
-        xp: local.xp > cloud.xp ? local.xp : cloud.xp,
+      final merged = mergeSnapshots(
+        local,
+        ProgressSnapshot(
+          answeredExerciseIds: cloud.answeredExerciseIds,
+          correctExerciseIds: cloud.correctExerciseIds,
+          xp: cloud.xp,
+        ),
       );
       await _saveLocal(prefs, merged);
       await _saveCloud(merged);
@@ -65,36 +69,59 @@ class ProgressService {
 
     answered.add(exerciseId);
     correct.add(exerciseId);
-    final xp = (prefs.getInt(_xpKey) ?? 0) + 10;
-
     final progress = ProgressSnapshot(
       answeredExerciseIds: answered,
       correctExerciseIds: correct,
-      xp: xp,
+      xp: correct.length * 10,
     );
     await _saveLocal(prefs, progress);
 
     if (FirebaseAuth.instance.currentUser != null) {
       try {
         final cloud = await CloudProgressService.loadForCurrentUser();
-        final merged = ProgressSnapshot(
-          answeredExerciseIds: {
-            ...progress.answeredExerciseIds,
-            ...?cloud?.answeredExerciseIds,
-          },
-          correctExerciseIds: {
-            ...progress.correctExerciseIds,
-            ...?cloud?.correctExerciseIds,
-          },
-          xp: (cloud != null && cloud.xp > progress.xp) ? cloud.xp : progress.xp,
+        final cloudProgress = ProgressSnapshot(
+          answeredExerciseIds: cloud?.answeredExerciseIds ?? <String>{},
+          correctExerciseIds: cloud?.correctExerciseIds ?? <String>{},
+          xp: cloud?.xp ?? 0,
         );
+        final alreadyEarnedInCloud =
+            cloudProgress.correctExerciseIds.contains(exerciseId);
+        final merged = mergeSnapshots(progress, cloudProgress);
         await _saveLocal(prefs, merged);
         await _saveCloud(merged);
       } catch (_) {
         // Ne bloque jamais les exercices si la sauvegarde cloud échoue.
       }
     }
-    return true;
+    return FirebaseAuth.instance.currentUser == null
+        ? true
+        : !((await _cloudAlreadyHadExercise(exerciseId)) ?? false);
+  }
+
+  static Future<bool?> _cloudAlreadyHadExercise(String exerciseId) async {
+    try {
+      final cloud = await CloudProgressService.loadForCurrentUser();
+      return cloud?.correctExerciseIds.contains(exerciseId) ?? false;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static ProgressSnapshot mergeSnapshots(
+    ProgressSnapshot local,
+    ProgressSnapshot cloud,
+  ) {
+    final correct = {...local.correctExerciseIds, ...cloud.correctExerciseIds};
+    final answered = {
+      ...local.answeredExerciseIds,
+      ...cloud.answeredExerciseIds,
+      ...correct,
+    };
+    return ProgressSnapshot(
+      answeredExerciseIds: answered,
+      correctExerciseIds: correct,
+      xp: correct.length * 10,
+    );
   }
 
   static Future<void> _saveLocal(

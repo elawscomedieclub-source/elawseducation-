@@ -318,13 +318,13 @@ class _StudentProfileCloudSyncState
       await ref.read(schoolTrackProvider.notifier).setTrack(track);
       await ref.read(schoolSeriesProvider.notifier).setSeries(series);
 
-      if (cloud == null) {
-        await StudentProfileCloudService.save(
-          level: level.name,
-          track: track.name,
-          series: series,
-        );
-      }
+      // Réécrit les champs normalisés même si le document cloud existait déjà
+      // partiellement (par exemple après l'enregistrement initial d'une photo).
+      await StudentProfileCloudService.save(
+        level: level.name,
+        track: track.name,
+        series: series,
+      );
       _ready = true;
     } catch (_) {
       _ready = true;
