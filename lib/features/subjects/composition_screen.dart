@@ -67,7 +67,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
     final pools = <List<Exercise>>[];
     for (final subject in subjects) {
       final chapterIds = demoChapters
-          .where((chapter) => chapter.subjectId == subject.id)
+          .where((chapter) => chapter.subjectId == subject.id && chapter.term == _term)
           .map((chapter) => chapter.id)
           .toSet();
       final lessonIds = demoLessons
@@ -113,7 +113,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
             (_selectedSubjectId == null || s.id == _selectedSubjectId))
         .toList();
     final chapterIds = demoChapters
-        .where((c) => subjects.any((subject) => subject.id == c.subjectId))
+        .where((c) => subjects.any((subject) => subject.id == c.subjectId) && c.term == _term)
         .map((c) => c.id)
         .toSet();
     final lessonIds = demoLessons
@@ -195,7 +195,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Text(
-                    'Information : les leçons ne sont pas encore classées par trimestre. Le choix T1, T2 ou T3 sert à identifier le résultat ; il ne filtre pas encore les questions.',
+                    'Les chapitres sont répartis sur les trois trimestres selon leur ordre dans le programme. Le choix T1, T2 ou T3 filtre les exercices de la période sélectionnée ; l’enseignant peut ajuster cette progression.',
                     style: TextStyle(fontSize: 12),
                   ),
                 ),

@@ -145,6 +145,10 @@ class SubjectDetailScreen extends StatelessWidget {
                       children: [
                         _ChapterMeta(
                           icon: Icons.article_outlined,
+                          label: 'Trimestre T${chapter.term}',
+                        ),
+                        _ChapterMeta(
+                          icon: Icons.article_outlined,
                           label: '${chapterLessons.length} leçon(s)',
                         ),
                         _ChapterMeta(

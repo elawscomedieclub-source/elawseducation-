@@ -27,9 +27,9 @@ class Subject extends Equatable {
   @override List<Object?> get props => [id, name, level, track, series];
 }
 class Chapter extends Equatable {
-  final String id, subjectId, title; final int order; final bool isCompleted; final int totalLessons, completedLessons;
-  const Chapter({required this.id, required this.subjectId, required this.title, required this.order, this.isCompleted = false, this.totalLessons = 0, this.completedLessons = 0});
-  @override List<Object?> get props => [id, subjectId, title];
+  final String id, subjectId, title; final int order; final bool isCompleted; final int totalLessons, completedLessons, term;
+  const Chapter({required this.id, required this.subjectId, required this.title, required this.order, this.isCompleted = false, this.totalLessons = 0, this.completedLessons = 0, this.term = 1});
+  @override List<Object?> get props => [id, subjectId, title, term];
 }
 class Lesson extends Equatable {
   final String id, chapterId, title, content, summary; final int durationMinutes; final bool isCompleted; final List<String> keyPoints;

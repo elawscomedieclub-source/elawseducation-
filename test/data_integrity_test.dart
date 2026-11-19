@@ -154,6 +154,16 @@ void main() {
       }
     });
 
+    test('chaque matière couvre les trois trimestres', () {
+      for (final chapter in demoChapters) {
+        expect(chapter.term, inInclusiveRange(1, 3), reason: 'Trimestre invalide pour ${chapter.id}');
+      }
+      for (final subject in demoSubjects) {
+        final terms = demoChapters.where((chapter) => chapter.subjectId == subject.id).map((chapter) => chapter.term).toSet();
+        expect(terms, containsAll([1, 2, 3]), reason: 'Trimestre manquant pour ${subject.id}');
+      }
+    });
+
     test('chaque chapitre contient au moins une leçon', () {
       for (final chapter in demoChapters) {
         expect(
