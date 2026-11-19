@@ -130,8 +130,11 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
         .toSet();
 
     final selectedLevel = ref.read(schoolLevelProvider);
+    final selectedTrack = ref.read(schoolTrackProvider);
+    final selectedSeries = ref.read(schoolSeriesProvider);
     final selectedSubjectIds = demoSubjects
-        .where((subject) => subject.level == selectedLevel)
+        .where((subject) => subjectMatchesPath(
+              subject, selectedLevel, selectedTrack, selectedSeries))
         .map((subject) => subject.id)
         .toSet();
     final selectedChapterIds = demoChapters

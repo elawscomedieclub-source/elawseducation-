@@ -7,11 +7,24 @@ import '../../data/models/models.dart';
 import '../../core/progress_service.dart';
 import '../subjects/subject_detail_screen.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  late Future<ProgressSnapshot> _progressFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _progressFuture = ProgressService.load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selectedLevel = ref.watch(schoolLevelProvider);
     final selectedTrack = ref.watch(schoolTrackProvider);
     final selectedSeries = ref.watch(schoolSeriesProvider);
@@ -26,10 +39,9 @@ class HomeScreen extends ConsumerWidget {
             style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
-            onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Bienvenue sur ProfTogo !')),
-            ),
-            icon: const Icon(Icons.notifications_none),
+            tooltip: 'Actualiser la progression',
+            onPressed: () => setState(() => _progressFuture = ProgressService.load()),
+            icon: const Icon(Icons.refresh),
           ),
         ],
       ),
@@ -56,7 +68,7 @@ class HomeScreen extends ConsumerWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
-                Text('Ta classe : ' + selectedLevel.label,
+                Text('Ta classe : ${selectedLevel.label}' + (selectedLevel.index >= SchoolLevel.seconde.index ? ' • ${selectedTrack.label} • Série $selectedSeries' : ''),
                     style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 6),
@@ -70,7 +82,7 @@ class HomeScreen extends ConsumerWidget {
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           FutureBuilder<ProgressSnapshot>(
-            future: ProgressService.load(),
+            future: _progressFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const LinearProgressIndicator(minHeight: 3);
@@ -117,27 +129,62 @@ class HomeScreen extends ConsumerWidget {
               ),
             )
           else
-            ...subjects.map((subject) => Card(
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      backgroundColor: Color(0xFFE8F5F0),
-                      child: Icon(Icons.menu_book,
-                          color: Color(0xFF006A4E)),
-                    ),
-                    title: Text(subject.name),
-                    subtitle: Text(
-                        (subject.progress * 100).round().toString() +
-                        ' % terminé'),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            SubjectDetailScreen(subject: subject),
+            ...subjects.map((subject) {
+              final chapterIds = demoChapters
+                  .where((chapter) => chapter.subjectId == subject.id)
+                  .map((chapter) => chapter.id)
+                  .toSet();
+              final lessonIds = demoLessons
+                  .where((lesson) => chapterIds.contains(lesson.chapterId))
+                  .map((lesson) => lesson.id)
+                  .toSet();
+              final exerciseIds = demoExercises
+                  .where((exercise) => lessonIds.contains(exercise.lessonId))
+                  .map((exercise) => exercise.id)
+                  .toSet();
+              return FutureBuilder<ProgressSnapshot>(
+                future: _progressFuture,
+                builder: (context, progressSnapshot) {
+                  final progress = progressSnapshot.data;
+                  final done = progress == null
+                      ? 0
+                      : exerciseIds.where(progress.correctExerciseIds.contains).length;
+                  final ratio = exerciseIds.isEmpty ? 0.0 : done / exerciseIds.length;
+                  final subtitle = progressSnapshot.connectionState == ConnectionState.waiting
+                      ? 'Chargement de ta progression…'
+                      : progressSnapshot.hasError
+                          ? 'Progression momentanément indisponible'
+                          : '$done/${exerciseIds.length} exercices validés • ${(ratio * 100).round()} %';
+                  return Card(
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        backgroundColor: Color(0xFFE8F5F0),
+                        child: Icon(Icons.menu_book, color: Color(0xFF006A4E)),
+                      ),
+                      title: Text(subject.name),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(subtitle),
+                          const SizedBox(height: 6),
+                          LinearProgressIndicator(
+                            value: progress == null ? null : ratio,
+                            minHeight: 5,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => SubjectDetailScreen(subject: subject)),
                       ),
                     ),
-                  ),
-                )),
+                  );
+                },
+              );
+            }),
         ],
       ),
     );

@@ -5,41 +5,43 @@ Application éducative destinée aux élèves au Togo, du CP1 à la Terminale.
 ## Versions disponibles
 
 - Web : https://elawscomedieclub-source.github.io/elawseducation-/
-- Android : télécharger l'APK depuis la page [Releases](https://github.com/elawscomedieclub-source/elawseducation-/releases).
+- Android : télécharger l’APK depuis la page [Releases](https://github.com/elawscomedieclub-source/elawseducation-/releases).
 
 ## Fonctionnalités présentes
 
-- Sélection du niveau scolaire : CP1, CP2, CE1, CE2, CM1, CM2, 6ème, 5ème, 4ème, 3ème, 2nde, 1ère et Terminale.
-- Consultation des matières, chapitres, leçons et points essentiels.
-- Démarche pédagogique inspirée de l'APC : compétence, situation-problème, mission, étapes et critères de réussite.
-- Exercices interactifs avec correction et explication.
-- Compositions d'entraînement par matière ou en mode mélangé.
-- Historique des évaluations et suivi local de la progression.
-- Lecture vocale des leçons et recherche de notions par texte ou microphone lorsque le navigateur ou l'appareil prend en charge ces services.
-- Thème clair et sombre.
+- Choix du niveau scolaire : CP1, CP2, CE1, CE2, CM1, CM2, 6ème, 5ème, 4ème, 3ème, 2nde, 1ère et Terminale.
+- Parcours du lycée général/littéraire (A4), scientifique (C et D), technique tertiaire (G1, G2, G3) et technique industriel (E, F1, F2, F3, F4, Ti/1).
+- Matières, chapitres, cours détaillés, résumés, points essentiels et démarches d’apprentissage inspirées de l’APC.
+- Exercices interactifs, corrections expliquées, reprise après erreur et points XP.
+- Compositions d’entraînement par matière ou en mode mélangé, avec historique des notes.
+- Missions APC avec sauvegarde de la production de l’élève sur son appareil.
+- Suivi de la progression par niveau, matière et leçon, avec actualisation.
+- Profil élève, choix de classe/parcours/série, photo, compte et thème clair/sombre.
+- Lecture vocale des cours et recherche par texte ou microphone lorsque l’appareil prend en charge les services vocaux.
 
 ## Base pédagogique actuelle
 
-La base pédagogique actuelle contient 97 matières, 109 chapitres, 224 leçons et 770 exercices. Elle inclut les parcours du lycée général/littéraire (A4), scientifique (C, D), technique tertiaire (G1, G2, G3) et technique industriel (E, F1, F2, F3, F4, Ti/1). Les contenus sont des ressources pédagogiques de travail, à vérifier et enrichir avec les documents officiels homologués et les enseignants. Ils ne constituent pas une publication homologuée par le ministère.
+La base contient **165 matières, 280 chapitres, 741 leçons et 2 224 exercices**, répartis sur les 13 niveaux du CP1 à la Terminale. Elle comprend les parcours et séries du lycée mentionnés ci-dessus.
 
-## Limites connues
+Ces ressources sont une base pédagogique de travail. Elles doivent être comparées aux programmes officiels en vigueur au Togo et relues par des enseignants avant d’être considérées comme exhaustives ou homologuées. La présence d’un niveau et d’un grand nombre d’exercices ne garantit pas à elle seule la couverture complète de chaque trimestre ou de chaque épreuve nationale.
 
-- Les progrès, XP et résultats sont conservés localement sur l'appareil. Il n'y a pas encore de comptes élèves/enseignants ni de synchronisation entre appareils.
-- Les compositions utilisent les exercices disponibles ; le choix du trimestre est affiché mais ne filtre pas encore les questions selon une progression trimestrielle.
-- Le professeur vocal effectue une recherche par mots-clés dans les leçons disponibles. Il ne s'agit pas encore d'un assistant IA qui connaît toutes les réponses.
-- La disponibilité de la reconnaissance et de la synthèse vocales dépend du navigateur, du système et des langues installées.
-- Les contenus couvrent des notions de plusieurs niveaux, mais la présence d'un niveau dans le sélecteur ne signifie pas que tout son programme officiel est déjà complet.
+## Points de vigilance connus
+
+- Les données de progression et les productions APC sont conservées localement. La progression, le profil et les évaluations peuvent aussi être synchronisés avec Firestore lorsqu’un élève est connecté et que le service est accessible. La synchronisation dépend de la configuration Firebase et de la connexion.
+- Les leçons ne sont pas encore toutes affectées à un trimestre : le choix T1/T2/T3 dans les compositions identifie le résultat, mais ne filtre pas encore les questions par trimestre.
+- Les matières du lycée et certaines séries techniques nécessitent encore un approfondissement des chapitres, des cours et des sujets d’entraînement.
+- Le professeur vocal recherche des notions dans les cours disponibles par mots-clés ; il ne s’agit pas encore d’un assistant IA conversationnel.
+- La reconnaissance vocale et la lecture à voix haute dépendent du téléphone, du navigateur, des autorisations et des langues installées.
+- L’application ne dispose pas encore d’un espace complet de gestion des classes, des devoirs et des notes par les enseignants.
 
 ## Développement
 
-Prérequis : Flutter stable et Dart compatibles avec les contraintes de `pubspec.yaml`.
+Le projet utilise Flutter et Firebase. La publication Web et la compilation Android sont automatisées par GitHub Actions.
 
 ```bash
 flutter pub get
+flutter test
 flutter analyze lib
-flutter run -d chrome
 flutter build web --release --base-href "/elawseducation-/"
 flutter build apk --release
 ```
-
-La publication Web et la construction Android sont automatisées par GitHub Actions dans `.github/workflows/build.yml`.

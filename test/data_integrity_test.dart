@@ -153,6 +153,56 @@ void main() {
             reason: 'Compteur incorrect pour ${chapter.id}');
       }
     });
+
+    test('chaque chapitre contient au moins une leçon', () {
+      for (final chapter in demoChapters) {
+        expect(
+          demoLessons.any((lesson) => lesson.chapterId == chapter.id),
+          isTrue,
+          reason: 'Aucune leçon dans le chapitre ${chapter.id}',
+        );
+      }
+    });
+
+    test('chaque leçon propose au moins un exercice', () {
+      for (final lesson in demoLessons) {
+        expect(
+          demoExercises.any((exercise) => exercise.lessonId == lesson.id),
+          isTrue,
+          reason: 'Aucun exercice pour la leçon ${lesson.id}',
+        );
+      }
+    });
+
+    test('chaque niveau possède une banque minimale de révision', () {
+      for (final level in SchoolLevel.values) {
+        final subjectIds = demoSubjects
+            .where((subject) => subject.level == level)
+            .map((subject) => subject.id)
+            .toSet();
+        final chapterIds = demoChapters
+            .where((chapter) => subjectIds.contains(chapter.subjectId))
+            .map((chapter) => chapter.id)
+            .toSet();
+        final lessonIds = demoLessons
+            .where((lesson) => chapterIds.contains(lesson.chapterId))
+            .map((lesson) => lesson.id)
+            .toSet();
+        final count = demoExercises
+            .where((exercise) => lessonIds.contains(exercise.lessonId))
+            .length;
+        expect(count, greaterThanOrEqualTo(20),
+            reason: 'Banque d’exercices trop faible pour ${level.label}');
+      }
+    });
+
+    test('les choix de réponse ne sont pas dupliqués à l’identique', () {
+      for (final exercise in demoExercises) {
+        final options = exercise.options.map((option) => option.trim()).toList();
+        expect(options.toSet().length, options.length,
+            reason: 'Choix dupliqué dans ${exercise.id}');
+      }
+    });
   });
 }
 
