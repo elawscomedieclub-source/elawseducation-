@@ -78,7 +78,9 @@ class _TopicCardState extends State<_TopicCard>{
    const SizedBox(height:12),const Text('Explication du cours',style:TextStyle(fontWeight:FontWeight.bold)),
    const SizedBox(height:5),Text(t.explanation,style:const TextStyle(height:1.5)),
    const SizedBox(height:12),const Text('Schéma explicatif',style:TextStyle(fontWeight:FontWeight.bold)),
-   const SizedBox(height:7),Container(width:double.infinity,height:t.diagram==3?330:245,decoration:BoxDecoration(color:cs.surfaceContainerHighest,border:Border.all(color:cs.outlineVariant),borderRadius:BorderRadius.circular(12)),child:ClipRRect(borderRadius:BorderRadius.circular(12),child:CustomPaint(painter:_Painter(t.diagram,cs),child:const SizedBox.expand()))),
+   const SizedBox(height:7),GestureDetector(
+    onTap:()=>showDialog<void>(context:context,builder:(ctx)=>Dialog.fullscreen(child:Scaffold(appBar:AppBar(title:Text(t.title),leading:IconButton(icon:const Icon(Icons.close),onPressed:()=>Navigator.pop(ctx))),body:Center(child:InteractiveViewer(minScale:1,maxScale:4,child:SizedBox(width:680,height:t.diagram==3?624:462,child:CustomPaint(painter:_Painter(t.diagram,cs),child:const SizedBox.expand()))))))),
+    child:Container(width:double.infinity,height:t.diagram==3?330:245,decoration:BoxDecoration(color:cs.surfaceContainerHighest,border:Border.all(color:cs.outlineVariant),borderRadius:BorderRadius.circular(12)),child:ClipRRect(borderRadius:BorderRadius.circular(12),child:CustomPaint(painter:_Painter(t.diagram,cs),child:const SizedBox.expand())))),
    const SizedBox(height:7),Text(t.caption,style:Theme.of(context).textTheme.bodySmall?.copyWith(height:1.4)),
    const SizedBox(height:12),const Text('Exemple expliqué',style:TextStyle(fontWeight:FontWeight.bold)),const SizedBox(height:5),Text(t.example,style:const TextStyle(height:1.5)),
    const SizedBox(height:10),Container(width:double.infinity,padding:const EdgeInsets.all(12),decoration:BoxDecoration(color:cs.secondaryContainer,borderRadius:BorderRadius.circular(10)),child:SelectableText(t.formula,textAlign:TextAlign.center,style:TextStyle(fontWeight:FontWeight.w800,fontSize:16,color:cs.onSecondaryContainer))),
@@ -114,13 +116,25 @@ class _Painter extends CustomPainter{
   }else if(kind==2){
    c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(30,88,115,72),const Radius.circular(8)),fill);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(30,88,115,72),const Radius.circular(8)),ink);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(215,88,115,72),const Radius.circular(8)),fill);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(215,88,115,72),const Radius.circular(8)),ink);label('MAIN',const Offset(66,115));label('BLOC',const Offset(252,115));arrow(const Offset(145,72),const Offset(215,72),blue);arrow(const Offset(215,183),const Offset(145,183),red);label('F(main → bloc)',const Offset(145,39),w:155,f:11);label('F(bloc → main)',const Offset(145,192),w:155,f:11);label('Même intensité, sens opposés',const Offset(75,225),w:220,f:12);
   }else{
-   line(const Offset(25,32),const Offset(330,32),ink);line(const Offset(25,32),const Offset(25,285),ink);line(const Offset(25,285),const Offset(330,285),ink);
-   c.drawRect(const Rect.fromLTWH(65,58,68,28),fill);c.drawRect(const Rect.fromLTWH(65,58,68,28),ink);label('LDR',const Offset(86,64),w:45);line(const Offset(99,32),const Offset(99,58),ink);line(const Offset(99,86),const Offset(99,112),ink);
-   c.drawRect(const Rect.fromLTWH(65,112,68,28),fill);c.drawRect(const Rect.fromLTWH(65,112,68,28),ink);label('R1',const Offset(88,118),w:40);line(const Offset(99,140),const Offset(99,165),ink);
-   c.drawRect(const Rect.fromLTWH(145,151,58,28),fill);c.drawRect(const Rect.fromLTWH(145,151,58,28),ink);label('R2',const Offset(165,157),w:40);line(const Offset(99,165),const Offset(145,165),blue);line(const Offset(203,165),const Offset(245,165),blue);
-   c.drawCircle(const Offset(275,165),29,ink);line(const Offset(247,165),const Offset(260,165),ink);line(const Offset(260,140),const Offset(260,190),ink);line(const Offset(260,145),const Offset(290,120),ink);arrow(const Offset(278,178),const Offset(294,194),green);line(const Offset(290,120),const Offset(310,95),ink);line(const Offset(294,194),const Offset(310,225),ink);
-   label('C',const Offset(315,85),w:20);label('E',const Offset(315,220),w:20);label('B',const Offset(228,145),w:20);label('NPN',const Offset(255,202),w:55,f:11);
-   c.drawRect(const Rect.fromLTWH(215,48,78,25),fill);c.drawRect(const Rect.fromLTWH(215,48,78,25),ink);label('R LED',const Offset(224,53),w:60,f:11);c.drawCircle(const Offset(260,95),13,red);label('LED',const Offset(238,104),w:40,f:10);line(const Offset(260,82),const Offset(310,82),red);line(const Offset(310,82),const Offset(310,95),red);line(const Offset(310,225),const Offset(310,285),ink);label('VCC +',const Offset(25,8),w:65);label('0 V',const Offset(295,288),w:45);label('Capteur → commande B',const Offset(55,245),w:190,f:12);
+   // Schéma fonctionnel lisible : détection, commande et action.
+   void block(Rect r,String title,String subtitle){
+    c.drawRRect(RRect.fromRectAndRadius(r,const Radius.circular(12)),fill);
+    c.drawRRect(RRect.fromRectAndRadius(r,const Radius.circular(12)),ink);
+    label(title,Offset(r.left+8,r.top+13),w:r.width-16,f:14);
+    label(subtitle,Offset(r.left+8,r.top+38),w:r.width-16,f:11);
+   }
+   label('DÉTECTEUR DE LUMIÈRE — PRINCIPE',const Offset(22,12),w:320,f:14);
+   block(const Rect.fromLTWH(18,82,94,76),'CAPTEUR','LDR + R1');
+   block(const Rect.fromLTWH(133,82,94,76),'COMMANDE','signal vers B');
+   block(const Rect.fromLTWH(248,82,94,76),'TRANSISTOR','NPN : B, C, E');
+   arrow(const Offset(112,120),const Offset(133,120),blue);
+   arrow(const Offset(227,120),const Offset(248,120),blue);
+   label('lumière',const Offset(31,57),w:80,f:12);
+   arrow(const Offset(57,75),const Offset(70,82),green);
+   block(const Rect.fromLTWH(205,220,137,70),'SORTIE','LED / avertisseur');
+   arrow(const Offset(295,158),const Offset(295,220),red);
+   label('Le transistor agit comme un interrupteur',const Offset(22,185),w:320,f:12);
+   label('Alimentation basse tension',const Offset(22,304),w:240,f:12);
   }
   c.restore();
  }
