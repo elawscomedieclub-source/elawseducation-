@@ -26,7 +26,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   bool _listening = false;
   bool _speechAvailable = false;
   bool _searched = false;
-  double _speechRate = 0.50;
+  double _speechRate = 0.58;
   List<Lesson> _matches = [];
 
   @override
@@ -260,15 +260,15 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                   Slider(
                     value: _speechRate,
                     min: 0.30,
-                    max: 0.75,
-                    divisions: 9,
+                    max: 0.85,
+                    divisions: 11,
                     label: _speechRate.toStringAsFixed(2),
                     onChanged: (_speaking || _listening)
                         ? null
                         : (value) => setState(() => _speechRate = value),
                   ),
                   const Text(
-                    'Choisis une vitesse confortable pour bien entendre et comprendre le cours.',
+                    'La vitesse rapide est disponible sans dépasser un débit qui risque de rendre les explications difficiles à comprendre.',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
