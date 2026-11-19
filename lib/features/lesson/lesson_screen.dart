@@ -351,15 +351,23 @@ List<Widget> _buildCourseBlocks(BuildContext context, String content) {
     if (numbered != null) {
       final title = numbered.group(2)!.trim();
       final remainder = paragraph.substring(numbered.end).trim();
+      final scheme = Theme.of(context).colorScheme;
+      final sectionColor = index.isEven ? scheme.primaryContainer : scheme.secondaryContainer;
+      final sectionTextColor = index.isEven ? scheme.onPrimaryContainer : scheme.onSecondaryContainer;
       return Card(
+        color: sectionColor,
         margin: const EdgeInsets.only(bottom: 10),
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${numbered.group(1)}. $title',
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Row(children: [
+                Icon(Icons.bookmark, size: 19, color: sectionTextColor),
+                const SizedBox(width: 7),
+                Expanded(child: Text('${numbered.group(1)}. $title',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: sectionTextColor))),
+              ]),
               if (remainder.isNotEmpty) ...[
                 const SizedBox(height: 7),
                 Text(remainder, style: const TextStyle(fontSize: 15, height: 1.55)),
