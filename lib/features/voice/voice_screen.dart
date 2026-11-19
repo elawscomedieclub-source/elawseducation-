@@ -26,6 +26,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   bool _listening = false;
   bool _speechAvailable = false;
   bool _searched = false;
+  double _speechRate = 0.50;
   List<Lesson> _matches = [];
 
   @override
@@ -160,7 +161,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
     final text = '${lesson.title}. ${lesson.summary}. ${lesson.content}';
     try {
       await _tts.setLanguage(_language);
-      await _tts.setSpeechRate(0.43);
+      await _tts.setSpeechRate(_speechRate);
       await _tts.setVolume(1.0);
       await _tts.setPitch(1.0);
       await _tts.speak(text);
@@ -235,6 +236,41 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                 : (value) {
                     if (value != null) setState(() => _language = value);
                   },
+          ),
+          const SizedBox(height: 12),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.speed, color: Color(0xFF006A4E)),
+                      const SizedBox(width: 8),
+                      const Expanded(
+                        child: Text('Vitesse de la voix', style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Text(_speechRate <= 0.40 ? 'Lente' : (_speechRate >= 0.65 ? 'Rapide' : 'Normale')),
+                    ],
+                  ),
+                  Slider(
+                    value: _speechRate,
+                    min: 0.30,
+                    max: 0.75,
+                    divisions: 9,
+                    label: _speechRate.toStringAsFixed(2),
+                    onChanged: (_speaking || _listening)
+                        ? null
+                        : (value) => setState(() => _speechRate = value),
+                  ),
+                  const Text(
+                    'Choisis une vitesse confortable pour bien entendre et comprendre le cours.',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           TextField(
