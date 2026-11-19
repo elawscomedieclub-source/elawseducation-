@@ -9,7 +9,7 @@ class PhysicsCourseSupport extends StatelessWidget {
   @override Widget build(BuildContext context) {
     final s=(chapterTitle+' '+lesson.title+' '+lesson.summary+' '+lesson.content).toLowerCase();
     final topics=<_Topic>[];
-    if(chapterId == 'ly_premiere_sc_c_c_c' || RegExp(r'\bforces?\b|forces concourantes|corps soumis|mécanique').hasMatch(s)) topics.addAll(_mechanics);
+    if(chapterId == 'ly_premiere_sc_mecanique_c' || RegExp(r'\bforces?\b|forces concourantes|corps soumis|mécanique').hasMatch(s)) topics.addAll(_mechanics);
     if(chapterId == 'ly_terminale_f2_f2_c' || RegExp(r'transistor|photorésistance').hasMatch(s)) topics.add(_transistor);
     if(topics.isEmpty)return const SizedBox.shrink();
     return Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
