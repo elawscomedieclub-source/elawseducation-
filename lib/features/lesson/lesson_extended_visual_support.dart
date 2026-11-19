@@ -224,11 +224,51 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
           children: [
             Row(children: [Icon(support.icon, color: theme.colorScheme.primary), const SizedBox(width: 8), Expanded(child: Text(support.title, style: const TextStyle(fontWeight: FontWeight.bold)))]),
             const SizedBox(height: 14),
-            Wrap(alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.center, spacing: 5, runSpacing: 8,
-              children: support.nodes.asMap().entries.expand((entry) => [
-                Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9), decoration: BoxDecoration(color: theme.colorScheme.primaryContainer, borderRadius: BorderRadius.circular(10)), child: Text(entry.value, style: TextStyle(color: theme.colorScheme.onPrimaryContainer, fontWeight: FontWeight.w600))),
-                if (entry.key < support.nodes.length - 1) Icon(Icons.arrow_forward, size: 18, color: theme.colorScheme.primary),
-              ]).toList()),
+            Semantics(
+              label: 'Schéma en étapes : ${support.nodes.join(', puis ')}',
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: .55),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: theme.colorScheme.outlineVariant),
+                ),
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8,
+                  runSpacing: 10,
+                  children: support.nodes.asMap().entries.expand((entry) => [
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(minWidth: 94, minHeight: 54),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.primaryContainer,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: theme.colorScheme.primary.withValues(alpha: .35)),
+                        ),
+                        child: Text(
+                          entry.value,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: theme.colorScheme.onPrimaryContainer,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            height: 1.25,
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (entry.key < support.nodes.length - 1)
+                      Icon(Icons.arrow_forward_rounded,
+                          size: 22, color: theme.colorScheme.primary),
+                  ]).toList(),
+                ),
+              ),
+            ),
             const SizedBox(height: 12),
             Text(support.explanation, style: const TextStyle(height: 1.45)),
           ],
