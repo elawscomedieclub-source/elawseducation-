@@ -180,6 +180,32 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Écoute ton camarade et respecte son rythme de lecture.'
       );
     }
+    if (RegExp(r'droits de l.enfant|responsabilités|protection|sécurité').hasMatch(text)) {
+      return const _Support(
+        title: 'Droits, responsabilités et protection',
+        icon: Icons.shield_outlined,
+        nodes: ['Droits', 'Respect', 'Responsabilités', 'Protection'],
+        explanation: 'Les droits protègent chaque enfant. Les responsabilités adaptées à son âge aident à respecter les autres. En cas de danger, l’enfant demande l’aide d’un adulte responsable.',
+        activity: 'Créer une affiche des règles qui protègent les élèves',
+        materials: 'Une feuille, des crayons et des exemples de règles de classe.',
+        steps: ['Écris deux droits importants des enfants.', 'Ajoute deux responsabilités adaptées à l’école.', 'Choisis une règle pour prévenir les accidents.', 'Présente l’affiche et explique pourquoi ces règles sont utiles.'],
+        result: 'Une classe sûre respecte les droits, les règles et la dignité de chaque élève.',
+        safety: 'Si une situation de violence ou de danger existe, parle à un adulte de confiance.'
+      );
+    }
+    if (RegExp(r'compréhension|production écrite|paragraphe|informations importantes').hasMatch(text)) {
+      return const _Support(
+        title: 'Méthode pour comprendre et rédiger',
+        icon: Icons.edit_note,
+        nodes: ['Lire', 'Repérer', 'Organiser', 'Relire'],
+        explanation: 'Une bonne réponse s’appuie sur le texte. Un paragraphe clair présente un sujet, développe quelques idées dans un ordre logique et se termine par une conclusion.',
+        activity: 'Lire un court texte puis rédiger cinq phrases',
+        materials: 'Un petit texte, un cahier et un crayon.',
+        steps: ['Lis le texte une première fois.', 'Repère qui, où, quand et ce qui se passe.', 'Écris les idées dans l’ordre.', 'Relis pour corriger les majuscules, les points et les accords.'],
+        result: 'Les réponses sont précises et le paragraphe est organisé.',
+        safety: 'Respecte les idées des autres et cite le texte lorsque tu justifies une réponse.'
+      );
+    }
     return null;
   }
 
