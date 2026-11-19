@@ -206,7 +206,22 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Respecte les idées des autres et cite le texte lorsque tu justifies une réponse.'
       );
     }
-    return null;
+    return _Support(
+      title: 'Méthode visuelle pour réussir : ${lesson.title}',
+      icon: Icons.school_outlined,
+      nodes: const ['Comprendre', 'Repérer', 'Appliquer', 'Vérifier'],
+      explanation: 'Pour cette leçon, commence par comprendre la consigne, repère les notions et les informations utiles, applique la méthode étudiée puis vérifie que ta réponse est cohérente et complète.',
+      activity: 'Faire une fiche de synthèse de la leçon',
+      materials: 'Le cahier, un crayon et une feuille.',
+      steps: [
+        'Écris le titre et l’objectif de la leçon.',
+        'Note trois notions ou règles importantes.',
+        'Résous un exemple sans regarder la correction.',
+        'Compare ton travail, corrige les erreurs et explique la méthode à voix haute.',
+      ],
+      result: 'Une fiche courte et ordonnée qui permet de réviser la notion et de refaire un exercice seul.',
+      safety: 'Travaille avec ton propre raisonnement et demande une explication à ton enseignant si une notion reste incomprise.',
+    );
   }
 
   @override
