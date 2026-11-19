@@ -92,16 +92,53 @@ class LessonVisualSupport extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(_diagramTitle(kind), style: const TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                Container(
-                  width: double.infinity,
-                  height: 210,
-                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12)),
-                  child: CustomPaint(painter: _LessonDiagramPainter(kind, Theme.of(context).colorScheme)),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(child: Text(_diagramTitle(kind),
+                        style: const TextStyle(fontWeight: FontWeight.bold))),
+                    IconButton(
+                      tooltip: 'Agrandir le schéma',
+                      onPressed: () => _showExpandedDiagram(context, kind),
+                      icon: const Icon(Icons.fullscreen_rounded),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
-                Text(_diagramCaption(kind), style: const TextStyle(height: 1.45)),
+                Semantics(
+                  label: _diagramTitle(kind),
+                  hint: 'Schéma agrandissable pour voir les détails.',
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () => _showExpandedDiagram(context, kind),
+                    child: Container(
+                      width: double.infinity,
+                      height: 270,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: CustomPaint(
+                          painter: _LessonDiagramPainter(kind, Theme.of(context).colorScheme),
+                          child: const SizedBox.expand(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Row(children: [
+                  Icon(Icons.touch_app_outlined, size: 16,
+                      color: Theme.of(context).colorScheme.primary),
+                  const SizedBox(width: 5),
+                  Expanded(child: Text('Appuie sur le schéma pour l’agrandir et voir les détails.',
+                      style: Theme.of(context).textTheme.bodySmall)),
+                ]),
+                const SizedBox(height: 8),
+                Text(_diagramCaption(kind), style: const TextStyle(height: 1.5)),
               ],
             ),
           ),
@@ -149,6 +186,67 @@ class LessonVisualSupport extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _showExpandedDiagram(BuildContext context, _VisualKind kind) {
+    final colors = Theme.of(context).colorScheme;
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => Dialog.fullscreen(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(_diagramTitle(kind)),
+            actions: [
+              IconButton(
+                tooltip: 'Fermer le schéma agrandi',
+                onPressed: () => Navigator.of(dialogContext).pop(),
+                icon: const Icon(Icons.close_rounded),
+              ),
+            ],
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: InteractiveViewer(
+                    minScale: 1,
+                    maxScale: 4,
+                    boundaryMargin: const EdgeInsets.all(80),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: AspectRatio(
+                          aspectRatio: 340 / 210,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: colors.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: colors.outlineVariant),
+                            ),
+                            child: CustomPaint(
+                              painter: _LessonDiagramPainter(kind, colors),
+                              child: const SizedBox.expand(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+                  child: Text(
+                    '${_diagramCaption(kind)}\nPince ou écarte deux doigts pour zoomer.',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(height: 1.5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
