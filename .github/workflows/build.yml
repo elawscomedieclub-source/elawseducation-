@@ -113,6 +113,32 @@ jobs:
           PY
 
 
+      - name: Configurer les dépôts Gradle Android
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("android/settings.gradle.kts")
+          if not path.exists():
+              path = Path("android/settings.gradle")
+          text = path.read_text(encoding="utf-8")
+          match = re.search(r"pluginManagement\\s*\\{[\\s\\S]*?repositories\\s*\\{([\\s\\S]*?)\\}", text)
+          if not match:
+              raise SystemExit("Bloc pluginManagement.repositories introuvable")
+          block = match.group(1)
+          additions = []
+          if not re.search(r"mavenCentral\\s*\\(", block):
+              additions.append("        mavenCentral()")
+          if not re.search(r"google\\s*\\(", block):
+              additions.append("        google()")
+          if additions:
+              updated = block.rstrip() + "\\n" + "\\n".join(additions) + "\\n      "
+              text = text[:match.start(1)] + updated + text[match.end(1):]
+              path.write_text(text, encoding="utf-8")
+          print("Dépôts Gradle vérifiés : Google, Maven Central et Plugin Portal.")
+          PY
+
       - name: Installer l’icône ProfTogo sur Android
         run: |
           python3 - <<'PY'
