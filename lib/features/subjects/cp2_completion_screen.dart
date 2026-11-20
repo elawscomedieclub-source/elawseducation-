@@ -254,6 +254,19 @@ class Cp2CompletionScreen extends StatelessWidget {
         'Pourquoi faut-il protéger les biens communs ?', ['Ils servent à la communauté', 'Ils ne servent à personne', 'Pour les casser'], 0,
         'Les biens communs sont utiles à toute la communauté.'),
     ]),
+
+    _Unit('CP2 • Évaluation du 1er trimestre', 'Bilan de français et de mathématiques', [
+      _Lesson('Bilan de lecture et d’écriture', 'Lis attentivement une phrase, comprends son sens, puis écris une réponse courte en respectant les espaces et le point final.', 'Le garçon joue dans la cour. Question : Où joue le garçon ? Réponse : Dans la cour.', 'Quelle réponse correspond à la phrase ?', ['Le garçon dort.', 'Le garçon joue dans la cour.', 'La fille chante.'], 1, 'La réponse reprend l’information donnée dans la phrase.'),
+      _Lesson('Bilan de numération et de calcul', 'Lis, écris, compares et décomposes les nombres étudiés. Pour calculer, aligne les unités et les dizaines.', '34 = 3 dizaines et 4 unités. 23 + 15 = 38.', 'Combien font 26 + 13 ?', ['39', '38', '49'], 0, '26 + 13 = 39 : 6 unités + 3 unités = 9 unités et 2 dizaines + 1 dizaine = 3 dizaines.'),
+    ]),
+    _Unit('CP2 • Évaluation du 2e trimestre', 'Bilan des apprentissages et résolution de problèmes', [
+      _Lesson('Bilan de langue et d’expression', 'Une phrase commence par une majuscule et se termine par un signe de ponctuation. Le verbe indique souvent l’action.', 'Awa prépare le repas. Le verbe est prépare.', 'Dans « Les enfants chantent », quel est le verbe ?', ['enfants', 'chantent', 'les'], 1, 'Chantent indique l’action réalisée par les enfants.'),
+      _Lesson('Bilan de calcul et de mesures', 'Résous un problème en repérant les données, l’opération utile et la réponse. Utilise une règle pour mesurer une longueur en centimètres.', 'J’ai 20 F et je reçois 15 F. Je possède 20 + 15 = 35 F.', 'Une corde mesure 12 cm. On ajoute 5 cm. Quelle est sa longueur ?', ['7 cm', '17 cm', '60 cm'], 1, '12 + 5 = 17 cm.'),
+    ]),
+    _Unit('CP2 • Évaluation du 3e trimestre et préparation au CE1', 'Révision générale des compétences essentielles', [
+      _Lesson('Compréhension, grammaire et production écrite', 'Pour raconter, présente les personnages, les actions et leur ordre. Relis ton texte pour vérifier les majuscules, les espaces et la ponctuation.', 'D’abord, Kossi se lève. Ensuite, il se lave. Enfin, il va à l’école.', 'Quel mot peut annoncer la dernière action ?', ['D’abord', 'Ensuite', 'Enfin'], 2, 'Enfin annonce la dernière étape d’une suite d’actions.'),
+      _Lesson('Problèmes, géométrie et repères', 'Choisis l’opération adaptée à la situation. Reconnais les figures simples et utilise les repères de temps et d’espace.', 'Il y a 18 mangues. On en donne 6 : 18 − 6 = 12.', 'Une classe compte 14 filles et 11 garçons. Combien y a-t-il d’élèves ?', ['3', '25', '24'], 1, '14 + 11 = 25 élèves.'),
+    ]),
   ];
 
   @override
