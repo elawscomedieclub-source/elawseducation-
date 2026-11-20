@@ -5,6 +5,7 @@ import 'package:proftogo/features/subjects/ce1_completion_screen.dart';
 import 'package:proftogo/features/subjects/ce2_completion_screen.dart';
 import 'package:proftogo/features/subjects/cm1_completion_screen.dart';
 import 'package:proftogo/features/subjects/cm2_completion_screen.dart';
+import 'package:proftogo/features/subjects/sixieme_completion_screen.dart';
 
 void main() {
   group('Intégrité de la base pédagogique ProfTogo', () {
@@ -223,6 +224,7 @@ void main() {
         (name: 'CE2', count: Ce2CompletionScreen.unitCount, lessons: Ce2CompletionScreen.lessonCount, pool: Ce2CompletionScreen.assessmentExercisesForTerm),
         (name: 'CM1', count: Cm1CompletionScreen.unitCount, lessons: Cm1CompletionScreen.lessonCount, pool: Cm1CompletionScreen.assessmentExercisesForTerm),
         (name: 'CM2', count: Cm2CompletionScreen.unitCount, lessons: Cm2CompletionScreen.lessonCount, pool: Cm2CompletionScreen.assessmentExercisesForTerm),
+        (name: '6ème', count: SixiemeCompletionScreen.unitCount, lessons: SixiemeCompletionScreen.lessonCount, pool: SixiemeCompletionScreen.assessmentExercisesForTerm),
       ];
       for (final module in modules) {
         expect(module.count, 15, reason: '${module.name}: 5 unités par trimestre attendues');
