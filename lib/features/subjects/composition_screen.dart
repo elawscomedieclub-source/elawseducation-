@@ -5,6 +5,7 @@ import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import 'cp2_completion_screen.dart';
 import 'ce1_completion_screen.dart';
+import 'ce2_completion_screen.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
@@ -83,7 +84,17 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
+    if (widget.level == SchoolLevel.ce2) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      final ce2Pool = Ce2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
+      if (ce2Pool.isNotEmpty) pools.add(ce2Pool);
+    }
+
     // Les exercices complémentaires CE1 alimentent les compositions.
+    if (widget.level == SchoolLevel.ce2) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + Ce2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
     if (widget.level == SchoolLevel.ce1) {
       final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
       final ce1Pool = Ce1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
