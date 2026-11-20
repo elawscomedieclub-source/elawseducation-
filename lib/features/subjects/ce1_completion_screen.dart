@@ -48,7 +48,7 @@ class Ce1CompletionScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text('Complément CE1 • Année complète')),
     body: ListView(padding: const EdgeInsets.all(16),children:[
-      Card(child: Padding(padding: const EdgeInsets.all(16),child: Text('$unitCount unités • $lessonCount leçons • 3 trimestres\nLis le cours, observe l’exemple, réponds puis consulte la correction.',style: const TextStyle(fontWeight: FontWeight.w600)))),
+      Card(child: Padding(padding: const EdgeInsets.all(16),child: Text('${Ce1CompletionScreen.unitCount} unités • ${Ce1CompletionScreen.lessonCount} leçons • 3 trimestres\nLis le cours, observe l’exemple, réponds puis consulte la correction.',style: const TextStyle(fontWeight: FontWeight.w600)))),
       for(final u in _units) _UnitTile(unit:u),
     ]),
   );
@@ -62,6 +62,6 @@ class _UnitTileState extends State<_UnitTile> {
     for(var i=0;i<u.options.length;i++) RadioListTile<int>(dense:true,contentPadding:EdgeInsets.zero,value:i,groupValue:choice,title:Text(u.options[i]),onChanged:checked?null:(v)=>setState(()=>choice=v)),
     FilledButton.tonal(onPressed:choice==null?null:()=>setState(()=>checked=true),child:const Text('Vérifier ma réponse')),
     if(checked) Text('${choice==u.answer?'Bonne réponse ! ':'À revoir. Bonne réponse : ${u.options[u.answer]}. '}${u.explanation}',style:TextStyle(fontWeight:FontWeight.w600,color:choice==u.answer?Colors.green.shade800:Theme.of(context).colorScheme.error)),
-    if(checked) TextButton(onPressed:()=>setState(()=>{choice=null,checked=false}),child:const Text('Recommencer')),
+    if(checked) TextButton(onPressed:()=>setState(() { choice=null; checked=false; }),child:const Text('Recommencer')),
   ]))]));}
 }
