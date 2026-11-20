@@ -6,6 +6,7 @@ import 'package:proftogo/features/subjects/ce2_completion_screen.dart';
 import 'package:proftogo/features/subjects/cm1_completion_screen.dart';
 import 'package:proftogo/features/subjects/cm2_completion_screen.dart';
 import 'package:proftogo/features/subjects/sixieme_completion_screen.dart';
+import 'package:proftogo/features/subjects/cinquieme_completion_screen.dart';
 
 void main() {
   group('Intégrité de la base pédagogique ProfTogo', () {
@@ -218,20 +219,21 @@ void main() {
             reason: 'Choix dupliqué dans ${exercise.id}');
       }
     });
-    test('les compléments CE1, CE2 et CM1 couvrent les trois trimestres', () {
+    test('les compléments CE1 à 5ème couvrent les trois trimestres', () {
       final modules = [
-        (name: 'CE1', count: Ce1CompletionScreen.unitCount, lessons: Ce1CompletionScreen.lessonCount, pool: Ce1CompletionScreen.assessmentExercisesForTerm),
-        (name: 'CE2', count: Ce2CompletionScreen.unitCount, lessons: Ce2CompletionScreen.lessonCount, pool: Ce2CompletionScreen.assessmentExercisesForTerm),
-        (name: 'CM1', count: Cm1CompletionScreen.unitCount, lessons: Cm1CompletionScreen.lessonCount, pool: Cm1CompletionScreen.assessmentExercisesForTerm),
-        (name: 'CM2', count: Cm2CompletionScreen.unitCount, lessons: Cm2CompletionScreen.lessonCount, pool: Cm2CompletionScreen.assessmentExercisesForTerm),
-        (name: '6ème', count: SixiemeCompletionScreen.unitCount, lessons: SixiemeCompletionScreen.lessonCount, pool: SixiemeCompletionScreen.assessmentExercisesForTerm),
+        (name: 'CE1', count: Ce1CompletionScreen.unitCount, lessons: Ce1CompletionScreen.lessonCount, perTerm: 5, pool: Ce1CompletionScreen.assessmentExercisesForTerm),
+        (name: 'CE2', count: Ce2CompletionScreen.unitCount, lessons: Ce2CompletionScreen.lessonCount, perTerm: 5, pool: Ce2CompletionScreen.assessmentExercisesForTerm),
+        (name: 'CM1', count: Cm1CompletionScreen.unitCount, lessons: Cm1CompletionScreen.lessonCount, perTerm: 5, pool: Cm1CompletionScreen.assessmentExercisesForTerm),
+        (name: 'CM2', count: Cm2CompletionScreen.unitCount, lessons: Cm2CompletionScreen.lessonCount, perTerm: 5, pool: Cm2CompletionScreen.assessmentExercisesForTerm),
+        (name: '6ème', count: SixiemeCompletionScreen.unitCount, lessons: SixiemeCompletionScreen.lessonCount, perTerm: 6, pool: SixiemeCompletionScreen.assessmentExercisesForTerm),
+        (name: '5ème', count: CinquiemeCompletionScreen.unitCount, lessons: CinquiemeCompletionScreen.lessonCount, perTerm: 6, pool: CinquiemeCompletionScreen.assessmentExercisesForTerm),
       ];
       for (final module in modules) {
-        expect(module.count, 15, reason: '${module.name}: 5 unités par trimestre attendues');
-        expect(module.lessons, 15, reason: '${module.name}: leçons manquantes');
+        expect(module.count, module.perTerm * 3, reason: '${module.name}: unités annuelles attendues');
+        expect(module.lessons, module.perTerm * 3, reason: '${module.name}: leçons manquantes');
         for (var term = 1; term <= 3; term++) {
           final exercises = module.pool(term);
-          expect(exercises, hasLength(5), reason: '${module.name}: 5 exercices attendus au trimestre $term');
+          expect(exercises, hasLength(module.perTerm), reason: '${module.name}: exercices attendus au trimestre $term');
           expect(exercises.every((e) => e.options.length >= 3), isTrue);
           expect(exercises.every((e) => e.correctIndex >= 0 && e.correctIndex < e.options.length), isTrue);
           expect(exercises.every((e) => e.explanation.trim().isNotEmpty), isTrue);
