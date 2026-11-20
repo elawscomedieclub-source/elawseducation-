@@ -11,6 +11,7 @@ import 'package:proftogo/features/subjects/quatrieme_completion_screen.dart';
 import 'package:proftogo/features/subjects/troisieme_completion_screen.dart';
 import 'package:proftogo/features/subjects/seconde_completion_screen.dart';
 import 'package:proftogo/features/subjects/premiere_completion_screen.dart';
+import 'package:proftogo/features/subjects/terminale_completion_screen.dart';
 
 void main() {
   group('Intégrité de la base pédagogique ProfTogo', () {
@@ -235,6 +236,7 @@ void main() {
         (name: '3ème', count: TroisiemeCompletionScreen.unitCount, lessons: TroisiemeCompletionScreen.lessonCount, perTerm: 6, pool: TroisiemeCompletionScreen.assessmentExercisesForTerm),
         (name: 'Seconde', count: SecondeCompletionScreen.unitCount, lessons: SecondeCompletionScreen.lessonCount, perTerm: 6, pool: SecondeCompletionScreen.assessmentExercisesForTerm),
         (name: 'Première', count: PremiereCompletionScreen.unitCount, lessons: PremiereCompletionScreen.lessonCount, perTerm: 6, pool: PremiereCompletionScreen.assessmentExercisesForTerm),
+        (name: 'Terminale', count: TerminaleCompletionScreen.unitCount, lessons: TerminaleCompletionScreen.lessonCount, perTerm: 6, pool: TerminaleCompletionScreen.assessmentExercisesForTerm),
       ];
       for (final module in modules) {
         expect(module.count, module.perTerm * 3, reason: '${module.name}: unités annuelles attendues');
