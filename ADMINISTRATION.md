@@ -5,14 +5,14 @@ Adresse prévue : https://elawscomedieclub-source.github.io/elawseducation-/admi
 La console est séparée de l'application élève. L'URL n'est pas un secret : les données et les actions sont protégées côté serveur par un rôle Firebase Auth admin.
 
 ## Fonctions
-- Nombre de comptes, e-mails vérifiés, comptes désactivés et connexions récentes.
+- Nombre de comptes, e-mails vérifiés, comptes désactivés et connexions récentes.\n- Fréquentation quotidienne : personnes distinctes connectées, nombre de connexions, nombre de sessions et durée cumulée estimée sur les 7 derniers jours.\n- Mesure de durée déclenchée uniquement pour les comptes authentifiés, avec un signal toutes les 60 secondes lorsque l’application est ouverte.
 - Liste paginée, recherche par nom, e-mail ou classe.
 - Détails du profil, progression et dernières évaluations.
 - Envoi d'un e-mail sécurisé de réinitialisation du mot de passe.
 - Suspension et réactivation d'un compte.
 - Journal des opérations dans adminAudit.
 
-Les mots de passe ne sont jamais lisibles. La console ne permet pas de récupérer le mot de passe actuel d'un élève.
+Le suivi mesure les comptes authentifiés ; les personnes qui utilisent l’application sans créer de compte ne sont pas incluses dans ces statistiques. La durée est une estimation basée sur des signaux périodiques et peut sous-estimer les périodes hors ligne ou les secondes précédant la fermeture.\n\nLes mots de passe ne sont jamais lisibles. La console ne permet pas de récupérer le mot de passe actuel d'un élève.
 
 ## Première activation
 1. Le propriétaire choisit une adresse e-mail personnelle et crée un compte ProfTogo avec cette adresse.
