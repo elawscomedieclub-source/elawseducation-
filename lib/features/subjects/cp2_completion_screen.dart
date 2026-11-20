@@ -1,9 +1,38 @@
 import 'package:flutter/material.dart';
+import '../../data/models/models.dart';
 
 /// Complément CP2 : parcours progressif des trois trimestres.
 /// Fichier séparé pour préserver intégralement les ressources historiques.
 class Cp2CompletionScreen extends StatelessWidget {
   const Cp2CompletionScreen({super.key});
+
+  /// Convertit les leçons du complément CP2 en questions utilisables
+  /// par le moteur de compositions trimestrielles.
+  static List<Exercise> assessmentExercisesForTerm(int term) {
+    final prefix = 'T$term •';
+    final evaluationTitle = switch (term) {
+      1 => 'CP2 • Évaluation du 1er trimestre',
+      2 => 'CP2 • Évaluation du 2e trimestre',
+      _ => 'CP2 • Évaluation du 3e trimestre et préparation au CE1',
+    };
+    final result = <Exercise>[];
+    for (var unitIndex = 0; unitIndex < _units.length; unitIndex++) {
+      final unit = _units[unitIndex];
+      if (!unit.title.startsWith(prefix) && unit.title != evaluationTitle) continue;
+      for (var lessonIndex = 0; lessonIndex < unit.lessons.length; lessonIndex++) {
+        final lesson = unit.lessons[lessonIndex];
+        result.add(Exercise(
+          id: 'cp2_t${term}_u${unitIndex}_l${lessonIndex}',
+          lessonId: 'cp2_t${term}_u${unitIndex}_l${lessonIndex}',
+          question: lesson.question,
+          options: lesson.options,
+          correctIndex: lesson.correctIndex,
+          explanation: lesson.explanation,
+        ));
+      }
+    }
+    return result;
+  }
 
   static const _units = <_Unit>[
     _Unit('T1 • Français', 'Lire et écrire des mots et phrases simples', [
