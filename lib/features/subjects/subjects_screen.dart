@@ -7,6 +7,7 @@ import '../../data/models/models.dart';
 import 'subject_detail_screen.dart';
 import 'primary_year_plan_screen.dart';
 import 'composition_screen.dart';
+import 'cp1_completion_screen.dart';
 
 class SubjectsScreen extends ConsumerWidget {
   const SubjectsScreen({super.key});
@@ -25,98 +26,97 @@ class SubjectsScreen extends ConsumerWidget {
         leading: const ProfTogoMenuButton(),
         title: const Text('Toutes les matières'),
       ),
-      body: subjects.isEmpty
-          ? Center(
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          if (selectedLevel == SchoolLevel.cp1)
+            Card(
+              color: const Color(0xFFE8F5EF),
+              child: ListTile(
+                leading: const Icon(Icons.menu_book_rounded, color: Color(0xFF006A4E), size: 30),
+                title: const Text('Complément CP1 • Trimestres 2 et 3',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text('10 chapitres • 20 leçons • exercices avec corrections'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const Cp1CompletionScreen()),
+                ),
+              ),
+            ),
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.assignment_turned_in, color: Color(0xFF006A4E), size: 30),
+              title: const Text('Compositions trimestrielles', style: TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: const Text('Sujets d’entraînement avec note sur 20 et corrigés'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => CompositionScreen(
+                  level: selectedLevel, track: selectedTrack, series: selectedSeries,
+                )),
+              ),
+            ),
+          ),
+          Card(
+            color: const Color(0xFFE8F5EF),
+            child: ListTile(
+              leading: const Icon(Icons.calendar_month, color: Color(0xFF006A4E), size: 30),
+              title: const Text('Progression annuelle', style: TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Text(selectedLevel.index >= SchoolLevel.seconde.index
+                  ? 'Voir les trois trimestres et les objectifs de la série $selectedSeries'
+                  : 'Voir les trois trimestres de cette classe'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => PrimaryYearPlanScreen(
+                  level: selectedLevel, track: selectedTrack, series: selectedSeries,
+                )),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 12),
+            child: Text(
+              'Classe : ${selectedLevel.label}${selectedLevel.index >= SchoolLevel.seconde.index ? ' • ${selectedTrack.label} • Série ${selectedSeries}' : ''}',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          if (subjects.isEmpty)
+            Card(
               child: Padding(
-                padding: const EdgeInsets.all(28),
+                padding: const EdgeInsets.all(18),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.menu_book_outlined, size: 54,
-                        color: Color(0xFF006A4E)),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Programme ' + selectedLevel.label,
-                      style: const TextStyle(
-                          fontSize: 21, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
+                    const Icon(Icons.menu_book_outlined, size: 42, color: Color(0xFF006A4E)),
                     const SizedBox(height: 10),
+                    Text('Programme ${selectedLevel.label}',
+                        style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
                     const Text(
-                      'Les cours de cette classe sont en préparation. '
-                      'Ils seront ajoutés progressivement. Tu peux choisir '
-                      'une autre classe dans Mon profil.',
+                      'Les autres matières de cette classe seront ajoutées progressivement. '
+                      'Le complément CP1 disponible ci-dessus reste accessible.',
                       textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
             )
-          : ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.assignment_turned_in, color: Color(0xFF006A4E), size: 30),
-                      title: const Text('Compositions trimestrielles', style: TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: const Text('Sujets d’entraînement avec note sur 20 et corrigés'),
-                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => CompositionScreen(level: selectedLevel, track: selectedTrack, series: selectedSeries)),
-                      ),
-                    ),
-                  ),
-                Card(
-                  color: const Color(0xFFE8F5EF),
-                  child: ListTile(
-                    leading: const Icon(Icons.calendar_month,
-                        color: Color(0xFF006A4E), size: 30),
-                    title: const Text('Progression annuelle',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text(selectedLevel.index >= SchoolLevel.seconde.index
-                        ? 'Voir les trois trimestres et les objectifs de la série $selectedSeries'
-                        : 'Voir les trois trimestres de cette classe'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => PrimaryYearPlanScreen(
-                          level: selectedLevel,
-                          track: selectedTrack,
-                          series: selectedSeries,
-                        ),
-                      ),
-                    ),
-                  ),
+          else
+            ...subjects.map((subject) => Card(
+              child: ListTile(
+                leading: const Icon(Icons.menu_book, color: Color(0xFF006A4E)),
+                title: Text(subject.name),
+                subtitle: Text('Classe : ${subject.level.label}'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => SubjectDetailScreen(subject: subject)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Text(
-                    'Classe : ' + selectedLevel.label + (selectedLevel.index >= SchoolLevel.seconde.index ? ' • ' + selectedTrack.label + ' • Série ' + selectedSeries : ''),
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                ...subjects.map((subject) => Card(
-                      child: ListTile(
-                        leading: const Icon(Icons.menu_book,
-                            color: Color(0xFF006A4E)),
-                        title: Text(subject.name),
-                        subtitle: Text('Classe : ' + subject.level.label),
-                        trailing:
-                            const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                SubjectDetailScreen(subject: subject),
-                          ),
-                        ),
-                      ),
-                    )),
-              ],
-            ),
+              ),
+            )),
+        ],
+      ),
     );
   }
 }
