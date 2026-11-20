@@ -18,6 +18,7 @@ import 'cinquieme_completion_screen.dart';
 import 'quatrieme_completion_screen.dart';
 import 'troisieme_completion_screen.dart';
 import 'seconde_completion_screen.dart';
+import 'premiere_completion_screen.dart';
 
 class SubjectsScreen extends ConsumerWidget {
   const SubjectsScreen({super.key});
@@ -96,6 +97,17 @@ class SubjectsScreen extends ConsumerWidget {
                 subtitle: Text('${Cm2CompletionScreen.unitCount} unités • ${Cm2CompletionScreen.lessonCount} leçons • exercices corrigés'),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const Cm2CompletionScreen())),
+              ),
+            ),
+          if (selectedLevel == SchoolLevel.premiere)
+            Card(
+              color: const Color(0xFFE8F5EF),
+              child: ListTile(
+                leading: const Icon(Icons.menu_book_rounded, color: Color(0xFF006A4E), size: 30),
+                title: Text('Complément Première • Série $selectedSeries', style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text('${PremiereCompletionScreen.unitCount} unités communes • ${PremiereCompletionScreen.lessonCount} leçons • exercices corrigés'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PremiereCompletionScreen(track: selectedTrack, series: selectedSeries))),
               ),
             ),
           if (selectedLevel == SchoolLevel.seconde)
