@@ -13,6 +13,7 @@ import 'cinquieme_completion_screen.dart';
 import 'quatrieme_completion_screen.dart';
 import 'troisieme_completion_screen.dart';
 import 'seconde_completion_screen.dart';
+import 'premiere_completion_screen.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
@@ -91,6 +92,15 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
+    if (widget.level == SchoolLevel.premiere) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      final premierePool = PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
+      if (premierePool.isNotEmpty) pools.add(premierePool);
+    }
+    if (widget.level == SchoolLevel.premiere) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
     if (widget.level == SchoolLevel.seconde) {
       final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
       final secondePool = SecondeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
@@ -441,7 +451,11 @@ class _CompositionScreenState extends State<CompositionScreen> {
       ),
     );
   }
-}    if (widget.level == SchoolLevel.seconde) {
+}    if (widget.level == SchoolLevel.premiere) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
+    if (widget.level == SchoolLevel.seconde) {
       final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
       return baseCount + SecondeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
     }
