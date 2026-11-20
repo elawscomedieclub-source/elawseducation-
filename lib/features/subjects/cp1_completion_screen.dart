@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 class Cp1CompletionScreen extends StatelessWidget {
   const Cp1CompletionScreen({super.key});
 
+  static int get chapterCount => _chapters.length;
+  static int get lessonCount => _chapters.fold(0, (sum, chapter) => sum + chapter.lessons.length);
+
   static const _chapters = <_Cp1Chapter>[
     _Cp1Chapter('T2 • Mathématiques', 'Consolider les nombres et les premières opérations', [
       _Cp1Lesson('Compter, lire et écrire les nombres jusqu’à 20',
