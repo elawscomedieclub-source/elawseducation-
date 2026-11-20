@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import 'cp2_completion_screen.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
@@ -81,6 +82,14 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
+    // Le complément CP2 alimente aussi les compositions générales.
+    // Les compositions ciblées par matière conservent leur banque dédiée.
+    if (widget.level == SchoolLevel.cp2 && _selectedSubjectId == null) {
+      final cp2Pool = Cp2CompletionScreen.assessmentExercisesForTerm(_term)
+        ..shuffle(Random());
+      if (cp2Pool.isNotEmpty) pools.add(cp2Pool);
+    }
+
     final limit = _selectedSubjectId == null ? 20 : 10;
     final selected = <Exercise>[];
     final usedIds = <String>{};
@@ -120,9 +129,13 @@ class _CompositionScreenState extends State<CompositionScreen> {
         .where((lesson) => chapterIds.contains(lesson.chapterId))
         .map((lesson) => lesson.id)
         .toSet();
-    return demoExercises
+    final baseCount = demoExercises
         .where((exercise) => lessonIds.contains(exercise.lessonId))
         .length;
+    if (widget.level == SchoolLevel.cp2 && _selectedSubjectId == null) {
+      return baseCount + Cp2CompletionScreen.assessmentExercisesForTerm(_term).length;
+    }
+    return baseCount;
   }
 
   void _start() {
