@@ -57,6 +57,91 @@ exports.bootstrapFirstAdmin = onCall({ maxInstances: 2 }, async (request) => {
   return { ok: true, message: "Compte administrateur activé. Reconnecte-toi." };
 });
 
+
+function loméDateKey(date = new Date()) {
+  // Togo uses UTC+0; UTC date is the local calendar date in Lomé.
+  return date.toISOString().slice(0, 10);
+}
+
+// The app calls this after sign-in and then about once per minute.
+// Server timestamps, not client clocks, determine measured time.
+exports.recordUsageHeartbeat = onCall({ maxInstances: 10 }, async (request) => {
+  if (!request.auth) throw new HttpsError("unauthenticated", "Connexion requise.");
+  const sessionId = String(request.data?.sessionId || "");
+  if (!/^[A-Za-z0-9_-]{16,80}$/.test(sessionId)) {
+    throw new HttpsError("invalid-argument", "Identifiant de session invalide.");
+  }
+  const uid = request.auth.uid;
+  const now = new Date();
+  const dayKey = loméDateKey(now);
+  const dayRef = db.collection("usageDaily").doc(dayKey);
+  const sessionRef = db.collection("usageSessions").doc(sessionId);
+  const userDayRef = dayRef.collection("users").doc(uid);
+  let addedSeconds = 0;
+  let newLogin = false;
+
+  await db.runTransaction(async (tx) => {
+    const [sessionSnap, userDaySnap] = await Promise.all([
+      tx.get(sessionRef), tx.get(userDayRef),
+    ]);
+    if (!sessionSnap.exists) {
+      newLogin = true;
+      tx.create(sessionRef, {
+        uid, dayKey, startedAt: FieldValue.serverTimestamp(),
+        lastHeartbeatAt: FieldValue.serverTimestamp(), totalSeconds: 0,
+      });
+      tx.set(userDayRef, {
+        uid, firstSeenAt: FieldValue.serverTimestamp(),
+      }, { merge: true });
+      tx.set(dayRef, {
+        loginCount: FieldValue.increment(1),
+        sessions: FieldValue.increment(1),
+        uniqueUsers: userDaySnap.exists ? FieldValue.increment(0) : FieldValue.increment(1),
+        updatedAt: FieldValue.serverTimestamp(),
+      }, { merge: true });
+      return;
+    }
+    const data = sessionSnap.data() || {};
+    const last = data.lastHeartbeatAt?.toMillis?.() || 0;
+    const elapsed = last ? Math.floor((Date.now() - last) / 1000) : 0;
+    // Ignore long offline gaps and cap a delayed heartbeat to prevent inflated durations.
+    addedSeconds = elapsed > 0 && elapsed <= 120 ? Math.min(elapsed, 90) : 0;
+    tx.update(sessionRef, {
+      lastHeartbeatAt: FieldValue.serverTimestamp(),
+      totalSeconds: FieldValue.increment(addedSeconds),
+    });
+    if (addedSeconds > 0) {
+      tx.set(dayRef, {
+        totalSeconds: FieldValue.increment(addedSeconds),
+        updatedAt: FieldValue.serverTimestamp(),
+      }, { merge: true });
+    }
+  });
+  return { ok: true, newLogin, addedSeconds, dayKey };
+});
+
+exports.adminUsageDashboard = onCall({ maxInstances: 3 }, async (request) => {
+  const actorUid = requireAdmin(request);
+  const today = loméDateKey();
+  const keys = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(Date.now() - i * 86400000);
+    return loméDateKey(d);
+  });
+  const snaps = await Promise.all(keys.map((key) => db.collection("usageDaily").doc(key).get()));
+  const days = snaps.map((snap, i) => {
+    const d = snap.exists ? snap.data() : {};
+    return {
+      date: keys[i],
+      uniqueUsers: Number(d.uniqueUsers || 0),
+      loginCount: Number(d.loginCount || 0),
+      sessions: Number(d.sessions || 0),
+      totalSeconds: Number(d.totalSeconds || 0),
+    };
+  });
+  await audit(actorUid, "view_usage_dashboard", null);
+  return { today: days[0], days };
+});
+
 exports.adminDashboard = onCall({ maxInstances: 3 }, async (request) => {
   const actorUid = requireAdmin(request);
   let pageToken;
