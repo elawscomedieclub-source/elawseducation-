@@ -154,6 +154,36 @@ class Cp1CompletionScreen extends StatelessWidget {
         'Que faire si une leçon est difficile ?', ['Abandonner', 'Demander une explication', 'Déchirer le cahier'], 1,
         'Demander une explication aide à progresser.'),
     ]),
+
+    _Cp1Chapter('T3 • Mathématiques', 'Formes géométriques, monnaie et repérage', [
+      _Cp1Lesson('Reconnaître les formes géométriques simples',
+        'On observe les contours des objets pour reconnaître les formes. Le carré possède quatre côtés de même longueur. Le rectangle possède quatre côtés et ses côtés opposés sont de même longueur. Le triangle possède trois côtés. Le cercle est rond et n’a pas de côté droit.',
+        'Une fenêtre peut avoir la forme d’un rectangle ; une pièce de monnaie a souvent une face circulaire.',
+        'Combien de côtés possède un triangle ?', ['Deux', 'Trois', 'Quatre'], 1,
+        'Un triangle possède exactement trois côtés et trois sommets.'),
+      _Cp1Lesson('Se repérer dans l’espace',
+        'Pour décrire la place d’un objet, on utilise des mots comme devant, derrière, sur, sous, à gauche et à droite. Il faut choisir un point de vue et observer attentivement.',
+        'Si le livre est sur la table, la table est sous le livre.',
+        'Quel mot indique la position contraire de « devant » ?', ['Derrière', 'Sur', 'À droite'], 0,
+        'Derrière indique la position opposée à devant.'),
+      _Cp1Lesson('Reconnaître les pièces et les billets',
+        'La monnaie sert à payer des biens et des services. Au Togo, on utilise le franc CFA. Il faut reconnaître les pièces et les billets et compter leur valeur. On peut réunir plusieurs petites valeurs pour obtenir une somme.',
+        'Une pièce de 100 F et une pièce de 50 F donnent 150 F : 100 + 50 = 150.',
+        'Combien font 100 F + 50 F ?', ['120 F', '150 F', '200 F'], 1,
+        '100 F + 50 F = 150 F. On additionne les deux valeurs.'),
+    ]),
+    _Cp1Chapter('T3 • Français', 'Enrichir le vocabulaire et préparer une petite rédaction', [
+      _Cp1Lesson('Classer les mots selon leur sens',
+        'Les mots servent à nommer les personnes, les animaux, les objets et les actions. Pour mieux comprendre un texte, on peut regrouper les mots qui parlent du même sujet. Les mots d’une même famille ou d’un même thème ont un lien de sens.',
+        'Dans le thème de l’école, on peut citer : élève, maître, cahier, tableau et craie.',
+        'Quel mot appartient au thème des animaux ?', ['Cahier', 'Chèvre', 'Table'], 1,
+        'La chèvre est un animal ; cahier et table sont des objets.'),
+      _Cp1Lesson('Raconter une action dans l’ordre',
+        'Pour raconter une petite histoire, on présente les événements dans l’ordre : d’abord, ensuite, enfin. On utilise des phrases courtes et on vérifie que l’histoire est compréhensible.',
+        'D’abord, Ama se lève. Ensuite, elle se lave. Enfin, elle prend son petit-déjeuner.',
+        'Quel mot peut annoncer la dernière action ?', ['D’abord', 'Enfin', 'Hier'], 1,
+        'Enfin annonce généralement la dernière étape d’une suite d’actions.'),
+    ]),
   ];
 
   @override
