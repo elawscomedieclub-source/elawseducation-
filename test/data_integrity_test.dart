@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/data/sample/sample_data.dart';
 import 'package:proftogo/data/models/models.dart';
+import 'package:proftogo/features/subjects/ce1_completion_screen.dart';
+import 'package:proftogo/features/subjects/ce2_completion_screen.dart';
+import 'package:proftogo/features/subjects/cm1_completion_screen.dart';
 
 void main() {
   group('Intégrité de la base pédagogique ProfTogo', () {
@@ -213,6 +216,25 @@ void main() {
             reason: 'Choix dupliqué dans ${exercise.id}');
       }
     });
+    test('les compléments CE1, CE2 et CM1 couvrent les trois trimestres', () {
+      final modules = [
+        (name: 'CE1', count: Ce1CompletionScreen.unitCount, lessons: Ce1CompletionScreen.lessonCount, pool: Ce1CompletionScreen.assessmentExercisesForTerm),
+        (name: 'CE2', count: Ce2CompletionScreen.unitCount, lessons: Ce2CompletionScreen.lessonCount, pool: Ce2CompletionScreen.assessmentExercisesForTerm),
+        (name: 'CM1', count: Cm1CompletionScreen.unitCount, lessons: Cm1CompletionScreen.lessonCount, pool: Cm1CompletionScreen.assessmentExercisesForTerm),
+      ];
+      for (final module in modules) {
+        expect(module.count, 15, reason: '${module.name}: 5 unités par trimestre attendues');
+        expect(module.lessons, 15, reason: '${module.name}: leçons manquantes');
+        for (var term = 1; term <= 3; term++) {
+          final exercises = module.pool(term);
+          expect(exercises, hasLength(5), reason: '${module.name}: 5 exercices attendus au trimestre $term');
+          expect(exercises.every((e) => e.options.length >= 3), isTrue);
+          expect(exercises.every((e) => e.correctIndex >= 0 && e.correctIndex < e.options.length), isTrue);
+          expect(exercises.every((e) => e.explanation.trim().isNotEmpty), isTrue);
+        }
+      }
+    });
+
   });
 }
 
