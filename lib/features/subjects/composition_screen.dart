@@ -14,6 +14,7 @@ import 'quatrieme_completion_screen.dart';
 import 'troisieme_completion_screen.dart';
 import 'seconde_completion_screen.dart';
 import 'premiere_completion_screen.dart';
+import 'terminale_completion_screen.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
@@ -92,6 +93,15 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
+    if (widget.level == SchoolLevel.terminale) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      final terminalePool = TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
+      if (terminalePool.isNotEmpty) pools.add(terminalePool);
+    }
+    if (widget.level == SchoolLevel.terminale) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
     if (widget.level == SchoolLevel.premiere) {
       final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
       final premierePool = PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
@@ -451,7 +461,11 @@ class _CompositionScreenState extends State<CompositionScreen> {
       ),
     );
   }
-}    if (widget.level == SchoolLevel.premiere) {
+}    if (widget.level == SchoolLevel.terminale) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
+    if (widget.level == SchoolLevel.premiere) {
       final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
       return baseCount + PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
     }
