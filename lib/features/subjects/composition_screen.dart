@@ -4,6 +4,7 @@ import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import 'cp2_completion_screen.dart';
+import 'ce1_completion_screen.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
@@ -82,7 +83,18 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
+    // Les exercices complémentaires CE1 alimentent les compositions.
+    if (widget.level == SchoolLevel.ce1) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      final ce1Pool = Ce1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
+      if (ce1Pool.isNotEmpty) pools.add(ce1Pool);
+    }
+
     // Le complément CP2 alimente les sujets mélangés et les sujets par matière.
+    if (widget.level == SchoolLevel.ce1) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + Ce1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
     if (widget.level == SchoolLevel.cp2) {
       final selectedName = _selectedSubjectId == null
           ? null
