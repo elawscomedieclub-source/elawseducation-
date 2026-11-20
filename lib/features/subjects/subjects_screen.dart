@@ -37,7 +37,7 @@ class SubjectsScreen extends ConsumerWidget {
                 leading: const Icon(Icons.menu_book_rounded, color: Color(0xFF006A4E), size: 30),
                 title: const Text('Complément CP2 • Trois trimestres',
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: const Text('26 unités • 39 leçons • exercices et corrections'),
+                subtitle: const Text('29 unités • 45 leçons • évaluations et corrections'),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () => Navigator.push(
                   context,
