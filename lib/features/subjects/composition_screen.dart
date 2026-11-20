@@ -10,6 +10,7 @@ import 'cm1_completion_screen.dart';
 import 'cm2_completion_screen.dart';
 import 'sixieme_completion_screen.dart';
 import 'cinquieme_completion_screen.dart';
+import 'quatrieme_completion_screen.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
@@ -88,6 +89,15 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
+    if (widget.level == SchoolLevel.quatrieme) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      final fourPool = QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
+      if (fourPool.isNotEmpty) pools.add(fourPool);
+    }
+    if (widget.level == SchoolLevel.quatrieme) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
     if (widget.level == SchoolLevel.cinquieme) {
       final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
       final fivePool = CinquiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
@@ -411,4 +421,8 @@ class _CompositionScreenState extends State<CompositionScreen> {
       ),
     );
   }
-}
+}    if (widget.level == SchoolLevel.quatrieme) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
+
