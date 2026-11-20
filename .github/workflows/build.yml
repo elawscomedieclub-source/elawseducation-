@@ -61,6 +61,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
   android:
+    if: ${{ false }} # APK finale volontairement différée jusqu’à la fin des contenus Web CP1-Terminale
     name: Construire et publier l’APK Android
     runs-on: ubuntu-latest
     steps:
