@@ -7,6 +7,7 @@ import 'cp2_completion_screen.dart';
 import 'ce1_completion_screen.dart';
 import 'ce2_completion_screen.dart';
 import 'cm1_completion_screen.dart';
+import 'cm2_completion_screen.dart';
 
 class CompositionScreen extends StatefulWidget {
   final SchoolLevel level;
@@ -85,6 +86,15 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
+    if (widget.level == SchoolLevel.cm2) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      final cm2Pool = Cm2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
+      if (cm2Pool.isNotEmpty) pools.add(cm2Pool);
+    }
+    if (widget.level == SchoolLevel.cm2) {
+      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + Cm2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
+    }
     if (widget.level == SchoolLevel.cm1) {
       final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
       final cm1Pool = Cm1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
