@@ -11,10 +11,10 @@ class AppTheme {
       secondary: AppColors.secondary,
       surface: AppColors.surface,
     ),
-    scaffoldBackgroundColor: const Color(0xFFF6F8F6),
+    scaffoldBackgroundColor: const Color(0xFFF3F0E7),
     fontFamily: 'Roboto',
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFFF6F8F6),
+      backgroundColor: Color(0xFFF3F0E7),
       foregroundColor: AppColors.onSurface,
       elevation: 0,
       centerTitle: false,
@@ -25,12 +25,12 @@ class AppTheme {
       ),
     ),
     cardTheme: CardThemeData(
-      color: Colors.white,
-      elevation: 0,
+      color: const Color(0xFFFFFEFA),
+      elevation: 1,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
-        side: const BorderSide(color: Color(0xFFE7ECE8)),
+        side: const BorderSide(color: Color(0xFFE8E0D0)),
       ),
     ),
     textTheme: const TextTheme(
