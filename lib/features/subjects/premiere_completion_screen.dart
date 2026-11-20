@@ -114,7 +114,7 @@ class PremiereCompletionScreen extends StatelessWidget {
   static bool _matches(String title, String subject) {
     final t = title.toLowerCase(), s = subject.toLowerCase();
     if (s.contains('français') || s.contains('francais') || s.contains('littérature')) return t.contains('français');
-    if (s.contains('math')) return t.contains('mathématiques');
+    if (s.contains('math')) return t.contains('math');
     if (s.contains('anglais') || s.contains('english')) return t.contains('anglais');
     if (s.contains('svt') || s.contains('science') || s.contains('biologie')) return t.contains('svt');
     if (s.contains('physique') || s.contains('chimie')) return t.contains('physique-chimie');
