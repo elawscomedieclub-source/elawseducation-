@@ -15,6 +15,7 @@ import 'cm1_completion_screen.dart';
 import 'cm2_completion_screen.dart';
 import 'sixieme_completion_screen.dart';
 import 'cinquieme_completion_screen.dart';
+import 'quatrieme_completion_screen.dart';
 
 class SubjectsScreen extends ConsumerWidget {
   const SubjectsScreen({super.key});
@@ -93,6 +94,17 @@ class SubjectsScreen extends ConsumerWidget {
                 subtitle: Text('${Cm2CompletionScreen.unitCount} unités • ${Cm2CompletionScreen.lessonCount} leçons • exercices corrigés'),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const Cm2CompletionScreen())),
+              ),
+            ),
+          if (selectedLevel == SchoolLevel.quatrieme)
+            Card(
+              color: const Color(0xFFE8F5EF),
+              child: ListTile(
+                leading: const Icon(Icons.menu_book_rounded, color: Color(0xFF006A4E), size: 30),
+                title: const Text('Complément 4ème • Année complète', style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text('${QuatriemeCompletionScreen.unitCount} unités • ${QuatriemeCompletionScreen.lessonCount} leçons • exercices corrigés'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QuatriemeCompletionScreen())),
               ),
             ),
           if (selectedLevel == SchoolLevel.cinquieme)
