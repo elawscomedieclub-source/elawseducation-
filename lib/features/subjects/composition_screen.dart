@@ -83,8 +83,8 @@ class _CompositionScreenState extends State<CompositionScreen> {
       SchoolLevel.quatrieme => QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
       SchoolLevel.troisieme => TroisiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
       SchoolLevel.seconde => SecondeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
-      SchoolLevel.premiere => PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
-      SchoolLevel.terminale => TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.premiere => PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName, track: widget.track, series: widget.series),
+      SchoolLevel.terminale => TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName, track: widget.track, series: widget.series),
       _ => const <Exercise>[],
     };
   }
