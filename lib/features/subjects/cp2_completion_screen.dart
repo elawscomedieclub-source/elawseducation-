@@ -8,7 +8,18 @@ class Cp2CompletionScreen extends StatelessWidget {
 
   /// Convertit les leçons du complément CP2 en questions utilisables
   /// par le moteur de compositions trimestrielles.
-  static List<Exercise> assessmentExercisesForTerm(int term) {
+  static List<Exercise> assessmentExercisesForTerm(int term, {String? subjectName}) {
+    bool matchesSubject(String title) {
+      if (subjectName == null) return true;
+      final name = subjectName.toLowerCase();
+      final unit = title.toLowerCase();
+      if (name.contains('français') || name.contains('francais')) return unit.contains('français') || unit.contains('francais');
+      if (name.contains('math')) return unit.contains('mathématiques') || unit.contains('mathematiques');
+      if (name.contains('anglais') || name.contains('english')) return unit.contains('anglais');
+      if (name.contains('scientifique') || name.contains('science')) return unit.contains('éveil scientifique') || unit.contains('eveil scientifique');
+      if (name.contains('social') || name.contains('civique') || name.contains('morale')) return unit.contains('éducation sociale') || unit.contains('education sociale');
+      return false;
+    }
     final prefix = 'T$term •';
     final evaluationTitle = switch (term) {
       1 => 'CP2 • Évaluation du 1er trimestre',
@@ -18,7 +29,7 @@ class Cp2CompletionScreen extends StatelessWidget {
     final result = <Exercise>[];
     for (var unitIndex = 0; unitIndex < _units.length; unitIndex++) {
       final unit = _units[unitIndex];
-      if (!unit.title.startsWith(prefix) && unit.title != evaluationTitle) continue;
+      if ((!unit.title.startsWith(prefix) && unit.title != evaluationTitle) || !matchesSubject(unit.title)) continue;
       for (var lessonIndex = 0; lessonIndex < unit.lessons.length; lessonIndex++) {
         final lesson = unit.lessons[lessonIndex];
         result.add(Exercise(
