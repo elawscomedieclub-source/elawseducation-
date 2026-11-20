@@ -82,11 +82,15 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
-    // Le complément CP2 alimente aussi les compositions générales.
-    // Les compositions ciblées par matière conservent leur banque dédiée.
-    if (widget.level == SchoolLevel.cp2 && _selectedSubjectId == null) {
-      final cp2Pool = Cp2CompletionScreen.assessmentExercisesForTerm(_term)
-        ..shuffle(Random());
+    // Le complément CP2 alimente les sujets mélangés et les sujets par matière.
+    if (widget.level == SchoolLevel.cp2) {
+      final selectedName = _selectedSubjectId == null
+          ? null
+          : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      final cp2Pool = Cp2CompletionScreen.assessmentExercisesForTerm(
+        _term,
+        subjectName: selectedName,
+      )..shuffle(Random());
       if (cp2Pool.isNotEmpty) pools.add(cp2Pool);
     }
 
@@ -132,8 +136,14 @@ class _CompositionScreenState extends State<CompositionScreen> {
     final baseCount = demoExercises
         .where((exercise) => lessonIds.contains(exercise.lessonId))
         .length;
-    if (widget.level == SchoolLevel.cp2 && _selectedSubjectId == null) {
-      return baseCount + Cp2CompletionScreen.assessmentExercisesForTerm(_term).length;
+    if (widget.level == SchoolLevel.cp2) {
+      final selectedName = _selectedSubjectId == null
+          ? null
+          : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+      return baseCount + Cp2CompletionScreen.assessmentExercisesForTerm(
+        _term,
+        subjectName: selectedName,
+      ).length;
     }
     return baseCount;
   }
