@@ -43,6 +43,9 @@ jobs:
       - name: Construire le site Web
         run: flutter build web --release --base-href "/elawseducation-/"
 
+      - name: Ajouter la console d’administration séparée
+        run: mkdir -p build/web/admin && cp admin/index.html build/web/admin/index.html
+
       - name: Préparer le site pour GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
