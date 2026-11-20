@@ -251,6 +251,32 @@ void main() {
       }
     });
 
+    test('les parcours de Première et Terminale ajoutent des cours par série', () {
+      final seriesByTrack = <SchoolTrack, List<String>>{
+        SchoolTrack.generalLiterary: ['A4'],
+        SchoolTrack.scientific: ['C', 'D'],
+        SchoolTrack.technicalTertiary: technicalTertiarySeries,
+        SchoolTrack.technicalIndustrial: technicalIndustrialSeries,
+      };
+      for (final entry in seriesByTrack.entries) {
+        for (final series in entry.value) {
+          for (var term = 1; term <= 3; term++) {
+            final first = PremiereCompletionScreen.assessmentExercisesForTerm(
+              term, track: entry.key, series: series);
+            final finalYear = TerminaleCompletionScreen.assessmentExercisesForTerm(
+              term, track: entry.key, series: series);
+            expect(first, hasLength(7), reason: 'Première $series, trimestre $term');
+            expect(finalYear, hasLength(7), reason: 'Terminale $series, trimestre $term');
+            for (final exercise in [...first, ...finalYear]) {
+              expect(exercise.options.length, greaterThanOrEqualTo(3));
+              expect(exercise.correctIndex, inInclusiveRange(0, exercise.options.length - 1));
+              expect(exercise.explanation.trim(), isNotEmpty);
+            }
+          }
+        }
+      }
+    });
+
   });
 }
 
