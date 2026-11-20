@@ -112,13 +112,23 @@ class PremiereCompletionScreen extends StatelessWidget {
     return result;
   }
   static bool _matches(String title, String subject) {
-    final t = title.toLowerCase(), s = subject.toLowerCase();
-    if (s.contains('français') || s.contains('francais') || s.contains('littérature')) return t.contains('français');
+    final t = title.toLowerCase();
+    final s = subject.toLowerCase();
+    if (t.contains(s) || s.contains(t)) return true;
+    if (s.contains('français') || s.contains('francais') || s.contains('littérature')) return t.contains('français') || t.contains('littérature');
     if (s.contains('math')) return t.contains('math');
     if (s.contains('anglais') || s.contains('english')) return t.contains('anglais');
-    if (s.contains('svt') || s.contains('science') || s.contains('biologie')) return t.contains('svt');
-    if (s.contains('physique') || s.contains('chimie')) return t.contains('physique-chimie');
+    if (s.contains('svt') || s.contains('science') || s.contains('biologie')) return t.contains('svt') || t.contains('génétique') || t.contains('physiologie') || t.contains('écologie') || t.contains('biodiversité');
+    if (s.contains('physique') || s.contains('chimie') || s.contains('électricité') || s.contains('electrotechnique')) return t.contains('physique') || t.contains('électricité') || t.contains('électrotechnique') || t.contains('mécanique') || t.contains('énergie');
     if (s.contains('histoire') || s.contains('géographie') || s.contains('education') || s.contains('éducation') || s.contains('emc')) return t.contains('histoire-géographie');
+    if (s.contains('philosoph')) return t.contains('philosoph');
+    if (s.contains('comptab') || s.contains('finance') || s.contains('gestion')) return t.contains('comptab') || t.contains('financ') || t.contains('gestion') || t.contains('coûts') || t.contains('fiscal');
+    if (s.contains('commerce') || s.contains('marketing') || s.contains('vente')) return t.contains('marketing') || t.contains('vente') || t.contains('commercial') || t.contains('client');
+    if (s.contains('secrétariat') || s.contains('secretariat') || s.contains('communication') || s.contains('administration')) return t.contains('secrétariat') || t.contains('communication') || t.contains('administratif') || t.contains('réunion');
+    if (s.contains('mécanique') || s.contains('dessin industriel') || s.contains('fabrication')) return t.contains('mécanique') || t.contains('dessin industriel') || t.contains('fabrication') || t.contains('résistance des matériaux');
+    if (s.contains('électronique') || s.contains('electronique')) return t.contains('électronique') || t.contains('logique') || t.contains('amplificateur');
+    if (s.contains('génie civil') || s.contains('btp') || s.contains('construction') || s.contains('bâtiment')) return t.contains('construction') || t.contains('chantier') || t.contains('structure') || t.contains('topographie');
+    if (s.contains('automatisme') || s.contains('technologie') || s.contains('industriel')) return t.contains('automatisme') || t.contains('technologie') || t.contains('maintenance') || t.contains('qualité');
     return false;
   }
   @override
@@ -127,7 +137,7 @@ class PremiereCompletionScreen extends StatelessWidget {
     body: ListView(padding: const EdgeInsets.all(16), children: [
       Card(child: Padding(padding: const EdgeInsets.all(16), child: Text('Parcours : ${track.label} • Série $series\n${unitCount} unités communes • ${lessonCount} leçons • 3 trimestres\nLes enseignements spécifiques de la série restent accessibles dans la liste des matières.', style: const TextStyle(fontWeight: FontWeight.w600)))),
       for (final unit in _units) _UnitTile(unit: unit),
-      if (seriesUnitsFor(series).isNotEmpty) const Padding(padding: EdgeInsets.symmetric(vertical: 12), child: Text('ENSEIGNEMENTS SPÉCIFIQUES DE LA SÉRIE', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5))),
+      if (seriesUnitsFor(series).isNotEmpty) const Padding(padding: EdgeInsets.symmetric(vertical: 12), child: Text('ENSEIGNEMENTS SPÉCIFIQUES DE LA SÉRIE • 3 LEÇONS', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5))),
       for (final unit in seriesUnitsFor(series)) _UnitTile(unit: unit),
     ]),
   );
