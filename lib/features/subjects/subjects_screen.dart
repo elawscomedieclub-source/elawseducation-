@@ -8,6 +8,7 @@ import 'subject_detail_screen.dart';
 import 'primary_year_plan_screen.dart';
 import 'composition_screen.dart';
 import 'cp1_completion_screen.dart';
+import 'cp2_completion_screen.dart';
 
 class SubjectsScreen extends ConsumerWidget {
   const SubjectsScreen({super.key});
@@ -29,6 +30,21 @@ class SubjectsScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          if (selectedLevel == SchoolLevel.cp2)
+            Card(
+              color: const Color(0xFFE8F5EF),
+              child: ListTile(
+                leading: const Icon(Icons.menu_book_rounded, color: Color(0xFF006A4E), size: 30),
+                title: const Text('Complément CP2 • Trois trimestres',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text('15 unités • 19 leçons • exercices et corrections'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const Cp2CompletionScreen()),
+                ),
+              ),
+            ),
           if (selectedLevel == SchoolLevel.cp1)
             Card(
               color: const Color(0xFFE8F5EF),
