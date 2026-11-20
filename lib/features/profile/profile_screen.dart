@@ -45,8 +45,8 @@ class ProfileScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const AccountSection(),
           const StudentNameSection(),
+          const AccountSection(),
           const StudentProfileCloudSync(),
           const SizedBox(height: 12),
           const StudentProgressSummary(),
@@ -121,11 +121,6 @@ class ProfileScreen extends ConsumerWidget {
             style: TextStyle(color: Theme.of(context).hintColor),
           ),
           const SizedBox(height: 24),
-          const ListTile(
-            leading: Icon(Icons.flag),
-            title: Text('Mon objectif'),
-            subtitle: Text('Apprendre chaque jour'),
-          ),
           SwitchListTile(
             value: mode == ThemeMode.dark,
             title: const Text('Mode sombre'),
