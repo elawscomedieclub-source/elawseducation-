@@ -66,7 +66,7 @@ export default {
       await env.DB.batch([
        env.DB.prepare("INSERT OR IGNORE INTO sessions(id,uid,day_key,started_ms,last_ms,seconds) VALUES(?,?,?,?,?,0)").bind(sid,uid,day,now,now),
        env.DB.prepare("INSERT OR IGNORE INTO daily_users(day_key,uid) VALUES(?,?)").bind(day,uid),
-       env.DB.prepare("INSERT INTO usage_daily(day_key,logins,sessions,unique_users,total_seconds) VALUES(?,1,1,changes(),0) ON CONFLICT(day_key) DO UPDATE SET logins=logins+1,sessions=sessions+1,unique_users=unique_users+(SELECT changes())").bind(day)
+       env.DB.prepare("INSERT INTO usage_daily(day_key,logins,sessions,unique_users,total_seconds) VALUES(?,1,1,changes(),0) ON CONFLICT(day_key) DO UPDATE SET logins=logins+1,sessions=sessions+1,unique_users=unique_users+excluded.unique_users").bind(day)
       ]);
       return reply({ok:true,newSession:true});
     }
