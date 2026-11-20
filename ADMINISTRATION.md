@@ -14,7 +14,13 @@ La console est séparée de l'application élève. L'URL n'est pas un secret : l
 
 Le suivi mesure les comptes authentifiés ; les personnes qui utilisent l’application sans créer de compte ne sont pas incluses dans ces statistiques. La durée est une estimation basée sur des signaux périodiques et peut sous-estimer les périodes hors ligne ou les secondes précédant la fermeture.\n\nLes mots de passe ne sont jamais lisibles. La console ne permet pas de récupérer le mot de passe actuel d'un élève.
 
-## Première activation
+## Migration vers l'offre gratuite Cloudflare
+
+La procédure Firebase Cloud Functions ci-dessous est une ancienne préparation et **ne doit pas être exécutée** : elle nécessite le plan Blaze. Pour poursuivre sans abonnement payant, suivre exclusivement le guide [`CLOUDFLARE-GRATUIT.md`](CLOUDFLARE-GRATUIT.md). Le Worker et le schéma D1 sont dans `cloudflare/`. À ce stade, le socle API et les statistiques sont préparés, mais la page admin et le suivi Flutter doivent encore être raccordés à l'URL réelle du Worker avant utilisation.
+
+## Ancienne procédure Firebase (non utilisée)
+
+Les étapes suivantes sont conservées comme historique technique uniquement. Ne pas déployer ces fonctions dans le cadre de l'installation gratuite.
 1. Le propriétaire choisit une adresse e-mail personnelle et crée un compte ProfTogo avec cette adresse.
 2. Il vérifie l'adresse e-mail via le message envoyé par Firebase.
 3. Le projet Firebase doit être associé au plan Blaze pour déployer Cloud Functions. Ce plan est facturé à l'usage : configurer des alertes de budget avant le déploiement.
