@@ -36,19 +36,22 @@ exports.bootstrapFirstAdmin = onCall({ maxInstances: 2 }, async (request) => {
     throw new HttpsError("failed-precondition", "Vérifie d'abord ton adresse e-mail.");
   }
 
-  let pageToken;
-  do {
-    const page = await auth.listUsers(1000, pageToken);
-    const anotherAdmin = page.users.find(
-      (user) => user.uid !== request.auth.uid && user.customClaims?.admin === true
-    );
-    if (anotherAdmin) {
+  const user = await auth.getUser(request.auth.uid);
+  const primaryAdminRef = db.collection("adminConfig").doc("primary");
+  // Atomic one-time lock prevents two simultaneous first-admin activations.
+  await db.runTransaction(async (tx) => {
+    const snap = await tx.get(primaryAdminRef);
+    if (snap.exists && snap.data()?.uid !== user.uid) {
       throw new HttpsError("already-exists", "Un administrateur est déjà configuré.");
     }
-    pageToken = page.pageToken;
-  } while (pageToken);
-
-  const user = await auth.getUser(request.auth.uid);
+    if (!snap.exists) {
+      tx.create(primaryAdminRef, {
+        uid: user.uid,
+        email: user.email || email,
+        createdAt: FieldValue.serverTimestamp(),
+      });
+    }
+  });
   await auth.setCustomUserClaims(user.uid, {
     ...(user.customClaims || {}),
     admin: true,
@@ -210,7 +213,7 @@ exports.adminUserDetails = onCall({ maxInstances: 3 }, async (request) => {
     uid, email: user.email || "", emailVerified: user.emailVerified,
     disabled: user.disabled, createdAt: user.metadata.creationTime || "",
     lastSignInAt: user.metadata.lastSignInTime || "",
-    profile: p || {},
+    profile: {\n      name: typeof p?.name === "string" ? p.name : "",\n      level: typeof p?.level === "string" ? p.level : "",\n      track: typeof p?.track === "string" ? p.track : "",\n      series: typeof p?.series === "string" ? p.series : "",\n    },
     progress: {
       xp: Number(g?.xp || 0),
       answered: Array.isArray(g?.answeredExerciseIds) ? g.answeredExerciseIds.length : 0,
