@@ -68,6 +68,27 @@ class _CompositionScreenState extends State<CompositionScreen> {
     return 'Reprends calmement les cours, note les erreurs et recommence un entraînement après révision.';
   }
 
+  List<Exercise> _extraExercisesForSelectedTerm() {
+    final selectedName = _selectedSubjectId == null
+        ? null
+        : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+    return switch (widget.level) {
+      SchoolLevel.cp2 => Cp2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.ce1 => Ce1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.ce2 => Ce2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.cm1 => Cm1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.cm2 => Cm2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.sixieme => SixiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.cinquieme => CinquiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.quatrieme => QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.troisieme => TroisiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.seconde => SecondeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.premiere => PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      SchoolLevel.terminale => TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
+      _ => const <Exercise>[],
+    };
+  }
+
   List<Exercise> _buildQuestions() {
     final subjects = demoSubjects
         .where((subject) =>
@@ -75,7 +96,6 @@ class _CompositionScreenState extends State<CompositionScreen> {
             (_selectedSubjectId == null || subject.id == _selectedSubjectId))
         .toList();
 
-    // Prépare une banque mélangée par matière pour éviter les répétitions.
     final pools = <List<Exercise>>[];
     for (final subject in subjects) {
       final chapterIds = demoChapters
@@ -93,130 +113,12 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (pool.isNotEmpty) pools.add(pool);
     }
 
-    if (widget.level == SchoolLevel.terminale) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final terminalePool = TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (terminalePool.isNotEmpty) pools.add(terminalePool);
-    }
-    if (widget.level == SchoolLevel.terminale) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.premiere) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final premierePool = PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (premierePool.isNotEmpty) pools.add(premierePool);
-    }
-    if (widget.level == SchoolLevel.premiere) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.seconde) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final secondePool = SecondeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (secondePool.isNotEmpty) pools.add(secondePool);
-    }
-    if (widget.level == SchoolLevel.seconde) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + SecondeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.troisieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final threePool = TroisiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (threePool.isNotEmpty) pools.add(threePool);
-    }
-    if (widget.level == SchoolLevel.troisieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + TroisiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.quatrieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final fourPool = QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (fourPool.isNotEmpty) pools.add(fourPool);
-    }
-    if (widget.level == SchoolLevel.quatrieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.cinquieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final fivePool = CinquiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (fivePool.isNotEmpty) pools.add(fivePool);
-    }
-    if (widget.level == SchoolLevel.cinquieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + CinquiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.sixieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final sixiemePool = SixiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (sixiemePool.isNotEmpty) pools.add(sixiemePool);
-    }
-    if (widget.level == SchoolLevel.sixieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + SixiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.cm2) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final cm2Pool = Cm2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (cm2Pool.isNotEmpty) pools.add(cm2Pool);
-    }
-    if (widget.level == SchoolLevel.cm2) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + Cm2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.cm1) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final cm1Pool = Cm1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (cm1Pool.isNotEmpty) pools.add(cm1Pool);
-    }
-    if (widget.level == SchoolLevel.cm1) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + Cm1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.ce2) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final ce2Pool = Ce2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (ce2Pool.isNotEmpty) pools.add(ce2Pool);
-    }
-
-    // Les exercices complémentaires CE1 alimentent les compositions.
-    if (widget.level == SchoolLevel.ce2) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + Ce2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.ce1) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final ce1Pool = Ce1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName)..shuffle(Random());
-      if (ce1Pool.isNotEmpty) pools.add(ce1Pool);
-    }
-
-    // Le complément CP2 alimente les sujets mélangés et les sujets par matière.
-    if (widget.level == SchoolLevel.ce1) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + Ce1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.cinquieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + CinquiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.cp2) {
-      final selectedName = _selectedSubjectId == null
-          ? null
-          : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      final cp2Pool = Cp2CompletionScreen.assessmentExercisesForTerm(
-        _term,
-        subjectName: selectedName,
-      )..shuffle(Random());
-      if (cp2Pool.isNotEmpty) pools.add(cp2Pool);
-    }
+    final extraPool = _extraExercisesForSelectedTerm()..shuffle(Random());
+    if (extraPool.isNotEmpty) pools.add(extraPool);
 
     final limit = _selectedSubjectId == null ? 20 : 10;
     final selected = <Exercise>[];
     final usedIds = <String>{};
-
-    // Premier tour : une question par matière autant que possible.
-    // Tours suivants : on ajoute une question par matière à chaque passage.
     var round = 0;
     while (selected.length < limit) {
       var addedInRound = false;
@@ -232,19 +134,21 @@ class _CompositionScreenState extends State<CompositionScreen> {
       if (!addedInRound) break;
       round++;
     }
-
     selected.shuffle(Random());
     return selected;
   }
 
   int _availableExerciseCount() {
     final subjects = demoSubjects
-        .where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series) &&
-            (_selectedSubjectId == null || s.id == _selectedSubjectId))
+        .where((subject) =>
+            subjectMatchesPath(subject, widget.level, widget.track, widget.series) &&
+            (_selectedSubjectId == null || subject.id == _selectedSubjectId))
         .toList();
     final chapterIds = demoChapters
-        .where((c) => subjects.any((subject) => subject.id == c.subjectId) && c.term == _term)
-        .map((c) => c.id)
+        .where((chapter) =>
+            subjects.any((subject) => subject.id == chapter.subjectId) &&
+            chapter.term == _term)
+        .map((chapter) => chapter.id)
         .toSet();
     final lessonIds = demoLessons
         .where((lesson) => chapterIds.contains(lesson.chapterId))
@@ -253,16 +157,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
     final baseCount = demoExercises
         .where((exercise) => lessonIds.contains(exercise.lessonId))
         .length;
-    if (widget.level == SchoolLevel.cp2) {
-      final selectedName = _selectedSubjectId == null
-          ? null
-          : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + Cp2CompletionScreen.assessmentExercisesForTerm(
-        _term,
-        subjectName: selectedName,
-      ).length;
-    }
-    return baseCount;
+    return baseCount + _extraExercisesForSelectedTerm().length;
   }
 
   void _start() {
@@ -461,24 +356,4 @@ class _CompositionScreenState extends State<CompositionScreen> {
       ),
     );
   }
-}    if (widget.level == SchoolLevel.terminale) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + TerminaleCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.premiere) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + PremiereCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.seconde) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + SecondeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.troisieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + TroisiemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-    if (widget.level == SchoolLevel.quatrieme) {
-      final selectedName = _selectedSubjectId == null ? null : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
-      return baseCount + QuatriemeCompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName).length;
-    }
-
+}
