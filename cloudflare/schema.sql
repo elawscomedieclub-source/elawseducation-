@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS usage_daily (
+  day_key TEXT PRIMARY KEY,
+  logins INTEGER NOT NULL DEFAULT 0,
+  sessions INTEGER NOT NULL DEFAULT 0,
+  unique_users INTEGER NOT NULL DEFAULT 0,
+  total_seconds INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS daily_users (
+  day_key TEXT NOT NULL,
+  uid TEXT NOT NULL,
+  PRIMARY KEY(day_key, uid)
+);
+CREATE TABLE IF NOT EXISTS sessions (
+  id TEXT PRIMARY KEY,
+  uid TEXT NOT NULL,
+  day_key TEXT NOT NULL,
+  started_ms INTEGER NOT NULL,
+  last_ms INTEGER NOT NULL,
+  seconds INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS idx_sessions_uid ON sessions(uid);
