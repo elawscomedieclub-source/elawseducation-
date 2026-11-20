@@ -232,9 +232,9 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
     final apc = ApcLessonGuide.forLesson(lesson, chapter);
 
     return Scaffold(
-      appBar: AppBar(title: Text(lesson.title)),
+      appBar: AppBar(title: Text(lesson.title), actions: [const Padding(padding: EdgeInsets.only(right: 14), child: Icon(Icons.auto_stories_rounded))]),
       body: ListView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(22, 18, 22, 30),
         children: [
           Card(
             clipBehavior: Clip.antiAlias,
@@ -426,6 +426,17 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
             ),
           ),
           const SizedBox(height: 18),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFF8E8),
+              border: Border.all(color: const Color(0xFFE6D8B8)),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: const [BoxShadow(color: Color(0x14000000), blurRadius: 8, offset: Offset(0, 3))],
+            ),
+            child: const Text('📖  Mon cahier de leçon', style: TextStyle(fontWeight: FontWeight.w800, color: Color(0xFF72552B))),
+          ),
+          const SizedBox(height: 10),
           const Text(
             'Le cours pas à pas',
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
