@@ -251,6 +251,31 @@ void main() {
       }
     });
 
+
+    test('la Seconde propose trois cours propres à chaque série', () {
+      final seriesByTrack = <SchoolTrack, List<String>>{
+        SchoolTrack.generalLiterary: ['A4'],
+        SchoolTrack.scientific: ['C', 'D'],
+        SchoolTrack.technicalTertiary: technicalTertiarySeries,
+        SchoolTrack.technicalIndustrial: technicalIndustrialSeries,
+      };
+      for (final entry in seriesByTrack.entries) {
+        for (final series in entry.value) {
+          final units = SecondeCompletionScreen.seriesUnitsFor(series);
+          expect(units, hasLength(3), reason: 'Seconde série $series');
+          for (var term = 1; term <= 3; term++) {
+            expect(units.where((unit) => unit.title.startsWith('T$term •')), hasLength(1));
+          }
+          for (final unit in units) {
+            expect(unit.question.trim(), isNotEmpty);
+            expect(unit.options.length, greaterThanOrEqualTo(3));
+            expect(unit.answer, inInclusiveRange(0, unit.options.length - 1));
+            expect(unit.explanation.trim(), isNotEmpty);
+          }
+        }
+      }
+    });
+
     test('les parcours de Première et Terminale ajoutent des cours par série', () {
       final seriesByTrack = <SchoolTrack, List<String>>{
         SchoolTrack.generalLiterary: ['A4'],
