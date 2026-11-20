@@ -6,6 +6,9 @@ import '../../data/models/models.dart';
 class Cp2CompletionScreen extends StatelessWidget {
   const Cp2CompletionScreen({super.key});
 
+  static int get unitCount => _units.length;
+  static int get lessonCount => _units.fold(0, (sum, unit) => sum + unit.lessons.length);
+
   /// Convertit les leçons du complément CP2 en questions utilisables
   /// par le moteur de compositions trimestrielles.
   static List<Exercise> assessmentExercisesForTerm(int term, {String? subjectName}) {
