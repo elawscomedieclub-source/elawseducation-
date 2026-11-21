@@ -18,13 +18,13 @@ class ProgressSnapshot {
 class ProgressService {
   // Les caches locaux sont séparés par UID. Le cache invité est indépendant
   // de tous les comptes connectés.
-  static String _key(String base, String? uid) =>
+  static String localStorageKey(String base, String? uid) =>
       uid == null ? '${base}_guest' : '${base}_user_$uid';
 
   static Future<ProgressSnapshot> load() async {
     final prefs = await SharedPreferences.getInstance();
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    final answeredKey = _key('proftogo_answered_exercises', uid);
+    final answeredKey = localStorageKey('proftogo_answered_exercises', uid);
     final correctKey = _key('proftogo_correct_exercises', uid);
     final localCorrect = (prefs.getStringList(correctKey) ?? []).toSet();
     final local = ProgressSnapshot(
