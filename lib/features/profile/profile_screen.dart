@@ -10,6 +10,7 @@ import '../../core/theme/theme_provider.dart';
 import '../../core/school_level_provider.dart';
 import '../../core/student_profile_cloud_service.dart';
 import '../../core/progress_service.dart';
+import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
 import '../auth/account_section.dart';
 
@@ -178,9 +179,9 @@ class _StudentProgressSummaryState extends State<StudentProgressSummary> {
       builder: (dialogContext) => AlertDialog(
         title: const Text('Effacer ma progression ?'),
         content: const Text(
-          'Cette action efface les exercices validés et les XP de ce compte uniquement. '
+          'Cette action efface les exercices validés, les XP et l’historique des évaluations de ce compte uniquement. '
           'Elle ne supprime pas ton compte ni les données des autres élèves. '
-          'Elle peut servir à nettoyer une ancienne progression copiée par erreur.',
+          'Elle peut servir à nettoyer des données copiées par erreur.',
         ),
         actions: [
           TextButton(
@@ -197,16 +198,17 @@ class _StudentProgressSummaryState extends State<StudentProgressSummary> {
     if (confirmed != true) return;
     try {
       await ProgressService.clearCurrentAccount();
+      await EvaluationService.clearCurrentAccountHistory();
       if (!mounted) return;
       setState(() => _progressFuture = ProgressService.load());
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Progression de ce compte effacée.')),
+        const SnackBar(content: Text('Progression et historique de ce compte effacés.')),
       );
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text(
-          'La progression locale a été nettoyée, mais la suppression cloud n’a pas abouti. Réessaie avec Internet.',
+          'Les données locales ont été nettoyées, mais la suppression cloud n’a pas abouti. Réessaie avec Internet.',
         )),
       );
     }
@@ -302,7 +304,7 @@ class _StudentProgressSummaryState extends State<StudentProgressSummary> {
                   child: TextButton.icon(
                     onPressed: _resetProgress,
                     icon: const Icon(Icons.delete_outline),
-                    label: const Text('Effacer la progression de ce compte'),
+                    label: const Text('Effacer les données pédagogiques de ce compte'),
                   ),
                 ),
               ],
