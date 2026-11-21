@@ -28,6 +28,20 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   void initState() {
     super.initState();
     _loadProgress();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      setState(() {
+        _selectedAnswers.clear();
+        _answeredIds.clear();
+        _correctIds.clear();
+        _checkingIds.clear();
+        _feedback.clear();
+        _currentIndex = 0;
+        _progressUnavailable = false;
+        _loading = true;
+      });
+      _loadProgress();
+    });
   }
 
   Future<void> _loadProgress() async {
