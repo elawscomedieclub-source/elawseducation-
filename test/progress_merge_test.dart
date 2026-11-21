@@ -55,5 +55,15 @@ void main() {
 
       expect(merged.answeredExerciseIds, containsAll({'ex1', 'ex2'}));
     });
+
+    test('les caches locaux sont différents pour chaque UID et pour le mode invité', () {
+      final first = ProgressService.localStorageKey('progress', 'studentA');
+      final second = ProgressService.localStorageKey('progress', 'studentB');
+      final guest = ProgressService.localStorageKey('progress', null);
+
+      expect(first, isNot(second));
+      expect(first, isNot(guest));
+      expect(second, isNot(guest));
+    });
   });
 }
