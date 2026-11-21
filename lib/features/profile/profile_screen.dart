@@ -269,33 +269,38 @@ class _StudentProfileCloudSyncState
   @override
   void initState() {
     super.initState();
-    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
-      _ready = false;
-      if (user != null) _syncProfile();
-    });
-    if (FirebaseAuth.instance.currentUser != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _syncProfile());
-    }
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen(_syncProfile);
+    _syncProfile(FirebaseAuth.instance.currentUser);
   }
 
-  Future<void> _syncProfile() async {
+  Future<void> _syncProfile(User? user) async {
+    _ready = false;
     try {
       final prefs = await SharedPreferences.getInstance();
-      final localLevel = prefs.getString('student_school_level') ??
-          SchoolLevel.sixieme.name;
-      final localTrack = prefs.getString('student_school_track') ??
-          SchoolTrack.generalLiterary.name;
-      final localSeries = prefs.getString('student_school_series') ?? 'A4';
+      String levelName;
+      String trackName;
+      String seriesName;
 
-      final cloud = await StudentProfileCloudService.load();
-      var levelName = localLevel;
-      var trackName = localTrack;
-      var seriesName = localSeries;
-
-      if (cloud != null) {
-        levelName = cloud['level'] is String ? cloud['level'] as String : localLevel;
-        trackName = cloud['track'] is String ? cloud['track'] as String : localTrack;
-        seriesName = cloud['series'] is String ? cloud['series'] as String : localSeries;
+      if (user == null) {
+        levelName = prefs.getString(studentPreferenceKey('student_school_level')) ??
+            SchoolLevel.sixieme.name;
+        trackName = prefs.getString(studentPreferenceKey('student_school_track')) ??
+            SchoolTrack.generalLiterary.name;
+        seriesName = prefs.getString(studentPreferenceKey('student_school_series')) ?? 'A4';
+      } else {
+        final cloud = await StudentProfileCloudService.load();
+        if (FirebaseAuth.instance.currentUser?.uid != user.uid) return;
+        // Un nouveau compte ne doit jamais hériter des réglages locaux du
+        // compte précédent. Le profil cloud de cet UID est la seule source.
+        levelName = cloud?['level'] is String
+            ? cloud!['level'] as String
+            : SchoolLevel.sixieme.name;
+        trackName = cloud?['track'] is String
+            ? cloud!['track'] as String
+            : SchoolTrack.generalLiterary.name;
+        seriesName = cloud?['series'] is String
+            ? cloud!['series'] as String
+            : 'A4';
       }
 
       final level = SchoolLevel.values.firstWhere(
@@ -313,21 +318,22 @@ class _StudentProfileCloudSyncState
       await ref.read(schoolTrackProvider.notifier).setTrack(track);
       await ref.read(schoolSeriesProvider.notifier).setSeries(series);
 
-      // Réécrit les champs normalisés même si le document cloud existait déjà
-      // partiellement (par exemple après l'enregistrement initial d'une photo).
-      await StudentProfileCloudService.save(
-        level: level.name,
-        track: track.name,
-        series: series,
-      );
-      _ready = true;
+      if (user != null && FirebaseAuth.instance.currentUser?.uid == user.uid) {
+        await StudentProfileCloudService.save(
+          level: level.name,
+          track: track.name,
+          series: series,
+        );
+      }
+      _ready = user == null || FirebaseAuth.instance.currentUser?.uid == user.uid;
     } catch (_) {
       _ready = true;
     }
   }
 
   Future<void> _saveProfile() async {
-    if (!_ready || FirebaseAuth.instance.currentUser == null) return;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (!_ready || uid == null) return;
     try {
       await StudentProfileCloudService.save(
         level: ref.read(schoolLevelProvider).name,
@@ -367,32 +373,48 @@ class _StudentNameSectionState extends State<StudentNameSection> {
   bool _loading = true;
   bool _saving = false;
   String? _message;
+  late final StreamSubscription<User?> _authSubscription;
 
   @override
   void initState() {
     super.initState();
     _loadName();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      _controller.clear();
+      StudentNameSection.nameNotifier.value = '';
+      setState(() {
+        _loading = true;
+        _message = null;
+      });
+      _loadName();
+    });
   }
 
   Future<void> _loadName() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     try {
       final prefs = await SharedPreferences.getInstance();
-      var name = prefs.getString('student_name') ?? '';
-      if (FirebaseAuth.instance.currentUser != null) {
+      var name = prefs.getString(studentPreferenceKey('student_name')) ?? '';
+      if (uid != null) {
         final cloud = await StudentProfileCloudService.load();
+        if (FirebaseAuth.instance.currentUser?.uid != uid) return;
         final cloudName = cloud?['name'];
-        if (cloudName is String && cloudName.trim().isNotEmpty) {
-          name = cloudName;
-          await prefs.setString('student_name', name);
+        // Aucun nom d'un autre compte ou du mode invité n'est repris.
+        name = cloudName is String ? cloudName : '';
+        if (name.trim().isNotEmpty) {
+          await prefs.setString(studentPreferenceKey('student_name'), name);
         }
       }
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       _controller.text = name;
       StudentNameSection.nameNotifier.value = name;
     } catch (_) {
-      // Keep the profile usable with the name stored on this device.
+      // Le profil reste accessible sans connexion réseau.
     } finally {
-      if (mounted) setState(() => _loading = false);
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) {
+        setState(() => _loading = false);
+      }
     }
   }
 
@@ -402,25 +424,27 @@ class _StudentNameSectionState extends State<StudentNameSection> {
       setState(() => _message = 'Écris ton nom avant d’enregistrer.');
       return;
     }
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     setState(() {
       _saving = true;
       _message = null;
     });
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('student_name', name);
+      await prefs.setString(studentPreferenceKey('student_name'), name);
+      if (FirebaseAuth.instance.currentUser?.uid != uid) return;
       StudentNameSection.nameNotifier.value = name;
-      if (FirebaseAuth.instance.currentUser != null) {
+      if (uid != null) {
         await StudentProfileCloudService.saveName(name);
-        if (!mounted) return;
-        setState(() => _message = 'Nom enregistré et synchronisé.');
+        if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
+        setState(() => _message = 'Nom enregistré et synchronisé dans ton compte.');
       } else {
         if (!mounted) return;
-        setState(() => _message = 'Nom enregistré sur cet appareil. Connecte-toi pour le sauvegarder dans le cloud.');
+        setState(() => _message = 'Nom enregistré sur cet appareil.');
       }
     } catch (_) {
       if (!mounted) return;
-      setState(() => _message = 'Nom gardé sur cet appareil, synchronisation cloud indisponible.');
+      setState(() => _message = 'Synchronisation momentanément indisponible.');
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -428,6 +452,7 @@ class _StudentNameSectionState extends State<StudentNameSection> {
 
   @override
   void dispose() {
+    _authSubscription.cancel();
     _controller.dispose();
     super.dispose();
   }
