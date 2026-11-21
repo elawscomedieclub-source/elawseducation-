@@ -23,9 +23,13 @@ class ProgressService {
 
   static Future<ProgressSnapshot> load() async {
     final prefs = await SharedPreferences.getInstance();
+    // Anciennes clés globales non liées à un compte : elles ne sont plus sûres.
+    await prefs.remove('proftogo_answered_exercises');
+    await prefs.remove('proftogo_correct_exercises');
+    await prefs.remove('proftogo_total_xp');
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final answeredKey = localStorageKey('proftogo_answered_exercises', uid);
-    final correctKey = _key('proftogo_correct_exercises', uid);
+    final correctKey = localStorageKey('proftogo_correct_exercises', uid);
     final localCorrect = (prefs.getStringList(correctKey) ?? []).toSet();
     final local = ProgressSnapshot(
       answeredExerciseIds: (prefs.getStringList(answeredKey) ?? []).toSet(),
@@ -67,8 +71,8 @@ class ProgressService {
   }) async {
     final prefs = await SharedPreferences.getInstance();
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    final answeredKey = _key('proftogo_answered_exercises', uid);
-    final correctKey = _key('proftogo_correct_exercises', uid);
+    final answeredKey = localStorageKey('proftogo_answered_exercises', uid);
+    final correctKey = localStorageKey('proftogo_correct_exercises', uid);
     final answered = (prefs.getStringList(answeredKey) ?? []).toSet();
     final correct = (prefs.getStringList(correctKey) ?? []).toSet();
 
@@ -126,14 +130,14 @@ class ProgressService {
     String? uid,
   ) async {
     await prefs.setStringList(
-      _key('proftogo_answered_exercises', uid),
+      localStorageKey('proftogo_answered_exercises', uid),
       progress.answeredExerciseIds.toList()..sort(),
     );
     await prefs.setStringList(
-      _key('proftogo_correct_exercises', uid),
+      localStorageKey('proftogo_correct_exercises', uid),
       progress.correctExerciseIds.toList()..sort(),
     );
-    await prefs.setInt(_key('proftogo_total_xp', uid), progress.xp);
+    await prefs.setInt(localStorageKey('proftogo_total_xp', uid), progress.xp);
   }
 
   static Future<void> _saveCloud(ProgressSnapshot progress, String uid) async {
