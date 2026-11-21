@@ -345,7 +345,9 @@ class _StudentProfileCloudSyncState
       }
       _ready = user == null || FirebaseAuth.instance.currentUser?.uid == user.uid;
     } catch (_) {
-      _ready = true;
+      // En cas d'échec cloud, ne pas sauvegarder les réglages d'un ancien
+      // compte dans le compte qui vient d'être connecté.
+      _ready = user == null;
     }
   }
 
