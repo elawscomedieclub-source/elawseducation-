@@ -470,7 +470,9 @@ class _StudentNameSectionState extends State<StudentNameSection> {
         if (FirebaseAuth.instance.currentUser?.uid != uid) return;
         final cloudName = cloud?['name'];
         // Aucun nom d'un autre compte ou du mode invité n'est repris.
-        name = cloudName is String ? cloudName : '';
+        name = cloudName is String
+            ? cloudName
+            : (prefs.getString(studentPreferenceKey('student_name')) ?? '');
         if (name.trim().isNotEmpty) {
           await prefs.setString(studentPreferenceKey('student_name'), name);
         }
