@@ -152,11 +152,24 @@ class StudentProgressSummary extends StatefulWidget {
 
 class _StudentProgressSummaryState extends State<StudentProgressSummary> {
   late Future<ProgressSnapshot> _progressFuture;
+  late final StreamSubscription<User?> _authSubscription;
 
   @override
   void initState() {
     super.initState();
     _progressFuture = ProgressService.load();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      setState(() {
+        _progressFuture = ProgressService.load();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
   }
 
   @override
