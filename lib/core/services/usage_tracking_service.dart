@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:cloud_functions/cloud_functions.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uuid/uuid.dart';
@@ -12,8 +14,8 @@ class UsageTrackingService with WidgetsBindingObserver {
   static final UsageTrackingService instance = UsageTrackingService._();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFunctions _functions =
-      FirebaseFunctions.instanceFor(region: 'us-central1');
+  static const String _api =
+      'https://proftogo-api.proftogo-metrics.workers.dev';
   final Uuid _uuid = const Uuid();
 
   StreamSubscription<User?>? _authSubscription;
@@ -48,9 +50,16 @@ class UsageTrackingService with WidgetsBindingObserver {
     // Do not block learning if analytics is unavailable or offline.
     try {
       if (_auth.currentUser?.uid != uid) return;
-      await _functions.httpsCallable('recordUsageHeartbeat').call({
-        'sessionId': sessionId,
-      });
+      final token = await _auth.currentUser?.getIdToken();
+      if (token == null) return;
+      await http.post(
+        Uri.parse('$_api/api/heartbeat'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({'sessionId': sessionId}),
+      );
     } catch (_) {
       // The next heartbeat retries automatically.
     }
