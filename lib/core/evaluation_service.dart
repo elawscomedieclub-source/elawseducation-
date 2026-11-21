@@ -49,7 +49,7 @@ class EvaluationRecord {
 }
 
 class EvaluationService {
-  static const _key = 'proftogo_evaluation_history';
+  static String _keyForUser(String? uid) => uid == null\n      ? 'proftogo_evaluation_history_guest'\n      : 'proftogo_evaluation_history_user_$uid';
 
   static CollectionReference<Map<String, dynamic>>? _cloudCollection() {
     final user = FirebaseAuth.instance.currentUser;
@@ -76,7 +76,7 @@ class EvaluationService {
     final collection = _cloudCollection();
     if (collection != null) {
       try {
-        final snapshot = await collection.get();
+        if (FirebaseAuth.instance.currentUser?.uid != uid) return byId.values.toList();\n        final snapshot = await collection.get();
         final cloudIds = snapshot.docs.map((doc) => doc.id).toSet();
 
         // Migre les anciennes évaluations locales absentes du cloud.
@@ -129,7 +129,7 @@ class EvaluationService {
     });
     raw.insert(0, jsonEncode(record.toJson()));
     if (raw.length > 100) raw.removeRange(100, raw.length);
-    await prefs.setStringList(_key, raw);
+    await prefs.setStringList(localKey, raw);
 
     final collection = _cloudCollection();
     if (collection != null) {
