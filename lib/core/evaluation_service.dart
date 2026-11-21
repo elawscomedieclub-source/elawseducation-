@@ -64,6 +64,7 @@ class EvaluationService {
 
   static Future<List<EvaluationRecord>> loadHistory() async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('proftogo_evaluation_history');
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final localKey = _keyForUser(uid);
     final raw = prefs.getStringList(localKey) ?? [];
@@ -125,6 +126,7 @@ class EvaluationService {
 
   static Future<void> save(EvaluationRecord record) async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('proftogo_evaluation_history');
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final localKey = _keyForUser(uid);
     final raw = prefs.getStringList(localKey) ?? [];
