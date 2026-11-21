@@ -60,21 +60,28 @@ $("signin").onclick=async()=>{try{await signInWithEmailAndPassword(auth,$("email
 $("verify").onclick=async()=>{try{await sendEmailVerification(auth.currentUser);msg("loginMsg","E-mail de vérification envoyé.");}catch(e){msg("loginMsg","Envoi impossible. Réessaie.",true);}};
 $("bootstrap").onclick=async()=>{try{await call("bootstrapFirstAdmin");await auth.currentUser.getIdToken(true);msg("loginMsg","Accès activé. Déconnecte-toi puis reconnecte-toi.");}catch(e){msg("loginMsg",e.message||"Activation refusée.",true);}};
 $("logout").onclick=()=>signOut(auth);
+const API="https://proftogo-api.proftogo-metrics.workers.dev";
 onAuthStateChanged(auth,async user=>{ $("app").classList.add("hidden");$("login").classList.remove("hidden");$("logout").classList.add("hidden");$("who").textContent="";
 if(!user)return;
 $("who").textContent=user.email||"Compte connecté";$("logout").classList.remove("hidden");
-const token=await user.getIdTokenResult(true);
-if(token.claims.admin===true){$("login").classList.add("hidden");$("app").classList.remove("hidden");await loadDashboard();await loadUsageDashboard();await loadUsers(true);}
-else{$("bootstrap").classList.remove("hidden");if(!user.emailVerified)$("verify").classList.remove("hidden");msg("loginMsg",user.emailVerified?"Compte connecté, mais aucun rôle administrateur n'est attribué.":"Vérifie ton adresse avant l'activation.",true);}
+try{
+ const token=await user.getIdToken(true);
+ const res=await fetch(API+"/api/admin/usage",{headers:{Authorization:"Bearer "+token}});
+ const data=await res.json();
+ if(!res.ok) throw new Error(data.error||"Accès administrateur refusé.");
+ $("login").classList.add("hidden");$("app").classList.remove("hidden");
+ await renderUsage(data);
+}catch(e){msg("loginMsg",e.message||"Accès administrateur refusé.",true);await signOut(auth);}
 });
 
 function duration(seconds){const s=Math.max(0,Number(seconds)||0);const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h>0?h+" h "+m+" min":m+" min";}
-async function loadUsageDashboard(){try{const d=(await call("adminUsageDashboard")).data;const t=d.today||{};const items=[["Personnes connectées aujourd’hui",t.uniqueUsers||0],["Connexions aujourd’hui",t.loginCount||0],["Sessions aujourd’hui",t.sessions||0],["Temps cumulé aujourd’hui",duration(t.totalSeconds||0)]];$("usageStats").innerHTML=items.map(([k,v])=>'<div class="stat"><span class="muted">'+k+'</span><strong>'+v+'</strong></div>').join("");$("usageDays").innerHTML=(d.days||[]).map(day=>'<tr><td>'+esc(day.date)+'</td><td>'+day.uniqueUsers+'</td><td>'+day.loginCount+'</td><td>'+day.sessions+'</td><td>'+duration(day.totalSeconds)+'</td></tr>').join("");}catch(e){msg("globalMsg","Statistiques de fréquentation indisponibles : "+(e.message||"erreur"),true);}}
+async function renderUsage(d){const t=d.today||{};const items=[["Personnes connectées aujourd’hui",t.uniqueUsers||0],["Connexions aujourd’hui",t.loginCount||0],["Sessions aujourd’hui",t.sessions||0],["Temps cumulé aujourd’hui",duration(t.totalSeconds||0)]];$("usageStats").innerHTML=items.map(([k,v])=>'<div class="stat"><span class="muted">'+k+'</span><strong>'+v+'</strong></div>').join("");$("usageDays").innerHTML=(d.days||[]).map(day=>'<tr><td>'+esc(day.date)+'</td><td>'+day.uniqueUsers+'</td><td>'+day.loginCount+'</td><td>'+day.sessions+'</td><td>'+duration(day.totalSeconds)+'</td></tr>').join("");}
+async function loadUsageDashboard(){try{const user=auth.currentUser;if(!user)throw new Error("Session terminée.");const token=await user.getIdToken(true);const res=await fetch(API+"/api/admin/usage",{headers:{Authorization:"Bearer "+token}});const d=await res.json();if(!res.ok)throw new Error(d.error||"Erreur API.");await renderUsage(d);}catch(e){msg("globalMsg","Statistiques indisponibles : "+(e.message||"erreur"),true);}}
 async function loadDashboard(){try{const d=(await call("adminDashboard")).data;const items=[["Comptes créés",d.total],["E-mails vérifiés",d.verified],["Non vérifiés",d.unverified],["Actifs · 7 jours",d.active7d],["Actifs · 30 jours",d.active30d],["Comptes désactivés",d.disabled]];$("stats").innerHTML=items.map(([k,v])=>'<div class="stat"><span class="muted">'+k+'</span><strong>'+v+'</strong></div>').join("");}catch(e){msg("globalMsg",e.message,true);}}
 async function loadUsers(reset=false){try{if(reset){nextPageToken=null;allUsers=[];$("users").innerHTML="";}const d=(await call("adminListUsers",{pageSize:50,pageToken:nextPageToken})).data;allUsers.push(...d.users);nextPageToken=d.nextPageToken;renderUsers();$("more").classList.toggle("hidden",!nextPageToken);}catch(e){msg("globalMsg",e.message,true);}}
 function renderUsers(){const q=$("search").value.toLowerCase();const rows=allUsers.filter(u=>(u.email+" "+u.displayName+" "+u.level).toLowerCase().includes(q));$("users").innerHTML=rows.map(u=>'<tr><td><strong>'+esc(u.displayName||"Élève")+'</strong><br><span class="muted">'+esc(u.email)+'</span></td><td>'+esc([u.level,u.series].filter(Boolean).join(" · ")||"Non renseignée")+'</td><td><span class="tag">'+(u.disabled?"Désactivé":u.emailVerified?"Vérifié":"À vérifier")+'</span></td><td>'+date(u.lastSignInAt)+'</td><td><div class="actions"><button class="secondary" data-detail="'+u.uid+'">Voir</button><button data-reset="'+esc(u.email)+'" class="secondary">Réinitialiser</button><button data-toggle="'+u.uid+'" data-disabled="'+(!u.disabled)+'" class="'+(u.disabled?"secondary":"danger")+'">'+(u.disabled?"Réactiver":"Suspendre")+'</button></div></td></tr>').join("");}
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 $("users").onclick=async e=>{const b=e.target.closest("button");if(!b)return;try{if(b.dataset.detail){const d=(await call("adminUserDetails",{uid:b.dataset.detail})).data;$("details").innerHTML='<div class="detail">'+esc(JSON.stringify(d,null,2))+'</div>';}if(b.dataset.reset){await sendPasswordResetEmail(auth,b.dataset.reset);msg("globalMsg","Lien de réinitialisation envoyé à "+b.dataset.reset+".");}if(b.dataset.toggle){await call("adminSetUserDisabled",{uid:b.dataset.toggle,disabled:b.dataset.disabled==="true"});msg("globalMsg","Statut du compte mis à jour.");await loadDashboard();await loadUsers(true);}}catch(err){msg("globalMsg",err.message||"Action impossible.",true);}};
-$("refresh").onclick=async()=>{await loadDashboard();await loadUsageDashboard();await loadUsers(true);};$("refreshUsage").onclick=loadUsageDashboard;$("more").onclick=()=>loadUsers(false);$("search").oninput=renderUsers;
+$("refresh").onclick=loadUsageDashboard;$("refreshUsage").onclick=loadUsageDashboard;$("more").onclick=()=>loadUsers(false);$("search").oninput=renderUsers;
 </script>
 </body></html>
