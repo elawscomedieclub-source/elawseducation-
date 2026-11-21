@@ -1,21 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/models/models.dart';
+
+String studentPreferenceKey(String base) {
+  final uid = FirebaseAuth.instance.currentUser?.uid;
+  return uid == null ? '${base}_guest' : '${base}_user_$uid';
+}
 
 final schoolLevelProvider = StateNotifierProvider<SchoolLevelNotifier, SchoolLevel>(
   (ref) => SchoolLevelNotifier(),
 );
 
 class SchoolLevelNotifier extends StateNotifier<SchoolLevel> {
-  SchoolLevelNotifier() : super(SchoolLevel.sixieme) {
-    _load();
-  }
-
-  static const _key = 'student_school_level';
+  SchoolLevelNotifier() : super(SchoolLevel.sixieme) { _load(); }
 
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getString(_key);
+    final saved = prefs.getString(studentPreferenceKey('student_school_level'));
     final level = SchoolLevel.values.where((item) => item.name == saved);
     if (level.isNotEmpty) state = level.first;
   }
@@ -23,7 +25,7 @@ class SchoolLevelNotifier extends StateNotifier<SchoolLevel> {
   Future<void> setLevel(SchoolLevel level) async {
     state = level;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_key, level.name);
+    await prefs.setString(studentPreferenceKey('student_school_level'), level.name);
   }
 }
 
@@ -33,18 +35,19 @@ final schoolTrackProvider = StateNotifierProvider<SchoolTrackNotifier, SchoolTra
 
 class SchoolTrackNotifier extends StateNotifier<SchoolTrack> {
   SchoolTrackNotifier() : super(SchoolTrack.generalLiterary) { _load(); }
-  static const _key = 'student_school_track';
+
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getString(_key);
+    final saved = prefs.getString(studentPreferenceKey('student_school_track'));
     for (final item in SchoolTrack.values) {
       if (item.name == saved) { state = item; break; }
     }
   }
+
   Future<void> setTrack(SchoolTrack value) async {
     state = value;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_key, value.name);
+    await prefs.setString(studentPreferenceKey('student_school_track'), value.name);
   }
 }
 
@@ -54,15 +57,16 @@ final schoolSeriesProvider = StateNotifierProvider<SchoolSeriesNotifier, String>
 
 class SchoolSeriesNotifier extends StateNotifier<String> {
   SchoolSeriesNotifier() : super('A4') { _load(); }
-  static const _key = 'student_school_series';
+
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    state = prefs.getString(_key) ?? 'A4';
+    state = prefs.getString(studentPreferenceKey('student_school_series')) ?? 'A4';
   }
+
   Future<void> setSeries(String value) async {
     state = value;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_key, value);
+    await prefs.setString(studentPreferenceKey('student_school_series'), value);
   }
 }
 
