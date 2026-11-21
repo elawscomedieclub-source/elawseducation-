@@ -52,6 +52,13 @@ class CloudProgressService {
     );
   }
 
+  /// Efface uniquement la progression cloud de l'élève actuellement connecté.
+  static Future<void> clearForCurrentUser() async {
+    final document = _progressDocument();
+    if (document == null) return;
+    await document.delete();
+  }
+
   /// Enregistre uniquement les données pédagogiques de progression.
   static Future<void> saveForCurrentUser({
     required Set<String> answeredExerciseIds,
