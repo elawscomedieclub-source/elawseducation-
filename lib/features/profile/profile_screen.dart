@@ -172,6 +172,46 @@ class _StudentProgressSummaryState extends State<StudentProgressSummary> {
     super.dispose();
   }
 
+  Future<void> _resetProgress() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Effacer ma progression ?'),
+        content: const Text(
+          'Cette action efface les exercices validés et les XP de ce compte uniquement. '
+          'Elle ne supprime pas ton compte ni les données des autres élèves. '
+          'Elle peut servir à nettoyer une ancienne progression copiée par erreur.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Annuler'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Effacer cette progression'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+    try {
+      await ProgressService.clearCurrentAccount();
+      if (!mounted) return;
+      setState(() => _progressFuture = ProgressService.load());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Progression de ce compte effacée.')),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text(
+          'La progression locale a été nettoyée, mais la suppression cloud n’a pas abouti. Réessaie avec Internet.',
+        )),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<ProgressSnapshot>(
@@ -252,9 +292,18 @@ class _StudentProgressSummaryState extends State<StudentProgressSummary> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Ces résultats regroupent les exercices validés sur cet appareil, tous niveaux confondus.',
+                  'Ta progression est enregistrée séparément pour ce compte.',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Theme.of(context).hintColor, fontSize: 12),
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.center,
+                  child: TextButton.icon(
+                    onPressed: _resetProgress,
+                    icon: const Icon(Icons.delete_outline),
+                    label: const Text('Effacer la progression de ce compte'),
+                  ),
                 ),
               ],
             ),
