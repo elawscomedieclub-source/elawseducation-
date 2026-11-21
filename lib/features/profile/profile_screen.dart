@@ -525,49 +525,62 @@ class _StudentPhotoSectionState extends State<StudentPhotoSection> {
   bool _loading = true;
   bool _saving = false;
   String? _message;
+  late final StreamSubscription<User?> _authSubscription;
 
-  String get _localKey {
-    final user = FirebaseAuth.instance.currentUser;
-    return user == null ? 'student_photo_local' : 'student_photo_${user.uid}';
-  }
+  String _localKeyFor(String? uid) =>
+      uid == null ? 'student_photo_local' : 'student_photo_$uid';
 
   @override
   void initState() {
     super.initState();
     _loadPhoto();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      setState(() {
+        _photoBase64 = null;
+        _loading = true;
+        _message = null;
+      });
+      _loadPhoto();
+    });
   }
 
   Future<void> _loadPhoto() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final key = _localKeyFor(uid);
     try {
       final prefs = await SharedPreferences.getInstance();
-      var photo = prefs.getString(_localKey);
-
-      if (FirebaseAuth.instance.currentUser != null) {
+      var photo = prefs.getString(key);
+      if (uid != null) {
         try {
           final cloud = await StudentProfileCloudService.load();
+          if (FirebaseAuth.instance.currentUser?.uid != uid) return;
           final cloudPhoto = cloud?['photoBase64'];
           if (cloudPhoto is String && cloudPhoto.isNotEmpty) {
             photo = cloudPhoto;
-            await prefs.setString(_localKey, photo);
+            await prefs.setString(key, photo);
           } else if (photo != null && photo.isNotEmpty) {
             await StudentProfileCloudService.savePhoto(photo);
           }
         } catch (_) {
-          // Keep the cached photo available if the network is unavailable.
+          // Le cache de cet UID reste disponible hors connexion.
         }
       }
-
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() => _photoBase64 = photo);
     } catch (_) {
-      // The profile remains usable without a saved photo.
+      // Le profil reste utilisable sans photo.
     } finally {
-      if (mounted) setState(() => _loading = false);
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) {
+        setState(() => _loading = false);
+      }
     }
   }
 
   Future<void> _choosePhoto() async {
     if (_saving || _loading) return;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final key = _localKeyFor(uid);
     try {
       final picked = await _picker.pickImage(
         source: ImageSource.gallery,
@@ -575,35 +588,33 @@ class _StudentPhotoSectionState extends State<StudentPhotoSection> {
         maxHeight: 256,
         imageQuality: 55,
       );
-      if (picked == null) return;
-
+      if (picked == null || !mounted) return;
+      if (FirebaseAuth.instance.currentUser?.uid != uid) return;
       final bytes = await picked.readAsBytes();
       final encoded = base64Encode(bytes);
       if (encoded.length > 350000) {
-        if (!mounted) return;
         setState(() => _message =
             'Cette photo est encore trop volumineuse. Choisis une image plus légère.');
         return;
       }
-
       setState(() {
         _saving = true;
         _message = 'Enregistrement de la photo…';
       });
-
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_localKey, encoded);
-
-      if (FirebaseAuth.instance.currentUser != null) {
+      if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+      await prefs.setString(key, encoded);
+      if (uid != null) {
         try {
+          if (FirebaseAuth.instance.currentUser?.uid != uid) return;
           await StudentProfileCloudService.savePhoto(encoded);
-          if (!mounted) return;
+          if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
           setState(() {
             _photoBase64 = encoded;
             _message = 'Photo enregistrée et synchronisée dans ton compte.';
           });
         } catch (_) {
-          if (!mounted) return;
+          if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
           setState(() {
             _photoBase64 = encoded;
             _message = 'Photo gardée sur cet appareil. Synchronisation cloud indisponible.';
@@ -613,12 +624,13 @@ class _StudentPhotoSectionState extends State<StudentPhotoSection> {
         if (!mounted) return;
         setState(() {
           _photoBase64 = encoded;
-          _message = 'Photo enregistrée sur cet appareil. Connecte-toi pour la synchroniser.';
+          _message = 'Photo enregistrée sur cet appareil.';
         });
       }
     } catch (_) {
-      if (!mounted) return;
-      setState(() => _message = 'Impossible de sélectionner cette photo. Réessaie.');
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) {
+        setState(() => _message = 'Impossible de sélectionner cette photo. Réessaie.');
+      }
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -626,25 +638,28 @@ class _StudentPhotoSectionState extends State<StudentPhotoSection> {
 
   Future<void> _removePhoto() async {
     if (_saving) return;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final key = _localKeyFor(uid);
     setState(() {
       _saving = true;
       _message = null;
     });
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.remove(_localKey);
-      if (FirebaseAuth.instance.currentUser != null) {
+      await prefs.remove(key);
+      if (uid != null && FirebaseAuth.instance.currentUser?.uid == uid) {
         await StudentProfileCloudService.deletePhoto();
       }
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _photoBase64 = null;
         _message = 'Photo supprimée.';
       });
     } catch (_) {
-      if (!mounted) return;
-      setState(() => _message =
-          'Photo supprimée de cet appareil, mais sa suppression cloud a échoué.');
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) {
+        setState(() => _message =
+            'Photo supprimée de cet appareil, mais sa suppression cloud a échoué.');
+      }
     } finally {
       if (mounted) setState(() => _saving = false);
     }
