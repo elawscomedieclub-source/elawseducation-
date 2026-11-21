@@ -107,6 +107,21 @@ class ProgressService {
     return earnedXp;
   }
 
+  /// Réinitialise la progression locale et cloud du compte courant uniquement.
+  static Future<void> clearCurrentAccount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    await prefs.remove(localStorageKey('proftogo_answered_exercises', uid));
+    await prefs.remove(localStorageKey('proftogo_correct_exercises', uid));
+    await prefs.remove(localStorageKey('proftogo_total_xp', uid));
+    await prefs.remove('proftogo_answered_exercises');
+    await prefs.remove('proftogo_correct_exercises');
+    await prefs.remove('proftogo_total_xp');
+    if (uid != null && FirebaseAuth.instance.currentUser?.uid == uid) {
+      await CloudProgressService.clearForCurrentUser();
+    }
+  }
+
   static ProgressSnapshot mergeSnapshots(
     ProgressSnapshot local,
     ProgressSnapshot cloud,
