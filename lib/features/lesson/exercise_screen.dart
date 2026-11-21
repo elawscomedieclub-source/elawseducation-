@@ -23,6 +23,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   bool _progressUnavailable = false;
   int _currentIndex = 0;
   late final StreamSubscription<User?> _authSubscription;
+  int _progressLoadVersion = 0;
 
   @override
   void initState() {
@@ -45,16 +46,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   Future<void> _loadProgress() async {
+    final version = ++_progressLoadVersion;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     try {
       final progress = await ProgressService.load();
-      if (!mounted) return;
+      if (!mounted || version != _progressLoadVersion ||\n          FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
-        _answeredIds.addAll(progress.answeredExerciseIds);
+        _answeredIds.addAll(progress.answeredExerciseIds;
         _correctIds.addAll(progress.correctExerciseIds);
         _loading = false;
       });
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || version != _progressLoadVersion ||\n          FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _progressUnavailable = true;
         _loading = false;
@@ -76,6 +79,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       return;
     }
 
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     final isCorrect = answer == exercise.correctIndex;
     setState(() => _checkingIds.add(exercise.id));
     try {
@@ -83,7 +87,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         exerciseId: exercise.id,
         isCorrect: isCorrect,
       );
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _checkingIds.remove(exercise.id);
         if (isCorrect) {
@@ -98,7 +102,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         SnackBar(content: Text(_feedback[exercise.id]!)),
       );
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() => _checkingIds.remove(exercise.id));
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Enregistrement impossible. Vérifie puis réessaie.')),
