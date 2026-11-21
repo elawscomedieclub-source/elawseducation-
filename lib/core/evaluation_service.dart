@@ -124,6 +124,27 @@ class EvaluationService {
     return records;
   }
 
+  /// Efface l'historique local et cloud du compte courant uniquement.
+  static Future<void> clearCurrentAccountHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    await prefs.remove(_keyForUser(uid));
+    await prefs.remove('proftogo_evaluation_history');
+    if (uid == null || FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final collection = _cloudCollection();
+    if (collection == null) return;
+    final snapshot = await collection.get();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final batch = FirebaseFirestore.instance.batch();
+    for (final document in snapshot.docs) {
+      batch.delete(document.reference);
+    }
+    if (snapshot.docs.isNotEmpty &&
+        FirebaseAuth.instance.currentUser?.uid == uid) {
+      await batch.commit();
+    }
+  }
+
   static Future<void> save(EvaluationRecord record) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('proftogo_evaluation_history');
