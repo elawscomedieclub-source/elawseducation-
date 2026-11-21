@@ -50,14 +50,22 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     try {
       final progress = await ProgressService.load();
-      if (!mounted || version != _progressLoadVersion ||\n          FirebaseAuth.instance.currentUser?.uid != uid) return;
+      if (!mounted ||
+          version != _progressLoadVersion ||
+          FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
-        _answeredIds.addAll(progress.answeredExerciseIds;
-        _correctIds.addAll(progress.correctExerciseIds);
+        _answeredIds
+          ..clear()
+          ..addAll(progress.answeredExerciseIds);
+        _correctIds
+          ..clear()
+          ..addAll(progress.correctExerciseIds);
         _loading = false;
       });
     } catch (_) {
-      if (!mounted || version != _progressLoadVersion ||\n          FirebaseAuth.instance.currentUser?.uid != uid) return;
+      if (!mounted ||
+          version != _progressLoadVersion ||
+          FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _progressUnavailable = true;
         _loading = false;
