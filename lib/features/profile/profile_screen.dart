@@ -290,6 +290,11 @@ class _StudentProfileCloudSyncState
     _ready = false;
     try {
       final prefs = await SharedPreferences.getInstance();
+      // Les anciennes préférences globales pouvaient appartenir à un autre élève.
+      await prefs.remove('student_name');
+      await prefs.remove('student_school_level');
+      await prefs.remove('student_school_track');
+      await prefs.remove('student_school_series');
       String levelName;
       String trackName;
       String seriesName;
