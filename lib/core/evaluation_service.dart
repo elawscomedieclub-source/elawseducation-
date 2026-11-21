@@ -49,7 +49,9 @@ class EvaluationRecord {
 }
 
 class EvaluationService {
-  static String _keyForUser(String? uid) => uid == null\n      ? 'proftogo_evaluation_history_guest'\n      : 'proftogo_evaluation_history_user_$uid';
+  static String _keyForUser(String? uid) => uid == null
+      ? 'proftogo_evaluation_history_guest'
+      : 'proftogo_evaluation_history_user_$uid';
 
   static CollectionReference<Map<String, dynamic>>? _cloudCollection() {
     final user = FirebaseAuth.instance.currentUser;
@@ -62,7 +64,9 @@ class EvaluationService {
 
   static Future<List<EvaluationRecord>> loadHistory() async {
     final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getStringList(_key) ?? [];
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final localKey = _keyForUser(uid);
+    final raw = prefs.getStringList(localKey) ?? [];
     final byId = <String, EvaluationRecord>{};
     for (final item in raw) {
       try {
@@ -76,11 +80,14 @@ class EvaluationService {
     final collection = _cloudCollection();
     if (collection != null) {
       try {
-        if (FirebaseAuth.instance.currentUser?.uid != uid) return byId.values.toList();\n        final snapshot = await collection.get();
+        if (FirebaseAuth.instance.currentUser?.uid != uid) {
+          return byId.values.toList();
+        }
+        final snapshot = await collection.get();
+        if (FirebaseAuth.instance.currentUser?.uid != uid) {
+          return byId.values.toList();
+        }
         final cloudIds = snapshot.docs.map((doc) => doc.id).toSet();
-
-        // Migre les anciennes évaluations locales absentes du cloud.
-        // Le maximum local est de 100 enregistrements, donc un seul batch suffit.
         final batch = FirebaseFirestore.instance.batch();
         var hasLocalRecordsToUpload = false;
         for (final entry in byId.entries) {
@@ -89,7 +96,8 @@ class EvaluationService {
             hasLocalRecordsToUpload = true;
           }
         }
-        if (hasLocalRecordsToUpload) {
+        if (hasLocalRecordsToUpload &&
+            FirebaseAuth.instance.currentUser?.uid == uid) {
           await batch.commit();
         }
 
@@ -101,12 +109,12 @@ class EvaluationService {
           ..sort((a, b) => b.date.compareTo(a.date));
         if (merged.length > 100) merged.removeRange(100, merged.length);
         await prefs.setStringList(
-          _key,
+          localKey,
           merged.map((record) => jsonEncode(record.toJson())).toList(),
         );
         return merged;
       } catch (_) {
-        // L'historique local reste disponible si le cloud est inaccessible.
+        // L'historique de ce compte reste disponible hors connexion.
       }
     }
 
@@ -117,7 +125,9 @@ class EvaluationService {
 
   static Future<void> save(EvaluationRecord record) async {
     final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getStringList(_key) ?? [];
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final localKey = _keyForUser(uid);
+    final raw = prefs.getStringList(localKey) ?? [];
     raw.removeWhere((item) {
       try {
         return EvaluationRecord.fromJson(
@@ -132,7 +142,7 @@ class EvaluationService {
     await prefs.setStringList(localKey, raw);
 
     final collection = _cloudCollection();
-    if (collection != null) {
+    if (collection != null && FirebaseAuth.instance.currentUser?.uid == uid) {
       try {
         await collection.doc(record.cloudId).set(record.toJson());
       } catch (_) {
