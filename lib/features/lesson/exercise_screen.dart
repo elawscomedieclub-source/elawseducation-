@@ -1,4 +1,6 @@
-import 'dart:async';\nimport 'package:firebase_auth/firebase_auth.dart';\nimport 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import '../../core/progress_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
@@ -19,7 +21,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   final Map<String, String> _feedback = {};
   bool _loading = true;
   bool _progressUnavailable = false;
-  int _currentIndex = 0;\n  late final StreamSubscription<User?> _authSubscription;
+  int _currentIndex = 0;
+  late final StreamSubscription<User?> _authSubscription;
 
   @override
   void initState() {
@@ -45,7 +48,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     }
   }
 
-  @override\n  void dispose() {\n    _authSubscription.cancel();\n    super.dispose();\n  }\n\n  Future<void> _checkAnswer(Exercise exercise) async {
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
+  }
+
+  Future<void> _checkAnswer(Exercise exercise) async {
     final answer = _selectedAnswers[exercise.id];
     if (answer == null ||
         _answeredIds.contains(exercise.id) ||
