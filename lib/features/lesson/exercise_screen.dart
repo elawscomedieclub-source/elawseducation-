@@ -139,7 +139,10 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
       if (isCorrect) {
         await ProgressService.clearReviewExercise(exercise.id);
       } else {
-        await ProgressService.recordWrongAnswer(exercise.id);
+        await ProgressService.recordWrongAnswer(
+          exercise.id,
+          skillId: widget.lesson.id,
+        );
       }
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {

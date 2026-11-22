@@ -65,7 +65,29 @@ class ProgressService {
     return counts;
   }
 
-  static Future<void> recordWrongAnswer(String exerciseId) async {
+  static Future<Map<String, int>> loadSkillDifficultyCounts() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return <String, int>{};
+    final raw = prefs.getStringList(
+          localStorageKey('proftogo_skill_difficulty_counts', uid),
+        ) ??
+        <String>[];
+    final counts = <String, int>{};
+    for (final entry in raw) {
+      final separator = entry.lastIndexOf('|');
+      if (separator <= 0) continue;
+      final skillId = entry.substring(0, separator);
+      final count = int.tryParse(entry.substring(separator + 1));
+      if (count != null && count > 0) counts[skillId] = count;
+    }
+    return counts;
+  }
+
+  static Future<void> recordWrongAnswer(
+    String exerciseId, {
+    String? skillId,
+  }) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final prefs = await SharedPreferences.getInstance();
     if (FirebaseAuth.instance.currentUser?.uid != uid) return;
@@ -82,6 +104,20 @@ class ProgressService {
         .toList()
       ..sort();
     await prefs.setStringList(countsKey, encoded);
+
+    // Tant que les questions ne sont pas toutes étiquetées par compétence,
+    // la leçon sert de regroupement pédagogique provisoire.
+    if (skillId != null && skillId.trim().isNotEmpty) {
+      final skillCounts = await loadSkillDifficultyCounts();
+      if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+      skillCounts[skillId] = (skillCounts[skillId] ?? 0) + 1;
+      final skillKey = localStorageKey('proftogo_skill_difficulty_counts', uid);
+      final skillEncoded = skillCounts.entries
+          .map((entry) => '${entry.key}|${entry.value}')
+          .toList()
+        ..sort();
+      await prefs.setStringList(skillKey, skillEncoded);
+    }
   }
 
   static Future<void> clearReviewExercise(String exerciseId) async {
@@ -205,6 +241,7 @@ class ProgressService {
     await prefs.remove(localStorageKey('proftogo_total_xp', uid));
     await prefs.remove(localStorageKey('proftogo_review_exercises', uid));
     await prefs.remove(localStorageKey('proftogo_wrong_attempt_counts', uid));
+    await prefs.remove(localStorageKey('proftogo_skill_difficulty_counts', uid));
     await prefs.remove(localStorageKey('proftogo_last_lesson', uid));
     await prefs.remove('proftogo_answered_exercises');
     await prefs.remove('proftogo_correct_exercises');
