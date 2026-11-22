@@ -1,78 +1,168 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../data/models/models.dart';
 
-String studentPreferenceKey(String base) {
-  final uid = FirebaseAuth.instance.currentUser?.uid;
-  return uid == null ? '${base}_guest' : '${base}_user_$uid';
-}
+String studentPreferenceKeyForUid(String base, String? uid) =>
+    uid == null ? '${base}_guest' : '${base}_user_$uid';
 
-final schoolLevelProvider = StateNotifierProvider<SchoolLevelNotifier, SchoolLevel>(
+String studentPreferenceKey(String base) =>
+    studentPreferenceKeyForUid(base, FirebaseAuth.instance.currentUser?.uid);
+
+final schoolLevelProvider =
+    StateNotifierProvider<SchoolLevelNotifier, SchoolLevel>(
   (ref) => SchoolLevelNotifier(),
 );
 
 class SchoolLevelNotifier extends StateNotifier<SchoolLevel> {
-  SchoolLevelNotifier() : super(SchoolLevel.sixieme) { _load(); }
+  SchoolLevelNotifier() : super(SchoolLevel.sixieme) {
+    _authSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((user) {
+      state = SchoolLevel.sixieme;
+      _loadForUid(user?.uid);
+    });
+    _loadForUid(FirebaseAuth.instance.currentUser?.uid);
+  }
 
-  Future<void> _load() async {
+  late final StreamSubscription<User?> _authSubscription;
+  int _loadVersion = 0;
+
+  Future<void> _loadForUid(String? uid) async {
+    final version = ++_loadVersion;
     final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getString(studentPreferenceKey('student_school_level'));
-    final level = SchoolLevel.values.where((item) => item.name == saved);
-    if (level.isNotEmpty) state = level.first;
+    if (version != _loadVersion ||
+        FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final saved = prefs.getString(studentPreferenceKeyForUid(
+      'student_school_level',
+      uid,
+    ));
+    final matches = SchoolLevel.values.where((item) => item.name == saved);
+    state = matches.isNotEmpty ? matches.first : SchoolLevel.sixieme;
   }
 
   Future<void> setLevel(SchoolLevel level) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     state = level;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(studentPreferenceKey('student_school_level'), level.name);
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.setString(
+      studentPreferenceKeyForUid('student_school_level', uid),
+      level.name,
+    );
+  }
+
+  @override
+  void dispose() {
+    unawaited(_authSubscription.cancel());
+    super.dispose();
   }
 }
 
-final schoolTrackProvider = StateNotifierProvider<SchoolTrackNotifier, SchoolTrack>(
+final schoolTrackProvider =
+    StateNotifierProvider<SchoolTrackNotifier, SchoolTrack>(
   (ref) => SchoolTrackNotifier(),
 );
 
 class SchoolTrackNotifier extends StateNotifier<SchoolTrack> {
-  SchoolTrackNotifier() : super(SchoolTrack.generalLiterary) { _load(); }
+  SchoolTrackNotifier() : super(SchoolTrack.generalLiterary) {
+    _authSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((user) {
+      state = SchoolTrack.generalLiterary;
+      _loadForUid(user?.uid);
+    });
+    _loadForUid(FirebaseAuth.instance.currentUser?.uid);
+  }
 
-  Future<void> _load() async {
+  late final StreamSubscription<User?> _authSubscription;
+  int _loadVersion = 0;
+
+  Future<void> _loadForUid(String? uid) async {
+    final version = ++_loadVersion;
     final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getString(studentPreferenceKey('student_school_track'));
-    for (final item in SchoolTrack.values) {
-      if (item.name == saved) { state = item; break; }
-    }
+    if (version != _loadVersion ||
+        FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final saved = prefs.getString(studentPreferenceKeyForUid(
+      'student_school_track',
+      uid,
+    ));
+    final matches = SchoolTrack.values.where((item) => item.name == saved);
+    state = matches.isNotEmpty
+        ? matches.first
+        : SchoolTrack.generalLiterary;
   }
 
   Future<void> setTrack(SchoolTrack value) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     state = value;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(studentPreferenceKey('student_school_track'), value.name);
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.setString(
+      studentPreferenceKeyForUid('student_school_track', uid),
+      value.name,
+    );
+  }
+
+  @override
+  void dispose() {
+    unawaited(_authSubscription.cancel());
+    super.dispose();
   }
 }
 
-final schoolSeriesProvider = StateNotifierProvider<SchoolSeriesNotifier, String>(
+final schoolSeriesProvider =
+    StateNotifierProvider<SchoolSeriesNotifier, String>(
   (ref) => SchoolSeriesNotifier(),
 );
 
 class SchoolSeriesNotifier extends StateNotifier<String> {
-  SchoolSeriesNotifier() : super('A4') { _load(); }
+  SchoolSeriesNotifier() : super('A4') {
+    _authSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((user) {
+      state = 'A4';
+      _loadForUid(user?.uid);
+    });
+    _loadForUid(FirebaseAuth.instance.currentUser?.uid);
+  }
 
-  Future<void> _load() async {
+  late final StreamSubscription<User?> _authSubscription;
+  int _loadVersion = 0;
+
+  Future<void> _loadForUid(String? uid) async {
+    final version = ++_loadVersion;
     final prefs = await SharedPreferences.getInstance();
-    state = prefs.getString(studentPreferenceKey('student_school_series')) ?? 'A4';
+    if (version != _loadVersion ||
+        FirebaseAuth.instance.currentUser?.uid != uid) return;
+    state = prefs.getString(studentPreferenceKeyForUid(
+          'student_school_series',
+          uid,
+        )) ??
+        'A4';
   }
 
   Future<void> setSeries(String value) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     state = value;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(studentPreferenceKey('student_school_series'), value);
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.setString(
+      studentPreferenceKeyForUid('student_school_series', uid),
+      value,
+    );
+  }
+
+  @override
+  void dispose() {
+    unawaited(_authSubscription.cancel());
+    super.dispose();
   }
 }
 
 List<String> seriesForTrack(SchoolTrack track) => switch (track) {
-  SchoolTrack.generalLiterary => ['A4'],
-  SchoolTrack.scientific => ['C', 'D'],
-  SchoolTrack.technicalTertiary => technicalTertiarySeries,
-  SchoolTrack.technicalIndustrial => technicalIndustrialSeries,
-};
+      SchoolTrack.generalLiterary => ['A4'],
+      SchoolTrack.scientific => ['C', 'D'],
+      SchoolTrack.technicalTertiary => technicalTertiarySeries,
+      SchoolTrack.technicalIndustrial => technicalIndustrialSeries,
+    };
