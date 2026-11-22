@@ -43,11 +43,6 @@ void main() {
         'cp1_copier_phrase',
         'cp1_completer_phrase',
         'cp1_point_interrogation',
-        'cp2_lire_phrases',
-        'cp2_addition_dizaines',
-        'cp2_soustraction',
-        'ce1_multiplication_groupes',
-        'ce1_problemes_addition',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -55,6 +50,20 @@ void main() {
           .toSet();
       for (final id in expected) {
         expect(cp1Ids, contains(id), reason: 'Activité CP1 manquante : $id');
+      }
+    });
+
+    test('les nouvelles leçons CP2 et CE1 sont présentes', () {
+      const expected = [
+        'cp2_lire_phrases',
+        'cp2_addition_dizaines',
+        'cp2_soustraction',
+        'ce1_multiplication_groupes',
+        'ce1_problemes_addition',
+      ];
+      final ids = supplementalLessons.map((lesson) => lesson.id).toSet();
+      for (final id in expected) {
+        expect(ids, contains(id), reason: 'Leçon manquante : $id');
       }
     });
 
