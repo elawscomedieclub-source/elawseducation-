@@ -82,7 +82,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const ProfTogoMenuButton(),
-        title: const Text('ProfTogo', style: TextStyle(fontWeight: FontWeight.w800)),
+        title: const Text('PROFTOGO', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: .7)),
         actions: [
           IconButton(
             tooltip: 'Actualiser ma progression',
@@ -442,7 +442,7 @@ class _WelcomePanel extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF087443), Color(0xFF034D35)],
+          colors: [Color(0xFF006A4E), Color(0xFF003F30)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
