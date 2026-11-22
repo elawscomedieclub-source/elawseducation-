@@ -49,6 +49,7 @@ void main() {
         'cp1_animaux',
         'cp1_corps',
         'cp1_syllabes',
+        'cp1_mots_simples',
       ];
       for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
