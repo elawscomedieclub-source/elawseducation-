@@ -69,7 +69,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
     try {
       await _tts.stop();
       await _tts.setLanguage('fr-FR');
-      await _tts.setSpeechRate(0.42);
+      await _tts.setSpeechRate(0.70);
       if (mounted) setState(() => _speaking = true);
       await _tts.speak('Question ${_currentIndex + 1}. ${exercise.question}. $choices.$explanation');
     } catch (_) {
