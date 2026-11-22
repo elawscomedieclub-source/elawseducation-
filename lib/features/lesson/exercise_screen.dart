@@ -158,6 +158,12 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
     final isCorrect = answer == exercise.correctIndex;
     setState(() => _checkingIds.add(exercise.id));
     try {
+      await ProgressService.recordAttempt(
+        exerciseId: exercise.id,
+        lessonId: widget.lesson.id,
+        isCorrect: isCorrect,
+      );
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       final earnedXp = await ProgressService.recordAnswer(
         exerciseId: exercise.id,
         isCorrect: isCorrect,
