@@ -27,6 +27,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
   final Set<String> _checkingIds = {};
   final Map<String, String> _feedback = {};
   final Set<String> _barrierReportedIds = {};
+  final Map<String, String> _selectedBarriers = {};
   bool _loading = true;
   bool _progressUnavailable = false;
   int _currentIndex = 0;
@@ -48,6 +49,8 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
         _correctIds.clear();
         _checkingIds.clear();
         _feedback.clear();
+        _barrierReportedIds.clear();
+        _selectedBarriers.clear();
         _currentIndex = 0;
         _progressUnavailable = false;
         _loading = true;
@@ -126,7 +129,10 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
     try {
       await ProgressService.recordLearningBarrier(category);
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
-      setState(() => _barrierReportedIds.add(exerciseId));
+      setState(() {
+        _barrierReportedIds.add(exerciseId);
+        _selectedBarriers[exerciseId] = category;
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Merci. Ton indication aidera à choisir les prochaines révisions.')));
     } catch (_) {
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
@@ -392,6 +398,51 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
                       ActionChip(label: const Text('Trouver la méthode'), onPressed: () => _reportBarrier(exercise.id, 'methode')),
                     ]),
                     Text('Tu peux ignorer cette question. Ce choix est une indication personnelle, pas une évaluation automatique.', style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                  if (_selectedBarriers.containsKey(exercise.id)) ...[
+                    const SizedBox(height: 12),
+                    Card(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      child: Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Mon aide personnalisée', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                            const SizedBox(height: 8),
+                            Text(
+                              _selectedBarriers[exercise.id] == 'lecture'
+                                  ? (childMode
+                                      ? 'Écoute la question avec le bouton audio. Puis répète-la doucement avec tes propres mots. Repère ce qu’on te demande avant de choisir.'
+                                      : 'Écoute la consigne, relis-la lentement et reformule-la avec tes mots. Identifie précisément ce que la question demande avant de répondre.')
+                                  : _selectedBarriers[exercise.id] == 'comprehension'
+                                      ? (childMode
+                                          ? 'Reviens à la leçon. Lis ou écoute le petit résumé, regarde l’exemple, puis essaie de raconter ce que tu as compris.'
+                                          : 'Reprends le résumé et l’exemple de la leçon. Explique l’idée principale avec tes mots, puis reviens à la question.')
+                                      : (childMode
+                                          ? 'Cherche les indices dans la question. Fais un petit dessin ou avance étape par étape. Compare ensuite avec l’explication.'
+                                          : 'Repère les informations utiles, écris les étapes de ta démarche et compare-les à l’explication. Ne cherche pas seulement la réponse : identifie la méthode.'),
+                            ),
+                            if (_selectedBarriers[exercise.id] == 'comprehension') ...[
+                              const SizedBox(height: 10),
+                              ExpansionTile(
+                                tilePadding: EdgeInsets.zero,
+                                childrenPadding: const EdgeInsets.only(bottom: 8),
+                                title: const Text('Revoir le résumé de la leçon'),
+                                children: [
+                                  Align(alignment: Alignment.centerLeft, child: Text(widget.lesson.summary)),
+                                  const SizedBox(height: 6),
+                                  Align(alignment: Alignment.centerLeft, child: Text(widget.lesson.keyPoints.join(' • '))),
+                                ],
+                              ),
+                            ],
+                            const SizedBox(height: 6),
+                            Text('Tu peux prendre ton temps. Une erreur est une occasion d’apprendre.',
+                                style: Theme.of(context).textTheme.bodySmall),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                   if (answered) ...[
                     const Divider(height: 24),
