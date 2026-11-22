@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
+import '../../core/reading_practice_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class _ReadingCard {
@@ -107,11 +108,29 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
   final Set<int> _completed = {};
   int? _selectedAnswer;
   bool _answered = false;
+  int _attemptCount = 0;
+  bool _loadingProgress = true;
 
   @override
   void initState() {
     super.initState();
     _tts.awaitSpeakCompletion(true);
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    final values = await Future.wait([
+      ReadingPracticeService.loadCompletedStages(),
+      ReadingPracticeService.loadAttemptCount(),
+    ]);
+    if (!mounted) return;
+    setState(() {
+      _completed
+        ..clear()
+        ..addAll(values[0] as Set<int>);
+      _attemptCount = values[1] as int;
+      _loadingProgress = false;
+    });
   }
 
   Future<void> _speak(String text) async {
@@ -138,13 +157,19 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
     });
   }
 
-  void _checkAnswer() {
+  Future<void> _checkAnswer() async {
     if (_selectedAnswer == null) return;
+    final isCorrect = _selectedAnswer == _stages[_stageIndex].answer;
+    await ReadingPracticeService.recordAttempt(
+      stageIndex: _stageIndex,
+      isCorrect: isCorrect,
+    );
+    final attempts = await ReadingPracticeService.loadAttemptCount();
+    if (!mounted) return;
     setState(() {
       _answered = true;
-      if (_selectedAnswer == _stages[_stageIndex].answer) {
-        _completed.add(_stageIndex);
-      }
+      _attemptCount = attempts;
+      if (isCorrect) _completed.add(_stageIndex);
     });
   }
 
@@ -182,7 +207,11 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
                   const SizedBox(height: 12),
                   LinearProgressIndicator(value: progress, minHeight: 8),
                   const SizedBox(height: 5),
-                  Text('${_completed.length} étape(s) validée(s) sur 4'),
+                  Text('${_completed.length} étape(s) validée(s) sur 4 • $_attemptCount tentative(s) enregistrée(s)'),
+                  if (_loadingProgress) const Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: LinearProgressIndicator(minHeight: 3),
+                  ),
                 ],
               ),
             ),
