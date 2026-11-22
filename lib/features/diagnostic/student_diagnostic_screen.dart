@@ -174,6 +174,43 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                 ),
                 const SizedBox(height: 16),
               ],
+              if (nextLesson != null) ...[
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Row(children: [
+                          Icon(Icons.timer_outlined),
+                          SizedBox(width: 9),
+                          Expanded(child: Text('Ma séance de 10 minutes', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800))),
+                        ]),
+                        const SizedBox(height: 7),
+                        const Text('Une petite séance suffit pour avancer. Voici un parcours simple :'),
+                        const SizedBox(height: 10),
+                        const _GuideLine(Icons.menu_book_outlined, '2 min — relis le cours et repère l’idée importante.'),
+                        const _GuideLine(Icons.edit_note_rounded, '5 min — fais quelques exercices sans regarder la réponse.'),
+                        const _GuideLine(Icons.check_circle_outline, '2 min — corrige et comprends tes erreurs.'),
+                        const _GuideLine(Icons.record_voice_over_outlined, '1 min — explique la notion avec tes propres mots.'),
+                        const SizedBox(height: 4),
+                        Text('Le temps est indicatif : avance à ton rythme, sans te presser.', style: Theme.of(context).textTheme.bodySmall),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: double.infinity,
+                          child: FilledButton.icon(
+                            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExerciseScreen(lesson: nextLesson.lesson)))
+                                .then((_) => setState(() => _future = _load())),
+                            icon: const Icon(Icons.play_arrow_rounded),
+                            label: const Text('Faire ma séance'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
               const SizedBox(height: 16),
               Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Row(children: [Icon(Icons.history_rounded), SizedBox(width: 9), Expanded(child: Text('Mon activité récente', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800)))]),
