@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/progress_service.dart';
@@ -16,6 +19,7 @@ class ProgressScreen extends ConsumerStatefulWidget {
 
 class _ProgressScreenState extends ConsumerState<ProgressScreen> {
   late Future<List<dynamic>> _dataFuture;
+  late final StreamSubscription<User?> _authSubscription;
 
   Future<List<dynamic>> _loadData() => Future.wait<dynamic>([
         ProgressService.load(),
@@ -26,10 +30,22 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
   void initState() {
     super.initState();
     _dataFuture = _loadData();
+    // La page reste montée dans l'IndexedStack : ne pas afficher
+    // les résultats du compte précédent après une déconnexion.
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      setState(() => _dataFuture = _loadData());
+    });
   }
 
   void _refresh() {
     setState(() => _dataFuture = _loadData());
+  }
+
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
   }
 
   @override
