@@ -141,18 +141,18 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   final FlutterTts _tts = FlutterTts();
   bool _speaking = false;
   bool _paused = false;
-  double _speechRate = 0.56;
+  double _speechRate = 0.74;
 
   double _defaultSpeechRateForLesson() {
     final chapter = demoChapters.where((item) => item.id == widget.lesson.chapterId);
-    if (chapter.isEmpty) return 0.56;
+    if (chapter.isEmpty) return 0.74;
     final subject = demoSubjects.where((item) => item.id == chapter.first.subjectId);
-    if (subject.isEmpty) return 0.56;
+    if (subject.isEmpty) return 0.74;
     final level = subject.first.level;
-    if (level.index <= SchoolLevel.cp2.index) return 0.38;
-    if (level.index <= SchoolLevel.cm2.index) return 0.46;
-    if (level.index <= SchoolLevel.troisieme.index) return 0.52;
-    return 0.56;
+    if (level.index <= SchoolLevel.cp2.index) return 0.58;
+    if (level.index <= SchoolLevel.cm2.index) return 0.66;
+    if (level.index <= SchoolLevel.troisieme.index) return 0.74;
+    return 0.80;
   }
 
   @override
