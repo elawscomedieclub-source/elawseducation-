@@ -137,7 +137,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
         j--;
       } else { break; }
     }
-    return missed.reversed.toSet().toList();
+    return missed.reversed.toList();
   }
 
   Future<void> _speakText(String text, {double rate = .42}) async {
