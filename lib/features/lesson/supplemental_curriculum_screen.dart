@@ -23,6 +23,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   bool _speaking = false;
   String? _feedback;
   late final StreamSubscription<User?> _authSubscription;
+  int _progressLoadVersion = 0;
 
   @override
   void initState() {
@@ -48,15 +49,17 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   }
 
   Future<void> _loadProgress() async {
+    final version = ++_progressLoadVersion;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     try {
       final progress = await ProgressService.load();
-      if (!mounted) return;
+      if (!mounted || version != _progressLoadVersion || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _completed.addAll(progress.correctExerciseIds);
         _loading = false;
       });
     } catch (_) {
-      if (mounted) setState(() => _loading = false);
+      if (mounted && version == _progressLoadVersion && FirebaseAuth.instance.currentUser?.uid == uid) setState(() => _loading = false);
     }
   }
 
@@ -82,6 +85,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   }
 
   Future<void> _check(SupplementalQuestion question) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     final answer = _selected[question.id];
     if (answer == null || _completed.contains(question.id)) return;
     if (answer != question.correctIndex) {
@@ -90,13 +94,13 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
     }
     try {
       await ProgressService.recordAnswer(exerciseId: question.id, isCorrect: true);
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _completed.add(question.id);
         _feedback = 'Bravo ! Bonne réponse. ' + question.explanation;
       });
     } catch (_) {
-      if (mounted) setState(() => _feedback = 'Bonne réponse ! La sauvegarde sera réessayée plus tard.');
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) setState(() => _feedback = 'Bonne réponse ! La sauvegarde sera réessayée plus tard.');
     }
   }
 
