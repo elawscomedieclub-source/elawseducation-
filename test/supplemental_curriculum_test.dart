@@ -28,6 +28,8 @@ void main() {
         'cp1_corps',
         'cp1_syllabes',
         'cp1_mots_simples',
+        'cp1_addition_images',
+        'cp1_soustraction_images',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -50,8 +52,10 @@ void main() {
         'cp1_corps',
         'cp1_syllabes',
         'cp1_mots_simples',
+        'cp1_addition_images',
+        'cp1_soustraction_images',
       ];
-      for (final id in addedIds) {
+      for (final id in addedIds {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
         expect(lesson.questions.length, greaterThanOrEqualTo(3), reason: lesson.title);
       }
