@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/core/progress_service.dart';
+import 'package:proftogo/core/school_level_provider.dart';
 
 void main() {
   group('Fusion de la progression ProfTogo', () {
@@ -64,6 +65,18 @@ void main() {
       expect(first, isNot(second));
       expect(first, isNot(guest));
       expect(second, isNot(guest));
+    });
+
+    test('les préférences de classe sont isolées entre les comptes et les invités', () {
+      final first = studentPreferenceKeyForUid('school_level', 'studentA');
+      final second = studentPreferenceKeyForUid('school_level', 'studentB');
+      final guest = studentPreferenceKeyForUid('school_level', null);
+
+      expect(first, 'school_level_user_studentA');
+      expect(second, 'school_level_user_studentB');
+      expect(guest, 'school_level_guest');
+      expect(first, isNot(second));
+      expect(first, isNot(guest));
     });
   });
 }
