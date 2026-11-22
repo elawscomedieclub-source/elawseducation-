@@ -73,7 +73,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       final level = ref.read(schoolLevelProvider);
       await _tts.stop();
       await _tts.setLanguage('fr-FR');
-      await _tts.setSpeechRate(level.index <= SchoolLevel.cp2.index ? 0.38 : level.index <= SchoolLevel.cm2.index ? 0.46 : 0.54);
+      await _tts.setSpeechRate(level.index <= SchoolLevel.cp2.index ? 0.58 : level.index <= SchoolLevel.cm2.index ? 0.66 : level.index <= SchoolLevel.troisieme.index ? 0.74 : 0.80);
       if (mounted) setState(() => _speaking = true);
       await _tts.speak(text);
     } catch (_) {
