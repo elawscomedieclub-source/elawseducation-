@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:math';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
@@ -20,6 +23,9 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   bool _submitted = false;
   bool _saving = false;
   int _correct = 0;
+  String? _activeUid;
+  int _historyLoadVersion = 0;
+  late final StreamSubscription<User?> _authSubscription;
 
   List<Exercise> _buildQuestions() {
     final chapterIds = demoChapters
@@ -42,20 +48,40 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   @override
   void initState() {
     super.initState();
+    _activeUid = FirebaseAuth.instance.currentUser?.uid;
     _questions = _buildQuestions();
     _loadHistory();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (!mounted) return;
+      _activeUid = user?.uid;
+      setState(() {
+        _answers.clear();
+        _history.clear();
+        _submitted = false;
+        _saving = false;
+        _correct = 0;
+        _loading = true;
+      });
+      _loadHistory();
+    });
   }
 
   Future<void> _loadHistory() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final version = ++_historyLoadVersion;
     try {
       final records = await EvaluationService.loadHistory();
-      if (!mounted) return;
+      if (!mounted ||
+          version != _historyLoadVersion ||
+          FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _history = records.where((r) => r.subjectId == widget.subject.id).toList();
         _loading = false;
       });
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted ||
+          version != _historyLoadVersion ||
+          FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('L’historique des notes est momentanément indisponible.')),
@@ -63,7 +89,15 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
+  }
+
   Future<void> _finishEvaluation() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != _activeUid) return;
     final questions = _questions;
     if (questions.isEmpty ||
         _answers.length != questions.length ||
@@ -85,8 +119,8 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
 
     setState(() => _saving = true);
     try {
-      await EvaluationService.save(record);
-      if (!mounted) return;
+      await EvaluationService.save(record, expectedUid: uid);
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _correct = correct;
         _submitted = true;
@@ -94,7 +128,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
         _history.insert(0, record);
       });
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() => _saving = false);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
