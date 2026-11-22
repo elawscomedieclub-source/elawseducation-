@@ -167,6 +167,11 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
+                        if (level == SchoolLevel.cp1) ...[
+                          const SizedBox(height: 14),
+                          _cp1Visual(lesson),
+                          const SizedBox(height: 14),
+                        ],
                         const SizedBox(height: 10),
                         Text(lesson.explanation, style: TextStyle(fontSize: childMode ? 19 : 16, height: 1.5)),
                         const SizedBox(height: 12),
@@ -257,6 +262,60 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                 ),
               ],
             ),
+    );
+  }
+
+
+  Widget _cp1Visual(SupplementalLesson lesson) {
+    final isLetters = lesson.id == 'cp1_voyelles';
+    final items = isLetters ? const ['A', 'E', 'I', 'O', 'U'] : const ['🍎', '🍌', '🍊', '🥭', '🍍'];
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.55),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          Text(
+            isLetters ? 'REGARDE ET PRONONCE' : 'COMPTE LES OBJETS',
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              letterSpacing: 0.7,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: items.map((item) => Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: Container(
+                  constraints: const BoxConstraints(minHeight: 54),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    item,
+                    style: TextStyle(
+                      fontSize: isLetters ? 27 : 25,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ),
+            )).toList(),
+          ),
+          if (!isLetters) ...[
+            const SizedBox(height: 8),
+            const Text('1   2   3   4   5', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+          ],
+        ],
+      ),
     );
   }
 
