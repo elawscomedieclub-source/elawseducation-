@@ -143,9 +143,22 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   bool _paused = false;
   double _speechRate = 0.56;
 
+  double _defaultSpeechRateForLesson() {
+    final chapter = demoChapters.where((item) => item.id == widget.lesson.chapterId);
+    if (chapter.isEmpty) return 0.56;
+    final subject = demoSubjects.where((item) => item.id == chapter.first.subjectId);
+    if (subject.isEmpty) return 0.56;
+    final level = subject.first.level;
+    if (level.index <= SchoolLevel.cp2.index) return 0.38;
+    if (level.index <= SchoolLevel.cm2.index) return 0.46;
+    if (level.index <= SchoolLevel.troisieme.index) return 0.52;
+    return 0.56;
+  }
+
   @override
   void initState() {
     super.initState();
+    _speechRate = _defaultSpeechRateForLesson();
     _tts.setStartHandler(() {
       if (mounted) setState(() { _speaking = true; _paused = false; });
     });
@@ -230,12 +243,41 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
       orElse: () => demoChapters.first,
     );
     final apc = ApcLessonGuide.forLesson(lesson, chapter);
+    final subject = demoSubjects.firstWhere(
+      (item) => item.id == chapter.subjectId,
+      orElse: () => demoSubjects.first,
+    );
+    final childMode = subject.level.index <= SchoolLevel.cm2.index;
 
     return Scaffold(
       appBar: AppBar(title: Text(lesson.title), actions: [const Padding(padding: EdgeInsets.only(right: 14), child: Icon(Icons.auto_stories_rounded))]),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(22, 18, 22, 30),
         children: [
+          if (childMode) Card(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Tu peux écouter le cours', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+                  const SizedBox(height: 6),
+                  const Text('Appuie sur le bouton pour entendre les explications. Tu peux arrêter la voix quand tu veux.'),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton.icon(
+                      onPressed: _speaking ? _stopReading : _startReading,
+                      icon: Icon(_speaking ? Icons.stop_rounded : Icons.volume_up_rounded),
+                      label: Text(_speaking ? 'Arrêter la lecture' : 'Écouter le cours'),
+                      style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(58), textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Card(
             clipBehavior: Clip.antiAlias,
             child: ExpansionTile(
