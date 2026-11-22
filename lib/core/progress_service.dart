@@ -21,6 +21,21 @@ class ProgressService {
   static String localStorageKey(String base, String? uid) =>
       uid == null ? '${base}_guest' : '${base}_user_$uid';
 
+  // Dernière leçon consultée : clé locale isolée par compte et par invité.
+  static Future<void> saveLastLesson(String lessonId) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.setString(localStorageKey('proftogo_last_lesson', uid), lessonId);
+  }
+
+  static Future<String?> loadLastLesson() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return null;
+    return prefs.getString(localStorageKey('proftogo_last_lesson', uid));
+  }
+
   static Future<ProgressSnapshot> load() async {
     final prefs = await SharedPreferences.getInstance();
     // Anciennes clés globales non liées à un compte : elles ne sont plus sûres.
