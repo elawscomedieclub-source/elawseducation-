@@ -10,7 +10,9 @@ import '../../data/sample/sample_data.dart';
 
 class ExerciseScreen extends ConsumerStatefulWidget {
   final Lesson lesson;
-  const ExerciseScreen({super.key, required this.lesson});
+  /// When set, opens only this exercise from the review list.
+  final String? reviewExerciseId;
+  const ExerciseScreen({super.key, required this.lesson, this.reviewExerciseId});
 
   @override
   ConsumerState<ExerciseScreen> createState() => _ExerciseScreenState();
@@ -165,7 +167,10 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     final childMode = ref.watch(schoolLevelProvider).index <= SchoolLevel.cm2.index;
-    final items = demoExercises.where((e) => e.lessonId == widget.lesson.id).toList();
+    final items = demoExercises.where((e) =>
+        e.lessonId == widget.lesson.id &&
+        (widget.reviewExerciseId == null || e.id == widget.reviewExerciseId),
+      ).toList();
     final completedCount = items.where((e) => _correctIds.contains(e.id)).length;
     final completion = items.isEmpty ? 0.0 : completedCount / items.length;
 
@@ -233,7 +238,9 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
     final isLast = _currentIndex == items.length - 1;
 
     return Scaffold(
-      appBar: AppBar(title: Text(childMode ? 'Je m’entraîne' : 'Exercices • question par question')),
+      appBar: AppBar(title: Text(widget.reviewExerciseId != null
+          ? 'Je corrige mon erreur'
+          : childMode ? 'Je m’entraîne' : 'Exercices • question par question')),
       body: ListView(
         padding: const EdgeInsets.all(18),
         children: [
@@ -245,7 +252,9 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
               ),
             ),
           Text(
-            childMode
+            widget.reviewExerciseId != null
+                ? 'Reprends cette question calmement. Relis l’explication, cherche pourquoi la bonne réponse est correcte, puis réessaie sans te presser.'
+                : childMode
                 ? 'Écoute la question, puis touche la réponse qui te semble juste. Tu peux réécouter autant que tu veux.'
                 : 'Réponds à une question, vérifie ta réponse, puis passe à la suivante. Chaque bonne réponse rapporte 10 XP.',
             style: const TextStyle(fontSize: 15, height: 1.4),
