@@ -104,6 +104,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
               final byStatus = rank(a.status).compareTo(rank(b.status));
               return byStatus != 0 ? byStatus : a.lesson.title.compareTo(b.lesson.title);
             });
+          final nextLesson = lessonProgress.isEmpty ? null : lessonProgress.first;
           return RefreshIndicator(
             onRefresh: () async { setState(() => _future = _load()); await _future; },
             child: ListView(padding: const EdgeInsets.all(16), children: [
@@ -120,6 +121,44 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                   Chip(avatar: const Icon(Icons.replay), label: Text(d.reviewIds.length.toString() + ' à revoir')),
                 ]),
               ]))),
+              if (nextLesson != null) ...[
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      const Row(children: [
+                        Icon(Icons.flag_circle_rounded),
+                        SizedBox(width: 9),
+                        Expanded(child: Text('Ma prochaine étape', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800))),
+                      ]),
+                      const SizedBox(height: 8),
+                      Text(nextLesson.status == 'a_revoir' || nextLesson.status == 'a_reprendre'
+                          ? 'Je te conseille de reprendre cette leçon en priorité :'
+                          : nextLesson.status == 'en_progres'
+                              ? 'Tu as déjà commencé cette leçon. Continue pour valider les exercices disponibles :'
+                              : 'Choisis cette leçon pour commencer ton entraînement :'),
+                      const SizedBox(height: 6),
+                      Text(nextLesson.lesson.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                      const SizedBox(height: 10),
+                      Wrap(spacing: 8, runSpacing: 8, children: [
+                        OutlinedButton.icon(
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LessonContentScreen(lesson: nextLesson.lesson)))
+                              .then((_) => setState(() => _future = _load())),
+                          icon: const Icon(Icons.menu_book_outlined),
+                          label: const Text('Revoir le cours'),
+                        ),
+                        FilledButton.icon(
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExerciseScreen(lesson: nextLesson.lesson)))
+                              .then((_) => setState(() => _future = _load())),
+                          icon: const Icon(Icons.play_arrow_rounded),
+                          label: const Text('Commencer'),
+                        ),
+                      ]),
+                    ]),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
               const SizedBox(height: 16),
               Card(
                 child: Padding(
