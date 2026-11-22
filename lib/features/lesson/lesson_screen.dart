@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+import '../../core/progress_service.dart';
+
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import 'exercise_screen.dart';
@@ -159,6 +161,7 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   void initState() {
     super.initState();
     _speechRate = _defaultSpeechRateForLesson();
+    ProgressService.saveLastLesson(widget.lesson.id);
     _tts.setStartHandler(() {
       if (mounted) setState(() { _speaking = true; _paused = false; });
     });
