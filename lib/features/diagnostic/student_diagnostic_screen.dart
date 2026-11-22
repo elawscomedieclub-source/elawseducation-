@@ -189,8 +189,8 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                         const SizedBox(height: 5),
                         Text(
                           [
-                            if (nextLesson.wrong > 0) '\${nextLesson.wrong} réponse(s) incorrecte(s) enregistrée(s)',
-                            if (nextLesson.review > 0) '\${nextLesson.review} exercice(s) placé(s) en révision',
+                            if (nextLesson.wrong > 0) '${nextLesson.wrong} réponse(s) incorrecte(s) enregistrée(s)',
+                            if (nextLesson.review > 0) '${nextLesson.review} exercice(s) placé(s) en révision',
                           ].join(' • '),
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
