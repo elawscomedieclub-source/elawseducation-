@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -21,6 +22,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   bool _loading = true;
   bool _speaking = false;
   String? _feedback;
+  late final StreamSubscription<User?> _authSubscription;
 
   @override
   void initState() {
@@ -29,6 +31,20 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       if (mounted) setState(() => _speaking = false);
     });
     _loadProgress();
+    // Les exercices validés à l'écran doivent suivre le compte actif.
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) async {
+      if (!mounted) return;
+      await _tts.stop();
+      if (!mounted) return;
+      setState(() {
+        _completed.clear();
+        _selected.clear();
+        _feedback = null;
+        _speaking = false;
+        _loading = true;
+      });
+      await _loadProgress();
+    });
   }
 
   Future<void> _loadProgress() async {
@@ -86,6 +102,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
 
   @override
   void dispose() {
+    _authSubscription.cancel();
     unawaited(_tts.stop());
     super.dispose();
   }
