@@ -65,12 +65,26 @@ class ProgressService {
   }
 
   static Future<ProgressSnapshot> load() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) {
+      return const ProgressSnapshot(
+        answeredExerciseIds: <String>{},
+        correctExerciseIds: <String>{},
+        xp: 0,
+      );
+    }
     // Anciennes clés globales non liées à un compte : elles ne sont plus sûres.
     await prefs.remove('proftogo_answered_exercises');
     await prefs.remove('proftogo_correct_exercises');
     await prefs.remove('proftogo_total_xp');
-    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (FirebaseAuth.instance.currentUser?.uid != uid) {
+      return const ProgressSnapshot(
+        answeredExerciseIds: <String>{},
+        correctExerciseIds: <String>{},
+        xp: 0,
+      );
+    }
     final answeredKey = localStorageKey('proftogo_answered_exercises', uid);
     final correctKey = localStorageKey('proftogo_correct_exercises', uid);
     final localCorrect = (prefs.getStringList(correctKey) ?? []).toSet();
@@ -112,8 +126,9 @@ class ProgressService {
     required String exerciseId,
     required bool isCorrect,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
     final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return false;
     final answeredKey = localStorageKey('proftogo_answered_exercises', uid);
     final correctKey = localStorageKey('proftogo_correct_exercises', uid);
     final answered = (prefs.getStringList(answeredKey) ?? []).toSet();
@@ -152,8 +167,9 @@ class ProgressService {
 
   /// Réinitialise la progression locale et cloud du compte courant uniquement.
   static Future<void> clearCurrentAccount() async {
-    final prefs = await SharedPreferences.getInstance();
     final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
     await prefs.remove(localStorageKey('proftogo_answered_exercises', uid));
     await prefs.remove(localStorageKey('proftogo_correct_exercises', uid));
     await prefs.remove(localStorageKey('proftogo_total_xp', uid));
