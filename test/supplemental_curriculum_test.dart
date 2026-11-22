@@ -42,6 +42,7 @@ void main() {
         'cp1_ecrire_mots_courts',
         'cp1_copier_phrase',
         'cp1_completer_phrase',
+        'cp1_point_interrogation',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -78,6 +79,7 @@ void main() {
         'cp1_ecrire_mots_courts',
         'cp1_copier_phrase',
         'cp1_completer_phrase',
+        'cp1_point_interrogation',
       ];
       for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
