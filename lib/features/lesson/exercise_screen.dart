@@ -1,19 +1,23 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import '../../core/school_level_provider.dart';
 import '../../core/progress_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 
-class ExerciseScreen extends StatefulWidget {
+class ExerciseScreen extends ConsumerStatefulWidget {
   final Lesson lesson;
   const ExerciseScreen({super.key, required this.lesson});
 
   @override
-  State<ExerciseScreen> createState() => _ExerciseScreenState();
+  ConsumerState<ExerciseScreen> createState() => _ExerciseScreenState();
 }
 
-class _ExerciseScreenState extends State<ExerciseScreen> {
+class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
+  final FlutterTts _tts = FlutterTts();
+  bool _speaking = false;
   final Map<String, int> _selectedAnswers = {};
   final Set<String> _answeredIds = {};
   final Set<String> _correctIds = {};
@@ -28,6 +32,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void initState() {
     super.initState();
+    _tts.setCompletionHandler(() {
+      if (mounted) setState(() => _speaking = false);
+    });
     _loadProgress();
     _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
       if (!mounted) return;
@@ -43,6 +50,35 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       });
       _loadProgress();
     });
+  }
+
+  Future<void> _speakExercise(Exercise exercise) async {
+    if (_speaking) {
+      await _tts.stop();
+      if (mounted) setState(() => _speaking = false);
+      return;
+    }
+    final letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+    final choices = exercise.options.asMap().entries.map((entry) =>
+      'Choix ${entry.key < letters.length ? letters[entry.key] : entry.key + 1}. ${entry.value}'
+    ).join('. ');
+    final explanation = _answeredIds.contains(exercise.id)
+        ? ' Explication. ${exercise.explanation}'
+        : '';
+    try {
+      await _tts.stop();
+      await _tts.setLanguage('fr-FR');
+      await _tts.setSpeechRate(0.42);
+      if (mounted) setState(() => _speaking = true);
+      await _tts.speak('Question ${_currentIndex + 1}. ${exercise.question}. $choices.$explanation');
+    } catch (_) {
+      if (mounted) {
+        setState(() => _speaking = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('La lecture audio n’est pas disponible sur cet appareil.')),
+        );
+      }
+    }
   }
 
   Future<void> _loadProgress() async {
@@ -76,6 +112,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void dispose() {
     _authSubscription.cancel();
+    unawaited(_tts.stop());
     super.dispose();
   }
 
@@ -120,6 +157,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final childMode = ref.watch(schoolLevelProvider).index <= SchoolLevel.cm2.index;
     final items = demoExercises.where((e) => e.lessonId == widget.lesson.id).toList();
     final completedCount = items.where((e) => _correctIds.contains(e.id)).length;
     final completion = items.isEmpty ? 0.0 : completedCount / items.length;
@@ -188,7 +226,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     final isLast = _currentIndex == items.length - 1;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Exercices • question par question')),
+      appBar: AppBar(title: Text(childMode ? 'Je m’entraîne' : 'Exercices • question par question')),
       body: ListView(
         padding: const EdgeInsets.all(18),
         children: [
@@ -200,10 +238,25 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               ),
             ),
           Text(
-            'Réponds à une question, vérifie ta réponse, puis passe à la suivante. Chaque bonne réponse rapporte 10 XP.',
+            childMode
+                ? 'Écoute la question, puis touche la réponse qui te semble juste. Tu peux réécouter autant que tu veux.'
+                : 'Réponds à une question, vérifie ta réponse, puis passe à la suivante. Chaque bonne réponse rapporte 10 XP.',
             style: const TextStyle(fontSize: 15, height: 1.4),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: () => _speakExercise(exercise),
+              icon: Icon(_speaking ? Icons.stop_circle_rounded : Icons.volume_up_rounded),
+              label: Text(_speaking ? 'Arrêter la lecture' : 'Écouter la question et les réponses'),
+              style: FilledButton.styleFrom(
+                minimumSize: Size.fromHeight(childMode ? 58 : 48),
+                textStyle: TextStyle(fontSize: childMode ? 17 : 15, fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
           Card(
             child: Padding(
               padding: const EdgeInsets.all(14),
@@ -251,8 +304,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ),
                   const SizedBox(height: 12),
                   ...List.generate(exercise.options.length, (index) {
-                    return RadioListTile<int>(
-                      contentPadding: EdgeInsets.zero,
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      child: RadioListTile<int>(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                       value: index,
                       groupValue: isCorrect ? exercise.correctIndex : selected,
                       onChanged: answered || _checkingIds.contains(exercise.id)
@@ -265,8 +320,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 });
                               }
                             },
-                      title: Text(exercise.options[index]),
-                    );
+                      minVerticalPadding: childMode ? 16 : 10,
+                      visualDensity: VisualDensity.standard,
+                      title: Text(
+                        childMode ? '${String.fromCharCode(65 + index)}. ${exercise.options[index]}' : exercise.options[index],
+                        style: TextStyle(fontSize: childMode ? 19 : 16, height: 1.3, fontWeight: childMode ? FontWeight.w600 : FontWeight.normal),
+                      ),
+                    ));
                   }),
                   if (_feedback.containsKey(exercise.id) && !answered) ...[
                     const SizedBox(height: 8),
