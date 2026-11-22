@@ -278,5 +278,25 @@ void main() {
       }
     });
 
+    test('les leçons CE1, CM2 et 4e sur mesures et sciences sont complètes', () {
+      const expected = [
+        'ce1_mesurer_longueurs',
+        'cm2_volume_pave',
+        'quatrieme_vitesse_moyenne',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.example.trim(), isNotEmpty);
+        expect(lesson.explanation.trim(), isNotEmpty);
+        for (final question in lesson.questions) {
+          final choices = question.choices.map((choice) => choice.trim().toLowerCase()).toSet();
+          expect(choices.length, question.choices.length, reason: question.id);
+          expect(question.correctIndex, inInclusiveRange(0, question.choices.length - 1));
+          expect(question.explanation.trim(), isNotEmpty);
+        }
+      }
+    });
+
   });
 }
