@@ -69,6 +69,37 @@ class ProgressService {
     return prefs.getString(localStorageKey('proftogo_last_lesson', uid));
   }
 
+  static Future<List<ExerciseAttemptRecord>> loadAttemptHistory() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return <ExerciseAttemptRecord>[];
+    final raw = prefs.getStringList(localStorageKey('proftogo_attempt_history', uid)) ?? <String>[];
+    final records = <ExerciseAttemptRecord>[];
+    for (final item in raw) {
+      try {
+        final decoded = jsonDecode(item);
+        if (decoded is Map<String, dynamic>) {
+          final record = ExerciseAttemptRecord.fromJson(decoded);
+          if (record.exerciseId.isNotEmpty && record.lessonId.isNotEmpty && record.timestamp.millisecondsSinceEpoch > 0) records.add(record);
+        }
+      } catch (_) {}
+    }
+    records.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return records;
+  }
+
+  static Future<void> recordAttempt({required String exerciseId, required String lessonId, required bool isCorrect}) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final key = localStorageKey('proftogo_attempt_history', uid);
+    final raw = prefs.getStringList(key) ?? <String>[];
+    raw.add(jsonEncode(ExerciseAttemptRecord(exerciseId: exerciseId, lessonId: lessonId, isCorrect: isCorrect, timestamp: DateTime.now().toUtc()).toJson()));
+    if (raw.length > 200) raw.removeRange(0, raw.length - 200);
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.setStringList(key, raw);
+  }
+
   // Les erreurs à revoir sont conservées séparément pour chaque compte.
   static Future<Set<String>> loadReviewExerciseIds() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
