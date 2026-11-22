@@ -26,6 +26,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
   final Set<String> _correctIds = {};
   final Set<String> _checkingIds = {};
   final Map<String, String> _feedback = {};
+  final Set<String> _barrierReportedIds = {};
   bool _loading = true;
   bool _progressUnavailable = false;
   int _currentIndex = 0;
@@ -117,6 +118,20 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
     _authSubscription.cancel();
     unawaited(_tts.stop());
     super.dispose();
+  }
+
+
+  Future<void> _reportBarrier(String exerciseId, String category) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    try {
+      await ProgressService.recordLearningBarrier(category);
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
+      setState(() => _barrierReportedIds.add(exerciseId));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Merci. Ton indication aidera à choisir les prochaines révisions.')));
+    } catch (_) {
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Indication non enregistrée. Réessaie plus tard.')));
+    }
   }
 
   Future<void> _checkAnswer(Exercise exercise) async {
@@ -366,6 +381,17 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
                       ),
                       child: Text('Explication : ${exercise.explanation}'),
                     ),
+                  ],
+                  if (_feedback.containsKey(exercise.id) && !answered && !_barrierReportedIds.contains(exercise.id)) ...[
+                    const SizedBox(height: 12),
+                    const Text('Qu’est-ce qui t’a surtout gêné ? (facultatif)', style: TextStyle(fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 8),
+                    Wrap(spacing: 8, runSpacing: 6, children: [
+                      ActionChip(label: const Text('Lire la consigne'), onPressed: () => _reportBarrier(exercise.id, 'lecture')),
+                      ActionChip(label: const Text('Comprendre la leçon'), onPressed: () => _reportBarrier(exercise.id, 'comprehension')),
+                      ActionChip(label: const Text('Trouver la méthode'), onPressed: () => _reportBarrier(exercise.id, 'methode')),
+                    ]),
+                    Text('Tu peux ignorer cette question. Ce choix est une indication personnelle, pas une évaluation automatique.', style: Theme.of(context).textTheme.bodySmall),
                   ],
                   if (answered) ...[
                     const Divider(height: 24),
