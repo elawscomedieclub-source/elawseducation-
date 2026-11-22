@@ -342,4 +342,17 @@ const supplementalLessons = <SupplementalLesson>[
     'Les êtres vivants prélèvent du dioxygène dans leur milieu et rejettent du dioxyde de carbone. Les organes respiratoires varient selon les espèces : poumons, branchies ou surfaces d’échanges.',
     'Le poisson prélève le dioxygène dissous dans l’eau grâce à ses branchies.',
     [SupplementalQuestion('bonus_5e_resp_1','Quel gaz est généralement prélevé lors de la respiration ?',['Dioxygène','Dioxyde de carbone','Azote uniquement'],0,'Le dioxygène est utilisé par les organes.'), SupplementalQuestion('bonus_5e_resp_2','Quel organe permet au poisson de respirer dans l’eau ?',['Les poumons','Les branchies','Les feuilles'],1,'Les branchies prélèvent le dioxygène dissous dans l’eau.'), SupplementalQuestion('bonus_5e_resp_3','Quel gaz est rejeté lors de la respiration ?',['Dioxygène','Dioxyde de carbone','Hydrogène'],1,'La respiration rejette du dioxyde de carbone.')]),
+
+  SupplementalLesson('ce2_multiplication_dizaines', SchoolLevel.ce2, 'Mathématiques', 'Multiplier par une dizaine entière',
+    'Pour multiplier un nombre par 10, on décale chaque chiffre d’un rang vers la gauche dans le tableau de numération. Pour multiplier par 20, 30 ou 40, on multiplie d’abord par 2, 3 ou 4, puis par 10.',
+    '23 × 20 = 23 × 2 × 10 = 46 × 10 = 460.',
+    [SupplementalQuestion('bonus_ce2_mult_diz_1','Calcule 14 × 20.',['280','240','140'],0,'14 × 2 = 28, puis 28 × 10 = 280.'), SupplementalQuestion('bonus_ce2_mult_diz_2','Calcule 32 × 30.',['960','9600','930'],0,'32 × 3 = 96, puis 96 × 10 = 960.'), SupplementalQuestion('bonus_ce2_mult_diz_3','20 × 15 vaut…',['150','300','35'],1,'2 × 15 = 30, puis on multiplie par 10 : 300.')]),
+  SupplementalLesson('cm1_adjectif_qualificatif', SchoolLevel.cm1, 'Français', 'Reconnaître l’adjectif qualificatif',
+    'L’adjectif qualificatif donne une précision sur un nom. Il peut indiquer une qualité, une couleur, une taille ou un caractère. Il s’accorde généralement en genre et en nombre avec le nom qu’il accompagne.',
+    'Dans « une grande maison blanche », grande et blanche sont des adjectifs qui précisent le nom maison.',
+    [SupplementalQuestion('bonus_cm1_adj_1','Dans « un petit chat noir », quels mots sont des adjectifs ?',['petit et noir','un et chat','chat seulement'],0,'Petit et noir donnent des précisions sur le nom chat.'), SupplementalQuestion('bonus_cm1_adj_2','Quel adjectif complète « une robe… » ?',['joli','jolie','jolis'],1,'Robe est féminin singulier : jolie s’accorde avec robe.'), SupplementalQuestion('bonus_cm1_adj_3','À quoi sert un adjectif qualificatif ?',['À préciser un nom','À remplacer toujours le verbe','À compter les syllabes'],0,'Il apporte une information sur le nom.')]),
+  SupplementalLesson('troisieme_loi_ohm', SchoolLevel.troisieme, 'Physique-Chimie', 'Utiliser la loi d’Ohm',
+    'Pour un conducteur ohmique, la tension U, la résistance R et l’intensité I sont liées par la loi d’Ohm : U = R × I. Les unités sont le volt (V), l’ohm (Ω) et l’ampère (A).',
+    'Si R = 4 Ω et I = 2 A, alors U = 4 × 2 = 8 V.',
+    [SupplementalQuestion('bonus_3e_ohm_1','Quelle formule exprime la loi d’Ohm ?',['U = R × I','U = R + I','I = U × R'],0,'La tension est égale à la résistance multipliée par l’intensité.'), SupplementalQuestion('bonus_3e_ohm_2','R = 5 Ω et I = 3 A. U vaut…',['8 V','15 V','2 V'],1,'U = 5 × 3 = 15 V.'), SupplementalQuestion('bonus_3e_ohm_3','Quelle unité mesure la résistance ?',['Volt','Ampère','Ohm'],2,'La résistance électrique se mesure en ohms (Ω).')]),
 ];
