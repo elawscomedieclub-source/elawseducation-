@@ -381,4 +381,17 @@ const supplementalLessons = <SupplementalLesson>[
     'La vitesse moyenne se calcule en divisant la distance parcourue par la durée du trajet : v = d/t. Il faut utiliser des unités cohérentes, par exemple kilomètres et heures pour obtenir des km/h.',
     'Un véhicule parcourt 120 km en 2 h : v = 120 ÷ 2 = 60 km/h.',
     [SupplementalQuestion('bonus_4e_vit_1','Une voiture parcourt 150 km en 3 h. Sa vitesse moyenne est…',['50 km/h','45 km/h','150 km/h'],0,'v = 150 ÷ 3 = 50 km/h.'), SupplementalQuestion('bonus_4e_vit_2','Quelle formule donne la vitesse moyenne ?',['v = d × t','v = d ÷ t','v = t ÷ d'],1,'La vitesse moyenne est la distance divisée par la durée.'), SupplementalQuestion('bonus_4e_vit_3','À 40 km/h pendant 2 h, quelle distance parcourt-on ?',['20 km','42 km','80 km'],2,'d = v × t = 40 × 2 = 80 km.')]),
+
+  SupplementalLesson('cp2_addition_retenue_dizaines', SchoolLevel.cp2, 'Mathématiques', 'Additionner avec une retenue',
+    'Quand les unités totalisent 10 ou plus, on écrit les unités et on ajoute une dizaine aux dizaines. On calcule les colonnes de droite à gauche.',
+    '27 + 15 : 7 + 5 = 12. On écrit 2 unités et on ajoute 1 dizaine. 2 + 1 + 1 = 4 dizaines. Résultat : 42.',
+    [SupplementalQuestion('bonus_cp2_add_ret_1','Calcule 36 + 7.',['43','33','42'],0,'6 + 7 = 13 : on écrit 3 et on ajoute une dizaine.'), SupplementalQuestion('bonus_cp2_add_ret_2','Calcule 28 + 14.',['32','42','52'],1,'8 + 4 = 12 ; on écrit 2 et on ajoute 1 dizaine : 42.'), SupplementalQuestion('bonus_cp2_add_ret_3','Dans 19 + 5, le chiffre des unités du résultat est…',['2','4','1'],1,'19 + 5 = 24 : le chiffre des unités est 4.')]),
+  SupplementalLesson('ce2_animaux_regimes_alimentaires', SchoolLevel.ce2, 'Sciences', 'Classer les animaux selon leur alimentation',
+    'Les herbivores mangent des végétaux, les carnivores mangent d’autres animaux et les omnivores consomment des aliments d’origine végétale et animale.',
+    'La vache est herbivore ; le lion est carnivore ; l’être humain est omnivore.',
+    [SupplementalQuestion('bonus_ce2_regime_1','Le lion est généralement…',['Herbivore','Carnivore','Omnivore'],1,'Le lion se nourrit d’autres animaux.'), SupplementalQuestion('bonus_ce2_regime_2','Quel animal est herbivore ?',['La chèvre','Le crocodile','Le chat'],0,'La chèvre se nourrit principalement de végétaux.'), SupplementalQuestion('bonus_ce2_regime_3','Un omnivore mange…',['Seulement des plantes','Seulement de la viande','Des aliments végétaux et animaux'],2,'Un omnivore consomme les deux types d’aliments.')]),
+  SupplementalLesson('cinquieme_proportionnalite_tableau', SchoolLevel.cinquieme, 'Mathématiques', 'Utiliser un tableau de proportionnalité',
+    'Dans une situation de proportionnalité, on passe d’une ligne à l’autre en multipliant toujours par le même nombre : le coefficient de proportionnalité.',
+    '3 cahiers coûtent 600 F. Un cahier coûte 600 ÷ 3 = 200 F ; 5 cahiers coûtent 5 × 200 = 1 000 F.',
+    [SupplementalQuestion('bonus_5e_prop_1','4 stylos coûtent 800 F. Un stylo coûte…',['200 F','400 F','800 F'],0,'800 ÷ 4 = 200 F.'), SupplementalQuestion('bonus_5e_prop_2','Si 1 kg coûte 750 F, 3 kg coûtent…',['1 500 F','2 250 F','750 F'],1,'750 × 3 = 2 250 F.'), SupplementalQuestion('bonus_5e_prop_3','Le coefficient pour passer de 5 à 20 est…',['4','5','15'],0,'20 ÷ 5 = 4.')]),
 ];
