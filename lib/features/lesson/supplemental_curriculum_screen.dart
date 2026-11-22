@@ -281,6 +281,8 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_formes' => const ['⚪', '🟥', '🔺', '⭐'],
       'cp1_classe' => const ['📖', '📓', '✏️', '🧑‍🏫'],
       'cp1_hygiene' => const ['🧼', '💧', '🪥', '🦷'],
+      'cp1_animaux' => const ['🐟', '🐕', '🐔', '🐐'],
+      'cp1_corps' => const ['👀', '👂', '👃', '🦶'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -291,6 +293,8 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_formes' => 'OBSERVE LES FORMES',
       'cp1_classe' => 'LES OBJETS DE LA CLASSE',
       'cp1_hygiene' => 'LES GESTES POUR ÊTRE PROPRE',
+      'cp1_animaux' => 'OBSERVE LES ANIMAUX',
+      'cp1_corps' => 'MONTRE LES PARTIES DU CORPS',
       _ => 'REGARDE ET DÉCOUVRE',
     };
     return Container(
