@@ -177,7 +177,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                 Expanded(child: Text('Lis à voix haute, je t’accompagne !', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800))),
               ]),
               const SizedBox(height: 8),
-              Text('Exercice adapté à ta classe : \${level.label}. Lis tranquillement le texte, puis active le micro pour comparer les mots entendus au texte.'),
+              Text('Exercice adapté à ta classe : ${level.label}. Lis tranquillement le texte, puis active le micro pour comparer les mots entendus au texte.'),
             ]),
           ),
         ),
