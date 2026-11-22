@@ -28,6 +28,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
   final Map<String, String> _feedback = {};
   final Set<String> _barrierReportedIds = {};
   final Map<String, String> _selectedBarriers = {};
+  final Map<String, int> _wrongAttemptCounts = {};
   bool _loading = true;
   bool _progressUnavailable = false;
   int _currentIndex = 0;
@@ -51,6 +52,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
         _feedback.clear();
         _barrierReportedIds.clear();
         _selectedBarriers.clear();
+        _wrongAttemptCounts.clear();
         _currentIndex = 0;
         _progressUnavailable = false;
         _loading = true;
@@ -93,6 +95,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     try {
       final progress = await ProgressService.load();
+      final wrongCounts = await ProgressService.loadWrongAttemptCounts();
       if (!mounted ||
           version != _progressLoadVersion ||
           FirebaseAuth.instance.currentUser?.uid != uid) return;
@@ -103,6 +106,9 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
         _correctIds
           ..clear()
           ..addAll(progress.correctExerciseIds);
+        _wrongAttemptCounts
+          ..clear()
+          ..addAll(wrongCounts);
         _loading = false;
       });
     } catch (_) {
@@ -165,12 +171,19 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
           skillId: widget.lesson.id,
         );
       }
+      final updatedWrongCounts = isCorrect
+          ? <String, int>{}
+          : await ProgressService.loadWrongAttemptCounts();
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _checkingIds.remove(exercise.id);
         if (isCorrect) {
           _answeredIds.add(exercise.id);
           _correctIds.add(exercise.id);
+        } else {
+          _wrongAttemptCounts
+            ..clear()
+            ..addAll(updatedWrongCounts);
         }
         _feedback[exercise.id] = isCorrect
             ? (earnedXp ? 'Bonne réponse ! +10 XP' : 'Bonne réponse !')
@@ -388,7 +401,48 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
                       child: Text('Explication : ${exercise.explanation}'),
                     ),
                   ],
-                  if (_feedback.containsKey(exercise.id) && !answered && !_barrierReportedIds.contains(exercise.id)) ...[
+                  if ((_wrongAttemptCounts[exercise.id] ?? 0) >= 2 && !answered) ...[
+                    const SizedBox(height: 12),
+                    Card(
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      child: Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(childMode ? 'On reprend doucement' : 'Reprise guidée de la notion',
+                                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                            const SizedBox(height: 8),
+                            Text(childMode
+                                ? 'Tu as le droit de prendre ton temps. Fais ces trois petites étapes avant de choisir encore.'
+                                : 'Après ${_wrongAttemptCounts[exercise.id]} tentatives incorrectes, prends un temps de reprise avant de répondre à nouveau.'),
+                            const SizedBox(height: 8),
+                            Text(childMode
+                                ? '1. Écoute et relis la question.\n2. Repère les mots ou les informations importantes.\n3. Regarde l’explication et cherche pourquoi elle aide à trouver la réponse.'
+                                : '1. Reformule la consigne.\n2. Repère les données et la notion du cours qui peuvent servir.\n3. Compare ta démarche avec l’explication, puis vérifie à nouveau.'),
+                            const SizedBox(height: 8),
+                            ExpansionTile(
+                              tilePadding: EdgeInsets.zero,
+                              childrenPadding: const EdgeInsets.only(bottom: 8),
+                              title: const Text('Revoir le cours et l’explication'),
+                              children: [
+                                Align(alignment: Alignment.centerLeft, child: Text(widget.lesson.summary)),
+                                if (widget.lesson.keyPoints.isNotEmpty) ...[
+                                  const SizedBox(height: 6),
+                                  Align(alignment: Alignment.centerLeft, child: Text(widget.lesson.keyPoints.map((e) => '• $e').join('\\n'))),
+                                ],
+                                const SizedBox(height: 8),
+                                Align(alignment: Alignment.centerLeft, child: Text('Explication : ${exercise.explanation}')),
+                              ],
+                            ),
+                            Text('Tu peux modifier ta réponse et réessayer. Cette aide ne retire aucun point.',
+                                style: Theme.of(context).textTheme.bodySmall),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (_feedback.containsKey(exercise.id) && !answered && !_barrierReportedIds.contains(exercise.id)) [
                     const SizedBox(height: 12),
                     const Text('Qu’est-ce qui t’a surtout gêné ? (facultatif)', style: TextStyle(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 8),
