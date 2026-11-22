@@ -150,10 +150,10 @@ class EvaluationService {
 
   static Future<void> save(
     EvaluationRecord record, {
-    required String? expectedUid,
+    String? expectedUid,
   }) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid != expectedUid) return;
+    if (expectedUid != null && uid != expectedUid) return;
     final prefs = await SharedPreferences.getInstance();
     if (FirebaseAuth.instance.currentUser?.uid != uid) return;
     await prefs.remove('proftogo_evaluation_history');
