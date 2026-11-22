@@ -130,6 +130,36 @@ class ProgressService {
     await prefs.setStringList(key, ids.toList()..sort());
   }
 
+
+  // Difficultés déclarées volontairement par l'élève, distinctes des erreurs observées.
+  static Future<void> recordLearningBarrier(String category) async {
+    if (!{'lecture', 'comprehension', 'methode'}.contains(category)) return;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final key = localStorageKey('proftogo_declared_learning_barriers', uid);
+    final counts = await loadLearningBarrierCounts();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    counts[category] = (counts[category] ?? 0) + 1;
+    final encoded = counts.entries.map((entry) => '${entry.key}|${entry.value}').toList()..sort();
+    await prefs.setStringList(key, encoded);
+  }
+
+  static Future<Map<String, int>> loadLearningBarrierCounts() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return <String, int>{};
+    final raw = prefs.getStringList(localStorageKey('proftogo_declared_learning_barriers', uid)) ?? <String>[];
+    final counts = <String, int>{};
+    for (final entry in raw) {
+      final separator = entry.lastIndexOf('|');
+      if (separator <= 0) continue;
+      final count = int.tryParse(entry.substring(separator + 1));
+      if (count != null && count > 0) counts[entry.substring(0, separator)] = count;
+    }
+    return counts;
+  }
+
   static Future<ProgressSnapshot> load() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final prefs = await SharedPreferences.getInstance();
