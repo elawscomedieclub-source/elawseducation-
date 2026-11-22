@@ -298,5 +298,23 @@ void main() {
       }
     });
 
+
+    test('les nouvelles leçons CP2, CE2 et 5e sont complètes', () {
+      const expected = ['cp2_addition_retenue_dizaines','ce2_animaux_regimes_alimentaires','cinquieme_proportionnalite_tableau'];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.example.trim(), isNotEmpty);
+        expect(lesson.explanation.trim(), isNotEmpty);
+        for (final question in lesson.questions) {
+          final choices = question.choices.map((choice) => choice.trim().toLowerCase()).toSet();
+          expect(choices.length, question.choices.length, reason: question.id);
+          expect(question.correctIndex, inInclusiveRange(0, question.choices.length - 1));
+          expect(question.explanation.trim(), isNotEmpty);
+        }
+      }
+    });
+
+
   });
 }
