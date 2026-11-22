@@ -6,6 +6,7 @@ import '../../features/subjects/subjects_screen.dart';
 import '../../features/progress/progress_screen.dart';
 import '../../features/voice/voice_screen.dart';
 import '../../features/profile/profile_screen.dart';
+import '../../features/diagnostic/student_diagnostic_screen.dart';
 import '../../core/theme/app_colors.dart';
 import 'menu_button.dart';
 
@@ -71,6 +72,17 @@ class _MainScaffoldState extends State<MainScaffold> {
               _menuItem(Icons.menu_book_outlined, 'Matières et cours', 1),
               _menuItem(Icons.mic_none, 'Professeur vocal', 2),
               _menuItem(Icons.insights_outlined, 'Ma progression', 3),
+              ListTile(
+                leading: const Icon(Icons.psychology_alt_rounded),
+                title: const Text('Mon diagnostic intelligent', style: TextStyle(fontWeight: FontWeight.w800)),
+                subtitle: const Text('Mes difficultés et mes solutions'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const StudentDiagnosticScreen(),
+                  ));
+                },
+              ),
               _menuItem(Icons.person_outline, 'Mon profil', 4),
               const Divider(),
               const ListTile(leading: Icon(Icons.info_outline), title: Text('À propos de PROFTOGO'), subtitle: Text('Application éducative pour le Togo')),
