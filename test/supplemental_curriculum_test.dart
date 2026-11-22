@@ -258,5 +258,25 @@ void main() {
       }
     });
 
+    test('les leçons CM2, 6e et Seconde sont complètes', () {
+      const expected = [
+        'cm2_fraction_nombre_decimal',
+        'sixieme_etats_matiere',
+        'seconde_pourcentage_evolution',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.example.trim(), isNotEmpty);
+        expect(lesson.explanation.trim(), isNotEmpty);
+        for (final question in lesson.questions) {
+          final choices = question.choices.map((choice) => choice.trim().toLowerCase()).toSet();
+          expect(choices.length, question.choices.length, reason: question.id);
+          expect(question.correctIndex, inInclusiveRange(0, question.choices.length - 1));
+          expect(question.explanation.trim(), isNotEmpty);
+        }
+      }
+    });
+
   });
 }
