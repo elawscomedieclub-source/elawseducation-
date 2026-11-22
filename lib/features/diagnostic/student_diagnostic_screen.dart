@@ -72,6 +72,38 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           final rate = attempts == 0 ? 0 : (correct * 100 / attempts).round();
           final difficulties = d.lessonErrors.entries.where((e) => e.value >= 2 && lessons.any((l) => l.id == e.key)).toList()
             ..sort((a, b) => b.value.compareTo(a.value));
+
+          // État pédagogique calculé uniquement à partir des exercices réellement
+          // présents et des réponses enregistrées pour le compte courant.
+          final lessonProgress = lessons.map((lesson) {
+            final exercises = demoExercises.where((e) => e.lessonId == lesson.id).toList();
+            final correctCount = exercises.where((e) => d.progress.correctExerciseIds.contains(e.id)).length;
+            final reviewCount = exercises.where((e) => d.reviewIds.contains(e.id)).length;
+            final wrongCount = exercises.fold<int>(0, (sum, e) => sum + (d.exerciseErrors[e.id] ?? 0));
+            final status = exercises.isEmpty
+                ? 'indisponible'
+                : correctCount == exercises.length
+                    ? 'reussi'
+                    : reviewCount > 0 || wrongCount >= 2
+                        ? 'a_revoir'
+                        : correctCount > 0
+                            ? 'en_progres'
+                            : wrongCount > 0
+                                ? 'a_reprendre'
+                                : 'a_decouvrir';
+            return _LessonProgress(lesson, exercises.length, correctCount, reviewCount, wrongCount, status);
+          }).where((item) => item.total > 0).toList()
+            ..sort((a, b) {
+              int rank(String status) => switch (status) {
+                'a_revoir' => 0,
+                'a_reprendre' => 1,
+                'en_progres' => 2,
+                'a_decouvrir' => 3,
+                _ => 4,
+              };
+              final byStatus = rank(a.status).compareTo(rank(b.status));
+              return byStatus != 0 ? byStatus : a.lesson.title.compareTo(b.lesson.title);
+            });
           return RefreshIndicator(
             onRefresh: () async { setState(() => _future = _load()); await _future; },
             child: ListView(padding: const EdgeInsets.all(16), children: [
@@ -141,6 +173,60 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                 _GuideLine(Icons.psychology_outlined, 'Choix de la méthode : ' + (d.barrierCounts['methode'] ?? 0).toString() + ' indication(s)'),
               ]))),
               const SizedBox(height: 16),
+              Text('Où j’en suis dans mes leçons', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+              const SizedBox(height: 6),
+              const Text('Ces repères concernent uniquement les exercices disponibles dans l’application. Une réussite sur ces questions ne signifie pas encore que toute la notion est maîtrisée.'),
+              const SizedBox(height: 8),
+              if (lessonProgress.isEmpty)
+                const Card(child: Padding(padding: EdgeInsets.all(14), child: Text('Les exercices de cette classe apparaîtront ici au fur et à mesure de leur disponibilité.')))
+              else
+                ...lessonProgress.take(12).map((item) {
+                  final label = switch (item.status) {
+                    'reussi' => 'Réussi sur les exercices disponibles',
+                    'a_revoir' => 'À revoir',
+                    'a_reprendre' => 'À reprendre',
+                    'en_progres' => 'En progrès',
+                    _ => 'À découvrir',
+                  };
+                  final color = switch (item.status) {
+                    'reussi' => Colors.green,
+                    'a_revoir' || 'a_reprendre' => Colors.deepOrange,
+                    'en_progres' => Colors.blue,
+                    _ => Theme.of(context).colorScheme.onSurfaceVariant,
+                  };
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(13),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text(item.lesson.title, style: const TextStyle(fontWeight: FontWeight.w800)),
+                        const SizedBox(height: 5),
+                        Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+                        const SizedBox(height: 6),
+                        Text('${item.correct}/${item.total} exercice(s) validé(s) • ${item.review} à revoir • ${item.wrong} réponse(s) incorrecte(s) enregistrée(s)'),
+                        const SizedBox(height: 8),
+                        LinearProgressIndicator(value: item.correct / item.total),
+                        const SizedBox(height: 8),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Wrap(spacing: 8, children: [
+                            TextButton(
+                              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LessonContentScreen(lesson: item.lesson)))
+                                  .then((_) => setState(() => _future = _load())),
+                              child: const Text('Voir le cours'),
+                            ),
+                            if (item.status != 'reussi')
+                              FilledButton.tonal(
+                                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExerciseScreen(lesson: item.lesson)))
+                                    .then((_) => setState(() => _future = _load())),
+                                child: const Text('S’entraîner'),
+                              ),
+                          ]),
+                        ),
+                      ]),
+                    ),
+                  );
+                }),
+              const SizedBox(height: 18),
               Text('Mes leçons à renforcer', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 6),
               const Text('Une difficulté répétée est un signal pour proposer de la pratique, jamais une étiquette sur toi.'),
@@ -219,6 +305,16 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       ),
     );
   }
+}
+
+class _LessonProgress {
+  final Lesson lesson;
+  final int total;
+  final int correct;
+  final int review;
+  final int wrong;
+  final String status;
+  const _LessonProgress(this.lesson, this.total, this.correct, this.review, this.wrong, this.status);
 }
 
 class _Diagnostic {
