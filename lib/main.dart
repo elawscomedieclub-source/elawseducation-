@@ -26,6 +26,6 @@ class ProfTogoApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
-    return MaterialApp(title: 'ProfTogo', debugShowCheckedModeBanner: false, theme: AppTheme.light, darkTheme: AppTheme.dark, themeMode: themeMode, home: const MainScaffold());
+    return MaterialApp(title: 'PROFTOGO', debugShowCheckedModeBanner: false, theme: AppTheme.light, darkTheme: AppTheme.dark, themeMode: themeMode, home: const MainScaffold());
   }
 }
