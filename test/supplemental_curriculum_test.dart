@@ -152,5 +152,23 @@ void main() {
         }
       }
     });
+
+    test('les nouvelles leçons du collège ont trois exercices expliqués', () {
+      const expected = [
+        'sixieme_operations_decimales',
+        'cinquieme_fractions_addition',
+        'quatrieme_thales',
+        'troisieme_equation_second_degre',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        for (final question in lesson.questions) {
+          expect(question.choices.toSet().length, question.choices.length,
+              reason: 'Choix répétés dans ${question.id}');
+        }
+      }
+    });
+
   });
 }
