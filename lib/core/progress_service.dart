@@ -36,6 +36,34 @@ class ProgressService {
     return prefs.getString(localStorageKey('proftogo_last_lesson', uid));
   }
 
+  // Les erreurs à revoir sont conservées séparément pour chaque compte.
+  static Future<Set<String>> loadReviewExerciseIds() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return <String>{};
+    return (prefs.getStringList(localStorageKey('proftogo_review_exercises', uid)) ?? []).toSet();
+  }
+
+  static Future<void> recordWrongAnswer(String exerciseId) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final key = localStorageKey('proftogo_review_exercises', uid);
+    final ids = (prefs.getStringList(key) ?? []).toSet()..add(exerciseId);
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.setStringList(key, ids.toList()..sort());
+  }
+
+  static Future<void> clearReviewExercise(String exerciseId) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final key = localStorageKey('proftogo_review_exercises', uid);
+    final ids = (prefs.getStringList(key) ?? []).toSet()..remove(exerciseId);
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.setStringList(key, ids.toList()..sort());
+  }
+
   static Future<ProgressSnapshot> load() async {
     final prefs = await SharedPreferences.getInstance();
     // Anciennes clés globales non liées à un compte : elles ne sont plus sûres.
