@@ -168,11 +168,12 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
       isCorrect: isCorrect,
     );
     final attempts = await ReadingPracticeService.loadAttemptCount();
+    final wrongCounts = await ReadingPracticeService.loadStageWrongCounts();
     if (!mounted) return;
     setState(() {
       _answered = true;
       _attemptCount = attempts;
-      _stageWrongCounts = await ReadingPracticeService.loadStageWrongCounts();
+      _stageWrongCounts = wrongCounts;
       if (isCorrect) _completed.add(_stageIndex);
     });
   }
