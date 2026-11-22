@@ -394,4 +394,17 @@ const supplementalLessons = <SupplementalLesson>[
     'Dans une situation de proportionnalité, on passe d’une ligne à l’autre en multipliant toujours par le même nombre : le coefficient de proportionnalité.',
     '3 cahiers coûtent 600 F. Un cahier coûte 600 ÷ 3 = 200 F ; 5 cahiers coûtent 5 × 200 = 1 000 F.',
     [SupplementalQuestion('bonus_5e_prop_1','4 stylos coûtent 800 F. Un stylo coûte…',['200 F','400 F','800 F'],0,'800 ÷ 4 = 200 F.'), SupplementalQuestion('bonus_5e_prop_2','Si 1 kg coûte 750 F, 3 kg coûtent…',['1 500 F','2 250 F','750 F'],1,'750 × 3 = 2 250 F.'), SupplementalQuestion('bonus_5e_prop_3','Le coefficient pour passer de 5 à 20 est…',['4','5','15'],0,'20 ÷ 5 = 4.')]),
+
+  SupplementalLesson('cp1_nombres_ordonner', SchoolLevel.cp1, 'Mathématiques', 'Comparer et ranger les nombres',
+    'Pour comparer deux nombres, on regarde d’abord lequel est le plus grand. On peut utiliser les signes <, > et =. Pour ranger plusieurs nombres, on les place du plus petit au plus grand ou du plus grand au plus petit.',
+    'Avec 4, 9 et 6 : ordre croissant 4, 6, 9 ; ordre décroissant 9, 6, 4.',
+    [SupplementalQuestion('bonus_cp1_ordre_1','Quel nombre est le plus grand ?',['7','5','3'],0,'7 est plus grand que 5 et 3.'), SupplementalQuestion('bonus_cp1_ordre_2','Complète : 8 … 6.',['<','>','='],1,'8 est plus grand que 6 : on écrit >.'), SupplementalQuestion('bonus_cp1_ordre_3','Range 2, 5, 1 du plus petit au plus grand.',['1, 2, 5','5, 2, 1','2, 1, 5'],0,'On commence par 1, puis 2, puis 5.')]),
+  SupplementalLesson('cm2_conjugaison_futur', SchoolLevel.cm2, 'Français', 'Conjuguer les verbes au futur simple',
+    'Le futur simple exprime une action qui se déroulera plus tard. Pour les verbes réguliers en -er, on garde l’infinitif et on ajoute : -ai, -as, -a, -ons, -ez, -ont.',
+    'Demain, je chanterai ; tu chanteras ; nous chanterons.',
+    [SupplementalQuestion('bonus_cm2_futur_1','Demain, nous … au marché. (aller)',['irons','allions','sommes allés'],0,'Le futur du verbe aller avec nous est irons.'), SupplementalQuestion('bonus_cm2_futur_2','Je … mes devoirs ce soir. (terminer)',['termine','terminerai','terminais'],1,'Au futur simple : je terminerai.'), SupplementalQuestion('bonus_cm2_futur_3','Ils … bientôt. (arriver)',['arrivent','arrivaient','arriveront'],2,'Le futur simple avec ils est arriveront.')]),
+  SupplementalLesson('troisieme_gene_expression', SchoolLevel.troisieme, 'SVT', 'Comprendre les gènes et l’information héréditaire',
+    'L’information héréditaire est portée par l’ADN, organisé en chromosomes dans le noyau de nombreuses cellules. Un gène est une portion d’ADN qui participe à la détermination d’un caractère ou à la fabrication d’un produit biologique.',
+    'Les chromosomes portent l’ADN ; les gènes sont des segments de cet ADN.',
+    [SupplementalQuestion('bonus_3e_gene_1','Quelle molécule porte l’information génétique ?',['ADN','Eau','Amidon'],0,'L’ADN porte l’information génétique.'), SupplementalQuestion('bonus_3e_gene_2','Où se trouvent les chromosomes dans une cellule humaine typique ?',['Dans le noyau','Dans l’air','À l’extérieur du corps'],0,'Les chromosomes sont généralement situés dans le noyau des cellules.'), SupplementalQuestion('bonus_3e_gene_3','Un gène est…',['Une cellule entière','Une portion d’ADN','Un organe'],1,'Un gène correspond à une portion d’ADN.')]),
 ];
