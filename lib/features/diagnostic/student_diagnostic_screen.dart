@@ -27,6 +27,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       ProgressService.loadReviewExerciseIds(),
       ReadingPracticeService.loadCompletedStages(),
       ReadingPracticeService.loadAttemptCount(),
+      ReadingPracticeService.loadStageWrongCounts(),
     ]);
     return _Diagnostic(
       results[0] as ProgressSnapshot,
@@ -35,6 +36,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       results[3] as Set<String>,
       results[4] as Set<int>,
       results[5] as int,
+      results[6] as Map<int, int>,
     );
   }
 
@@ -94,6 +96,12 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                       ]),
                       const SizedBox(height: 8),
                       Text('${d.readingStages.length} étape(s) validée(s) sur 4 • ${d.readingAttempts} tentative(s)'),
+                      if (d.readingWrongCounts.values.any((count) => count >= 2)) ...[
+                        const SizedBox(height: 8),
+                        const Text('Une étape mérite un entraînement supplémentaire : plusieurs réponses y ont été incorrectes. Ce n’est pas un échec, mais un repère pour reprendre calmement.', style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.w600)),
+                        const SizedBox(height: 6),
+                        ...d.readingWrongCounts.entries.where((e) => e.value >= 2).map((e) => Text('• Étape ${e.key + 1} : ${e.value} réponse(s) incorrecte(s) observée(s).')),
+                      ],
                       const SizedBox(height: 8),
                       LinearProgressIndicator(value: d.readingStages.length / 4),
                       const SizedBox(height: 8),
@@ -166,7 +174,8 @@ class _Diagnostic {
   final Set<String> reviewIds;
   final Set<int> readingStages;
   final int readingAttempts;
-  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts);
+  final Map<int, int> readingWrongCounts;
+  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts, this.readingWrongCounts);
 }
 
 class _GuideLine extends StatelessWidget {
