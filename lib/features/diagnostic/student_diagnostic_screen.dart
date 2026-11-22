@@ -59,11 +59,14 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           if (!snap.hasData) return const Center(child: Text('Diagnostic momentanément indisponible.'));
           final d = snap.data!;
           final correct = d.progress.correctExerciseIds.length;
-          // Une réponse fausse est suivie par le compteur d'erreurs ;
-          // une réponse juste est suivie dans la progression validée.
-          final answeredIds = {...d.progress.correctExerciseIds, ...d.exerciseErrors.keys};
-          final answered = answeredIds.length;
-          final rate = answered == 0 ? 0 : (correct * 100 / answered).round();
+          // Chaque erreur est une tentative distincte ; les réussites sont
+          // comptées une fois par exercice validé.
+          final wrongAttempts = d.exerciseErrors.values.fold<int>(
+            0,
+            (total, count) => total + count,
+          );
+          final attempts = correct + wrongAttempts;
+          final rate = attempts == 0 ? 0 : (correct * 100 / attempts).round();
           final difficulties = d.lessonErrors.entries.where((e) => e.value >= 2 && lessons.any((l) => l.id == e.key)).toList()
             ..sort((a, b) => b.value.compareTo(a.value));
           return RefreshIndicator(
@@ -72,12 +75,12 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
               Card(child: Padding(padding: const EdgeInsets.all(18), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Row(children: [Icon(Icons.psychology_alt_rounded, size: 30), SizedBox(width: 10), Expanded(child: Text('Je découvre comment tu apprends', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)))]),
                 const SizedBox(height: 10),
-                Text(answered == 0
+                Text(attempts == 0
                   ? 'Ton diagnostic commence avec tes premiers exercices. Réponds tranquillement : tes réussites et tes erreurs m’aideront à choisir les révisions utiles.'
-                  : 'J’ai observé ' + answered.toString() + ' réponses et ' + correct.toString() + ' réussites. Ton taux de réussite observé est de ' + rate.toString() + ' %. Je continue à apprendre de tes réponses.'),
+                  : 'J’ai observé ' + attempts.toString() + ' tentatives et ' + correct.toString() + ' réussites. Ton taux de réussite observé est de ' + rate.toString() + ' %. Je continue à apprendre de tes réponses.'),
                 const SizedBox(height: 12),
                 Wrap(spacing: 8, children: [
-                  Chip(avatar: const Icon(Icons.edit_note), label: Text(answered.toString() + ' réponses')),
+                  Chip(avatar: const Icon(Icons.edit_note), label: Text(attempts.toString() + ' tentatives')),
                   Chip(avatar: const Icon(Icons.check_circle_outline), label: Text(correct.toString() + ' réussites')),
                   Chip(avatar: const Icon(Icons.replay), label: Text(d.reviewIds.length.toString() + ' à revoir')),
                 ]),
@@ -130,7 +133,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
               const Text('Une difficulté répétée est un signal pour proposer de la pratique, jamais une étiquette sur toi.'),
               const SizedBox(height: 8),
               if (difficulties.isEmpty)
-                Card(child: Padding(padding: const EdgeInsets.all(16), child: Text(answered == 0
+                Card(child: Padding(padding: const EdgeInsets.all(16), child: Text(attempts == 0
                   ? 'Je n’ai pas encore assez de réponses pour identifier tes points difficiles. Commence une leçon puis fais les exercices.'
                   : 'Aucune difficulté répétée n’est confirmée dans les leçons de ta classe. Continue : le diagnostic évolue avec tes réponses.')))
               else
@@ -177,7 +180,6 @@ class _Diagnostic {
   final Map<int, int> readingWrongCounts;
   const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts, this.readingWrongCounts);
 }
-
 class _GuideLine extends StatelessWidget {
   final IconData icon;
   final String label;
