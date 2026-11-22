@@ -11,6 +11,7 @@ import '../../data/sample/sample_data.dart';
 import '../../shared/widgets/menu_button.dart';
 import '../subjects/subject_detail_screen.dart';
 import '../lesson/supplemental_curriculum_screen.dart';
+import '../lesson/lesson_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -21,17 +22,22 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   late Future<ProgressSnapshot> _progressFuture;
+  late Future<String?> _lastLessonFuture;
   late final StreamSubscription<User?> _authSubscription;
 
   @override
   void initState() {
     super.initState();
     _progressFuture = ProgressService.load();
+    _lastLessonFuture = ProgressService.loadLastLesson();
     // L'écran reste monté dans l'IndexedStack : recharger les données dès
     // qu'un élève se connecte ou se déconnecte sur cet appareil.
     _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
       if (!mounted) return;
-      setState(() => _progressFuture = ProgressService.load());
+      setState(() {
+        _progressFuture = ProgressService.load();
+        _lastLessonFuture = ProgressService.loadLastLesson();
+      });
     });
   }
 
@@ -42,7 +48,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _refreshProgress() {
-    setState(() => _progressFuture = ProgressService.load());
+    setState(() {
+      _progressFuture = ProgressService.load();
+      _lastLessonFuture = ProgressService.loadLastLesson();
+    });
   }
 
   @override
@@ -104,6 +113,40 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   onRefresh: _refreshProgress,
                 ),
                 const SizedBox(height: 12),
+                FutureBuilder<String?>(
+                  future: _lastLessonFuture,
+                  builder: (context, lastSnapshot) {
+                    final lastId = lastSnapshot.data;
+                    if (lastId == null) return const SizedBox.shrink();
+                    final matchingLessons = demoLessons.where((item) => item.id == lastId);
+                    if (matchingLessons.isEmpty) return const SizedBox.shrink();
+                    final lastLesson = matchingLessons.first;
+                    final matchingChapters = demoChapters.where((item) => item.id == lastLesson.chapterId);
+                    if (matchingChapters.isEmpty) return const SizedBox.shrink();
+                    final lastChapter = matchingChapters.first;
+                    final matchingSubjects = demoSubjects.where((item) => item.id == lastChapter.subjectId);
+                    if (matchingSubjects.isEmpty ||
+                        !subjectMatchesPath(matchingSubjects.first, level, track, series)) {
+                      return const SizedBox.shrink();
+                    }
+                    return Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: ListTile(
+                        leading: const CircleAvatar(child: Icon(Icons.history_rounded)),
+                        title: const Text('Reprendre ma dernière leçon',
+                            style: TextStyle(fontWeight: FontWeight.w800)),
+                        subtitle: Text(lastLesson.title, maxLines: 2, overflow: TextOverflow.ellipsis),
+                        trailing: const Icon(Icons.play_arrow_rounded),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => LessonContentScreen(lesson: lastLesson),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
                 Card(
                   clipBehavior: Clip.antiAlias,
                   child: Padding(
