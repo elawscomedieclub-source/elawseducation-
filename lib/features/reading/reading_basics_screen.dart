@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../../core/school_level_provider.dart';
+import '../../data/models/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class _ReadingCard {
