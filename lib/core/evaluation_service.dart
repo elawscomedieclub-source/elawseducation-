@@ -145,10 +145,16 @@ class EvaluationService {
     }
   }
 
-  static Future<void> save(EvaluationRecord record) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('proftogo_evaluation_history');
+  static Future<void> save(
+    EvaluationRecord record, {
+    required String? expectedUid,
+  }) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != expectedUid) return;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    await prefs.remove('proftogo_evaluation_history');
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
     final localKey = _keyForUser(uid);
     final raw = prefs.getStringList(localKey) ?? [];
     raw.removeWhere((item) {
@@ -162,6 +168,7 @@ class EvaluationService {
     });
     raw.insert(0, jsonEncode(record.toJson()));
     if (raw.length > 100) raw.removeRange(100, raw.length);
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
     await prefs.setStringList(localKey, raw);
 
     final collection = _cloudCollection();
