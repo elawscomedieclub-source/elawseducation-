@@ -427,10 +427,14 @@ class _StudentProfileCloudSyncState
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (!_ready || uid == null) return;
     try {
+      final level = ref.read(schoolLevelProvider).name;
+      final track = ref.read(schoolTrackProvider).name;
+      final series = ref.read(schoolSeriesProvider);
+      if (FirebaseAuth.instance.currentUser?.uid != uid) return;
       await StudentProfileCloudService.save(
-        level: ref.read(schoolLevelProvider).name,
-        track: ref.read(schoolTrackProvider).name,
-        series: ref.read(schoolSeriesProvider),
+        level: level,
+        track: track,
+        series: series,
       );
     } catch (_) {}
   }
