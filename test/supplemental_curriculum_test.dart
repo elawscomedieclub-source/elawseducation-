@@ -14,6 +14,19 @@ void main() {
       }
     });
 
+    test('chaque niveau possède au moins quatre leçons bonus', () {
+      for (final level in SchoolLevel.values) {
+        final count = supplementalLessons
+            .where((lesson) => lesson.level == level)
+            .length;
+        expect(
+          count,
+          greaterThanOrEqualTo(4),
+          reason: 'Couverture bonus trop faible pour ${level.label}',
+        );
+      }
+    });
+
     test('le CP1 contient les activités de découverte attendues', () {
       const expected = [
         'cp1_voyelles',
