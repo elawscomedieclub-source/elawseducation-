@@ -22,6 +22,7 @@ class UsageTrackingService with WidgetsBindingObserver {
   Timer? _heartbeatTimer;
   String? _sessionId;
   String? _activeUid;
+  int _authGeneration = 0;
 
   void start() {
     WidgetsBinding.instance.addObserver(this);
@@ -29,6 +30,7 @@ class UsageTrackingService with WidgetsBindingObserver {
   }
 
   void _onAuthChanged(User? user) {
+    _authGeneration++;
     _heartbeatTimer?.cancel();
     _heartbeatTimer = null;
     _sessionId = null;
@@ -46,12 +48,20 @@ class UsageTrackingService with WidgetsBindingObserver {
   Future<void> _sendHeartbeat() async {
     final uid = _activeUid;
     final sessionId = _sessionId;
+    final generation = _authGeneration;
     if (uid == null || sessionId == null) return;
     // Do not block learning if analytics is unavailable or offline.
     try {
-      if (_auth.currentUser?.uid != uid) return;
-      final token = await _auth.currentUser?.getIdToken();
-      if (token == null) return;
+      final user = _auth.currentUser;
+      if (user?.uid != uid) return;
+      final token = await user?.getIdToken();
+      // A login/logout may occur while Firebase is refreshing the token.
+      // Never send an old session with a token belonging to a new account.
+      if (token == null ||
+          generation != _authGeneration ||
+          _activeUid != uid ||
+          _sessionId != sessionId ||
+          _auth.currentUser?.uid != uid) return;
       await http.post(
         Uri.parse('$_api/api/heartbeat'),
         headers: {
@@ -73,6 +83,9 @@ class UsageTrackingService with WidgetsBindingObserver {
   }
 
   void dispose() {
+    _authGeneration++;
+    _activeUid = null;
+    _sessionId = null;
     WidgetsBinding.instance.removeObserver(this);
     _heartbeatTimer?.cancel();
     _authSubscription?.cancel();
