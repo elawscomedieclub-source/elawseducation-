@@ -172,7 +172,7 @@ const supplementalLessons = <SupplementalLesson>[
   SupplementalLesson('ce1_phrase', SchoolLevel.ce1, 'Français', 'Reconnaître une phrase',
     'Une phrase commence généralement par une majuscule et se termine par un signe de ponctuation.',
     'Le chat dort.',
-    [SupplementalQuestion('bonus_ce1_fr_1','Quelle phrase est bien écrite ?',['le chien court','Le chien court.','LE chien court'],1,'Majuscule au début, point à la fin.'), SupplementalQuestion('bonus_ce1_fr_2','Quel signe termine une phrase déclarative ?',['.','? ',','],0,'Le point termine une phrase déclarative.')]),
+    [SupplementalQuestion('bonus_ce1_fr_1','Quelle phrase est bien écrite ?',['le chien court','Le chien court.','Le chien court!'],1,'Majuscule au début, point à la fin.'), SupplementalQuestion('bonus_ce1_fr_2','Quel signe termine une phrase déclarative ?',['.','? ',','],0,'Le point termine une phrase déclarative.')]),
   SupplementalLesson('ce1_dizaines', SchoolLevel.ce1, 'Mathématiques', 'Dizaines et unités',
     'Dans un nombre à deux chiffres, le chiffre de gauche indique les dizaines et celui de droite les unités.',
     'Dans 24 : 2 dizaines et 4 unités.',
