@@ -67,6 +67,19 @@ void main() {
       }
     });
 
+    test('les nouvelles leçons CE1 et CE2 sont présentes et complètes', () {
+      const expected = [
+        'ce1_comprendre_texte',
+        'ce1_multiplication_table_2',
+        'ce2_division_partage',
+        'ce2_phrase_types',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions.length, greaterThanOrEqualTo(3), reason: lesson.title);
+      }
+    });
+
     test('les activités CP1 nouvellement ajoutées ont trois questions', () {
       const addedIds = [
         'cp1_couleurs',
