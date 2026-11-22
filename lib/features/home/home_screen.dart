@@ -103,6 +103,68 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   levelLabel: '${level.label}$trackLabel',
                   onRefresh: _refreshProgress,
                 ),
+                const SizedBox(height: 12),
+                Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                              child: Icon(Icons.rocket_launch_rounded,
+                                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+                            ),
+                            const SizedBox(width: 10),
+                            const Expanded(
+                              child: Text('Ton prochain petit pas',
+                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          childMode
+                              ? 'Découvre une matière, écoute une explication et réponds à quelques questions. Tu peux avancer à ton rythme.'
+                              : 'Commence simplement : une leçon, un exemple compris, puis quelques exercices. Chaque petite séance compte.',
+                          style: const TextStyle(height: 1.4),
+                        ),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          child: FilledButton.icon(
+                            onPressed: () {
+                              if (subjects.isNotEmpty) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => SubjectDetailScreen(subject: subjects.first),
+                                  ),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const SupplementalCurriculumScreen(),
+                                  ),
+                                );
+                              }
+                            },
+                            icon: const Icon(Icons.play_arrow_rounded),
+                            label: const Text('Commencer à apprendre'),
+                            style: FilledButton.styleFrom(
+                              minimumSize: const Size.fromHeight(52),
+                              textStyle: const TextStyle(fontWeight: FontWeight.w800),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 18),
                 if (!childMode) Row(
                   children: [
