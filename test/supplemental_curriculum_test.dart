@@ -239,5 +239,24 @@ void main() {
       }
     });
 
+    test('les nouvelles leçons CE2, CM1 et 3e sont complètes', () {
+      const expected = [
+        'ce2_multiplication_dizaines',
+        'cm1_adjectif_qualificatif',
+        'troisieme_loi_ohm',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.example.trim(), isNotEmpty);
+        expect(lesson.explanation.trim(), isNotEmpty);
+        for (final question in lesson.questions) {
+          final normalized = question.choices.map((choice) => choice.trim().toLowerCase()).toSet();
+          expect(normalized.length, question.choices.length, reason: question.id);
+          expect(question.correctIndex, inInclusiveRange(0, question.choices.length - 1));
+        }
+      }
+    });
+
   });
 }
