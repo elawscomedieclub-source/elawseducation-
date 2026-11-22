@@ -368,4 +368,17 @@ const supplementalLessons = <SupplementalLesson>[
     'Pour calculer une hausse de t %, on multiplie la valeur initiale par 1 + t/100. Pour une baisse de t %, on multiplie par 1 − t/100.',
     'Un prix de 8 000 F augmente de 10 % : 8 000 × 1,10 = 8 800 F.',
     [SupplementalQuestion('bonus_2nde_pct_1','Une valeur de 200 augmente de 5 %. Nouvelle valeur ?',['205','210','195'],1,'5 % de 200 vaut 10 ; 200 + 10 = 210.'), SupplementalQuestion('bonus_2nde_pct_2','Un prix de 500 baisse de 20 %. Il devient…',['400','480','600'],0,'20 % de 500 vaut 100 ; 500 − 100 = 400.'), SupplementalQuestion('bonus_2nde_pct_3','Le coefficient multiplicateur d’une hausse de 15 % est…',['0,15','1,15','1,5'],1,'Pour une hausse, le coefficient est 1 + 15/100 = 1,15.')]),
+
+  SupplementalLesson('ce1_mesurer_longueurs', SchoolLevel.ce1, 'Mathématiques', 'Mesurer des longueurs',
+    'La longueur peut se mesurer avec une règle ou un mètre. Le centimètre (cm) sert aux petits objets et le mètre (m) aux longueurs plus grandes. 1 m = 100 cm.',
+    'Un ruban de 1 m et 25 cm mesure 125 cm au total.',
+    [SupplementalQuestion('bonus_ce1_long_1','1 mètre équivaut à…',['10 cm','100 cm','1 000 cm'],1,'Un mètre contient 100 centimètres.'), SupplementalQuestion('bonus_ce1_long_2','Une règle de 30 cm mesure…',['0,3 m','3 m','30 m'],0,'30 cm = 30/100 m = 0,3 m.'), SupplementalQuestion('bonus_ce1_long_3','2 m et 15 cm font…',['215 cm','25 cm','2 015 cm'],0,'2 m = 200 cm ; 200 + 15 = 215 cm.')]),
+  SupplementalLesson('cm2_volume_pave', SchoolLevel.cm2, 'Mathématiques', 'Calculer le volume d’un pavé droit',
+    'Le volume d’un pavé droit se calcule en multipliant sa longueur par sa largeur et sa hauteur. Les dimensions doivent être exprimées dans la même unité.',
+    'Longueur 5 cm, largeur 3 cm, hauteur 2 cm : V = 5 × 3 × 2 = 30 cm³.',
+    [SupplementalQuestion('bonus_cm2_vol_1','Un pavé mesure 4 cm × 3 cm × 2 cm. Son volume est…',['24 cm³','9 cm³','12 cm²'],0,'V = 4 × 3 × 2 = 24 cm³.'), SupplementalQuestion('bonus_cm2_vol_2','Quelle formule calcule le volume d’un pavé droit ?',['L + l + h','L × l × h','L × l'],1,'On multiplie les trois dimensions.'), SupplementalQuestion('bonus_cm2_vol_3','Quelle unité convient pour un volume ?',['cm','cm²','cm³'],2,'Le volume s’exprime en unités cubiques.')]),
+  SupplementalLesson('quatrieme_vitesse_moyenne', SchoolLevel.quatrieme, 'Physique-Chimie', 'Calculer une vitesse moyenne',
+    'La vitesse moyenne se calcule en divisant la distance parcourue par la durée du trajet : v = d/t. Il faut utiliser des unités cohérentes, par exemple kilomètres et heures pour obtenir des km/h.',
+    'Un véhicule parcourt 120 km en 2 h : v = 120 ÷ 2 = 60 km/h.',
+    [SupplementalQuestion('bonus_4e_vit_1','Une voiture parcourt 150 km en 3 h. Sa vitesse moyenne est…',['50 km/h','45 km/h','150 km/h'],0,'v = 150 ÷ 3 = 50 km/h.'), SupplementalQuestion('bonus_4e_vit_2','Quelle formule donne la vitesse moyenne ?',['v = d × t','v = d ÷ t','v = t ÷ d'],1,'La vitesse moyenne est la distance divisée par la durée.'), SupplementalQuestion('bonus_4e_vit_3','À 40 km/h pendant 2 h, quelle distance parcourt-on ?',['20 km','42 km','80 km'],2,'d = v × t = 40 × 2 = 80 km.')]),
 ];
