@@ -30,6 +30,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       ReadingPracticeService.loadAttemptCount(),
       ReadingPracticeService.loadStageWrongCounts(),
       ProgressService.loadLearningBarrierCounts(),
+      ProgressService.loadAttemptHistory(),
     ]);
     return _Diagnostic(
       results[0] as ProgressSnapshot,
@@ -40,6 +41,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       results[5] as int,
       results[6] as Map<int, int>,
       results[7] as Map<String, int>,
+      results[8] as List<ExerciseAttemptRecord>,
     );
   }
 
@@ -61,6 +63,11 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           if (snap.connectionState == ConnectionState.waiting) return const Center(child: CircularProgressIndicator());
           if (!snap.hasData) return const Center(child: Text('Diagnostic momentanément indisponible.'));
           final d = snap.data!;
+          final now = DateTime.now();
+          final weekStart = DateTime(now.year, now.month, now.day).subtract(const Duration(days: 6));
+          final weekRecords = d.attemptHistory.where((a) => !a.timestamp.isBefore(weekStart) && !a.timestamp.isAfter(now)).toList();
+          final weekCorrect = weekRecords.where((a) => a.isCorrect).length;
+          final weekWrong = weekRecords.length - weekCorrect;
           final correct = d.progress.correctExerciseIds.length;
           // Chaque erreur est une tentative distincte ; les réussites sont
           // comptées une fois par exercice validé.
@@ -159,6 +166,29 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                 ),
                 const SizedBox(height: 16),
               ],
+              const SizedBox(height: 16),
+              Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Row(children: [Icon(Icons.history_rounded), SizedBox(width: 9), Expanded(child: Text('Mon activité récente', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800)))]),
+                const SizedBox(height: 8),
+                if (d.attemptHistory.isEmpty)
+                  const Text('Ton historique daté commencera dès tes prochaines réponses. Tes anciennes réussites restent dans ta progression, mais elles n’ont pas d’heure enregistrée.' )
+                else ...[
+                  Text('Ces 7 derniers jours : ${weekRecords.length} tentative(s), $weekCorrect réponse(s) correcte(s) et $weekWrong incorrecte(s).'),
+                  const SizedBox(height: 10),
+                  ...d.attemptHistory.take(5).map((attempt) {
+                    final lesson = lessons.where((l) => l.id == attempt.lessonId).firstOrNull;
+                    final date = attempt.timestamp.toLocal();
+                    final dateLabel = '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
+                    return Padding(padding: const EdgeInsets.only(bottom: 7), child: Row(children: [
+                      Icon(attempt.isCorrect ? Icons.check_circle_outline : Icons.refresh_rounded, color: attempt.isCorrect ? Colors.green : Colors.deepOrange, size: 19),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(lesson?.title ?? 'Exercice', maxLines: 2, overflow: TextOverflow.ellipsis)),
+                      Text(dateLabel, style: Theme.of(context).textTheme.bodySmall),
+                    ]));
+                  }),
+                  const Text('Historique local, séparé par compte ; les 200 réponses les plus récentes sont conservées.', style: TextStyle(fontSize: 12)),
+                ],
+              ]))),
               const SizedBox(height: 16),
               Card(
                 child: Padding(
@@ -365,7 +395,8 @@ class _Diagnostic {
   final int readingAttempts;
   final Map<int, int> readingWrongCounts;
   final Map<String, int> barrierCounts;
-  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts, this.readingWrongCounts, this.barrierCounts);
+  final List<ExerciseAttemptRecord> attemptHistory;
+  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts, this.readingWrongCounts, this.barrierCounts, this.attemptHistory);
 }
 class _GuideLine extends StatelessWidget {
   final IconData icon;
