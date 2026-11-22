@@ -109,6 +109,7 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
   int? _selectedAnswer;
   bool _answered = false;
   int _attemptCount = 0;
+  Map<int, int> _stageWrongCounts = {};
   bool _loadingProgress = true;
 
   @override
@@ -122,6 +123,7 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
     final values = await Future.wait([
       ReadingPracticeService.loadCompletedStages(),
       ReadingPracticeService.loadAttemptCount(),
+      ReadingPracticeService.loadStageWrongCounts(),
     ]);
     if (!mounted) return;
     setState(() {
@@ -129,6 +131,7 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
         ..clear()
         ..addAll(values[0] as Set<int>);
       _attemptCount = values[1] as int;
+      _stageWrongCounts = values[2] as Map<int, int>;
       _loadingProgress = false;
     });
   }
@@ -169,6 +172,7 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
     setState(() {
       _answered = true;
       _attemptCount = attempts;
+      _stageWrongCounts = await ReadingPracticeService.loadStageWrongCounts();
       if (isCorrect) _completed.add(_stageIndex);
     });
   }
@@ -184,6 +188,14 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
     final stage = _stages[_stageIndex];
     final level = ref.watch(schoolLevelProvider);
     final progress = _completed.length / _stages.length;
+    final stageWrongCount = _stageWrongCounts[_stageIndex] ?? 0;
+    final drillExamples = _stageIndex == 0
+        ? ['mmmm', 'ssss', 'llll', 'aaaa']
+        : _stageIndex == 1
+            ? ['ma, me, mi', 'sa, se, si', 'la, le, li', 'mo, so, lo']
+            : _stageIndex == 2
+                ? ['ma-man : maman', 'mo-to : moto', 'la-pin : lapin', 'ba-na-ne : banane']
+                : ['Mali lit.', 'Afi aime sa maman.', 'Le lapin mange.'];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Atelier sons et syllabes')),
@@ -248,7 +260,39 @@ class _ReadingBasicsScreenState extends ConsumerState<ReadingBasicsScreen> {
               onTap: () => _speak(card.example),
             ),
           )),
-          const SizedBox(height: 12),
+          if (stageWrongCount >= 2) ...[
+            Card(
+              color: const Color(0xFFFFF4E5),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Row(children: [
+                      Icon(Icons.lightbulb_outline_rounded, color: Colors.deepOrange),
+                      SizedBox(width: 8),
+                      Expanded(child: Text('Petit entraînement conseillé', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16))),
+                    ]),
+                    const SizedBox(height: 6),
+                    const Text('Tu as rencontré plusieurs difficultés dans cette étape. Prends ton temps : écoute ces exemples, puis essaie de les lire à voix haute.'),
+                    const SizedBox(height: 8),
+                    ...drillExamples.map((example) => ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(example, style: const TextStyle(fontWeight: FontWeight.w700)),
+                      trailing: IconButton(
+                        tooltip: 'Écouter',
+                        icon: const Icon(Icons.volume_up_rounded),
+                        onPressed: () => _speak(example),
+                      ),
+                      onTap: () => _speak(example),
+                    )),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
           Card(
             child: Padding(
               padding: const EdgeInsets.all(16),
