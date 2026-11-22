@@ -55,7 +55,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
           if (!mounted) return;
           setState(() {
             _listening = false;
-            _error = 'Le service vocal a rencontré un problème : \${error.errorMsg}. Vérifie le micro et le service vocal de ton appareil.';
+            _error = 'Le service vocal a rencontré un problème : ${error.errorMsg}. Vérifie le micro et le service vocal de ton appareil.';
           });
         },
       );
