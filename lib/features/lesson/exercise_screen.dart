@@ -442,7 +442,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
                       ),
                     ),
                   ],
-                  if (_feedback.containsKey(exercise.id) && !answered && !_barrierReportedIds.contains(exercise.id)) [
+                  if (_feedback.containsKey(exercise.id) && !answered && !_barrierReportedIds.contains(exercise.id)) ...[
                     const SizedBox(height: 12),
                     const Text('Qu’est-ce qui t’a surtout gêné ? (facultatif)', style: TextStyle(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 8),
