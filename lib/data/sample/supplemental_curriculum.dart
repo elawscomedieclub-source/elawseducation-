@@ -290,5 +290,18 @@ const supplementalLessons = <SupplementalLesson>[
     'Pour résoudre une équation-produit A × B = 0, utilise la règle du produit nul : A = 0 ou B = 0. Résous ensuite chaque équation.',
     '(x − 3)(x + 2) = 0 donne x − 3 = 0 ou x + 2 = 0, donc x = 3 ou x = −2.',
     [SupplementalQuestion('bonus_3e_prod_1','Si (x − 4)(x + 1) = 0, quelles sont les solutions ?',['4 et −1','−4 et 1','4 seulement'],0,'x − 4 = 0 donne 4 ; x + 1 = 0 donne −1.'), SupplementalQuestion('bonus_3e_prod_2','La règle du produit nul s’applique lorsque le produit est égal à…',['0','1','−1'],0,'Si un produit est nul, au moins un de ses facteurs est nul.'), SupplementalQuestion('bonus_3e_prod_3','Résous (x + 5)(x − 2) = 0.',['−5 et 2','5 et −2','−5 seulement'],0,'Les deux facteurs donnent x = −5 ou x = 2.')]),
+,
 
+  SupplementalLesson('seconde_equation_lineaire', SchoolLevel.seconde, 'Mathématiques', 'Résoudre une équation du premier degré',
+    'Une équation du premier degré contient une inconnue à la puissance 1. Pour isoler x, effectue la même opération dans les deux membres.',
+    '3x + 5 = 17 ; 3x = 12 ; x = 4.',
+    [SupplementalQuestion('bonus_2nde_eq_1','Résous 2x + 6 = 14.',['x = 3','x = 4','x = 5'],1,'2x = 14 − 6 = 8, donc x = 4.'), SupplementalQuestion('bonus_2nde_eq_2','Résous 5x = 35.',['x = 5','x = 7','x = 30'],1,'On divise les deux membres par 5 : x = 7.'), SupplementalQuestion('bonus_2nde_eq_3','Quelle opération annule une addition de 9 ?',['Ajouter 9','Soustraire 9','Multiplier par 9'],1,'L’opération inverse de +9 est −9.')]),
+  SupplementalLesson('premiere_suite_arithmetique', SchoolLevel.premiere, 'Mathématiques', 'Reconnaître une suite arithmétique',
+    'Une suite est arithmétique lorsque l’on ajoute toujours le même nombre, appelé raison, pour passer d’un terme au suivant.',
+    '4, 7, 10, 13 : la raison est 3 car chaque terme augmente de 3.',
+    [SupplementalQuestion('bonus_1ere_suite_1','Quelle est la raison de 2, 6, 10, 14 ?',['2','4','6'],1,'Chaque terme augmente de 4.'), SupplementalQuestion('bonus_1ere_suite_2','Après 5, 8, 11, quel est le terme suivant ?',['12','13','14'],1,'On ajoute 3 : 11 + 3 = 14.'), SupplementalQuestion('bonus_1ere_suite_3','Dans une suite arithmétique, on passe au terme suivant en…',['multipliant toujours','ajoutant la raison','divisant par le rang'],1,'La différence entre deux termes consécutifs est constante.')]),
+  SupplementalLesson('terminale_probabilite_conditionnelle', SchoolLevel.terminale, 'Mathématiques', 'Comprendre une probabilité conditionnelle',
+    'La probabilité de A sachant B se note P(A|B). Lorsque P(B) est non nulle, elle vaut P(A intersection B) divisée par P(B).',
+    'Si P(A intersection B) = 0,12 et P(B) = 0,30, alors P(A|B) = 0,12 / 0,30 = 0,4.',
+    [SupplementalQuestion('bonus_terminale_cond_1','Si P(A∩B)=0,2 et P(B)=0,5, P(A|B) vaut…',['0,1','0,4','0,7'],1,'P(A|B) = 0,2 ÷ 0,5 = 0,4.'), SupplementalQuestion('bonus_terminale_cond_2','Que signifie P(A|B) ?',['Probabilité de A sachant B','Probabilité de B sachant A','Somme de P(A) et P(B)'],0,'La barre verticale signifie « sachant que B est réalisé ».'), SupplementalQuestion('bonus_terminale_cond_3','La formule P(A|B)=P(A∩B)/P(B) exige…',['P(B) différent de 0','P(A) égal à 0','P(B) égal à 1'],0,'On ne peut pas diviser par zéro : P(B) doit être non nulle.')]),
 ];
