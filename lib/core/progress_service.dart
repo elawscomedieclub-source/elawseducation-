@@ -157,6 +157,8 @@ class ProgressService {
     await prefs.remove(localStorageKey('proftogo_answered_exercises', uid));
     await prefs.remove(localStorageKey('proftogo_correct_exercises', uid));
     await prefs.remove(localStorageKey('proftogo_total_xp', uid));
+    await prefs.remove(localStorageKey('proftogo_review_exercises', uid));
+    await prefs.remove(localStorageKey('proftogo_last_lesson', uid));
     await prefs.remove('proftogo_answered_exercises');
     await prefs.remove('proftogo_correct_exercises');
     await prefs.remove('proftogo_total_xp');
