@@ -66,6 +66,14 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           final now = DateTime.now();
           final weekStart = DateTime(now.year, now.month, now.day).subtract(const Duration(days: 6));
           final weekRecords = d.attemptHistory.where((a) => !a.timestamp.isBefore(weekStart) && !a.timestamp.isAfter(now)).toList();
+          final dayCounts = List<int>.filled(7, 0);
+          for (final record in weekRecords) {
+            final localDate = record.timestamp.toLocal();
+            final dayIndex = DateTime(localDate.year, localDate.month, localDate.day)
+                .difference(weekStart)
+                .inDays;
+            if (dayIndex >= 0 && dayIndex < 7) dayCounts[dayIndex]++;
+          }
           final weekCorrect = weekRecords.where((a) => a.isCorrect).length;
           final weekWrong = weekRecords.length - weekCorrect;
           final correct = d.progress.correctExerciseIds.length;
@@ -174,6 +182,41 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                   const Text('Ton historique daté commencera dès tes prochaines réponses. Tes anciennes réussites restent dans ta progression, mais elles n’ont pas d’heure enregistrée.' )
                 else ...[
                   Text('Ces 7 derniers jours : ${weekRecords.length} tentative(s), $weekCorrect réponse(s) correcte(s) et $weekWrong incorrecte(s).'),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(7, (index) {
+                      final day = weekStart.add(Duration(days: index));
+                      final labels = const ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+                      final count = dayCounts[index];
+                      return Column(
+                        children: [
+                          Text(labels[index], style: Theme.of(context).textTheme.bodySmall),
+                          const SizedBox(height: 5),
+                          CircleAvatar(
+                            radius: 15,
+                            backgroundColor: count > 0
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.surfaceContainerHighest,
+                            child: Text(
+                              count == 0 ? '·' : count.toString(),
+                              style: TextStyle(
+                                color: count > 0
+                                    ? Theme.of(context).colorScheme.onPrimary
+                                    : Theme.of(context).colorScheme.onSurfaceVariant,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(day.day.toString(), style: Theme.of(context).textTheme.bodySmall),
+                        ],
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text('Chaque jour compte : une petite séance suffit. Les jours sans activité ne retirent aucun point.', style: TextStyle(fontSize: 12)),
                   const SizedBox(height: 10),
                   ...d.attemptHistory.take(5).map((attempt) {
                     final lesson = lessons.where((l) => l.id == attempt.lessonId).firstOrNull;
