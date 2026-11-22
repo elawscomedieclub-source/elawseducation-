@@ -85,8 +85,24 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           );
           final attempts = correct + wrongAttempts;
           final rate = attempts == 0 ? 0 : (correct * 100 / attempts).round();
+          final latestWrongByLesson = <String, DateTime>{};
+          for (final attempt in d.attemptHistory.where((item) => !item.isCorrect)) {
+            final previous = latestWrongByLesson[attempt.lessonId];
+            if (previous == null || attempt.timestamp.isAfter(previous)) {
+              latestWrongByLesson[attempt.lessonId] = attempt.timestamp;
+            }
+          }
           final difficulties = d.lessonErrors.entries.where((e) => e.value >= 2 && lessons.any((l) => l.id == e.key)).toList()
-            ..sort((a, b) => b.value.compareTo(a.value));
+            ..sort((a, b) {
+              final byCount = b.value.compareTo(a.value);
+              if (byCount != 0) return byCount;
+              final aDate = latestWrongByLesson[a.key];
+              final bDate = latestWrongByLesson[b.key];
+              if (aDate == null && bDate == null) return 0;
+              if (aDate == null) return 1;
+              if (bDate == null) return -1;
+              return bDate.compareTo(aDate);
+            });
 
           // État pédagogique calculé uniquement à partir des exercices réellement
           // présents et des réponses enregistrées pour le compte courant.
@@ -117,7 +133,22 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                 _ => 4,
               };
               final byStatus = rank(a.status).compareTo(rank(b.status));
-              return byStatus != 0 ? byStatus : a.lesson.title.compareTo(b.lesson.title);
+              if (byStatus != 0) return byStatus;
+              final byWrong = b.wrong.compareTo(a.wrong);
+              if (byWrong != 0) return byWrong;
+              final byReview = b.review.compareTo(a.review);
+              if (byReview != 0) return byReview;
+              final aDate = latestWrongByLesson[a.lesson.id];
+              final bDate = latestWrongByLesson[b.lesson.id];
+              if (aDate != null && bDate != null) {
+                final byRecency = bDate.compareTo(aDate);
+                if (byRecency != 0) return byRecency;
+              } else if (aDate != null) {
+                return -1;
+              } else if (bDate != null) {
+                return 1;
+              }
+              return a.lesson.title.compareTo(b.lesson.title);
             });
           final nextLesson = lessonProgress.isEmpty ? null : lessonProgress.first;
           return RefreshIndicator(
@@ -154,6 +185,16 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                               : 'Choisis cette leçon pour commencer ton entraînement :'),
                       const SizedBox(height: 6),
                       Text(nextLesson.lesson.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                      if (nextLesson.wrong > 0 || nextLesson.review > 0) ...[
+                        const SizedBox(height: 5),
+                        Text(
+                          [
+                            if (nextLesson.wrong > 0) '\${nextLesson.wrong} réponse(s) incorrecte(s) enregistrée(s)',
+                            if (nextLesson.review > 0) '\${nextLesson.review} exercice(s) placé(s) en révision',
+                          ].join(' • '),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
                       const SizedBox(height: 10),
                       Wrap(spacing: 8, runSpacing: 8, children: [
                         OutlinedButton.icon(
