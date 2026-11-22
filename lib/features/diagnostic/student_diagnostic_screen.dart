@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/progress_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
+import '../../core/reading_practice_service.dart';
+import '../reading/reading_basics_screen.dart';
 import '../../data/sample/sample_data.dart';
 import '../lesson/lesson_screen.dart';
 
@@ -23,12 +25,16 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       ProgressService.loadSkillDifficultyCounts(),
       ProgressService.loadWrongAttemptCounts(),
       ProgressService.loadReviewExerciseIds(),
+      ReadingPracticeService.loadCompletedStages(),
+      ReadingPracticeService.loadAttemptCount(),
     ]);
     return _Diagnostic(
       results[0] as ProgressSnapshot,
       results[1] as Map<String, int>,
       results[2] as Map<String, int>,
       results[3] as Set<String>,
+      results[4] as Set<int>,
+      results[5] as int,
     );
   }
 
@@ -74,6 +80,42 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                   Chip(avatar: const Icon(Icons.replay), label: Text(d.reviewIds.length.toString() + ' à revoir')),
                 ]),
               ]))),
+              const SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(children: [
+                        Icon(Icons.auto_stories_rounded),
+                        SizedBox(width: 9),
+                        Expanded(child: Text('Mon apprentissage de la lecture', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800))),
+                      ]),
+                      const SizedBox(height: 8),
+                      Text('${d.readingStages.length} étape(s) validée(s) sur 4 • ${d.readingAttempts} tentative(s)'),
+                      const SizedBox(height: 8),
+                      LinearProgressIndicator(value: d.readingStages.length / 4),
+                      const SizedBox(height: 8),
+                      Text(
+                        d.readingStages.length == 4
+                          ? 'Tu as terminé les quatre étapes de base. Tu peux les reprendre pour entretenir tes acquis.'
+                          : 'Continue le parcours dans l’ordre : sons et lettres, syllabes, mots, puis petites phrases. Les étapes non validées restent à travailler.',
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadingBasicsScreen()))
+                              .then((_) => setState(() => _future = _load())),
+                          icon: const Icon(Icons.play_arrow_rounded),
+                          label: const Text('Continuer mon atelier de lecture'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 16),
               Text('Mes leçons à renforcer', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 6),
@@ -122,7 +164,9 @@ class _Diagnostic {
   final Map<String, int> lessonErrors;
   final Map<String, int> exerciseErrors;
   final Set<String> reviewIds;
-  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds);
+  final Set<int> readingStages;
+  final int readingAttempts;
+  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts);
 }
 
 class _GuideLine extends StatelessWidget {
