@@ -26,7 +26,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   bool _listening = false;
   bool _speechAvailable = false;
   bool _searched = false;
-  double _speechRate = 0.58;
+  double _speechRate = 0.78;
   List<Lesson> _matches = [];
 
   @override
@@ -254,7 +254,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                       const Expanded(
                         child: Text('Vitesse de la voix', style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                      Text(_speechRate <= 0.42 ? 'Lente' : (_speechRate >= 0.68 ? 'Rapide' : 'Normale')),
+                      Text(_speechRate < 0.62 ? 'Lente' : (_speechRate >= 0.82 ? 'Rapide' : 'Normale')),
                     ],
                   ),
                   Slider(
@@ -268,7 +268,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                         : (value) => setState(() => _speechRate = value),
                   ),
                   const Text(
-                    'La vitesse rapide est disponible sans dépasser un débit qui risque de rendre les explications difficiles à comprendre.',
+                    'Tu peux choisir un débit plus rapide. La vitesse réelle dépend aussi de la voix installée sur ton téléphone.',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
