@@ -43,6 +43,11 @@ void main() {
         'cp1_copier_phrase',
         'cp1_completer_phrase',
         'cp1_point_interrogation',
+        'cp2_lire_phrases',
+        'cp2_addition_dizaines',
+        'cp2_soustraction',
+        'ce1_multiplication_groupes',
+        'ce1_problemes_addition',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -80,6 +85,11 @@ void main() {
         'cp1_copier_phrase',
         'cp1_completer_phrase',
         'cp1_point_interrogation',
+        'cp2_lire_phrases',
+        'cp2_addition_dizaines',
+        'cp2_soustraction',
+        'ce1_multiplication_groupes',
+        'ce1_problemes_addition',
       ];
       for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
