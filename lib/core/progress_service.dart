@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +15,37 @@ class ProgressSnapshot {
     required this.correctExerciseIds,
     required this.xp,
   });
+}
+
+class ExerciseAttemptRecord {
+  final String exerciseId;
+  final String lessonId;
+  final bool isCorrect;
+  final DateTime timestamp;
+
+  const ExerciseAttemptRecord({
+    required this.exerciseId,
+    required this.lessonId,
+    required this.isCorrect,
+    required this.timestamp,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'exerciseId': exerciseId,
+    'lessonId': lessonId,
+    'isCorrect': isCorrect,
+    'timestamp': timestamp.toUtc().toIso8601String(),
+  };
+
+  factory ExerciseAttemptRecord.fromJson(Map<String, dynamic> json) {
+    return ExerciseAttemptRecord(
+      exerciseId: json['exerciseId'] as String? ?? '',
+      lessonId: json['lessonId'] as String? ?? '',
+      isCorrect: json['isCorrect'] as bool? ?? false,
+      timestamp: DateTime.tryParse(json['timestamp'] as String? ?? '')?.toUtc()
+          ?? DateTime.fromMillisecondsSinceEpoch(0, isUtc: true),
+    );
+  }
 }
 
 class ProgressService {
@@ -272,6 +305,7 @@ class ProgressService {
     await prefs.remove(localStorageKey('proftogo_review_exercises', uid));
     await prefs.remove(localStorageKey('proftogo_wrong_attempt_counts', uid));
     await prefs.remove(localStorageKey('proftogo_skill_difficulty_counts', uid));
+    await prefs.remove(localStorageKey('proftogo_attempt_history', uid));
     await prefs.remove(localStorageKey('proftogo_last_lesson', uid));
     await prefs.remove('proftogo_answered_exercises');
     await prefs.remove('proftogo_correct_exercises');
