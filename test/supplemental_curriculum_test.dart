@@ -14,6 +14,45 @@ void main() {
       }
     });
 
+    test('le CP1 contient les activités de découverte attendues', () {
+      const expected = [
+        'cp1_voyelles',
+        'cp1_compter',
+        'cp1_couleurs',
+        'cp1_formes',
+        'cp1_classe',
+        'cp1_hygiene',
+        'cp1_nombres_10',
+        'cp1_saluer',
+        'cp1_animaux',
+        'cp1_corps',
+      ];
+      final cp1Ids = supplementalLessons
+          .where((lesson) => lesson.level == SchoolLevel.cp1)
+          .map((lesson) => lesson.id)
+          .toSet();
+      for (final id in expected) {
+        expect(cp1Ids, contains(id), reason: 'Activité CP1 manquante : $id');
+      }
+    });
+
+    test('les activités CP1 nouvellement ajoutées ont trois questions', () {
+      const addedIds = [
+        'cp1_couleurs',
+        'cp1_formes',
+        'cp1_classe',
+        'cp1_hygiene',
+        'cp1_nombres_10',
+        'cp1_saluer',
+        'cp1_animaux',
+        'cp1_corps',
+      ];
+      for (final id in addedIds) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions.length, greaterThanOrEqualTo(3), reason: lesson.title);
+      }
+    });
+
     test('les identifiants des leçons et questions sont uniques', () {
       final lessonIds = supplementalLessons.map((lesson) => lesson.id).toList();
       final questionIds = supplementalLessons.expand((lesson) => lesson.questions).map((question) => question.id).toList();
