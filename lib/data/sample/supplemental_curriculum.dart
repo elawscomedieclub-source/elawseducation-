@@ -355,4 +355,17 @@ const supplementalLessons = <SupplementalLesson>[
     'Pour un conducteur ohmique, la tension U, la résistance R et l’intensité I sont liées par la loi d’Ohm : U = R × I. Les unités sont le volt (V), l’ohm (Ω) et l’ampère (A).',
     'Si R = 4 Ω et I = 2 A, alors U = 4 × 2 = 8 V.',
     [SupplementalQuestion('bonus_3e_ohm_1','Quelle formule exprime la loi d’Ohm ?',['U = R × I','U = R + I','I = U × R'],0,'La tension est égale à la résistance multipliée par l’intensité.'), SupplementalQuestion('bonus_3e_ohm_2','R = 5 Ω et I = 3 A. U vaut…',['8 V','15 V','2 V'],1,'U = 5 × 3 = 15 V.'), SupplementalQuestion('bonus_3e_ohm_3','Quelle unité mesure la résistance ?',['Volt','Ampère','Ohm'],2,'La résistance électrique se mesure en ohms (Ω).')]),
+
+  SupplementalLesson('cm2_fraction_nombre_decimal', SchoolLevel.cm2, 'Mathématiques', 'Relier fraction décimale et nombre décimal',
+    'Une fraction dont le dénominateur est 10, 100 ou 1 000 peut s’écrire sous forme de nombre décimal. Le numérateur indique les dixièmes, centièmes ou millièmes.',
+    '35/100 = 0,35 : 35 centièmes correspondent à 0,35.',
+    [SupplementalQuestion('bonus_cm2_frac_dec_1','Écris 7/10 sous forme décimale.',['0,7','0,07','7,0'],0,'Sept dixièmes s’écrivent 0,7.'), SupplementalQuestion('bonus_cm2_frac_dec_2','0,42 correspond à…',['42/10','42/100','4/100'],1,'0,42 représente 42 centièmes.'), SupplementalQuestion('bonus_cm2_frac_dec_3','Écris 9/100 sous forme décimale.',['0,9','0,09','0,99'],1,'Neuf centièmes s’écrivent 0,09.')]),
+  SupplementalLesson('sixieme_etats_matiere', SchoolLevel.sixieme, 'Sciences', 'Identifier les états de la matière',
+    'La matière peut se présenter principalement sous trois états : solide, liquide et gazeux. Un solide garde sa forme propre, un liquide prend la forme du récipient et un gaz occupe tout l’espace disponible.',
+    'La glace est solide, l’eau du verre est liquide et la vapeur d’eau est à l’état gazeux.',
+    [SupplementalQuestion('bonus_6e_matiere_1','Quel état garde une forme propre ?',['Solide','Liquide','Gazeux'],0,'Un solide garde sa forme propre.'), SupplementalQuestion('bonus_6e_matiere_2','Un liquide…',['garde toujours sa forme','prend la forme du récipient','remplit tout l’espace comme un gaz'],1,'Un liquide prend la forme du récipient qui le contient.'), SupplementalQuestion('bonus_6e_matiere_3','Quel état occupe tout l’espace disponible ?',['Solide','Liquide','Gazeux'],2,'Un gaz se répartit dans tout l’espace disponible.')]),
+  SupplementalLesson('seconde_pourcentage_evolution', SchoolLevel.seconde, 'Mathématiques', 'Calculer une évolution en pourcentage',
+    'Pour calculer une hausse de t %, on multiplie la valeur initiale par 1 + t/100. Pour une baisse de t %, on multiplie par 1 − t/100.',
+    'Un prix de 8 000 F augmente de 10 % : 8 000 × 1,10 = 8 800 F.',
+    [SupplementalQuestion('bonus_2nde_pct_1','Une valeur de 200 augmente de 5 %. Nouvelle valeur ?',['205','210','195'],1,'5 % de 200 vaut 10 ; 200 + 10 = 210.'), SupplementalQuestion('bonus_2nde_pct_2','Un prix de 500 baisse de 20 %. Il devient…',['400','480','600'],0,'20 % de 500 vaut 100 ; 500 − 100 = 400.'), SupplementalQuestion('bonus_2nde_pct_3','Le coefficient multiplicateur d’une hausse de 15 % est…',['0,15','1,15','1,5'],1,'Pour une hausse, le coefficient est 1 + 15/100 = 1,15.')]),
 ];
