@@ -38,6 +38,7 @@ void main() {
         'cp1_phrases_simples',
         'cp1_comprendre_texte',
         'cp1_dictee_mots',
+        'cp1_ecrire_syllabes',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -70,6 +71,7 @@ void main() {
         'cp1_phrases_simples',
         'cp1_comprendre_texte',
         'cp1_dictee_mots',
+        'cp1_ecrire_syllabes',
       ];
       for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
