@@ -24,6 +24,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
   Future<List<dynamic>> _loadData() => Future.wait<dynamic>([
         ProgressService.load(),
         EvaluationService.loadHistory(),
+        ProgressService.loadReviewExerciseIds(),
       ]);
 
   @override
@@ -76,6 +77,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
           }
           final progress = snapshot.data![0] as ProgressSnapshot;
           final allHistory = snapshot.data![1] as List<EvaluationRecord>;
+          final reviewIds = snapshot.data![2] as Set<String>;
           final subjects = demoSubjects.where((s) => subjectMatchesPath(s, selectedLevel, selectedTrack, selectedSeries)).toList();
           final subjectIds = subjects.map((s) => s.id).toSet();
           final history = allHistory.where((r) => r.level == selectedLevel.label && (subjectIds.contains(r.subjectId) || r.subjectId.startsWith('composition_${selectedLevel.name}_${selectedTrack.name}_${selectedSeries}_'))).toList();
@@ -118,6 +120,48 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
               LinearProgressIndicator(value: overall, minHeight: 10, borderRadius: BorderRadius.circular(8)),
               const SizedBox(height: 6),
               Text('${(overall * 100).round()} % des exercices validés'),
+              const SizedBox(height: 22),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text('Mes erreurs à revoir',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                  Chip(label: Text('${reviewIds.where((id) => demoExercises.any((e) => e.id == id && allIds.contains(e.id))).length}')),
+                ],
+              ),
+              const SizedBox(height: 8),
+              ...demoExercises.where((e) => reviewIds.contains(e.id) && allIds.contains(e.id)).map((exercise) => Card(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('À retravailler', style: TextStyle(fontWeight: FontWeight.w800, color: Colors.deepOrange)),
+                      const SizedBox(height: 6),
+                      Text(exercise.question, style: const TextStyle(fontWeight: FontWeight.w700, height: 1.35)),
+                      const SizedBox(height: 8),
+                      Text('Bonne réponse : ${exercise.options[exercise.correctIndex]}'),
+                      const SizedBox(height: 6),
+                      Text('Explication : ${exercise.explanation}', style: const TextStyle(height: 1.4)),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton.icon(
+                          onPressed: () async {
+                            await ProgressService.clearReviewExercise(exercise.id);
+                            if (context.mounted) _refresh();
+                          },
+                          icon: const Icon(Icons.done),
+                          label: const Text('Marquer comme revu'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
+              if (!demoExercises.any((e) => reviewIds.contains(e.id) && allIds.contains(e.id)))
+                const Text('Aucune erreur à revoir pour ce niveau. Continue à t’entraîner !'),
               const SizedBox(height: 24),
               const Text('Résultats des évaluations', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
