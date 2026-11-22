@@ -28,6 +28,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       ReadingPracticeService.loadCompletedStages(),
       ReadingPracticeService.loadAttemptCount(),
       ReadingPracticeService.loadStageWrongCounts(),
+      ProgressService.loadLearningBarrierCounts(),
     ]);
     return _Diagnostic(
       results[0] as ProgressSnapshot,
@@ -37,6 +38,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       results[4] as Set<int>,
       results[5] as int,
       results[6] as Map<int, int>,
+      results[7] as Map<String, int>,
     );
   }
 
@@ -128,6 +130,16 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                 ),
               ),
               const SizedBox(height: 16),
+              Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Text('Ce qui peut te gêner', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800)),
+                const SizedBox(height: 6),
+                const Text('Ces indications viennent de tes propres choix après une réponse incorrecte. Elles ne sont pas un diagnostic automatique.'),
+                const SizedBox(height: 8),
+                _GuideLine(Icons.record_voice_over_outlined, 'Lecture de la consigne : ' + (d.barrierCounts['lecture'] ?? 0).toString() + ' indication(s)'),
+                _GuideLine(Icons.menu_book_outlined, 'Compréhension de la leçon : ' + (d.barrierCounts['comprehension'] ?? 0).toString() + ' indication(s)'),
+                _GuideLine(Icons.psychology_outlined, 'Choix de la méthode : ' + (d.barrierCounts['methode'] ?? 0).toString() + ' indication(s)'),
+              ]))),
+              const SizedBox(height: 16),
               Text('Mes leçons à renforcer', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 6),
               const Text('Une difficulté répétée est un signal pour proposer de la pratique, jamais une étiquette sur toi.'),
@@ -178,7 +190,8 @@ class _Diagnostic {
   final Set<int> readingStages;
   final int readingAttempts;
   final Map<int, int> readingWrongCounts;
-  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts, this.readingWrongCounts);
+  final Map<String, int> barrierCounts;
+  const _Diagnostic(this.progress, this.lessonErrors, this.exerciseErrors, this.reviewIds, this.readingStages, this.readingAttempts, this.readingWrongCounts, this.barrierCounts);
 }
 class _GuideLine extends StatelessWidget {
   final IconData icon;
