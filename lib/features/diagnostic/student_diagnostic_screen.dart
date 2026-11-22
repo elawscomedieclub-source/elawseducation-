@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/progress_service.dart';
 import '../../core/school_level_provider.dart';
+import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import '../lesson/lesson_screen.dart';
 
