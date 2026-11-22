@@ -170,5 +170,23 @@ void main() {
       }
     });
 
+
+    test('les nouvelles leçons du lycée ont trois exercices sans choix répétés', () {
+      const expected = [
+        'seconde_equation_lineaire',
+        'premiere_suite_arithmetique',
+        'terminale_probabilite_conditionnelle',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        for (final question in lesson.questions) {
+          expect(question.choices.toSet().length, question.choices.length,
+              reason: 'Choix répétés dans ${question.id}');
+          expect(question.correctIndex, inInclusiveRange(0, question.choices.length - 1));
+        }
+      }
+    });
+
   });
 }
