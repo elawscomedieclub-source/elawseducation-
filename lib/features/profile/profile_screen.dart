@@ -357,11 +357,11 @@ class _StudentProfileCloudSyncState
       String seriesName;
 
       if (user == null) {
-        levelName = prefs.getString(studentPreferenceKey('student_school_level')) ??
+        levelName = prefs.getString(studentPreferenceKeyForUid('student_school_level', expectedUid)) ??
             SchoolLevel.sixieme.name;
-        trackName = prefs.getString(studentPreferenceKey('student_school_track')) ??
+        trackName = prefs.getString(studentPreferenceKeyForUid('student_school_track', expectedUid)) ??
             SchoolTrack.generalLiterary.name;
-        seriesName = prefs.getString(studentPreferenceKey('student_school_series')) ?? 'A4';
+        seriesName = prefs.getString(studentPreferenceKeyForUid('student_school_series', expectedUid)) ?? 'A4';
       } else {
         final cloud = await StudentProfileCloudService.load();
         if (!mounted ||
@@ -477,6 +477,7 @@ class _StudentNameSectionState extends State<StudentNameSection> {
       StudentNameSection.nameNotifier.value = '';
       setState(() {
         _loading = true;
+        _saving = false;
         _message = null;
       });
       _loadName();
@@ -487,17 +488,18 @@ class _StudentNameSectionState extends State<StudentNameSection> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     try {
       final prefs = await SharedPreferences.getInstance();
-      var name = prefs.getString(studentPreferenceKey('student_name')) ?? '';
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
+      final localNameKey = studentPreferenceKeyForUid('student_name', uid);
+      var name = prefs.getString(localNameKey) ?? '';
       if (uid != null) {
         final cloud = await StudentProfileCloudService.load();
-        if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+        if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
         final cloudName = cloud?['name'];
         // Aucun nom d'un autre compte ou du mode invité n'est repris.
-        name = cloudName is String
-            ? cloudName
-            : (prefs.getString(studentPreferenceKey('student_name')) ?? '');
-        if (name.trim().isNotEmpty) {
-          await prefs.setString(studentPreferenceKey('student_name'), name);
+        name = cloudName is String ? cloudName : (prefs.getString(localNameKey) ?? '');
+        if (name.trim().isNotEmpty &&
+            FirebaseAuth.instance.currentUser?.uid == uid) {
+          await prefs.setString(localNameKey, name);
         }
       }
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
@@ -525,8 +527,12 @@ class _StudentNameSectionState extends State<StudentNameSection> {
     });
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(studentPreferenceKey('student_name'), name);
-      if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
+      await prefs.setString(
+        studentPreferenceKeyForUid('student_name', uid),
+        name,
+      );
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       StudentNameSection.nameNotifier.value = name;
       if (uid != null) {
         await StudentProfileCloudService.saveName(name);
