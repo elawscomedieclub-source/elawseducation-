@@ -44,14 +44,44 @@ class ProgressService {
     return (prefs.getStringList(localStorageKey('proftogo_review_exercises', uid)) ?? []).toSet();
   }
 
+  // Compte les erreurs successives pour repérer les notions qui résistent.
+  // Ces données restent isolées par compte, comme le reste de la progression.
+  static Future<Map<String, int>> loadWrongAttemptCounts() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return <String, int>{};
+    final raw = prefs.getStringList(
+          localStorageKey('proftogo_wrong_attempt_counts', uid),
+        ) ??
+        <String>[];
+    final counts = <String, int>{};
+    for (final entry in raw) {
+      final separator = entry.lastIndexOf('|');
+      if (separator <= 0) continue;
+      final id = entry.substring(0, separator);
+      final count = int.tryParse(entry.substring(separator + 1));
+      if (count != null && count > 0) counts[id] = count;
+    }
+    return counts;
+  }
+
   static Future<void> recordWrongAnswer(String exerciseId) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final prefs = await SharedPreferences.getInstance();
     if (FirebaseAuth.instance.currentUser?.uid != uid) return;
-    final key = localStorageKey('proftogo_review_exercises', uid);
-    final ids = (prefs.getStringList(key) ?? []).toSet()..add(exerciseId);
+    final reviewKey = localStorageKey('proftogo_review_exercises', uid);
+    final ids = (prefs.getStringList(reviewKey) ?? []).toSet()..add(exerciseId);
+    final countsKey = localStorageKey('proftogo_wrong_attempt_counts', uid);
+    final counts = await loadWrongAttemptCounts();
     if (FirebaseAuth.instance.currentUser?.uid != uid) return;
-    await prefs.setStringList(key, ids.toList()..sort());
+    counts[exerciseId] = (counts[exerciseId] ?? 0) + 1;
+    await prefs.setStringList(reviewKey, ids.toList()..sort());
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final encoded = counts.entries
+        .map((entry) => '${entry.key}|${entry.value}')
+        .toList()
+      ..sort();
+    await prefs.setStringList(countsKey, encoded);
   }
 
   static Future<void> clearReviewExercise(String exerciseId) async {
@@ -174,6 +204,7 @@ class ProgressService {
     await prefs.remove(localStorageKey('proftogo_correct_exercises', uid));
     await prefs.remove(localStorageKey('proftogo_total_xp', uid));
     await prefs.remove(localStorageKey('proftogo_review_exercises', uid));
+    await prefs.remove(localStorageKey('proftogo_wrong_attempt_counts', uid));
     await prefs.remove(localStorageKey('proftogo_last_lesson', uid));
     await prefs.remove('proftogo_answered_exercises');
     await prefs.remove('proftogo_correct_exercises');
