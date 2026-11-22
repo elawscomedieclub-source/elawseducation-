@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,11 +21,24 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   late Future<ProgressSnapshot> _progressFuture;
+  late final StreamSubscription<User?> _authSubscription;
 
   @override
   void initState() {
     super.initState();
     _progressFuture = ProgressService.load();
+    // L'écran reste monté dans l'IndexedStack : recharger les données dès
+    // qu'un élève se connecte ou se déconnecte sur cet appareil.
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      setState(() => _progressFuture = ProgressService.load());
+    });
+  }
+
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
   }
 
   void _refreshProgress() {
