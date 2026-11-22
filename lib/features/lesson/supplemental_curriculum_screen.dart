@@ -272,7 +272,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
 
   Widget _cp1Visual(SupplementalLesson lesson) {
     final isLetters = lesson.id == 'cp1_voyelles' || lesson.id == 'cp1_syllabes';
-    final isCounting = lesson.id == 'cp1_compter' || lesson.id == 'cp1_nombres_10';
+    final isCounting = lesson.id == 'cp1_compter' || lesson.id == 'cp1_nombres_10' || lesson.id == 'cp1_nombres_20';
     final items = switch (lesson.id) {
       'cp1_voyelles' => const ['A', 'E', 'I', 'O', 'U'],
       'cp1_syllabes' => const ['MA', 'ME', 'MI', 'MO', 'MU', 'LA', 'LE', 'LI', 'LO', 'LU'],
@@ -281,6 +281,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_soustraction_images' => const ['🍌🍌🍌', '−', '🍌', '=', '2'],
       'cp1_compter' => const ['🍎', '🍌', '🍊', '🥭', '🍍'],
       'cp1_nombres_10' => const ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+      'cp1_nombres_20' => const ['11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
       'cp1_couleurs' => const ['🔴', '🟡', '🔵', '🟢'],
       'cp1_formes' => const ['⚪', '🟥', '🔺', '⭐'],
       'cp1_classe' => const ['📖', '📓', '✏️', '🧑‍🏫'],
@@ -297,6 +298,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_soustraction_images' => 'ENLÈVE ET COMPTE CE QUI RESTE',
       'cp1_compter' => 'COMPTE LES OBJETS',
       'cp1_nombres_10' => 'COMPTE JUSQU’À DIX',
+      'cp1_nombres_20' => 'COMPTE DE ONZE À VINGT',
       'cp1_couleurs' => 'OBSERVE LES COULEURS',
       'cp1_formes' => 'OBSERVE LES FORMES',
       'cp1_classe' => 'LES OBJETS DE LA CLASSE',
