@@ -214,15 +214,6 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
     }
   }
 
-  Future<void> _resumeReading() async {
-    try {
-      await _tts.setSpeechRate(_speechRate);
-      await _tts.speak(_lessonText);
-      if (mounted) setState(() { _speaking = true; _paused = false; });
-    } catch (_) {
-      if (mounted) setState(() { _speaking = false; _paused = false; });
-    }
-  }
 
   Future<void> _stopReading() async {
     await _tts.stop();
@@ -431,7 +422,7 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
                     Expanded(child: Text('Écouter le cours', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer))),
                   ]),
                   const SizedBox(height: 4),
-                  Text('La voix lit le cours en français. Ajuste la vitesse selon ton confort.', style: Theme.of(context).textTheme.bodySmall),
+                  Text('La voix lit le cours en français. En cas de pause, tu peux relancer la lecture depuis le début.', style: Theme.of(context).textTheme.bodySmall),
                   Row(children: [
                     const Text('Lent'),
                     Expanded(
@@ -450,9 +441,9 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
                     children: [
                       Expanded(
                         child: FilledButton.icon(
-                          onPressed: _speaking && !_paused ? _pauseReading : (_paused ? _resumeReading : _startReading),
-                          icon: Icon(_speaking && !_paused ? Icons.pause : Icons.play_arrow),
-                          label: Text(_speaking && !_paused ? 'Pause' : (_paused ? 'Reprendre' : 'Écouter')),
+                          onPressed: _speaking && !_paused ? _pauseReading : _startReading,
+                          icon: Icon(_speaking && !_paused ? Icons.pause : (_paused ? Icons.replay_rounded : Icons.play_arrow)),
+                          label: Text(_speaking && !_paused ? 'Pause' : (_paused ? 'Relire depuis le début' : 'Écouter')),
                         ),
                       ),
                       const SizedBox(width: 8),
