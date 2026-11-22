@@ -86,7 +86,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                 ...difficulties.take(10).map((entry) {
                   final lesson = lessons.firstWhere((l) => l.id == entry.key);
                   final chapter = chapters.where((c) => c.id == lesson.chapterId);
-                  final subject = chapter.isEmpty ? null : subjects.where((s) => s.id == chapter.first.subjectId).firstOrNull;
+                  final subject = chapter.isEmpty ? null : subjects.firstWhere((s) => s.id == chapter.first.subjectId);
                   return Card(child: ListTile(
                     leading: const CircleAvatar(child: Icon(Icons.menu_book_rounded)),
                     title: Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.w800)),
