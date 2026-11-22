@@ -272,7 +272,25 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
 
   Widget _cp1Visual(SupplementalLesson lesson) {
     final isLetters = lesson.id == 'cp1_voyelles';
-    final items = isLetters ? const ['A', 'E', 'I', 'O', 'U'] : const ['🍎', '🍌', '🍊', '🥭', '🍍'];
+    final isCounting = lesson.id == 'cp1_compter';
+    final items = switch (lesson.id) {
+      'cp1_voyelles' => const ['A', 'E', 'I', 'O', 'U'],
+      'cp1_compter' => const ['🍎', '🍌', '🍊', '🥭', '🍍'],
+      'cp1_couleurs' => const ['🔴', '🟡', '🔵', '🟢'],
+      'cp1_formes' => const ['⚪', '🟥', '🔺', '⭐'],
+      'cp1_classe' => const ['📖', '📓', '✏️', '🧑‍🏫'],
+      'cp1_hygiene' => const ['🧼', '💧', '🪥', '🦷'],
+      _ => const ['👀', '📚', '✏️'],
+    };
+    final heading = switch (lesson.id) {
+      'cp1_voyelles' => 'REGARDE ET PRONONCE',
+      'cp1_compter' => 'COMPTE LES OBJETS',
+      'cp1_couleurs' => 'OBSERVE LES COULEURS',
+      'cp1_formes' => 'OBSERVE LES FORMES',
+      'cp1_classe' => 'LES OBJETS DE LA CLASSE',
+      'cp1_hygiene' => 'LES GESTES POUR ÊTRE PROPRE',
+      _ => 'REGARDE ET DÉCOUVRE',
+    };
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -283,38 +301,37 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       child: Column(
         children: [
           Text(
-            isLetters ? 'REGARDE ET PRONONCE' : 'COMPTE LES OBJETS',
+            heading,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w900,
-              letterSpacing: 0.7,
+              letterSpacing: 0.5,
               color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
           ),
           const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: items.map((item) => Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-                child: Container(
-                  constraints: const BoxConstraints(minHeight: 54),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    item,
-                    style: TextStyle(
-                      fontSize: isLetters ? 27 : 25,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: items.map((item) => Container(
+              constraints: const BoxConstraints(minWidth: 52, minHeight: 54),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                item,
+                style: TextStyle(
+                  fontSize: isLetters ? 27 : 30,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
             )).toList(),
           ),
-          if (!isLetters) ...[
+          if (isCounting) ...[
             const SizedBox(height: 8),
             const Text('1   2   3   4   5', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
           ],
