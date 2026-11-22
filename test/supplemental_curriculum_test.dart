@@ -221,5 +221,23 @@ void main() {
       }
     });
 
+    test('les nouvelles leçons de calcul et de sciences sont complètes', () {
+      const expected = [
+        'ce1_soustraction_emprunt',
+        'cm2_aire_triangle',
+        'cinquieme_respiration',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.example.trim(), isNotEmpty);
+        expect(lesson.explanation.trim(), isNotEmpty);
+        for (final question in lesson.questions) {
+          expect(question.explanation.trim(), isNotEmpty);
+          expect(question.correctIndex, inInclusiveRange(0, question.choices.length - 1));
+        }
+      }
+    });
+
   });
 }
