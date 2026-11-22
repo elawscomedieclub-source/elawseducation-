@@ -7,6 +7,7 @@ import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import '../../shared/widgets/menu_button.dart';
 import '../subjects/subject_detail_screen.dart';
+import '../lesson/supplemental_curriculum_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -260,6 +261,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                     );
                   }),
+                const SizedBox(height: 12),
+                Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 18, vertical: childMode ? 12 : 6),
+                    leading: CircleAvatar(radius: childMode ? 27 : 22, child: const Icon(Icons.auto_stories_rounded)),
+                    title: Text(childMode ? 'Mes leçons bonus' : 'Cours bonus et révisions', style: TextStyle(fontWeight: FontWeight.w800, fontSize: childMode ? 19 : 16)),
+                    subtitle: Text(childMode ? 'Petites leçons, écoute et exercices faciles.' : 'Leçons et exercices supplémentaires pour ta classe.'),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 17),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SupplementalCurriculumScreen())),
+                  ),
+                ),
                 const SizedBox(height: 12),
                 Card(
                   color: Theme.of(context).colorScheme.primaryContainer,
