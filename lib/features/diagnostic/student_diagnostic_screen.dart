@@ -49,8 +49,11 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           if (snap.connectionState == ConnectionState.waiting) return const Center(child: CircularProgressIndicator());
           if (!snap.hasData) return const Center(child: Text('Diagnostic momentanément indisponible.'));
           final d = snap.data!;
-          final answered = d.progress.answeredExerciseIds.length;
           final correct = d.progress.correctExerciseIds.length;
+          // Une réponse fausse est suivie par le compteur d'erreurs ;
+          // une réponse juste est suivie dans la progression validée.
+          final answeredIds = {...d.progress.correctExerciseIds, ...d.exerciseErrors.keys};
+          final answered = answeredIds.length;
           final rate = answered == 0 ? 0 : (correct * 100 / answered).round();
           final difficulties = d.lessonErrors.entries.where((e) => e.value >= 2 && lessons.any((l) => l.id == e.key)).toList()
             ..sort((a, b) => b.value.compareTo(a.value));
