@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/progress_service.dart';
+import '../lesson/exercise_screen.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   late Future<ProgressSnapshot> _progressFuture;
   late Future<String?> _lastLessonFuture;
+  late Future<Set<String>> _reviewFuture;
   late final StreamSubscription<User?> _authSubscription;
 
   @override
@@ -30,6 +32,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
     _progressFuture = ProgressService.load();
     _lastLessonFuture = ProgressService.loadLastLesson();
+    _reviewFuture = ProgressService.loadReviewExerciseIds();
     // L'écran reste monté dans l'IndexedStack : recharger les données dès
     // qu'un élève se connecte ou se déconnecte sur cet appareil.
     _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
@@ -37,6 +40,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       setState(() {
         _progressFuture = ProgressService.load();
         _lastLessonFuture = ProgressService.loadLastLesson();
+        _reviewFuture = ProgressService.loadReviewExerciseIds();
       });
     });
   }
@@ -51,6 +55,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     setState(() {
       _progressFuture = ProgressService.load();
       _lastLessonFuture = ProgressService.loadLastLesson();
+      _reviewFuture = ProgressService.loadReviewExerciseIds();
     });
   }
 
@@ -149,6 +154,98 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     );
                   },
                 ),
+                FutureBuilder<Set<String>>(
+                  future: _reviewFuture,
+                  builder: (context, reviewSnapshot) {
+                    final pending = reviewSnapshot.data ?? <String>{};
+                    final reviewExercises = demoExercises
+                        .where((exercise) =>
+                            pending.contains(exercise.id) &&
+                            exerciseIds.contains(exercise.id))
+                        .toList();
+                    final nextExercise =
+                        reviewExercises.isEmpty ? null : reviewExercises.first;
+                    final matchingLessons = nextExercise == null
+                        ? <Lesson>[]
+                        : demoLessons
+                            .where((lesson) => lesson.id == nextExercise.lessonId)
+                            .toList();
+                    final canReview = nextExercise != null && matchingLessons.isNotEmpty;
+                    final hasStarted = progress != null &&
+                        progress.answeredExerciseIds.any(exerciseIds.contains);
+                    return Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                                  child: Icon(Icons.support_agent_rounded,
+                                      color: Theme.of(context).colorScheme.onSecondaryContainer),
+                                ),
+                                const SizedBox(width: 10),
+                                const Expanded(
+                                  child: Text('Mon accompagnement',
+                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+                                ),
+                                if (canReview)
+                                  Chip(label: Text('${reviewExercises.length} à revoir')),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              reviewSnapshot.connectionState == ConnectionState.waiting
+                                  ? 'Je prépare ta prochaine étape…'
+                                  : reviewSnapshot.hasError
+                                      ? 'Ta liste de révision est momentanément indisponible. Tu peux continuer tes cours.'
+                                      : canReview
+                                          ? (childMode
+                                              ? 'Ce n’est pas grave de se tromper. Reprenons une question tranquillement, avec son explication.'
+                                              : 'Une question mérite encore un peu de pratique. Revois-la, comprends la correction, puis réessaie.')
+                                          : hasStarted
+                                              ? 'Bravo pour tes efforts. Aucune erreur à reprendre pour le moment. Continue avec une petite leçon et avance à ton rythme.'
+                                              : (childMode
+                                                  ? 'Nous allons avancer doucement, étape par étape. Commence par une petite leçon et essaie les questions.'
+                                                  : 'Commençons par une leçon et quelques exercices. Tes réponses nous aideront à repérer ce qu’il faudra retravailler.'),
+                              style: const TextStyle(height: 1.4),
+                            ),
+                            if (canReview) ...[
+                              const SizedBox(height: 12),
+                              SizedBox(
+                                width: double.infinity,
+                                child: FilledButton.icon(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => ExerciseScreen(
+                                          lesson: matchingLessons.first,
+                                          reviewExerciseId: nextExercise.id,
+                                        ),
+                                      ),
+                                    ).then((_) {
+                                      if (mounted) _refreshProgress();
+                                    });
+                                  },
+                                  icon: const Icon(Icons.replay_rounded),
+                                  label: const Text('Retravailler une question'),
+                                  style: FilledButton.styleFrom(
+                                    minimumSize: const Size.fromHeight(48),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
                 Card(
                   clipBehavior: Clip.antiAlias,
                   child: Padding(
