@@ -155,6 +155,16 @@ void main() {
       }
     });
 
+    test('chaque leçon bonus propose au moins trois exercices', () {
+      for (final lesson in supplementalLessons) {
+        expect(
+          lesson.questions.length,
+          greaterThanOrEqualTo(3),
+          reason: 'Il manque un exercice à la leçon ${lesson.title}',
+        );
+      }
+    });
+
     test('chaque leçon possède au moins deux exercices valides', () {
       for (final lesson in supplementalLessons) {
         expect(lesson.questions.length, greaterThanOrEqualTo(2), reason: lesson.title);
