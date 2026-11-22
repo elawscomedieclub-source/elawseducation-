@@ -187,6 +187,20 @@ void main() {
     });
 
 
+    test('les nouvelles leçons de français et de sciences sont complètes', () {
+      const expected = [
+        'ce2_sujet_verbe',
+        'cm1_cycle_eau',
+        'quatrieme_circuit_electrique',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.example.trim(), isNotEmpty);
+        expect(lesson.explanation.trim(), isNotEmpty);
+      }
+    });
+
     test('les nouvelles leçons du lycée ont trois exercices sans choix répétés', () {
       const expected = [
         'seconde_equation_lineaire',
