@@ -8,6 +8,7 @@ import '../../features/voice/voice_screen.dart';
 import '../../features/profile/profile_screen.dart';
 import '../../features/diagnostic/student_diagnostic_screen.dart';
 import '../../features/reading/reading_coach_screen.dart';
+import '../../features/reading/reading_basics_screen.dart';
 import '../../core/theme/app_colors.dart';
 import 'menu_button.dart';
 
@@ -72,6 +73,17 @@ class _MainScaffoldState extends State<MainScaffold> {
               _menuItem(Icons.home_outlined, 'Accueil', 0),
               _menuItem(Icons.menu_book_outlined, 'Matières et cours', 1),
               _menuItem(Icons.mic_none, 'Professeur vocal', 2),
+              ListTile(
+                leading: const Icon(Icons.spellcheck_rounded),
+                title: const Text('Atelier sons et syllabes', style: TextStyle(fontWeight: FontWeight.w800)),
+                subtitle: const Text('Des lettres aux petites phrases'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const ReadingBasicsScreen(),
+                  ));
+                },
+              ),
               ListTile(
                 leading: const Icon(Icons.menu_book_rounded),
                 title: const Text('Mon coach de lecture', style: TextStyle(fontWeight: FontWeight.w800)),
