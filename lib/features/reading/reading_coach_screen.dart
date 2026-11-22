@@ -20,6 +20,8 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   String _recognized = '';
   String? _error;
   List<String> _difficultWords = [];
+  int? _selectedComprehensionIndex;
+  bool _comprehensionChecked = false;
 
   String get _passage {
     final level = ref.read(schoolLevelProvider);
@@ -44,7 +46,14 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
 
   Future<void> _startReading() async {
     await _tts.stop();
-    setState(() { _recognized = ''; _difficultWords = []; _hasResult = false; _error = null; });
+    setState(() {
+      _recognized = '';
+      _difficultWords = [];
+      _hasResult = false;
+      _error = null;
+      _selectedComprehensionIndex = null;
+      _comprehensionChecked = false;
+    });
     try {
       _available = await _speech.initialize(
         onStatus: (status) {
@@ -162,6 +171,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
     final level = ref.watch(schoolLevelProvider);
     final total = _words(_passage).length;
     final missed = _difficultWords.length;
+    final comprehension = _comprehensionForLevel(level);
     final score = _hasResult && total > 0 ? (((total - missed).clamp(0, total) / total) * 100).round() : 0;
     return Scaffold(
       appBar: AppBar(leading: const ProfTogoMenuButton(), title: const Text('Mon coach de lecture')),
@@ -211,6 +221,55 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
             Text(_recognized.isEmpty ? 'Aucune parole reconnue.' : _recognized, style: const TextStyle(height: 1.5)),
           ]),
         )),
+        if (_hasResult) Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Row(children: [
+                Icon(Icons.lightbulb_outline_rounded, color: Color(0xFF006A4E)),
+                SizedBox(width: 8),
+                Expanded(child: Text('Vérifions aussi ta compréhension', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800))),
+              ]),
+              const SizedBox(height: 8),
+              Text(comprehension.question, style: const TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
+              ...List.generate(comprehension.choices.length, (index) => RadioListTile<int>(
+                contentPadding: EdgeInsets.zero,
+                dense: true,
+                value: index,
+                groupValue: _selectedComprehensionIndex,
+                onChanged: _comprehensionChecked
+                    ? null
+                    : (value) => setState(() => _selectedComprehensionIndex = value),
+                title: Text(comprehension.choices[index]),
+              )),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: _selectedComprehensionIndex == null || _comprehensionChecked
+                      ? null
+                      : () => setState(() => _comprehensionChecked = true),
+                  child: const Text('Vérifier ma réponse'),
+                ),
+              ),
+              if (_comprehensionChecked)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    _selectedComprehensionIndex == comprehension.correctIndex
+                        ? 'Bravo ! Tu as bien compris le texte.'
+                        : 'Pas encore. ${comprehension.explanation}',
+                    style: TextStyle(
+                      color: _selectedComprehensionIndex == comprehension.correctIndex
+                          ? const Color(0xFF006A4E)
+                          : Colors.deepOrange,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+            ]),
+          ),
+        ),
         if (_hasResult) Card(child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -246,4 +305,60 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
       ]),
     );
   }
+
+class _ReadingComprehensionItem {
+  final String question;
+  final List<String> choices;
+  final int correctIndex;
+  final String explanation;
+
+  const _ReadingComprehensionItem(
+    this.question,
+    this.choices,
+    this.correctIndex,
+    this.explanation,
+  );
+}
+
+_ReadingComprehensionItem _comprehensionForLevel(SchoolLevel level) {
+  return switch (level) {
+    SchoolLevel.cp1 => const _ReadingComprehensionItem(
+      'Qui lit avec Ali ?', ['Sa maman', 'Son maître', 'Son ami'], 0,
+      'Le texte dit : « Ali lit avec sa maman. »',
+    ),
+    SchoolLevel.cp2 => const _ReadingComprehensionItem(
+      'Où va le petit garçon ?', ['Au marché', 'À l’école', 'Au jardin'], 1,
+      'Le petit garçon va à l’école.',
+    ),
+    SchoolLevel.ce1 => const _ReadingComprehensionItem(
+      'Avec qui Afi marche-t-elle vers l’école ?', ['Ses amis', 'Ses voisins', 'Sa maîtresse'], 0,
+      'Afi marche avec ses amis vers l’école.',
+    ),
+    SchoolLevel.ce2 => const _ReadingComprehensionItem(
+      'Que font les enfants au village ?', ['Ils jouent au ballon', 'Ils arrosent le jardin', 'Ils construisent une maison'], 1,
+      'Les enfants arrosent le jardin et prennent soin des plantes.',
+    ),
+    SchoolLevel.cm1 => const _ReadingComprehensionItem(
+      'Que nous apporte la lecture ?', ['Des connaissances et du vocabulaire', 'Seulement des jeux', 'Uniquement des images'], 0,
+      'La lecture enrichit le vocabulaire et aide à mieux s’exprimer.',
+    ),
+    SchoolLevel.cm2 => const _ReadingComprehensionItem(
+      'Qu’est-ce qui aide l’élève à progresser ?', ['Éviter les questions', 'Faire des efforts régulièrement', 'Ne jamais relire'], 1,
+      'Le texte explique que chaque effort aide à progresser.',
+    ),
+    SchoolLevel.sixieme || SchoolLevel.cinquieme => const _ReadingComprehensionItem(
+      'À quoi sert la bibliothèque ?', ['À lire et faire des recherches', 'À faire du sport', 'À cuisiner'], 0,
+      'La bibliothèque permet de lire, apprendre et faire des recherches.',
+    ),
+    SchoolLevel.quatrieme || SchoolLevel.troisieme => const _ReadingComprehensionItem(
+      'Que facilite une lecture attentive ?', ['Le sommeil', 'La compréhension du texte', 'Le calcul mental'], 1,
+      'Le texte indique qu’une lecture attentive facilite la compréhension.',
+    ),
+    SchoolLevel.seconde || SchoolLevel.premiere || SchoolLevel.terminale => const _ReadingComprehensionItem(
+      'La maîtrise de la lecture suppose aussi de…', ['Prononcer sans comprendre', 'Respecter les groupes de sens et comprendre les nuances', 'Lire le plus vite possible'], 1,
+      'La maîtrise de la lecture inclut le sens, le rythme et les nuances du discours.',
+    ),
+  };
+}
+
 }
