@@ -192,6 +192,9 @@ void main() {
         'seconde_equation_lineaire',
         'premiere_suite_arithmetique',
         'terminale_probabilite_conditionnelle',
+        'seconde_systeme_equations',
+        'premiere_trinome_signe',
+        'terminale_limite_simple',
       ];
       for (final id in expected) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
