@@ -7,6 +7,7 @@ import '../../core/reading_practice_service.dart';
 import '../reading/reading_basics_screen.dart';
 import '../../data/sample/sample_data.dart';
 import '../lesson/lesson_screen.dart';
+import '../lesson/exercise_screen.dart';
 
 class StudentDiagnosticScreen extends ConsumerStatefulWidget {
   const StudentDiagnosticScreen({super.key});
@@ -153,13 +154,51 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                   final lesson = lessons.firstWhere((l) => l.id == entry.key);
                   final chapter = chapters.where((c) => c.id == lesson.chapterId);
                   final subject = chapter.isEmpty ? null : subjects.firstWhere((s) => s.id == chapter.first.subjectId);
-                  return Card(child: ListTile(
-                    leading: const CircleAvatar(child: Icon(Icons.menu_book_rounded)),
-                    title: Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.w800)),
-                    subtitle: Text((subject?.name ?? 'Leçon') + ' • ' + entry.value.toString() + ' erreurs observées. Revois le cours et entraîne-toi.'),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LessonContentScreen(lesson: lesson))).then((_) => setState(() => _future = _load())),
-                  ));
+                  final hasExercises = demoExercises.any((exercise) => exercise.lessonId == lesson.id);
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(children: [
+                            const CircleAvatar(child: Icon(Icons.menu_book_rounded)),
+                            const SizedBox(width: 10),
+                            Expanded(child: Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.w800))),
+                            Chip(label: Text(entry.value.toString() + ' erreurs')),
+                          ]),
+                          const SizedBox(height: 6),
+                          Text(subject?.name ?? 'Leçon'),
+                          const SizedBox(height: 8),
+                          const Text('Parcours conseillé : revoir le cours, écouter les explications si besoin, puis refaire les exercices.'),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              OutlinedButton.icon(
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => LessonContentScreen(lesson: lesson)),
+                                ).then((_) => setState(() => _future = _load())),
+                                icon: const Icon(Icons.menu_book_outlined),
+                                label: const Text('Revoir le cours'),
+                              ),
+                              if (hasExercises)
+                                FilledButton.icon(
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (_) => ExerciseScreen(lesson: lesson)),
+                                  ).then((_) => setState(() => _future = _load())),
+                                  icon: const Icon(Icons.fitness_center_rounded),
+                                  label: const Text('M’entraîner'),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 }),
               const SizedBox(height: 16),
               Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
