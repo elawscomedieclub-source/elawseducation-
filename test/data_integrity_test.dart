@@ -224,6 +224,16 @@ void main() {
             reason: 'Choix dupliqué dans ${exercise.id}');
       }
     });
+
+    test('les choix de réponse restent distincts sans tenir compte des espaces et majuscules', () {
+      for (final exercise in demoExercises) {
+        final normalized = exercise.options
+            .map((option) => option.trim().toLowerCase())
+            .toList();
+        expect(normalized.toSet().length, normalized.length,
+            reason: 'Choix identiques après normalisation dans ${exercise.id}');
+      }
+    });
     test('les compléments CE1 à 5ème couvrent les trois trimestres', () {
       final modules = [
         (name: 'CE1', count: Ce1CompletionScreen.unitCount, lessons: Ce1CompletionScreen.lessonCount, perTerm: 5, pool: Ce1CompletionScreen.assessmentExercisesForTerm),
