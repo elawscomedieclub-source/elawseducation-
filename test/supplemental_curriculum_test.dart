@@ -32,6 +32,7 @@ void main() {
         'cp1_soustraction_images',
         'cp1_nombres_20',
         'cp1_ordonner_nombres',
+        'cp1_majuscule_minuscule',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -58,6 +59,7 @@ void main() {
         'cp1_soustraction_images',
         'cp1_nombres_20',
         'cp1_ordonner_nombres',
+        'cp1_majuscule_minuscule',
       ];
       for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
