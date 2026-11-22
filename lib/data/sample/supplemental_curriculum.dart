@@ -290,7 +290,6 @@ const supplementalLessons = <SupplementalLesson>[
     'Pour résoudre une équation-produit A × B = 0, utilise la règle du produit nul : A = 0 ou B = 0. Résous ensuite chaque équation.',
     '(x − 3)(x + 2) = 0 donne x − 3 = 0 ou x + 2 = 0, donc x = 3 ou x = −2.',
     [SupplementalQuestion('bonus_3e_prod_1','Si (x − 4)(x + 1) = 0, quelles sont les solutions ?',['4 et −1','−4 et 1','4 seulement'],0,'x − 4 = 0 donne 4 ; x + 1 = 0 donne −1.'), SupplementalQuestion('bonus_3e_prod_2','La règle du produit nul s’applique lorsque le produit est égal à…',['0','1','−1'],0,'Si un produit est nul, au moins un de ses facteurs est nul.'), SupplementalQuestion('bonus_3e_prod_3','Résous (x + 5)(x − 2) = 0.',['−5 et 2','5 et −2','−5 seulement'],0,'Les deux facteurs donnent x = −5 ou x = 2.')]),
-,
 
   SupplementalLesson('seconde_equation_lineaire', SchoolLevel.seconde, 'Mathématiques', 'Résoudre une équation du premier degré',
     'Une équation du premier degré contient une inconnue à la puissance 1. Pour isoler x, effectue la même opération dans les deux membres.',
