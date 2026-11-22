@@ -139,6 +139,22 @@ void main() {
       expect(questionIds.toSet().length, questionIds.length);
     });
 
+    test('les choix sont non vides et uniques même après normalisation', () {
+      for (final lesson in supplementalLessons) {
+        for (final question in lesson.questions) {
+          final normalized = question.choices
+              .map((choice) => choice.trim().toLowerCase())
+              .toList();
+          expect(normalized.every((choice) => choice.isNotEmpty), isTrue,
+              reason: 'Choix vide dans ${question.id}');
+          expect(normalized.toSet().length, normalized.length,
+              reason: 'Choix identiques après normalisation dans ${question.id}');
+          expect(question.correctIndex, inInclusiveRange(0, normalized.length - 1),
+              reason: 'Bonne réponse invalide dans ${question.id}');
+        }
+      }
+    });
+
     test('chaque leçon possède au moins deux exercices valides', () {
       for (final lesson in supplementalLessons) {
         expect(lesson.questions.length, greaterThanOrEqualTo(2), reason: lesson.title);
