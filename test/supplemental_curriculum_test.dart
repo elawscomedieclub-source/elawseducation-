@@ -26,6 +26,7 @@ void main() {
         'cp1_saluer',
         'cp1_animaux',
         'cp1_corps',
+        'cp1_syllabes',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -46,6 +47,7 @@ void main() {
         'cp1_saluer',
         'cp1_animaux',
         'cp1_corps',
+        'cp1_syllabes',
       ];
       for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
