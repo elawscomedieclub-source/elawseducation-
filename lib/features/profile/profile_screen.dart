@@ -328,6 +328,7 @@ class StudentProfileCloudSync extends ConsumerStatefulWidget {
 class _StudentProfileCloudSyncState
     extends ConsumerState<StudentProfileCloudSync> {
   bool _ready = false;
+  int _syncVersion = 0;
   late final StreamSubscription<User?> _authSubscription;
 
   @override
@@ -338,9 +339,14 @@ class _StudentProfileCloudSyncState
   }
 
   Future<void> _syncProfile(User? user) async {
+    final version = ++_syncVersion;
+    final expectedUid = user?.uid;
     _ready = false;
     try {
       final prefs = await SharedPreferences.getInstance();
+      if (!mounted ||
+          version != _syncVersion ||
+          FirebaseAuth.instance.currentUser?.uid != expectedUid) return;
       // Les anciennes préférences globales pouvaient appartenir à un autre élève.
       await prefs.remove('student_name');
       await prefs.remove('student_school_level');
@@ -358,7 +364,9 @@ class _StudentProfileCloudSyncState
         seriesName = prefs.getString(studentPreferenceKey('student_school_series')) ?? 'A4';
       } else {
         final cloud = await StudentProfileCloudService.load();
-        if (FirebaseAuth.instance.currentUser?.uid != user.uid) return;
+        if (!mounted ||
+            version != _syncVersion ||
+            FirebaseAuth.instance.currentUser?.uid != user.uid) return;
         // Un nouveau compte ne doit jamais hériter des réglages locaux du
         // compte précédent. Le profil cloud de cet UID est la seule source.
         levelName = cloud?['level'] is String
@@ -383,22 +391,35 @@ class _StudentProfileCloudSyncState
       final available = seriesForTrack(track);
       final series = available.contains(seriesName) ? seriesName : available.first;
 
+      if (!mounted || version != _syncVersion ||
+          FirebaseAuth.instance.currentUser?.uid != expectedUid) return;
       await ref.read(schoolLevelProvider.notifier).setLevel(level);
+      if (!mounted || version != _syncVersion ||
+          FirebaseAuth.instance.currentUser?.uid != expectedUid) return;
       await ref.read(schoolTrackProvider.notifier).setTrack(track);
+      if (!mounted || version != _syncVersion ||
+          FirebaseAuth.instance.currentUser?.uid != expectedUid) return;
       await ref.read(schoolSeriesProvider.notifier).setSeries(series);
 
-      if (user != null && FirebaseAuth.instance.currentUser?.uid == user.uid) {
+      if (!mounted || version != _syncVersion ||
+          FirebaseAuth.instance.currentUser?.uid != expectedUid) return;
+      if (user != null) {
         await StudentProfileCloudService.save(
           level: level.name,
           track: track.name,
           series: series,
         );
       }
-      _ready = user == null || FirebaseAuth.instance.currentUser?.uid == user.uid;
+      if (!mounted || version != _syncVersion ||
+          FirebaseAuth.instance.currentUser?.uid != expectedUid) return;
+      _ready = true;
     } catch (_) {
       // En cas d'échec cloud, ne pas sauvegarder les réglages d'un ancien
       // compte dans le compte qui vient d'être connecté.
-      _ready = user == null;
+      if (mounted && version == _syncVersion &&
+          FirebaseAuth.instance.currentUser?.uid == expectedUid) {
+        _ready = user == null;
+      }
     }
   }
 
