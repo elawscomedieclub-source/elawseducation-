@@ -63,9 +63,11 @@ class EvaluationService {
   }
 
   static Future<List<EvaluationRecord>> loadHistory() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('proftogo_evaluation_history');
     final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return <EvaluationRecord>[];
+    await prefs.remove('proftogo_evaluation_history');
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return <EvaluationRecord>[];
     final localKey = _keyForUser(uid);
     final raw = prefs.getStringList(localKey) ?? [];
     final byId = <String, EvaluationRecord>{};
@@ -126,8 +128,9 @@ class EvaluationService {
 
   /// Efface l'historique local et cloud du compte courant uniquement.
   static Future<void> clearCurrentAccountHistory() async {
-    final prefs = await SharedPreferences.getInstance();
     final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
     await prefs.remove(_keyForUser(uid));
     await prefs.remove('proftogo_evaluation_history');
     if (uid == null || FirebaseAuth.instance.currentUser?.uid != uid) return;
