@@ -133,6 +133,7 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
         exerciseId: exercise.id,
         isCorrect: isCorrect,
       );
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       if (isCorrect) {
         await ProgressService.clearReviewExercise(exercise.id);
       } else {
