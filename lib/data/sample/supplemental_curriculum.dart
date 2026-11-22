@@ -272,7 +272,7 @@ const supplementalLessons = <SupplementalLesson>[
   SupplementalLesson('terminale_derivation', SchoolLevel.terminale, 'Mathématiques', 'Utiliser une dérivée',
     'Une dérivée positive sur un intervalle indique que la fonction y est croissante.',
     'Pour f(x)=3x, la dérivée est f’(x)=3.',
-    [SupplementalQuestion('bonus_terminale_math_1','Si f’ est positive, f est…',['croissante','toujours constante','toujours négative'],0,'Une dérivée positive indique une fonction croissante.'), SupplementalQuestion('bonus_terminale_math_2','Dérivée de 3x ?',['3','3x²','x'],0,'La dérivée de 3x est 3.')]),,
+    [SupplementalQuestion('bonus_terminale_math_1','Si f’ est positive, f est…',['croissante','toujours constante','toujours négative'],0,'Une dérivée positive indique une fonction croissante.'), SupplementalQuestion('bonus_terminale_math_2','Dérivée de 3x ?',['3','3x²','x'],0,'La dérivée de 3x est 3.') ]),
 
   SupplementalLesson('sixieme_operations_decimales', SchoolLevel.sixieme, 'Mathématiques', 'Additionner et soustraire des nombres décimaux',
     'Pour additionner ou soustraire des nombres décimaux, aligne les virgules, puis les chiffres de même rang. Tu peux ajouter des zéros pour compléter les rangs manquants.',
