@@ -55,7 +55,7 @@ void main() {
         'cp1_addition_images',
         'cp1_soustraction_images',
       ];
-      for (final id in addedIds {
+      for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
         expect(lesson.questions.length, greaterThanOrEqualTo(3), reason: lesson.title);
       }
