@@ -272,10 +272,11 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
 
   Widget _cp1Visual(SupplementalLesson lesson) {
     final isLetters = lesson.id == 'cp1_voyelles';
-    final isCounting = lesson.id == 'cp1_compter';
+    final isCounting = lesson.id == 'cp1_compter' || lesson.id == 'cp1_nombres_10';
     final items = switch (lesson.id) {
       'cp1_voyelles' => const ['A', 'E', 'I', 'O', 'U'],
       'cp1_compter' => const ['🍎', '🍌', '🍊', '🥭', '🍍'],
+      'cp1_nombres_10' => const ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
       'cp1_couleurs' => const ['🔴', '🟡', '🔵', '🟢'],
       'cp1_formes' => const ['⚪', '🟥', '🔺', '⭐'],
       'cp1_classe' => const ['📖', '📓', '✏️', '🧑‍🏫'],
@@ -285,6 +286,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
     final heading = switch (lesson.id) {
       'cp1_voyelles' => 'REGARDE ET PRONONCE',
       'cp1_compter' => 'COMPTE LES OBJETS',
+      'cp1_nombres_10' => 'COMPTE JUSQU’À DIX',
       'cp1_couleurs' => 'OBSERVE LES COULEURS',
       'cp1_formes' => 'OBSERVE LES FORMES',
       'cp1_classe' => 'LES OBJETS DE LA CLASSE',
@@ -331,7 +333,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
               ),
             )).toList(),
           ),
-          if (isCounting) ...[
+          if (lesson.id == 'cp1_compter') ...[
             const SizedBox(height: 8),
             const Text('1   2   3   4   5', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
           ],
