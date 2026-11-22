@@ -33,6 +33,7 @@ void main() {
         'cp1_nombres_20',
         'cp1_ordonner_nombres',
         'cp1_majuscule_minuscule',
+        'cp1_comparer_quantites',
       ];
       final cp1Ids = supplementalLessons
           .where((lesson) => lesson.level == SchoolLevel.cp1)
@@ -60,6 +61,7 @@ void main() {
         'cp1_nombres_20',
         'cp1_ordonner_nombres',
         'cp1_majuscule_minuscule',
+        'cp1_comparer_quantites',
       ];
       for (final id in addedIds) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == id);
