@@ -80,6 +80,19 @@ void main() {
       }
     });
 
+    test('les nouvelles leçons CM1 et CM2 sont complètes', () {
+      const expected = [
+        'cm1_fraction_equivalentes',
+        'cm1_perimetre_rectangle',
+        'cm2_nombres_decimaux',
+        'cm2_proportionnalite_tableau',
+      ];
+      for (final id in expected) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+        expect(lesson.questions.length, greaterThanOrEqualTo(3), reason: lesson.title);
+      }
+    });
+
     test('les activités CP1 nouvellement ajoutées ont trois questions', () {
       const addedIds = [
         'cp1_couleurs',
