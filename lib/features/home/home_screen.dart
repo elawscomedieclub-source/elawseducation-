@@ -142,7 +142,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           MaterialPageRoute(
                             builder: (_) => LessonContentScreen(lesson: lastLesson),
                           ),
-                        ),
+                        ).then((_) {
+                          if (mounted) _refreshProgress();
+                        }),
                       ),
                     );
                   },
@@ -186,7 +188,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   MaterialPageRoute(
                                     builder: (_) => SubjectDetailScreen(subject: subjects.first),
                                   ),
-                                );
+                                ).then((_) {
+                                  if (mounted) _refreshProgress();
+                                });
                               } else {
                                 Navigator.push(
                                   context,
@@ -378,7 +382,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           MaterialPageRoute(
                             builder: (_) => SubjectDetailScreen(subject: subject),
                           ),
-                        ),
+                        ).then((_) {
+                          if (mounted) _refreshProgress();
+                        }),
                       ),
                     );
                   }),
