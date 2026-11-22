@@ -164,13 +164,14 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                               MaterialPageRoute(
                                 builder: (_) => ExerciseScreen(
                                   lesson: matchingLessons.first,
+                                  reviewExerciseId: exercise.id,
                                 ),
                               ),
                             );
                             if (context.mounted) _refresh();
                           },
                           icon: const Icon(Icons.replay_rounded),
-                          label: const Text('Refaire les exercices'),
+                          label: const Text('Retravailler cette question'),
                         ),
                       ),
                     ],
