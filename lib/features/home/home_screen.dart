@@ -31,6 +31,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final level = ref.watch(schoolLevelProvider);
+    final childMode = level.index <= SchoolLevel.cm2.index;
     final track = ref.watch(schoolTrackProvider);
     final series = ref.watch(schoolSeriesProvider);
     final subjects = demoSubjects
@@ -86,7 +87,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   onRefresh: _refreshProgress,
                 ),
                 const SizedBox(height: 18),
-                Row(
+                if (!childMode) Row(
                   children: [
                     Expanded(
                       child: _MetricCard(
@@ -120,7 +121,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 18),
-                Card(
+                if (!childMode) Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -164,13 +165,31 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                 ),
+                if (childMode) Card(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.face_rounded, size: 42),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            'Bienvenue ! Choisis une matière. Tu peux écouter les questions dans les exercices.',
+                            style: TextStyle(fontSize: 18, height: 1.35, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onPrimaryContainer),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 24),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Expanded(
-                      child: Text('Tes matières',
-                          style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
+                    Expanded(
+                      child: Text(childMode ? 'Choisis ta matière' : 'Tes matières',
+                          style: const TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
                     ),
                     Text('${subjects.length} disponibles',
                         style: Theme.of(context).textTheme.bodySmall),
@@ -178,7 +197,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'Choisis une matière pour ouvrir ses chapitres, ses leçons et ses exercices.',
+                  childMode ? 'Touche une grande carte pour commencer.' : 'Choisis une matière pour ouvrir ses chapitres, ses leçons et ses exercices.',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
@@ -231,6 +250,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         lessonCount: subjectLessons.length,
                         exerciseCount: subjectExercises.length,
                         completedCount: done,
+                        childMode: childMode,
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -404,6 +424,7 @@ class _SubjectCard extends StatelessWidget {
   final int lessonCount;
   final int exerciseCount;
   final int completedCount;
+  final bool childMode;
   final VoidCallback onTap;
 
   const _SubjectCard({
@@ -412,6 +433,7 @@ class _SubjectCard extends StatelessWidget {
     required this.lessonCount,
     required this.exerciseCount,
     required this.completedCount,
+    required this.childMode,
     required this.onTap,
   });
 
@@ -424,27 +446,29 @@ class _SubjectCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(childMode ? 20 : 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   CircleAvatar(
+                    radius: childMode ? 28 : 20,
                     backgroundColor: theme.colorScheme.primaryContainer,
                     child: Icon(Icons.menu_book_rounded,
+                        size: childMode ? 30 : 24,
                         color: theme.colorScheme.onPrimaryContainer),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(subject.name,
-                        style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                        style: TextStyle(fontWeight: FontWeight.w800, fontSize: childMode ? 20 : 16)),
                   ),
                   const Icon(Icons.arrow_forward_ios_rounded, size: 16),
                 ],
               ),
-              const SizedBox(height: 12),
-              Wrap(
+              if (!childMode) const SizedBox(height: 12),
+              if (!childMode) Wrap(
                 spacing: 12,
                 runSpacing: 5,
                 children: [
@@ -453,8 +477,8 @@ class _SubjectCard extends StatelessWidget {
                   _MiniInfo(icon: Icons.quiz_outlined, label: '$exerciseCount exercices'),
                 ],
               ),
-              const SizedBox(height: 12),
-              Row(
+              if (!childMode) const SizedBox(height: 12),
+              if (!childMode) Row(
                 children: [
                   Expanded(
                     child: ClipRRect(
@@ -470,11 +494,15 @@ class _SubjectCard extends StatelessWidget {
                       )),
                 ],
               ),
-              const SizedBox(height: 4),
-              Text('Exercices réussis',
+              if (!childMode) const SizedBox(height: 4),
+              if (!childMode) Text('Exercices réussis',
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   )),
+              if (childMode) const Align(
+                alignment: Alignment.centerRight,
+                child: Text('Touche pour ouvrir →', style: TextStyle(fontWeight: FontWeight.w700)),
+              ),
             ],
           ),
         ),
