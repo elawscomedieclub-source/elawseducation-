@@ -176,6 +176,11 @@ jobs:
           else:
               xml = re.sub(r'android:roundIcon="[^"]+"',
                            'android:roundIcon="@drawable/proftogo_launcher"', xml, count=1)
+          # Nom exact affiché sous l’icône sur le téléphone.
+          if 'android:label=' in xml:
+              xml = re.sub('android:label="[^"]*"', 'android:label="PROFTOGO"', xml, count=1)
+          else:
+              xml = xml.replace("<application", '<application android:label="PROFTOGO"', 1)
           manifest.write_text(xml, encoding="utf-8")
           PY
 
