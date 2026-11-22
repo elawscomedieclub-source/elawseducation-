@@ -8,6 +8,7 @@ import '../../core/evaluation_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
 import '../../data/models/models.dart';
+import '../lesson/exercise_screen.dart';
 import '../../shared/widgets/menu_button.dart';
 
 class ProgressScreen extends ConsumerStatefulWidget {
@@ -149,11 +150,27 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton.icon(
                           onPressed: () async {
-                            await ProgressService.clearReviewExercise(exercise.id);
+                            final matchingLessons = demoLessons
+                                .where((lesson) => lesson.id == exercise.lessonId);
+                            if (matchingLessons.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('La leçon liée à cet exercice est momentanément indisponible.'),
+                                ),
+                              );
+                              return;
+                            }
+                            await Navigator.of(context).push<void>(
+                              MaterialPageRoute(
+                                builder: (_) => ExerciseScreen(
+                                  lesson: matchingLessons.first,
+                                ),
+                              ),
+                            );
                             if (context.mounted) _refresh();
                           },
-                          icon: const Icon(Icons.done),
-                          label: const Text('Marquer comme revu'),
+                          icon: const Icon(Icons.replay_rounded),
+                          label: const Text('Refaire les exercices'),
                         ),
                       ),
                     ],
