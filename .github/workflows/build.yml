@@ -239,19 +239,21 @@ jobs:
         run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
 
       - name: Construire l’APK Android
-        run: flutter build apk --release --build-number=${{ github.run_number }}
+        run: |
+          flutter build apk --release --build-number=${{ github.run_number }}
+          cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/PROFTOGO.apk
 
       - name: Conserver l’APK
         uses: actions/upload-artifact@v4
         with:
-          name: ProfTogo-APK-Android
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: PROFTOGO-APK-Android
+          path: build/app/outputs/flutter-apk/PROFTOGO.apk
           if-no-files-found: error
 
       - name: Publier la version Android
         uses: softprops/action-gh-release@v2
         with:
           tag_name: proftogo-build-${{ github.run_number }}
-          name: ProfTogo - APK ${{ github.run_number }}
-          files: build/app/outputs/flutter-apk/app-release.apk
+          name: PROFTOGO - APK ${{ github.run_number }}
+          files: build/app/outputs/flutter-apk/PROFTOGO.apk
           generate_release_notes: true
