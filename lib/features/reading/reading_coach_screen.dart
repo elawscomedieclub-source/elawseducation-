@@ -305,6 +305,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
       ]),
     );
   }
+}
 
 class _ReadingComprehensionItem {
   final String question;
@@ -359,6 +360,4 @@ _ReadingComprehensionItem _comprehensionForLevel(SchoolLevel level) {
       'La maîtrise de la lecture inclut le sens, le rythme et les nuances du discours.',
     ),
   };
-}
-
 }
