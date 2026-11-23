@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/core/progress_service.dart';
+import 'package:proftogo/core/reading_practice_service.dart';
 import 'package:proftogo/core/school_level_provider.dart';
 
 void main() {
@@ -77,6 +78,19 @@ void main() {
       expect(guest, 'school_level_guest');
       expect(first, isNot(second));
       expect(first, isNot(guest));
+    });
+
+    test('les données du coach de lecture sont isolées par UID et pour les invités', () {
+      final first = readingPracticeStorageKeyForUid('reading_stats', 'studentA');
+      final second = readingPracticeStorageKeyForUid('reading_stats', 'studentB');
+      final guest = readingPracticeStorageKeyForUid('reading_stats', null);
+
+      expect(first, 'reading_stats_user_studentA');
+      expect(second, 'reading_stats_user_studentB');
+      expect(guest, 'reading_stats_guest');
+      expect(first, isNot(second));
+      expect(first, isNot(guest));
+      expect(second, isNot(guest));
     });
 
     test('les préférences de niveau, parcours et série restent séparées par compte', () {
