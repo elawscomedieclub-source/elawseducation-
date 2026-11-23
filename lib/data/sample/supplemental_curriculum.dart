@@ -515,4 +515,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_table8_2','8 × 4 = ?',['24','32','40'],1,'8 + 8 + 8 + 8 = 32.'),
      SupplementalQuestion('bonus_ce2_table8_3','8 × 5 = ?',['35','40','45'],1,'5 groupes de 8 font 40.')]),
 
+  SupplementalLesson('ce2_table_multiplication_9', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 9',
+    'Multiplier par 9, c’est compter de neuf en neuf. Pour trouver 9 × 4, on peut additionner 9 + 9 + 9 + 9 = 36.',
+    '9 × 1 = 9 ; 9 × 2 = 18 ; 9 × 3 = 27 ; 9 × 4 = 36 ; 9 × 5 = 45.',
+    [SupplementalQuestion('bonus_ce2_table9_1','9 × 2 = ?',['16','18','20'],1,'9 + 9 = 18.'),
+     SupplementalQuestion('bonus_ce2_table9_2','9 × 4 = ?',['27','36','45'],1,'9 + 9 + 9 + 9 = 36.'),
+     SupplementalQuestion('bonus_ce2_table9_3','9 × 5 = ?',['40','45','50'],1,'5 groupes de 9 font 45.')]),
+
 ];
