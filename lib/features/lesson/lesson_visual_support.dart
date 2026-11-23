@@ -36,19 +36,19 @@ class LessonVisualSupport extends StatelessWidget {
         );
       case _VisualKind.plant:
         return const _PracticalActivity(
-          title: 'Atelier : observer la germination',
-          materials: 'Deux petits récipients, du coton, quelques graines de haricot et de l’eau.',
-          steps: ['Place du coton humide dans les deux récipients.', 'Dépose quelques graines dans chacun.', 'Garde le premier humide et laisse le second sans ajout d’eau.', 'Observe chaque jour pendant une semaine et note les changements.'],
-          observe: 'La graine convenablement humidifiée gonfle puis laisse sortir une petite racine et une pousse.',
-          safety: 'Ne consomme pas les graines utilisées pour l’expérience. Lave-toi les mains après la manipulation.'
+          title: 'Atelier : reconnaître les parties d’une plante',
+          materials: 'Une petite plante en pot, un dessin de plante entière ou une plante cultivée dans un récipient transparent.',
+          steps: ['Observe la plante sans l’arracher.', 'Repère les feuilles, la tige et les racines si elles sont visibles.', 'Dessine la plante et trace une flèche vers chaque partie.', 'Associe chaque partie à son rôle : absorber l’eau, soutenir ou capter la lumière.'],
+          observe: 'La racine absorbe l’eau et les sels minéraux, la tige soutient la plante et transporte la sève, les feuilles captent la lumière.',
+          safety: 'Ne goûte aucune plante inconnue. Lave-toi les mains après l’observation et ne déracine pas la plante.'
         );
       case _VisualKind.water:
         return const _PracticalActivity(
           title: 'Atelier : observer l’évaporation et la condensation',
-          materials: 'Un verre transparent, un peu d’eau et une assiette froide. Un adulte accompagne la manipulation.',
-          steps: ['Verse un peu d’eau dans le verre et observe son niveau.', 'Pose l’assiette froide au-dessus du verre sans le fermer hermétiquement.', 'Observe les petites gouttes qui peuvent apparaître sous l’assiette.', 'Décris le changement de l’eau et relie-le au cycle naturel.'],
-          observe: 'La vapeur d’eau peut se refroidir et former de petites gouttes : c’est la condensation.',
-          safety: 'N’utilise pas d’eau bouillante. Cette démonstration ne rend pas l’eau potable.'
+          materials: 'Un récipient transparent, un peu d’eau tiède (jamais chaude), une assiette métallique ou en verre et quelques glaçons. Un adulte accompagne la manipulation.',
+          steps: ['Verse un fond d’eau tiède dans le récipient.', 'Pose l’assiette au-dessus sans fermer hermétiquement le récipient.', 'Dépose quelques glaçons sur l’assiette pour refroidir sa face inférieure.', 'Observe les gouttelettes qui peuvent se former sous l’assiette et décris leur origine.'],
+          observe: 'Une partie de l’eau s’évapore ; au contact de la surface refroidie, la vapeur se condense en gouttelettes.',
+          safety: 'Un adulte manipule l’eau tiède et les glaçons. N’utilise jamais d’eau bouillante et ne bois pas l’eau de l’expérience.'
         );
       case _VisualKind.body:
         return const _PracticalActivity(
