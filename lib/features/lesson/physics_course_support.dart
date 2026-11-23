@@ -17,7 +17,7 @@ class PhysicsCourseSupport extends StatelessWidget {
     } else if (chapterId == 'ly_premiere_sc_mecanique_c' && RegExp(r'force|mécanique').hasMatch(lessonHeading)) {
       topics.add(_mechanics[0]);
     }
-    if (RegExp(r'transistor|photorésistance').hasMatch(s)) topics.add(_transistor);
+    if (RegExp(r'transistor|photorésistance').hasMatch(lessonHeading)) topics.add(_transistor);
     if(topics.isEmpty)return const SizedBox.shrink();
     return Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
       const SizedBox(height:22),const Text('Cours approfondi — Physique et technologie',style:TextStyle(fontSize:20,fontWeight:FontWeight.w800)),

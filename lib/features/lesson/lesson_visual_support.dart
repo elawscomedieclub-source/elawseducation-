@@ -16,8 +16,8 @@ class LessonVisualSupport extends StatelessWidget {
     if (RegExp(r'germination|parties de la plante|structure de la plante|la plante et ses parties').hasMatch(title)) return _VisualKind.plant;
     if (RegExp(r'cycle de l.eau|évaporation|condensation|précipitation').hasMatch(title)) return _VisualKind.water;
     if (RegExp(r'corps humain|parties du corps humain').hasMatch(title)) return _VisualKind.body;
-    if (RegExp(r'figures géométriques|figures planes').hasMatch(title)) return _VisualKind.geometry;
-    if (RegExp(r'fractions|représenter une fraction|fraction en parts égales').hasMatch(title)) return _VisualKind.fraction;
+    if (RegExp(r'figures géométriques|figures planes|triangle|rectangle|carré|cercle|polygone').hasMatch(title)) return _VisualKind.geometry;
+    if (RegExp(r'fractions|représenter une fraction|fraction en parts égales|moitié|quart|tiers').hasMatch(title)) return _VisualKind.fraction;
     return null;
   }
 

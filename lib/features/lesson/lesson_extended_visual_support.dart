@@ -24,7 +24,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Utilise des objets assez gros pour ne pas être avalés et range-les après l’activité.'
       );
     }
-    if (RegExp(r'aimant|magnét|pôle nord|pôle sud').hasMatch(text)) {
+    if (RegExp(r'aimants? et magnétisme|magnétisme|pôles d.un aimant|aimant permanent').hasMatch(text)) {
       return const _Support(
         title: 'Le magnétisme : deux pôles',
         icon: Icons.explore,
@@ -102,7 +102,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Utilise uniquement un objet léger et ne dirige jamais la règle vers le visage.'
       );
     }
-    if (RegExp(r'points cardinaux|orientation|rose des vents|carte géographique').hasMatch(text)) {
+    if (RegExp(r'points cardinaux|rose des vents|s orienter avec une carte|lire une carte géographique').hasMatch(text)) {
       return const _Support(
         title: 'S’orienter avec les points cardinaux',
         icon: Icons.navigation,
@@ -128,7 +128,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne pousse pas la règle vers le visage et manipule les objets avec soin.'
       );
     }
-    if (RegExp(r'monnaie|franc cfa|achat|prix|monnaie rendue').hasMatch(text)) {
+    if (RegExp(r'monnaie|franc cfa|calculer un achat|prix total|monnaie rendue').hasMatch(text)) {
       return const _Support(
         title: 'Calculer un achat et la monnaie rendue',
         icon: Icons.payments_outlined,
@@ -167,7 +167,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Observe les animaux à distance. Ne touche pas les animaux inconnus et ne détruis pas leurs habitats.'
       );
     }
-    if (RegExp(r'métiers|métier|communauté|services de proximité|travailleurs').hasMatch(text)) {
+    if (RegExp(r'métiers|métier|services de proximité|services de la communauté|travailleurs de la communauté').hasMatch(text)) {
       return const _Support(
         title: 'Les métiers et les services de la communauté',
         icon: Icons.groups,
@@ -180,7 +180,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne visite aucun lieu sans l’accord d’un adulte responsable.'
       );
     }
-    if (RegExp(r'daily routines|wake up|what time is it|o.clock|morning|afternoon').hasMatch(text)) {
+    if (RegExp(r'daily routines|wake up|what time is it|o.clock|moments of the day').hasMatch(text)) {
       return const _Support(
         title: 'Organiser sa journée en anglais',
         icon: Icons.schedule,
@@ -193,7 +193,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Écoute ton camarade et respecte son rythme de lecture.'
       );
     }
-    if (RegExp(r'droits de l.enfant|responsabilités|protection|sécurité').hasMatch(text)) {
+    if (RegExp(r'droits de l.enfant|responsabilités de l.enfant|droits et devoirs de l.enfant|protection de l.enfance').hasMatch(text)) {
       return const _Support(
         title: 'Droits, responsabilités et protection',
         icon: Icons.shield_outlined,
@@ -206,7 +206,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Si une situation de violence ou de danger existe, parle à un adulte de confiance.'
       );
     }
-    if (RegExp(r'compréhension|production écrite|paragraphe|informations importantes').hasMatch(text)) {
+    if (RegExp(r'compréhension de texte|comprendre un texte|production écrite|rédiger un paragraphe|organiser un paragraphe').hasMatch(text)) {
       return const _Support(
         title: 'Méthode pour comprendre et rédiger',
         icon: Icons.edit_note,
