@@ -2,9 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Progression de l'atelier de lecture, isolée pour chaque compte.
+String readingPracticeStorageKeyForUid(String base, String? uid) =>
+    uid == null ? '${base}_guest' : '${base}_user_$uid';
+
 class ReadingPracticeService {
   static String _key(String base, String? uid) =>
-      uid == null ? '${base}_guest' : '${base}_user_$uid';
+      readingPracticeStorageKeyForUid(base, uid);
 
   static Future<Set<int>> loadCompletedStages() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
