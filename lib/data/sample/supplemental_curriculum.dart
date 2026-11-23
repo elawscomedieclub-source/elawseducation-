@@ -429,4 +429,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_budget_2','Avec 1 500 F, après une dépense de 1 300 F, combien te reste-t-il ?',['100 F','200 F','300 F'],1,'1 500 - 1 300 = 200 F.'),
      SupplementalQuestion('bonus_ce2_budget_3','Tu as 1 000 F. Peux-tu acheter trois cahiers à 250 F chacun ?',['Oui, il reste 250 F','Non, il manque 250 F','Oui, il reste 500 F'],0,'3 × 250 = 750 F ; 1 000 - 750 = 250 F.')]),
 
+
+  SupplementalLesson('ce2_mesures_longueurs', SchoolLevel.ce2, 'Mathématiques', 'Mesurer et convertir des longueurs',
+    'On utilise le centimètre (cm) pour les petits objets, le mètre (m) pour les longueurs plus grandes et le kilomètre (km) pour les longues distances. 1 m = 100 cm et 1 km = 1 000 m.',
+    'Une corde mesure 3 m et 40 cm. Comme 3 m = 300 cm, la corde mesure 300 + 40 = 340 cm.',
+    [SupplementalQuestion('bonus_ce2_mesure_1','1 kilomètre équivaut à…',['100 m','1 000 m','10 000 m'],1,'1 km = 1 000 m.'),
+     SupplementalQuestion('bonus_ce2_mesure_2','Une planche mesure 2 m et 50 cm. Quelle est sa longueur en centimètres ?',['205 cm','250 cm','2 050 cm'],1,'2 m = 200 cm ; 200 + 50 = 250 cm.'),
+     SupplementalQuestion('bonus_ce2_mesure_3','Une corde mesure 340 cm. Cela correspond à…',['3 m et 40 cm','34 m','3 m et 4 cm'],0,'300 cm = 3 m ; il reste 40 cm.')]),
+
 ];
