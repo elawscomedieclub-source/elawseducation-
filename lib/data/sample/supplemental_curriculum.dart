@@ -492,4 +492,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_table5_2','5 × 4 = ?',['15','20','25'],1,'5 + 5 + 5 + 5 = 20.'),
      SupplementalQuestion('bonus_ce2_table5_3','5 × 5 = ?',['20','25','30'],1,'5 groupes de 5 font 25.')]),
 
+  SupplementalLesson('ce2_table_multiplication_6', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 6',
+    'Multiplier par 6, c’est compter de six en six ou additionner six fois le même nombre. Pour trouver 6 × 4, on peut calculer 6 + 6 + 6 + 6 = 24.',
+    '6 × 1 = 6 ; 6 × 2 = 12 ; 6 × 3 = 18 ; 6 × 4 = 24 ; 6 × 5 = 30.',
+    [SupplementalQuestion('bonus_ce2_table6_1','6 × 2 = ?',['10','12','14'],1,'6 + 6 = 12.'),
+     SupplementalQuestion('bonus_ce2_table6_2','6 × 4 = ?',['18','24','30'],1,'6 + 6 + 6 + 6 = 24.'),
+     SupplementalQuestion('bonus_ce2_table6_3','6 × 5 = ?',['25','30','36'],1,'5 groupes de 6 font 30.')]),
+
 ];
