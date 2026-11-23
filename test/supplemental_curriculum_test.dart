@@ -601,5 +601,28 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 sur les masses vérifie les conversions', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'ce2_mesures_masses',
+      );
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_masse_1': '1 000 g',
+        'bonus_ce2_masse_2': '2 000 g',
+        'bonus_ce2_masse_3': '1 kg et 500 g',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Conversion incorrecte dans ${question.id}',
+        );
+      }
+    });
+
+
   });
 }
