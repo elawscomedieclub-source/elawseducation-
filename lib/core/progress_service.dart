@@ -257,25 +257,19 @@ class ProgressService {
     if (uid == null) return local;
 
     try {
-      final cloud = await CloudProgressService.loadForCurrentUser();
-      // Ne jamais synchroniser le cache d'un compte précédent : chaque UID
-      // dispose désormais de ses propres clés locales.
+      // La transaction conserve les acquis déjà présents sur les autres appareils.
+      final cloudMerge = await CloudProgressService.mergeForCurrentUser(
+        answeredExerciseIds: local.answeredExerciseIds,
+        correctExerciseIds: local.correctExerciseIds,
+      );
       if (FirebaseAuth.instance.currentUser?.uid != uid) return local;
-      if (cloud == null) {
-        await _saveCloud(local, uid);
-        return local;
-      }
-
-      final merged = mergeSnapshots(
-        local,
-        ProgressSnapshot(
-          answeredExerciseIds: cloud.answeredExerciseIds,
-          correctExerciseIds: cloud.correctExerciseIds,
-          xp: cloud.xp,
-        ),
+      if (cloudMerge == null) return local;
+      final merged = ProgressSnapshot(
+        answeredExerciseIds: cloudMerge.progress.answeredExerciseIds,
+        correctExerciseIds: cloudMerge.progress.correctExerciseIds,
+        xp: cloudMerge.progress.xp,
       );
       await _saveLocal(prefs, merged, uid);
-      await _saveCloud(merged, uid);
       return merged;
     } catch (_) {
       return local;
@@ -308,17 +302,21 @@ class ProgressService {
     if (uid == null) return true;
     var earnedXp = true;
     try {
-      final cloud = await CloudProgressService.loadForCurrentUser();
-      if (FirebaseAuth.instance.currentUser?.uid != uid) return earnedXp;
-      final cloudProgress = ProgressSnapshot(
-        answeredExerciseIds: cloud?.answeredExerciseIds ?? <String>{},
-        correctExerciseIds: cloud?.correctExerciseIds ?? <String>{},
-        xp: cloud?.xp ?? 0,
+      final cloudMerge = await CloudProgressService.mergeForCurrentUser(
+        answeredExerciseIds: progress.answeredExerciseIds,
+        correctExerciseIds: progress.correctExerciseIds,
+        newlyCorrectExerciseId: exerciseId,
       );
-      earnedXp = !cloudProgress.correctExerciseIds.contains(exerciseId);
-      final merged = mergeSnapshots(progress, cloudProgress);
-      await _saveLocal(prefs, merged, uid);
-      await _saveCloud(merged, uid);
+      if (FirebaseAuth.instance.currentUser?.uid != uid) return earnedXp;
+      if (cloudMerge != null) {
+        earnedXp = cloudMerge.newlyEarnedExercise;
+        final merged = ProgressSnapshot(
+          answeredExerciseIds: cloudMerge.progress.answeredExerciseIds,
+          correctExerciseIds: cloudMerge.progress.correctExerciseIds,
+          xp: cloudMerge.progress.xp,
+        );
+        await _saveLocal(prefs, merged, uid);
+      }
     } catch (_) {
       // L'exercice reste utilisable si le cloud est momentanément indisponible.
     }
@@ -379,12 +377,4 @@ class ProgressService {
     await prefs.setInt(localStorageKey('proftogo_total_xp', uid), progress.xp);
   }
 
-  static Future<void> _saveCloud(ProgressSnapshot progress, String uid) async {
-    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
-    await CloudProgressService.saveForCurrentUser(
-      answeredExerciseIds: progress.answeredExerciseIds,
-      correctExerciseIds: progress.correctExerciseIds,
-      xp: progress.xp,
-    );
-  }
 }
