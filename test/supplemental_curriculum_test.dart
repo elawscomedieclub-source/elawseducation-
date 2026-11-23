@@ -647,5 +647,28 @@ void main() {
     });
 
 
+
+    test('le cours CE2 sur les durées vérifie les conversions horaires', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'ce2_mesures_duree',
+      );
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_duree_1': '60 minutes',
+        'bonus_ce2_duree_2': '150 min',
+        'bonus_ce2_duree_3': '1 h 30 min',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Conversion incorrecte dans ${question.id}',
+        );
+      }
+    });
+
+
   });
 }
