@@ -579,5 +579,27 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 sur les longueurs vérifie les conversions', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'ce2_mesures_longueurs',
+      );
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_mesure_1': '1 000 m',
+        'bonus_ce2_mesure_2': '250 cm',
+        'bonus_ce2_mesure_3': '3 m et 40 cm',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Conversion incorrecte dans ${question.id}',
+        );
+      }
+    });
+
   });
 }
