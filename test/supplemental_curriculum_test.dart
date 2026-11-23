@@ -513,5 +513,27 @@ void main() {
       }
     });
 
+
+    test('le cours CP2 sur le franc CFA enseigne des calculs exacts', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'cp2_monnaie_fcfa',
+      );
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_fcfa_1': '350 F',
+        'bonus_cp2_fcfa_2': '200 F',
+        'bonus_cp2_fcfa_3': '100 F',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Calcul incorrect dans ${question.id}',
+        );
+      }
+    });
+
   });
 }
