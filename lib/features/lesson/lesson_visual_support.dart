@@ -13,7 +13,10 @@ class LessonVisualSupport extends StatelessWidget {
     // Choix volontairement strict : un mot rencontré dans le texte ne suffit
     // pas à afficher un schéma qui pourrait illustrer une autre notion.
     if (RegExp(r'circuit électrique|circuit en série|circuit en parallèle|circuit fermé').hasMatch(title)) return _VisualKind.circuit;
-    if (RegExp(r'germination|parties de la plante|structure de la plante|la plante et ses parties').hasMatch(title)) return _VisualKind.plant;
+    // Le croquis actuel représente une plante développée, pas les étapes
+    // de germination : ne pas l'afficher pour une leçon sur la germination.
+    if (RegExp(r'germination').hasMatch(title)) return null;
+    if (RegExp(r'parties de la plante|structure de la plante|la plante et ses parties').hasMatch(title)) return _VisualKind.plant;
     if (RegExp(r'cycle de l.eau|évaporation|condensation|précipitation').hasMatch(title)) return _VisualKind.water;
     if (RegExp(r'corps humain|parties du corps humain').hasMatch(title)) return _VisualKind.body;
     if (RegExp(r'figures géométriques|figures planes|triangle|rectangle|carré|cercle|polygone').hasMatch(title)) return _VisualKind.geometry;
@@ -267,7 +270,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.water => 'Sous l’action du Soleil, l’eau s’évapore. La vapeur se refroidit et se condense en nuages, puis l’eau retombe sous forme de précipitations et rejoint les sols et les cours d’eau.',
     _VisualKind.body => 'Le schéma situe la tête, le thorax et l’abdomen. Les organes sont représentés de façon simplifiée.',
     _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
-    _VisualKind.fraction => 'La bande est partagée en quatre parts égales : trois parts colorées représentent trois quarts.',
+    _VisualKind.fraction => 'Chaque bande est partagée en parts égales. Compare une moitié (1/2), un quart (1/4) et trois quarts (3/4).',
   };
 }
 
@@ -372,14 +375,22 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas,'CERCLE',Offset(225,235),scale);
         break;
       case _VisualKind.fraction:
-        const left=30.0, top=78.0, width=280.0, height=58.0;
-        for(int i=0;i<4;i++){
-          final rect=Rect.fromLTWH(left+i*width/4,top,width/4,height);
-          canvas.drawRect(rect,i<3?accent:fill);
-          canvas.drawRect(rect,ink);
+        // Trois exemples distincts évitent de présenter 3/4 comme modèle
+        // unique lorsqu'un élève étudie la moitié ou le quart.
+        const left=112.0, width=190.0, height=34.0;
+        const tops=[42.0,105.0,168.0];
+        const counts=[2,4,4];
+        const colored=[1,1,3];
+        for(int row=0;row<3;row++){
+          for(int i=0;i<counts[row];i++){
+            final rect=Rect.fromLTWH(left+i*width/counts[row],tops[row],width/counts[row],height);
+            canvas.drawRect(rect,i<colored[row]?accent:fill);
+            canvas.drawRect(rect,ink);
+          }
         }
-        _text(canvas,'3 parts coloriées sur 4',Offset(88,38),scale);
-        _text(canvas,'3/4',Offset(150,153),scale);
+        _text(canvas,'MOITIÉ 1/2',Offset(12,52),scale);
+        _text(canvas,'QUART 1/4',Offset(12,115),scale);
+        _text(canvas,'TROIS QUARTS',Offset(12,178),scale);
         break;
     }
     canvas.restore();
