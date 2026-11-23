@@ -171,7 +171,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa') ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa') ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
@@ -291,6 +291,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_corps' => const ['👀', '👂', '👃', '🦶'],
       'cp2_monnaie_fcfa' => const ['250 F', '+', '100 F', '=', '350 F', '500 F', '−', '350 F', '=', '150 F'],
       'ce1_achats_fcfa' => const ['300 F', '+', '150 F', '=', '450 F', '1 000 F', '−', '450 F', '=', '550 F'],
+      'ce2_budget_fcfa' => const ['400 F', '+', '400 F', '+', '500 F', '=', '1 300 F', '1 500 F', '−', '1 300 F', '=', '200 F'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -311,6 +312,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_corps' => 'MONTRE LES PARTIES DU CORPS',
       'cp2_monnaie_fcfa' => 'CALCULE AVEC LE FRANC CFA',
       'ce1_achats_fcfa' => 'PRÉPARE TON ACHAT ET TA MONNAIE',
+      'ce2_budget_fcfa' => 'CALCULE TES DÉPENSES ET TON RESTE',
       _ => 'REGARDE ET DÉCOUVRE',
     };
     return Container(
