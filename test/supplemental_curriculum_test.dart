@@ -624,5 +624,28 @@ void main() {
     });
 
 
+
+    test('le cours CE2 sur les capacités vérifie les conversions', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'ce2_mesures_capacites',
+      );
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_capacite_1': '1 000 mL',
+        'bonus_ce2_capacite_2': '3 000 mL',
+        'bonus_ce2_capacite_3': 'un demi-litre',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Conversion incorrecte dans ${question.id}',
+        );
+      }
+    });
+
+
   });
 }
