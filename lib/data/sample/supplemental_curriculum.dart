@@ -485,4 +485,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_table4_2','4 × 3 = ?',['10','12','14'],1,'4 + 4 + 4 = 12.'),
      SupplementalQuestion('bonus_ce2_table4_3','4 × 5 = ?',['16','20','24'],1,'4 + 4 + 4 + 4 + 4 = 20.')]),
 
+  SupplementalLesson('ce2_table_multiplication_5', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 5',
+    'Multiplier par 5, c’est compter de cinq en cinq. Les résultats se terminent toujours par 0 ou 5. Pour trouver 5 × 4, on ajoute 5 quatre fois : 5 + 5 + 5 + 5 = 20.',
+    '5 × 1 = 5 ; 5 × 2 = 10 ; 5 × 3 = 15 ; 5 × 4 = 20 ; 5 × 5 = 25.',
+    [SupplementalQuestion('bonus_ce2_table5_1','5 × 2 = ?',['10','12','15'],0,'5 + 5 = 10.'),
+     SupplementalQuestion('bonus_ce2_table5_2','5 × 4 = ?',['15','20','25'],1,'5 + 5 + 5 + 5 = 20.'),
+     SupplementalQuestion('bonus_ce2_table5_3','5 × 5 = ?',['20','25','30'],1,'5 groupes de 5 font 25.')]),
+
 ];
