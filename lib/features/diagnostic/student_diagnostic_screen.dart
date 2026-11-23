@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/progress_service.dart';
@@ -17,10 +20,26 @@ class StudentDiagnosticScreen extends ConsumerStatefulWidget {
 
 class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScreen> {
   late Future<_Diagnostic> _future;
+  late final StreamSubscription<User?> _authSubscription;
+
   @override
-  void initState() { super.initState(); _future = _load(); }
+  void initState() {
+    super.initState();
+    _future = _load();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      setState(() => _future = _load());
+    });
+  }
+
+  @override
+  void dispose() {
+    unawaited(_authSubscription.cancel());
+    super.dispose();
+  }
 
   Future<_Diagnostic> _load() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     final results = await Future.wait([
       ProgressService.load(),
       ProgressService.loadSkillDifficultyCounts(),
@@ -32,6 +51,9 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
       ProgressService.loadLearningBarrierCounts(),
       ProgressService.loadAttemptHistory(),
     ]);
+    // Une bascule de compte pendant les lectures parallèles peut mélanger
+    // des données locales de deux élèves. On recommence avec le compte actif.
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return _load();
     return _Diagnostic(
       results[0] as ProgressSnapshot,
       results[1] as Map<String, int>,
