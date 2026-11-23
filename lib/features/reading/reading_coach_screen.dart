@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -26,14 +29,18 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   int _comprehensionTotal = 0;
   int _comprehensionCorrect = 0;
   int _statsRequestId = 0;
+  late final StreamSubscription<User?> _authSubscription;
 
   Future<void> _loadComprehensionStats({String? levelKey}) async {
     final requestId = ++_statsRequestId;
+    final targetUid = FirebaseAuth.instance.currentUser?.uid;
     final targetLevel = levelKey ?? ref.read(schoolLevelProvider).name;
     final stats = await ReadingPracticeService.loadComprehensionStats(
       levelKey: targetLevel,
     );
-    if (!mounted || requestId != _statsRequestId) return;
+    if (!mounted ||
+        requestId != _statsRequestId ||
+        FirebaseAuth.instance.currentUser?.uid != targetUid) return;
     setState(() {
       _comprehensionTotal = stats['total'] ?? 0;
       _comprehensionCorrect = stats['correct'] ?? 0;
@@ -60,6 +67,24 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
     super.initState();
     _tts.awaitSpeakCompletion(true);
     _loadComprehensionStats();
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((_) {
+      if (!mounted) return;
+      ++_statsRequestId;
+      unawaited(_speech.stop());
+      unawaited(_tts.stop());
+      setState(() {
+        _listening = false;
+        _recognized = '';
+        _difficultWords = [];
+        _hasResult = false;
+        _error = null;
+        _selectedComprehensionIndex = null;
+        _comprehensionChecked = false;
+        _comprehensionTotal = 0;
+        _comprehensionCorrect = 0;
+      });
+      _loadComprehensionStats();
+    });
   }
 
   Future<void> _startReading() async {
@@ -182,7 +207,12 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   }
 
   @override
-  void dispose() { _speech.cancel(); _tts.stop(); super.dispose(); }
+  void dispose() {
+    unawaited(_authSubscription.cancel());
+    unawaited(_speech.cancel());
+    unawaited(_tts.stop());
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -304,6 +334,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                   onPressed: _selectedComprehensionIndex == null || _comprehensionChecked
                       ? null
                       : () async {
+                          final uid = FirebaseAuth.instance.currentUser?.uid;
                           final isCorrect =
                               _selectedComprehensionIndex == comprehension.correctIndex;
                           await ReadingPracticeService.recordComprehensionAttempt(
@@ -312,13 +343,17 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                           );
                           // Ne pas afficher les statistiques d'une ancienne classe
                           // si l'élève change de niveau pendant la sauvegarde.
-                          if (!mounted || ref.read(schoolLevelProvider).name != level.name) {
+                          if (!mounted ||
+                              FirebaseAuth.instance.currentUser?.uid != uid ||
+                              ref.read(schoolLevelProvider).name != level.name) {
                             return;
                           }
                           final stats = await ReadingPracticeService.loadComprehensionStats(
                             levelKey: level.name,
                           );
-                          if (!mounted || ref.read(schoolLevelProvider).name != level.name) {
+                          if (!mounted ||
+                              FirebaseAuth.instance.currentUser?.uid != uid ||
+                              ref.read(schoolLevelProvider).name != level.name) {
                             return;
                           }
                           setState(() {
