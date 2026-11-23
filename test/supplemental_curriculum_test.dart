@@ -406,6 +406,42 @@ void main() {
     });
 
 
+    test('les réponses fondamentales de français sont exactes', () {
+      const expectedAnswers = <String, String>{
+        'bonus_cp1_fr_1': 'A',
+        'bonus_cp1_reading_1': 'Avec sa maman',
+        'bonus_cp1_sentence_1': 'Kossi joue.',
+        'bonus_cp2_read_3': 'Dans le jardin',
+        'bonus_ce1_text_2': 'Son père',
+        'bonus_ce2_fr_2': 'sommes',
+        'bonus_ce2_sujet_2': 'volent',
+        'bonus_cm1_fr_1': 'jouent',
+        'bonus_cm1_adj_2': 'jolie',
+        'bonus_cm2_futur_1': 'irons',
+        'bonus_cm2_futur_2': 'terminerai',
+        'bonus_5e_fr_1': 'finissez',
+        'bonus_5e_fr_2': 'chantent',
+        'bonus_4e_fr_1': 'une mangue',
+        'bonus_3e_fr_1': 'une idée et une raison',
+        'bonus_2nde_fr_1': 'les idées essentielles',
+      };
+
+      final questions = {
+        for (final lesson in supplementalLessons)
+          for (final question in lesson.questions) question.id: question,
+      };
+
+      for (final entry in expectedAnswers.entries) {
+        final question = questions[entry.key];
+        expect(question, isNotNull, reason: 'Exercice absent : ${entry.key}');
+        expect(
+          question!.choices[question.correctIndex].trim(),
+          entry.value,
+          reason: 'Réponse de français à corriger dans ${entry.key}',
+        );
+      }
+    });
+
     test('les résultats des calculs fondamentaux restent exacts', () {
       const expectedAnswers = <String, String>{
         'bonus_cp1_math_1': '4',
