@@ -543,4 +543,13 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_table10_2','10 × 4 = ?',['30','40','50'],1,'Quatre dizaines font 40.'),
      SupplementalQuestion('bonus_ce2_table10_3','10 × 5 = ?',['40','50','60'],1,'Cinq dizaines font 50.')]),
 
+
+  SupplementalLesson('ce2_choisir_operation', SchoolLevel.ce2, 'Mathématiques', 'Choisir la bonne opération dans un problème',
+    'Avant de calculer, demande-toi ce qui se passe. Si on réunit des quantités, on additionne (+). Si on cherche ce qui reste ou la différence, on soustrait (−). Si plusieurs groupes ont la même quantité, on multiplie (×). Si on partage en parts égales, on divise (÷). Lis toute la situation : un seul mot ne suffit pas toujours pour choisir.',
+    'Exemple : Afi a 200 F et reçoit encore 100 F. Les sommes sont réunies : on additionne. 200 + 100 = 300 F.',
+    [SupplementalQuestion('bonus_ce2_operation_1','Kossi a 125 F. Sa sœur lui donne encore 75 F. Quelle opération faut-il choisir pour trouver la somme totale ?',['Addition (+)','Soustraction (−)','Multiplication (×)'],0,'On réunit 125 F et 75 F : addition. 125 + 75 = 200 F.'),
+     SupplementalQuestion('bonus_ce2_operation_2','Ama a 500 F. Elle dépense 200 F. Quelle opération faut-il choisir pour connaître son argent restant ?',['Addition (+)','Soustraction (−)','Division (÷)'],1,'On cherche ce qui reste après une dépense : soustraction. 500 − 200 = 300 F.'),
+     SupplementalQuestion('bonus_ce2_operation_3','Il y a 4 sachets contenant chacun 6 bonbons. Quelle opération faut-il choisir pour trouver le total ?',['Soustraction (−)','Multiplication (×)','Division (÷)'],1,'Il y a plusieurs groupes égaux : multiplication. 4 × 6 = 24 bonbons.'),
+     SupplementalQuestion('bonus_ce2_operation_4','18 mangues sont partagées également entre 3 enfants. Quelle opération faut-il choisir ?',['Addition (+)','Multiplication (×)','Division (÷)'],2,'On partage en parts égales : division. 18 ÷ 3 = 6 mangues par enfant.')]),
+
 ];
