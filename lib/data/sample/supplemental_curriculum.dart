@@ -470,6 +470,13 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_partage_3','20 biscuits sont partagés également entre 4 enfants. Combien chacun reçoit-il ?',['4 biscuits','5 biscuits','6 biscuits'],1,'20 ÷ 4 = 5 biscuits.')]),
 
 
+  SupplementalLesson('ce2_problemes_multiplication', SchoolLevel.ce2, 'Mathématiques', 'Résoudre des problèmes avec la multiplication',
+    'Quand plusieurs groupes contiennent la même quantité, on peut utiliser une multiplication. Repère le nombre de groupes, puis la quantité dans chaque groupe. Multiplie ces deux nombres pour trouver le total.',
+    'Exemple : 3 paquets contiennent chacun 4 cahiers. Il y a 3 groupes de 4 cahiers : 3 × 4 = 12 cahiers. On peut vérifier en additionnant 4 + 4 + 4 = 12.',
+    [SupplementalQuestion('bonus_ce2_probleme_mult_1','Awa achète 3 paquets de 4 cahiers. Combien de cahiers a-t-elle ?',['7 cahiers','12 cahiers','14 cahiers'],1,'3 paquets de 4 : 3 × 4 = 12 cahiers.'),
+     SupplementalQuestion('bonus_ce2_probleme_mult_2','Un vendeur prépare 5 paniers de 6 mangues. Combien de mangues utilise-t-il ?',['11 mangues','25 mangues','30 mangues'],2,'5 paniers de 6 : 5 × 6 = 30 mangues.'),
+     SupplementalQuestion('bonus_ce2_probleme_mult_3','Il y a 4 boîtes contenant chacune 5 crayons. Combien y a-t-il de crayons ?',['20 crayons','9 crayons','25 crayons'],0,'4 boîtes de 5 : 4 × 5 = 20 crayons.')]),
+
   SupplementalLesson('ce2_table_multiplication_2', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 2',
     'Multiplier par 2, c’est compter de deux en deux ou ajouter deux fois le même nombre. Pour trouver 2 × 4, on peut calculer 2 + 2 + 2 + 2 = 8.',
     '2 × 1 = 2 ; 2 × 2 = 4 ; 2 × 3 = 6 ; 2 × 4 = 8 ; 2 × 5 = 10.',
