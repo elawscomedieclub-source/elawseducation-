@@ -872,5 +872,23 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 comprend la moitié et le quart', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_moitie_quart');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_fraction_1': '5',
+        'bonus_ce2_fraction_2': '3',
+        'bonus_ce2_fraction_3': '4',
+        'bonus_ce2_fraction_4': '5',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Calcul de partage incorrect dans ${question.id}');
+      }
+    });
+
   });
 }
