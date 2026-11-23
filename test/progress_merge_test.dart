@@ -78,5 +78,18 @@ void main() {
       expect(first, isNot(second));
       expect(first, isNot(guest));
     });
+
+    test('les préférences de niveau, parcours et série restent séparées par compte', () {
+      const categories = ['student_school_level', 'student_school_track', 'student_school_series'];
+      for (final category in categories) {
+        final first = studentPreferenceKeyForUid(category, 'studentA');
+        final second = studentPreferenceKeyForUid(category, 'studentB');
+        final guest = studentPreferenceKeyForUid(category, null);
+
+        expect(first, isNot(second), reason: 'Deux comptes partagent $category');
+        expect(first, isNot(guest), reason: 'Le compte et l’invité partagent $category');
+        expect(second, isNot(guest), reason: 'Le second compte et l’invité partagent $category');
+      }
+    });
   });
 }
