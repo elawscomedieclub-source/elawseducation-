@@ -854,5 +854,23 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 reconnaît les figures géométriques', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_figures_geometriques');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_geo_1': '3',
+        'bonus_ce2_geo_2': 'Le carré',
+        'bonus_ce2_geo_3': 'Le cercle',
+        'bonus_ce2_geo_4': 'Les côtés opposés',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse géométrique incorrecte dans ${question.id}');
+      }
+    });
+
   });
 }
