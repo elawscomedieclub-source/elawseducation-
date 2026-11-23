@@ -470,6 +470,13 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_partage_3','20 biscuits sont partagés également entre 4 enfants. Combien chacun reçoit-il ?',['4 biscuits','5 biscuits','6 biscuits'],1,'20 ÷ 4 = 5 biscuits.')]),
 
 
+  SupplementalLesson('ce2_table_multiplication_2', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 2',
+    'Multiplier par 2, c’est compter de deux en deux ou ajouter deux fois le même nombre. Pour trouver 2 × 4, on peut calculer 2 + 2 + 2 + 2 = 8.',
+    '2 × 1 = 2 ; 2 × 2 = 4 ; 2 × 3 = 6 ; 2 × 4 = 8 ; 2 × 5 = 10.',
+    [SupplementalQuestion('bonus_ce2_table2_1','2 × 2 = ?',['2','4','6'],1,'2 + 2 = 4.'),
+     SupplementalQuestion('bonus_ce2_table2_2','2 × 4 = ?',['6','8','10'],1,'2 + 2 + 2 + 2 = 8.'),
+     SupplementalQuestion('bonus_ce2_table2_3','2 × 5 = ?',['8','10','12'],1,'5 groupes de 2 font 10.')]),
+
   SupplementalLesson('ce2_table_multiplication_3', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 3',
     'Multiplier par 3, c’est ajouter trois fois le même nombre ou compter de trois en trois. Pour trouver 3 × 4, on peut calculer 3 + 3 + 3 + 3 = 12.',
     '3 × 1 = 3 ; 3 × 2 = 6 ; 3 × 3 = 9 ; 3 × 4 = 12 ; 3 × 5 = 15.',
