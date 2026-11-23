@@ -670,5 +670,28 @@ void main() {
     });
 
 
+
+    test('le cours CE2 sur le partage vérifie les divisions exactes', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'ce2_partage_division',
+      );
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_partage_1': '4 crayons',
+        'bonus_ce2_partage_2': '3 mangues',
+        'bonus_ce2_partage_3': '5 biscuits',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Partage incorrect dans ${question.id}',
+        );
+      }
+    });
+
+
   });
 }
