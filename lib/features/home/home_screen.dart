@@ -84,6 +84,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ? ' • ${track.label} • Série $series'
         : '';
 
+    // Réinitialise les instantanés visuels lors d'un changement de compte.
+    final currentUid = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+
     return Scaffold(
       appBar: AppBar(
         leading: const ProfTogoMenuButton(),
@@ -97,6 +100,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
       body: FutureBuilder<ProgressSnapshot>(
+        key: ValueKey('home-progress-$currentUid'),
         future: _progressFuture,
         builder: (context, snapshot) {
           final progress = snapshot.data;
@@ -119,6 +123,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 const SizedBox(height: 12),
                 FutureBuilder<String?>(
+                  key: ValueKey('home-last-lesson-$currentUid'),
                   future: _lastLessonFuture,
                   builder: (context, lastSnapshot) {
                     final lastId = lastSnapshot.data;
@@ -155,6 +160,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   },
                 ),
                 FutureBuilder<Set<String>>(
+                  key: ValueKey('home-review-$currentUid'),
                   future: _reviewFuture,
                   builder: (context, reviewSnapshot) {
                     final pending = reviewSnapshot.data ?? <String>{};
