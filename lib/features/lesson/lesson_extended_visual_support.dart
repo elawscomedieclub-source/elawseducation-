@@ -65,15 +65,15 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     }
     if (RegExp(r'composition du sol|couches du sol|profil du sol').hasMatch(text)) {
       return const _Support(
-        title: 'Les couches simplifiées du sol',
+        title: 'Observer la décantation d’un échantillon de sol',
         icon: Icons.landscape,
-        nodes: ['Litière', 'Humus', 'Sol minéral', 'Roche mère'],
-        explanation: 'Le sol contient des matières minérales, de l’eau, de l’air et des organismes vivants. Sa formation est lente.',
-        activity: 'Comparer deux échantillons de sol',
-        materials: 'Deux petits pots, un peu de sable, de terre de jardin et de l’eau.',
-        steps: ['Place chaque échantillon dans un pot séparé.', 'Ajoute la même quantité d’eau.', 'Remue doucement puis laisse reposer.', 'Observe les particules et les couches qui se déposent.', 'Compare la couleur et la texture.'],
-        result: 'Les sols n’ont pas tous la même composition ni la même capacité à retenir l’eau.',
-        safety: 'Ne goûte jamais la terre. Lave-toi les mains après l’activité.'
+        nodes: ['Sol + eau', 'Matières flottantes', 'Particules déposées', 'Eau plus claire'],
+        explanation: 'Après agitation et repos, certaines matières organiques peuvent flotter et les particules minérales se déposent à des vitesses différentes. Cette observation montre la composition d’un échantillon ; elle ne représente pas les véritables horizons d’un sol en place.',
+        activity: 'Observer les constituants d’un sol par décantation',
+        materials: 'Un bocal transparent avec couvercle, un peu de terre de jardin, de l’eau et une cuillère.',
+        steps: ['Place une petite quantité de terre dans le bocal.', 'Ajoute de l’eau en laissant un espace libre, puis ferme le couvercle.', 'Agite doucement le bocal et pose-le sur une surface stable.', 'Laisse reposer plusieurs heures sans le déplacer.', 'Observe les matières flottantes, les dépôts au fond et l’eau au-dessus.'],
+        result: 'L’échantillon peut montrer des matières organiques et des particules minérales qui se déposent. La séparation dépend de la taille et de la nature des particules.',
+        safety: 'Ne goûte jamais la terre ni l’eau du bocal. Évite de respirer la poussière, lave-toi les mains et fais l’activité avec l’aide d’un adulte.'
       );
     }
     if (RegExp(r'mélange homogène|mélange hétérogène|filtration|décantation').hasMatch(text)) {
