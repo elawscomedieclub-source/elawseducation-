@@ -586,5 +586,5 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('bonus_ce2_addsub_1','Calcule : 235 + 142.',['367','377','387'],1,'235 + 142 = 377.'),
      SupplementalQuestion('bonus_ce2_addsub_2','Calcule : 326 + 158.',['474','484','494'],1,'326 + 158 = 484.'),
      SupplementalQuestion('bonus_ce2_addsub_3','Calcule : 568 − 243.',['325','335','345'],0,'568 − 243 = 325.'),
-     SupplementalQuestion('bonus_ce2_addsub_4','Calcule : 700 − 265.',['435','445','435'],0,'700 − 265 = 435.')]),
+     SupplementalQuestion('bonus_ce2_addsub_4','Calcule : 700 − 265.',['435','445','425'],0,'700 − 265 = 435.')]),
 ];
