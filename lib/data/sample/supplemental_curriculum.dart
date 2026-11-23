@@ -522,4 +522,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_table9_2','9 × 4 = ?',['27','36','45'],1,'9 + 9 + 9 + 9 = 36.'),
      SupplementalQuestion('bonus_ce2_table9_3','9 × 5 = ?',['40','45','50'],1,'5 groupes de 9 font 45.')]),
 
+  SupplementalLesson('ce2_table_multiplication_10', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 10',
+    'Multiplier par 10, c’est ajouter un zéro au nombre entier. Pour trouver 10 × 4, on compte quatre dizaines : 40.',
+    '10 × 1 = 10 ; 10 × 2 = 20 ; 10 × 3 = 30 ; 10 × 4 = 40 ; 10 × 5 = 50.',
+    [SupplementalQuestion('bonus_ce2_table10_1','10 × 2 = ?',['10','20','30'],1,'Deux dizaines font 20.'),
+     SupplementalQuestion('bonus_ce2_table10_2','10 × 4 = ?',['30','40','50'],1,'Quatre dizaines font 40.'),
+     SupplementalQuestion('bonus_ce2_table10_3','10 × 5 = ?',['40','50','60'],1,'Cinq dizaines font 50.')]),
+
 ];
