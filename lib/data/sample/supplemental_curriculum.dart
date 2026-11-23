@@ -445,4 +445,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_masse_2','Un sac pèse 2 kg. Quelle est sa masse en grammes ?',['200 g','2 000 g','20 000 g'],1,'2 × 1 000 = 2 000 g.'),
      SupplementalQuestion('bonus_ce2_masse_3','1 500 g correspondent à…',['1 kg et 500 g','15 kg','1 kg et 50 g'],0,'1 000 g + 500 g = 1 500 g.')]),
 
+
+  SupplementalLesson('ce2_mesures_capacites', SchoolLevel.ce2, 'Mathématiques', 'Mesurer des capacités : litre et millilitre',
+    'Le litre (L) sert à mesurer la capacité des récipients. Le millilitre (mL) sert à mesurer de petites quantités de liquide. 1 L = 1 000 mL. Pour convertir des litres en millilitres, on multiplie par 1 000.',
+    'Une bouteille contient 2 L d’eau. Cela correspond à 2 000 mL. Un demi-litre correspond à 500 mL.',
+    [SupplementalQuestion('bonus_ce2_capacite_1','1 litre équivaut à…',['100 mL','1 000 mL','10 000 mL'],1,'1 L = 1 000 mL.'),
+     SupplementalQuestion('bonus_ce2_capacite_2','Une bouteille contient 3 L. Quelle quantité cela représente-t-il en millilitres ?',['300 mL','3 000 mL','30 000 mL'],1,'3 × 1 000 = 3 000 mL.'),
+     SupplementalQuestion('bonus_ce2_capacite_3','500 mL correspondent à…',['un demi-litre','5 litres','50 litres'],0,'500 mL est la moitié de 1 000 mL, donc un demi-litre.')]),
+
 ];
