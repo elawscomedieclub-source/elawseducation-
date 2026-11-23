@@ -91,11 +91,13 @@ class AccountSection extends StatelessWidget {
                   }
                   if (dialogContext.mounted) Navigator.pop(dialogContext);
                 } on FirebaseAuthException catch (error) {
+                  if (!context.mounted) return;
                   setDialogState(() {
                     loading = false;
                     errorText = _message(error);
                   });
                 } catch (_) {
+                  if (!context.mounted) return;
                   setDialogState(() {
                     loading = false;
                     errorText = 'Impossible de terminer. Réessaie plus tard.';
