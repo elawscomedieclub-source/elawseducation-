@@ -442,6 +442,42 @@ void main() {
       }
     });
 
+    test('les réponses fondamentales de sciences sont exactes', () {
+      const expectedAnswers = <String, String>{
+        'bonus_cp1_animals_1': 'Poisson',
+        'bonus_cp1_body_2': 'Les oreilles',
+        'bonus_cp1_hygiene_1': 'Eau et savon',
+        'bonus_ce2_regime_1': 'Carnivore',
+        'bonus_cm1_eau_1': 'L’évaporation',
+        'bonus_cm1_eau_2': 'Par condensation de la vapeur d’eau',
+        'bonus_6e_matiere_2': 'prend la forme du récipient',
+        'bonus_5e_resp_2': 'Les branchies',
+        'bonus_4e_circuit_1': 'Quand le circuit est fermé',
+        'bonus_4e_circuit_2': 'La pile',
+        'bonus_4e_vit_1': '50 km/h',
+        'bonus_4e_vit_3': '80 km',
+        'bonus_3e_ohm_2': '15 V',
+        'bonus_3e_ohm_3': 'Ohm',
+        'bonus_3e_gene_1': 'ADN',
+        'bonus_3e_gene_3': 'Une portion d’ADN',
+      };
+
+      final questions = {
+        for (final lesson in supplementalLessons)
+          for (final question in lesson.questions) question.id: question,
+      };
+
+      for (final entry in expectedAnswers.entries) {
+        final question = questions[entry.key];
+        expect(question, isNotNull, reason: 'Exercice absent : ${entry.key}');
+        expect(
+          question!.choices[question.correctIndex].trim(),
+          entry.value,
+          reason: 'Réponse de sciences à corriger dans ${entry.key}',
+        );
+      }
+    });
+
     test('les résultats des calculs fondamentaux restent exacts', () {
       const expectedAnswers = <String, String>{
         'bonus_cp1_math_1': '4',
