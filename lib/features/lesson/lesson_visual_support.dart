@@ -12,12 +12,17 @@ class LessonVisualSupport extends StatelessWidget {
     final title = lesson.title.toLowerCase();
     // Choix volontairement strict : un mot rencontré dans le texte ne suffit
     // pas à afficher un schéma qui pourrait illustrer une autre notion.
-    if (RegExp(r'circuit électrique|circuit en série|circuit en parallèle|circuit fermé').hasMatch(title)) return _VisualKind.circuit;
+    // Le dessin représente un circuit simple fermé en boucle unique.
+    // Il ne doit pas être confondu avec un montage en série/parallèle détaillé.
+    if (RegExp(r'circuit électrique simple|circuit fermé').hasMatch(title) &&
+        !RegExp(r'en série|en parallèle').hasMatch(title)) return _VisualKind.circuit;
     // Le croquis actuel représente une plante développée, pas les étapes
     // de germination : ne pas l'afficher pour une leçon sur la germination.
     if (RegExp(r'germination').hasMatch(title)) return null;
     if (RegExp(r'parties de la plante|structure de la plante|la plante et ses parties').hasMatch(title)) return _VisualKind.plant;
-    if (RegExp(r'cycle de l.eau|évaporation|condensation|précipitation').hasMatch(title)) return _VisualKind.water;
+    // Le schéma représente le cycle complet ; il n'est pas adapté à une
+    // leçon isolée sur l'évaporation, la condensation ou les précipitations.
+    if (RegExp(r'cycle de l.eau').hasMatch(title)) return _VisualKind.water;
     if (RegExp(r'corps humain|parties du corps humain').hasMatch(title)) return _VisualKind.body;
     // La planche actuelle compare quatre figures : la réserver aux leçons
     // générales. Une leçon sur le seul triangle/carré/etc. ne doit pas recevoir
