@@ -535,5 +535,27 @@ void main() {
       }
     });
 
+
+    test('le cours CE1 sur les achats en franc CFA vérifie le budget et la monnaie', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'ce1_achats_fcfa',
+      );
+      expect(lesson.level, SchoolLevel.ce1);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce1_fcfa_1': '450 F',
+        'bonus_ce1_fcfa_2': '550 F',
+        'bonus_ce1_fcfa_3': '300 F',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Calcul incorrect dans ${question.id}',
+        );
+      }
+    });
+
   });
 }
