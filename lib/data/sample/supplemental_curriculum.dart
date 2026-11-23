@@ -224,7 +224,7 @@ const supplementalLessons = <SupplementalLesson>[
   SupplementalLesson('sixieme_fractions', SchoolLevel.sixieme, 'Mathématiques', 'Comparer des fractions',
     'Avec le même dénominateur, la fraction au plus grand numérateur est la plus grande.',
     '3/5 est plus grand que 2/5.',
-    [SupplementalQuestion('bonus_6e_math_1','Quelle fraction est la plus grande ?',['1/8','5/8','3/8'],1,'Les dénominateurs sont égaux ; 5 est le plus grand numérateur.'), SupplementalQuestion('bonus_6e_math_2','1/4 + 2/4 = ?',['3/4','3/8','2/4'],0,'On additionne les numérateurs.'), SupplementalQuestion('extra_review_sixieme_fractions','Quelle fraction est la plus grande ?',['2/7','4/7','1/7'],1,'Les dénominateurs sont égaux : 4/7 est la plus grande fraction.')]),
+    [SupplementalQuestion('bonus_6e_math_1','Quelle fraction est la plus grande ?',['1/8','5/8','3/8'],1,'Les dénominateurs sont égaux ; 5 est le plus grand numérateur.'), SupplementalQuestion('bonus_6e_math_2','1/4 + 2/4 = ?',['3/4','3/8','2/4'],0,'On additionne les numérateurs.'), SupplementalQuestion('extra_review_sixieme_fractions','Parmi ces fractions, laquelle est supérieure aux autres ?',['2/7','4/7','1/7'],1,'Les dénominateurs sont égaux : 4/7 est la plus grande fraction.')]),
   SupplementalLesson('cinquieme_present', SchoolLevel.cinquieme, 'Français', 'Conjuguer au présent',
     'Au présent, la terminaison dépend du sujet et du groupe du verbe.',
     'Je finis, tu finis, il finit, nous finissons.',
