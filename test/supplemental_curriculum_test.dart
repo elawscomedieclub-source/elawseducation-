@@ -890,5 +890,22 @@ void main() {
       }
     });
 
+    test('le cours CE2 lit et décompose les nombres jusqu’à 1 000', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_nombres_jusqua_1000');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_nombre_1': '4',
+        'bonus_ce2_nombre_2': '300 + 60 + 5',
+        'bonus_ce2_nombre_3': '709',
+        'bonus_ce2_nombre_4': '520',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Décomposition incorrecte dans ${question.id}');
+      }
+    });
+
   });
 }

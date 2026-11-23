@@ -566,4 +566,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_fraction_3','On partage 8 biscuits en 2 parts égales. Combien y a-t-il de biscuits dans chaque part ?',['2','4','6'],1,'8 ÷ 2 = 4 biscuits dans chaque part.'),
      SupplementalQuestion('bonus_ce2_fraction_4','On partage 20 oranges en 4 paniers égaux. Combien d’oranges dans chaque panier ?',['4','5','10'],1,'20 ÷ 4 = 5 oranges dans chaque panier.')]),
 
+  SupplementalLesson('ce2_nombres_jusqua_1000', SchoolLevel.ce2, 'Mathématiques', 'Lire et décomposer les nombres jusqu’à 1 000',
+    'Un nombre peut être formé de centaines, de dizaines et d’unités. 100 unités font 1 centaine. 10 dizaines font 1 centaine. Pour lire un nombre, on lit d’abord les centaines, puis les dizaines et les unités. Le zéro peut indiquer qu’une position est vide.',
+    'Dans 347, il y a 3 centaines, 4 dizaines et 7 unités : 347 = 300 + 40 + 7. Dans 506, il y a 5 centaines, 0 dizaine et 6 unités : 506 = 500 + 6.',
+    [SupplementalQuestion('bonus_ce2_nombre_1','Combien de centaines y a-t-il dans 428 ?',['4','2','8'],0,'428 contient 4 centaines.'),
+     SupplementalQuestion('bonus_ce2_nombre_2','Quelle décomposition correspond à 365 ?',['300 + 6 + 5','300 + 60 + 5','30 + 60 + 5'],1,'365 = 300 + 60 + 5.'),
+     SupplementalQuestion('bonus_ce2_nombre_3','Quel nombre correspond à 7 centaines, 0 dizaine et 9 unités ?',['790','709','79'],1,'7 centaines et 9 unités donnent 709.'),
+     SupplementalQuestion('bonus_ce2_nombre_4','Comment écrit-on « cinq cent vingt » en chiffres ?',['502','520','250'],1,'Cinq cent vingt s’écrit 520.')]),
 ];
