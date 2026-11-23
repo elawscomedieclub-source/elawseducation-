@@ -587,4 +587,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_addsub_2','Calcule : 326 + 158.',['474','484','494'],1,'326 + 158 = 484.'),
      SupplementalQuestion('bonus_ce2_addsub_3','Calcule : 568 − 243.',['325','335','345'],0,'568 − 243 = 325.'),
      SupplementalQuestion('bonus_ce2_addsub_4','Calcule : 700 − 265.',['435','445','425'],0,'700 − 265 = 435.')]),
+  SupplementalLesson('ce2_multiplication_posee', SchoolLevel.ce2, 'Mathématiques', 'Multiplier un nombre par un chiffre',
+    'Pour multiplier un nombre par un chiffre, on commence par les unités, puis les dizaines et enfin les centaines. Si un résultat dépasse 9, on écrit le chiffre des unités et on reporte les dizaines dans la colonne suivante. On vérifie ensuite le résultat en estimant ou en additionnant les groupes.',
+    '124 × 3 : 4 × 3 = 12, j’écris 2 et je retiens 1 dizaine. 2 dizaines × 3 = 6 dizaines, plus la dizaine retenue = 7 dizaines. 1 centaine × 3 = 3 centaines. Donc 124 × 3 = 372.',
+    [SupplementalQuestion('bonus_ce2_multposee_1','Calcule : 124 × 3.',['362','372','382'],1,'124 × 3 = 372.'),
+     SupplementalQuestion('bonus_ce2_multposee_2','Calcule : 213 × 4.',['842','852','862'],1,'213 × 4 = 852.'),
+     SupplementalQuestion('bonus_ce2_multposee_3','Calcule : 132 × 5.',['650','660','670'],1,'132 × 5 = 660.'),
+     SupplementalQuestion('bonus_ce2_multposee_4','Calcule : 206 × 3.',['618','608','628'],0,'206 × 3 = 618.')]),
 ];

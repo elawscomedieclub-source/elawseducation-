@@ -313,6 +313,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_nombres_jusqua_1000' => const ['347 = 300 + 40 + 7', '3 centaines', '4 dizaines', '7 unités', '506 = 500 + 6'],
       'ce2_comparer_nombres_1000' => const ['348 < 384', '906 > 690', '340 < 403 < 430', '725 = 725'],
       'ce2_addition_soustraction_1000' => const ['235 + 142 = 377', '326 + 158 = 484', '568 − 243 = 325', '700 − 265 = 435'],
+      'ce2_multiplication_posee' => const ['124 × 3', '4 × 3 = 12', '12 → 2 + 1 retenue', '372'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -352,6 +353,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_table_multiplication_10' => 'COMPTE DE DIX EN DIX',
       'ce2_figures_geometriques' => 'OBSERVE LES FORMES ET COMPTE LES CÔTÉS',
       'ce2_moitie_quart' => 'PARTAGE EN PARTS ÉGALES',
+      'ce2_multiplication_posee' => 'MULTIPLIE ET EFFECTUE LES RETENUES',
       _ => 'REGARDE ET DÉCOUVRE',
     };
     return Container(

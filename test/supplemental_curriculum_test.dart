@@ -941,5 +941,21 @@ void main() {
       }
     });
 
+    test('le cours CE2 vérifie la multiplication posée par un chiffre', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_multiplication_posee');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_multposee_1': '372',
+        'bonus_ce2_multposee_2': '852',
+        'bonus_ce2_multposee_3': '660',
+        'bonus_ce2_multposee_4': '618',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Multiplication posée incorrecte dans ${question.id}');
+      }
+    });
   });
 }
