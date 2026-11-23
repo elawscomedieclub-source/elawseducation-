@@ -27,7 +27,9 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   int _comprehensionCorrect = 0;
 
   Future<void> _loadComprehensionStats() async {
-    final stats = await ReadingPracticeService.loadComprehensionStats();
+    final stats = await ReadingPracticeService.loadComprehensionStats(
+      levelKey: ref.read(schoolLevelProvider).name,
+    );
     if (!mounted) return;
     setState(() {
       _comprehensionTotal = stats['total'] ?? 0;
@@ -290,8 +292,11 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                               _selectedComprehensionIndex == comprehension.correctIndex;
                           await ReadingPracticeService.recordComprehensionAttempt(
                             isCorrect: isCorrect,
+                            levelKey: level.name,
                           );
-                          final stats = await ReadingPracticeService.loadComprehensionStats();
+                          final stats = await ReadingPracticeService.loadComprehensionStats(
+                            levelKey: level.name,
+                          );
                           if (!mounted) return;
                           setState(() {
                             _comprehensionChecked = true;
