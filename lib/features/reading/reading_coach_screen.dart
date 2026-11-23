@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import '../../core/reading_practice_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
 import '../../shared/widgets/menu_button.dart';
@@ -248,7 +249,15 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                 child: FilledButton(
                   onPressed: _selectedComprehensionIndex == null || _comprehensionChecked
                       ? null
-                      : () => setState(() => _comprehensionChecked = true),
+                      : () async {
+                          final isCorrect =
+                              _selectedComprehensionIndex == comprehension.correctIndex;
+                          await ReadingPracticeService.recordComprehensionAttempt(
+                            isCorrect: isCorrect,
+                          );
+                          if (!mounted) return;
+                          setState(() => _comprehensionChecked = true);
+                        },
                   child: const Text('Vérifier ma réponse'),
                 ),
               ),
