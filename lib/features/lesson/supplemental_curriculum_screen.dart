@@ -317,6 +317,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_division_exacte' => const ['24 objets', '÷ 3 élèves', '= 8 chacun', 'Vérification : 8 × 3 = 24'],
       'ce2_problemes_partage_fcfa' => const ['600 F', '÷ 3 enfants', '= 200 F chacun', '200 F × 3 = 600 F'],
       'ce2_problemes_deux_etapes' => const ['125 + 48 = 173', '173 − 37', '= 136 mangues', 'Deux opérations'],
+      'ce2_problemes_multiplication_soustraction' => const ['5 × 12 = 60', '60 − 18', '= 42 cahiers', 'Multiplie puis enlève'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -359,6 +360,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_division_exacte' => 'PARTAGE ET VÉRIFIE AVEC LA MULTIPLICATION',
       'ce2_problemes_partage_fcfa' => 'PARTAGE LA MONNAIE EN PARTS ÉGALES',
       'ce2_problemes_deux_etapes' => 'RÉSOUS LE PROBLÈME EN DEUX OPÉRATIONS',
+      'ce2_problemes_multiplication_soustraction' => 'CALCULE LE TOTAL PUIS CE QUI RESTE',
       'ce2_multiplication_posee' => 'MULTIPLIE ET EFFECTUE LES RETENUES',
       _ => 'REGARDE ET DÉCOUVRE',
     };

@@ -1014,6 +1014,24 @@ void main() {
             reason: 'Choix dupliqué dans ${question.id}');
       }
     });
+    test('le cours CE2 résout des problèmes de multiplication puis soustraction', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_problemes_multiplication_soustraction');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_mult_soust_1': '42',
+        'bonus_ce2_mult_soust_2': '43',
+        'bonus_ce2_mult_soust_3': '35',
+        'bonus_ce2_mult_soust_4': '52',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Problème multiplication puis soustraction incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
 
   });
 }

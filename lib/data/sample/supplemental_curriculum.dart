@@ -615,4 +615,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_deux_etapes_2','Kossi a 250 F. Il reçoit 150 F puis dépense 175 F. Combien lui reste-t-il ?',['215 F','225 F','235 F'],1,'250 + 150 = 400 F, puis 400 − 175 = 225 F.'),
      SupplementalQuestion('bonus_ce2_deux_etapes_3','Une classe reçoit 6 rangées de 8 livres. Elle en prête 12. Combien de livres restent ?',['34','36','38'],1,'6 × 8 = 48 livres, puis 48 − 12 = 36 livres.'),
      SupplementalQuestion('bonus_ce2_deux_etapes_4','Un vendeur a 4 paniers de 15 oranges. Il vend 18 oranges. Combien lui en reste-t-il ?',['40','42','44'],1,'4 × 15 = 60 oranges, puis 60 − 18 = 42 oranges.')]),
+  SupplementalLesson('ce2_problemes_multiplication_soustraction', SchoolLevel.ce2, 'Mathématiques', 'Multiplier puis soustraire dans un problème',
+    'Pour résoudre certains problèmes, il faut d’abord calculer le nombre total d’objets dans des groupes égaux. Ensuite, on enlève les objets vendus, utilisés ou distribués. Fais les opérations dans l’ordre et écris une phrase réponse.',
+    'Une boutique reçoit 5 cartons contenant chacun 12 cahiers. Elle vend 18 cahiers. D’abord : 5 × 12 = 60 cahiers. Ensuite : 60 − 18 = 42 cahiers. Il reste 42 cahiers.',
+    [SupplementalQuestion('bonus_ce2_mult_soust_1','Une boutique reçoit 5 cartons de 12 cahiers et en vend 18. Combien reste-t-il de cahiers ?',['40','42','44'],1,'5 × 12 = 60, puis 60 − 18 = 42 cahiers.'),
+     SupplementalQuestion('bonus_ce2_mult_soust_2','Un jardinier plante 4 rangées de 15 fleurs. 17 fleurs fanent. Combien restent en bon état ?',['41','43','45'],1,'4 × 15 = 60, puis 60 − 17 = 43 fleurs.'),
+     SupplementalQuestion('bonus_ce2_mult_soust_3','Une école achète 6 paquets de 10 crayons. Elle distribue 25 crayons. Combien restent ?',['30','35','40'],1,'6 × 10 = 60, puis 60 − 25 = 35 crayons.'),
+     SupplementalQuestion('bonus_ce2_mult_soust_4','Un commerçant range 3 paniers de 24 oranges. Il vend 20 oranges. Combien lui en reste-t-il ?',['50','52','54'],1,'3 × 24 = 72, puis 72 − 20 = 52 oranges.')]),
 ];
