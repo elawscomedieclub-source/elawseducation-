@@ -171,7 +171,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division') ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_table_multiplication_3') ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
@@ -297,6 +297,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_mesures_capacites' => const ['1 L', '=', '1 000 mL', '3 L', '=', '3 000 mL', '500 mL', '=', '0,5 L'],
       'ce2_mesures_duree' => const ['1 h', '=', '60 min', '2 h 30 min', '=', '150 min', '90 min', '=', '1 h', '+', '30 min'],
       'ce2_partage_division' => const ['12 crayons', '÷', '3 élèves', '=', '4 chacun', '15 mangues', '÷', '5 personnes', '=', '3 chacun'],
+      'ce2_table_multiplication_3' => const ['3 × 1 = 3', '3 × 2 = 6', '3 × 3 = 9', '3 × 4 = 12', '3 × 5 = 15'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -323,6 +324,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_mesures_capacites' => 'OBSERVE LES CONTENANCES ET CONVERTIS',
       'ce2_mesures_duree' => 'LIS L’HEURE ET CALCULE LA DURÉE',
       'ce2_partage_division' => 'PARTAGE EN PARTS ÉGALES',
+      'ce2_table_multiplication_3' => 'COMPTE DE TROIS EN TROIS',
       _ => 'REGARDE ET DÉCOUVRE',
     };
     return Container(
