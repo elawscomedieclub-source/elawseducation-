@@ -311,6 +311,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_figures_geometriques' => const ['△ Triangle : 3 côtés', '□ Carré : 4 côtés égaux', '▭ Rectangle : côtés opposés égaux', '○ Cercle : 0 sommet'],
       'ce2_moitie_quart' => const ['12 mangues ÷ 2 = 6', 'MOITIÉ : 2 parts égales', '12 mangues ÷ 4 = 3', 'QUART : 4 parts égales'],
       'ce2_nombres_jusqua_1000' => const ['347 = 300 + 40 + 7', '3 centaines', '4 dizaines', '7 unités', '506 = 500 + 6'],
+      'ce2_comparer_nombres_1000' => const ['348 < 384', '906 > 690', '340 < 403 < 430', '725 = 725'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {

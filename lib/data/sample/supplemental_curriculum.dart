@@ -573,4 +573,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_nombre_2','Quelle décomposition correspond à 365 ?',['300 + 6 + 5','300 + 60 + 5','30 + 60 + 5'],1,'365 = 300 + 60 + 5.'),
      SupplementalQuestion('bonus_ce2_nombre_3','Quel nombre correspond à 7 centaines, 0 dizaine et 9 unités ?',['790','709','79'],1,'7 centaines et 9 unités donnent 709.'),
      SupplementalQuestion('bonus_ce2_nombre_4','Comment écrit-on « cinq cent vingt » en chiffres ?',['502','520','250'],1,'Cinq cent vingt s’écrit 520.')]),
+  SupplementalLesson('ce2_comparer_nombres_1000', SchoolLevel.ce2, 'Mathématiques', 'Comparer et ranger les nombres jusqu’à 1 000',
+    'Pour comparer deux nombres, regarde d’abord le nombre de centaines. Si les centaines sont égales, compare les dizaines. Si les dizaines sont aussi égales, compare les unités. Le signe < signifie « plus petit que », le signe > signifie « plus grand que » et le signe = signifie « égal à ». Pour ranger des nombres dans l’ordre croissant, on va du plus petit au plus grand.',
+    '472 > 427 car les centaines sont égales (4), mais 7 dizaines est supérieur à 2 dizaines. Dans l’ordre croissant : 215, 251, 512.',
+    [SupplementalQuestion('bonus_ce2_compare_1','Quel signe convient : 348 __ 384 ?',['>','<','='],1,'348 est plus petit que 384 : 348 < 384.'),
+     SupplementalQuestion('bonus_ce2_compare_2','Quel nombre est le plus grand ?',['609','690','906'],2,'906 possède 9 centaines, donc il est le plus grand.'),
+     SupplementalQuestion('bonus_ce2_compare_3','Quel est l’ordre croissant ?',['430, 403, 340','340, 403, 430','403, 340, 430'],1,'On commence par 340, puis 403, puis 430.'),
+     SupplementalQuestion('bonus_ce2_compare_4','Complète : 725 __ 725.',['<','>','='],2,'Les deux nombres sont identiques : 725 = 725.')]),
 ];
