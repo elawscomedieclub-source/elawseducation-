@@ -547,10 +547,12 @@ class _StudentNameSectionState extends State<StudentNameSection> {
         setState(() => _message = 'Nom enregistré sur cet appareil.');
       }
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() => _message = 'Synchronisation momentanément indisponible.');
     } finally {
-      if (mounted) setState(() => _saving = false);
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) {
+        setState(() => _saving = false);
+      }
     }
   }
 
