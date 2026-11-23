@@ -421,4 +421,12 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('bonus_ce1_fcfa_1','Un cahier coûte 300 F et un stylo 150 F. Quel est le total ?',['400 F','450 F','500 F'],1,'300 + 150 = 450 F.'),
      SupplementalQuestion('bonus_ce1_fcfa_2','Tu paies 1 000 F pour un achat de 450 F. Quelle monnaie reçois-tu ?',['450 F','500 F','550 F'],2,'1 000 - 450 = 550 F.'),
      SupplementalQuestion('bonus_ce1_fcfa_3','Trois crayons coûtent 100 F chacun. Quel est leur prix total ?',['200 F','300 F','400 F'],1,'3 × 100 = 300 F.')]),
+
+  SupplementalLesson('ce2_budget_fcfa', SchoolLevel.ce2, 'Mathématiques', 'Préparer un budget et vérifier la monnaie',
+    'Un budget est une somme prévue pour acheter ce dont on a besoin. Additionne les prix pour connaître la dépense, puis soustrais cette dépense de la somme disponible pour trouver ce qu’il reste.',
+    'Tu disposes de 1 500 F. Deux cahiers coûtent 400 F chacun et un stylo coûte 500 F. La dépense est 400 + 400 + 500 = 1 300 F. Il reste 1 500 - 1 300 = 200 F.',
+    [SupplementalQuestion('bonus_ce2_budget_1','Tu as 1 500 F. Tu achètes deux cahiers à 400 F chacun et un stylo à 500 F. Combien dépenses-tu ?',['1 200 F','1 300 F','1 400 F'],1,'400 + 400 + 500 = 1 300 F.'),
+     SupplementalQuestion('bonus_ce2_budget_2','Avec 1 500 F, après une dépense de 1 300 F, combien te reste-t-il ?',['100 F','200 F','300 F'],1,'1 500 - 1 300 = 200 F.'),
+     SupplementalQuestion('bonus_ce2_budget_3','Tu as 1 000 F. Peux-tu acheter trois cahiers à 250 F chacun ?',['Oui, il reste 250 F','Non, il manque 250 F','Oui, il reste 500 F'],0,'3 × 250 = 750 F ; 1 000 - 750 = 250 F.')]),
+
 ];
