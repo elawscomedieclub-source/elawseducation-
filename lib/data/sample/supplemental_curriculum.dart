@@ -453,4 +453,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_capacite_2','Une bouteille contient 3 L. Quelle quantité cela représente-t-il en millilitres ?',['300 mL','3 000 mL','30 000 mL'],1,'3 × 1 000 = 3 000 mL.'),
      SupplementalQuestion('bonus_ce2_capacite_3','500 mL correspondent à…',['un demi-litre','5 litres','50 litres'],0,'500 mL est la moitié de 1 000 mL, donc un demi-litre.')]),
 
+
+  SupplementalLesson('ce2_mesures_duree', SchoolLevel.ce2, 'Mathématiques', 'Lire l’heure et mesurer une durée',
+    'Une heure contient 60 minutes. Pour convertir des heures en minutes, on multiplie par 60. Pour exprimer une durée en heures et minutes, on partage les minutes en groupes de 60.',
+    '2 heures = 2 × 60 = 120 minutes. Donc 2 h 30 min = 120 + 30 = 150 minutes. Et 90 minutes = 60 minutes + 30 minutes = 1 h 30 min.',
+    [SupplementalQuestion('bonus_ce2_duree_1','1 heure équivaut à…',['30 minutes','60 minutes','100 minutes'],1,'1 h = 60 min.'),
+     SupplementalQuestion('bonus_ce2_duree_2','Combien de minutes y a-t-il dans 2 h 30 min ?',['120 min','150 min','230 min'],1,'2 × 60 + 30 = 150 min.'),
+     SupplementalQuestion('bonus_ce2_duree_3','90 minutes correspondent à…',['1 h 30 min','9 h','1 h 9 min'],0,'90 min = 60 min + 30 min = 1 h 30 min.')]),
+
 ];
