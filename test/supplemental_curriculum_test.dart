@@ -836,5 +836,23 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 apprend à choisir la bonne opération', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_choisir_operation');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_operation_1': 'Addition (+)',
+        'bonus_ce2_operation_2': 'Soustraction (−)',
+        'bonus_ce2_operation_3': 'Multiplication (×)',
+        'bonus_ce2_operation_4': 'Division (÷)',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Choix d’opération incorrect dans ${question.id}');
+      }
+    });
+
   });
 }
