@@ -558,5 +558,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_geo_2','Quelle figure a 4 côtés égaux et 4 angles droits ?',['Le carré','Le cercle','Le triangle'],0,'Le carré a quatre côtés de même longueur et quatre angles droits.'),
      SupplementalQuestion('bonus_ce2_geo_3','Quelle figure est ronde et n’a pas de sommet ?',['Le rectangle','Le triangle','Le cercle'],2,'Le cercle est rond et ne possède aucun sommet.'),
      SupplementalQuestion('bonus_ce2_geo_4','Dans un rectangle, quels côtés ont la même longueur ?',['Tous les côtés sont toujours égaux','Les côtés opposés','Aucun côté'],1,'Dans un rectangle, les côtés opposés ont la même longueur.')]),
+  SupplementalLesson('ce2_moitie_quart', SchoolLevel.ce2, 'Mathématiques', 'Comprendre la moitié et le quart',
+    'Partager en deux parts égales, c’est chercher la moitié. La moitié d’une quantité se calcule en divisant par 2. Partager en quatre parts égales, c’est chercher le quart. Le quart d’une quantité se calcule en divisant par 4. Chaque part doit avoir la même quantité.',
+    'La moitié de 12 mangues est 12 ÷ 2 = 6 mangues. Le quart de 12 mangues est 12 ÷ 4 = 3 mangues.',
+    [SupplementalQuestion('bonus_ce2_fraction_1','Quelle est la moitié de 10 ?',['2','5','8'],1,'10 ÷ 2 = 5. La moitié de 10 est 5.'),
+     SupplementalQuestion('bonus_ce2_fraction_2','Quel est le quart de 12 ?',['3','4','6'],0,'12 ÷ 4 = 3. Le quart de 12 est 3.'),
+     SupplementalQuestion('bonus_ce2_fraction_3','On partage 8 biscuits en 2 parts égales. Combien y a-t-il de biscuits dans chaque part ?',['2','4','6'],1,'8 ÷ 2 = 4 biscuits dans chaque part.'),
+     SupplementalQuestion('bonus_ce2_fraction_4','On partage 20 oranges en 4 paniers égaux. Combien d’oranges dans chaque panier ?',['4','5','10'],1,'20 ÷ 4 = 5 oranges dans chaque panier.')]),
 
 ];
