@@ -216,7 +216,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
               Text('$_comprehensionCorrect bonne(s) réponse(s) sur $_comprehensionTotal question(s)'),
               const SizedBox(height: 8),
               LinearProgressIndicator(
-                value: (_comprehensionCorrect / _comprehensionTotal).clamp(0.0, 1.0),
+                value: (_comprehensionCorrect / _comprehensionTotal).clamp(0.0, 1.0).toDouble(),
                 minHeight: 7,
               ),
               const SizedBox(height: 6),
