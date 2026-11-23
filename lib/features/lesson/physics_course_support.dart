@@ -121,7 +121,21 @@ class _Painter extends CustomPainter{
   if(kind==0){
    c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(105,105,125,76),const Radius.circular(10)),fill);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(105,105,125,76),const Radius.circular(10)),ink);c.drawCircle(const Offset(105,143),5,Paint()..color=red.color..style=PaintingStyle.fill);arrow(const Offset(105,143),const Offset(305,143),blue);label('A : application',const Offset(8,115),w:95);label('F⃗',const Offset(285,115),w:35,f:19);label('Bloc solide',const Offset(130,137),w:100);label('Direction horizontale',const Offset(105,200),w:170,f:12);
   }else if(kind==1){
-   const o=Offset(180,125);c.drawCircle(o,7,Paint()..color=cs.onSurface);arrow(o,const Offset(75,48),blue);arrow(o,const Offset(290,48),red);arrow(o,const Offset(180,225),green);label('F₁',const Offset(42,25));label('F₂',const Offset(295,25));label('F₃',const Offset(192,204));label('O : point de concours',const Offset(108,136),w:155,f:12);label('Σ F⃗ = 0⃗',const Offset(130,5),w:110,f:16);
+   // Exemple exact : 30 N vers la droite, 40 N vers le haut,
+   // leur résultante 50 N ; la force équilibrante vaut 50 N.
+   // Échelle : 2 pixels par newton (60, 80 et 100 pixels).
+   const o=Offset(150,145);
+   c.drawCircle(o,6,Paint()..color=cs.onSurface..style=PaintingStyle.fill);
+   arrow(o,const Offset(210,145),blue); // F1 = 30 N
+   arrow(o,const Offset(150,65),red); // F2 = 40 N
+   arrow(o,const Offset(90,225),green); // F3 = 50 N, opposée à la résultante
+   label('F₁ = 30 N',const Offset(214,132),w:105,f:12);
+   label('F₂ = 40 N',const Offset(158,45),w:105,f:12);
+   label('F₃ = 50 N',const Offset(15,227),w:105,f:12);
+   label('O',const Offset(160,151),w:20,f:12);
+   label('Échelle : 2 px = 1 N',const Offset(18,10),w:180,f:12);
+   label('Résultante F₁ + F₂ = 50 N',const Offset(18,28),w:260,f:13);
+   label('Force équilibrante : 50 N',const Offset(18,246),w:260,f:13);
   }else if(kind==2){
    c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(30,88,115,72),const Radius.circular(8)),fill);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(30,88,115,72),const Radius.circular(8)),ink);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(215,88,115,72),const Radius.circular(8)),fill);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(215,88,115,72),const Radius.circular(8)),ink);label('MAIN',const Offset(66,115));label('BLOC',const Offset(252,115));arrow(const Offset(145,72),const Offset(215,72),blue);arrow(const Offset(215,183),const Offset(145,183),red);label('F(main → bloc)',const Offset(145,39),w:155,f:11);label('F(bloc → main)',const Offset(145,192),w:155,f:11);label('Même intensité, sens opposés',const Offset(75,225),w:220,f:12);
   }else{
