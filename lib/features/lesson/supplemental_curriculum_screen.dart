@@ -171,9 +171,9 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1) ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa') ...[
                           const SizedBox(height: 14),
-                          _cp1Visual(lesson),
+                          _lessonVisual(lesson),
                           const SizedBox(height: 14),
                         ],
                         const SizedBox(height: 10),
@@ -270,7 +270,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   }
 
 
-  Widget _cp1Visual(SupplementalLesson lesson) {
+  Widget _lessonVisual(SupplementalLesson lesson) {
     final isLetters = lesson.id == 'cp1_voyelles' || lesson.id == 'cp1_syllabes';
     final isCounting = lesson.id == 'cp1_compter' || lesson.id == 'cp1_nombres_10' || lesson.id == 'cp1_nombres_20';
     final items = switch (lesson.id) {
@@ -289,6 +289,8 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_hygiene' => const ['🧼', '💧', '🪥', '🦷'],
       'cp1_animaux' => const ['🐟', '🐕', '🐔', '🐐'],
       'cp1_corps' => const ['👀', '👂', '👃', '🦶'],
+      'cp2_monnaie_fcfa' => const ['250 F', '+', '100 F', '=', '350 F', '500 F', '−', '350 F', '=', '150 F'],
+      'ce1_achats_fcfa' => const ['300 F', '+', '150 F', '=', '450 F', '1 000 F', '−', '450 F', '=', '550 F'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -307,6 +309,8 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_hygiene' => 'LES GESTES POUR ÊTRE PROPRE',
       'cp1_animaux' => 'OBSERVE LES ANIMAUX',
       'cp1_corps' => 'MONTRE LES PARTIES DU CORPS',
+      'cp2_monnaie_fcfa' => 'CALCULE AVEC LE FRANC CFA',
+      'ce1_achats_fcfa' => 'PRÉPARE TON ACHAT ET TA MONNAIE',
       _ => 'REGARDE ET DÉCOUVRE',
     };
     return Container(
