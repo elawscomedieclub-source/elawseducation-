@@ -171,7 +171,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs') ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses') ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
