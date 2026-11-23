@@ -461,4 +461,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_duree_2','Combien de minutes y a-t-il dans 2 h 30 min ?',['120 min','150 min','230 min'],1,'2 × 60 + 30 = 150 min.'),
      SupplementalQuestion('bonus_ce2_duree_3','90 minutes correspondent à…',['1 h 30 min','9 h','1 h 9 min'],0,'90 min = 60 min + 30 min = 1 h 30 min.')]),
 
+
+  SupplementalLesson('ce2_partage_division', SchoolLevel.ce2, 'Mathématiques', 'Partager en parts égales et découvrir la division',
+    'Partager en parts égales signifie donner la même quantité à chaque personne. On peut utiliser une division pour trouver la quantité reçue par chacun. Par exemple, 12 objets partagés entre 3 enfants donnent 4 objets à chacun, car 3 × 4 = 12.',
+    'Pour partager 15 mangues entre 5 personnes : 15 ÷ 5 = 3. Chaque personne reçoit 3 mangues.',
+    [SupplementalQuestion('bonus_ce2_partage_1','12 crayons sont partagés également entre 3 élèves. Combien chacun reçoit-il ?',['3 crayons','4 crayons','5 crayons'],1,'12 ÷ 3 = 4 crayons.'),
+     SupplementalQuestion('bonus_ce2_partage_2','15 mangues sont partagées entre 5 personnes. Combien chacun reçoit-il ?',['2 mangues','3 mangues','5 mangues'],1,'15 ÷ 5 = 3 mangues.'),
+     SupplementalQuestion('bonus_ce2_partage_3','20 biscuits sont partagés également entre 4 enfants. Combien chacun reçoit-il ?',['4 biscuits','5 biscuits','6 biscuits'],1,'20 ÷ 4 = 5 biscuits.')]),
+
 ];
