@@ -996,6 +996,24 @@ void main() {
             reason: 'Choix dupliqué dans ${question.id}');
       }
     });
+    test('le cours CE2 résout des problèmes en deux étapes', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_problemes_deux_etapes');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_deux_etapes_1': '136',
+        'bonus_ce2_deux_etapes_2': '225 F',
+        'bonus_ce2_deux_etapes_3': '36',
+        'bonus_ce2_deux_etapes_4': '42',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Résolution en deux étapes incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
 
   });
 }

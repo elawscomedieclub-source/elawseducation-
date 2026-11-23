@@ -608,4 +608,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_partage_fcfa_2','Quatre élèves se partagent 1 200 F également. Quelle somme reçoit chacun ?',['200 F','300 F','400 F'],1,'1 200 ÷ 4 = 300 F pour chaque élève.'),
      SupplementalQuestion('bonus_ce2_partage_fcfa_3','Trois frères partagent 900 F également. Combien reçoit chacun ?',['200 F','300 F','400 F'],1,'900 ÷ 3 = 300 F pour chaque frère.'),
      SupplementalQuestion('bonus_ce2_partage_fcfa_4','Cinq enfants se partagent 1 500 F également. Combien reçoit chacun ?',['200 F','300 F','500 F'],1,'1 500 ÷ 5 = 300 F pour chaque enfant.')]),
+  SupplementalLesson('ce2_problemes_deux_etapes', SchoolLevel.ce2, 'Mathématiques', 'Résoudre un problème en deux étapes',
+    'Certains problèmes demandent deux opérations. Lis toute la situation, trouve d’abord ce qu’il faut calculer, puis utilise le résultat pour répondre à la question finale. Tu peux souligner les nombres utiles et vérifier chaque étape.',
+    'Une vendeuse a 125 mangues. Elle en reçoit 48, puis vend 37 mangues. D’abord : 125 + 48 = 173 mangues. Ensuite : 173 − 37 = 136 mangues. Il lui reste 136 mangues.',
+    [SupplementalQuestion('bonus_ce2_deux_etapes_1','Awa a 125 mangues et en reçoit 48. Elle en vend 37. Combien lui en reste-t-il ?',['126','136','146'],1,'125 + 48 = 173, puis 173 − 37 = 136 mangues.'),
+     SupplementalQuestion('bonus_ce2_deux_etapes_2','Kossi a 250 F. Il reçoit 150 F puis dépense 175 F. Combien lui reste-t-il ?',['215 F','225 F','235 F'],1,'250 + 150 = 400 F, puis 400 − 175 = 225 F.'),
+     SupplementalQuestion('bonus_ce2_deux_etapes_3','Une classe reçoit 6 rangées de 8 livres. Elle en prête 12. Combien de livres restent ?',['34','36','38'],1,'6 × 8 = 48 livres, puis 48 − 12 = 36 livres.'),
+     SupplementalQuestion('bonus_ce2_deux_etapes_4','Un vendeur a 4 paniers de 15 oranges. Il vend 18 oranges. Combien lui en reste-t-il ?',['40','42','44'],1,'4 × 15 = 60 oranges, puis 60 − 18 = 42 oranges.')]),
 ];

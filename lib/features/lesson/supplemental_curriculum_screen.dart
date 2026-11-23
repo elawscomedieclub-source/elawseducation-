@@ -316,6 +316,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_multiplication_posee' => const ['124 × 3', '4 × 3 = 12', '12 → 2 + 1 retenue', '372'],
       'ce2_division_exacte' => const ['24 objets', '÷ 3 élèves', '= 8 chacun', 'Vérification : 8 × 3 = 24'],
       'ce2_problemes_partage_fcfa' => const ['600 F', '÷ 3 enfants', '= 200 F chacun', '200 F × 3 = 600 F'],
+      'ce2_problemes_deux_etapes' => const ['125 + 48 = 173', '173 − 37', '= 136 mangues', 'Deux opérations'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -357,6 +358,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_moitie_quart' => 'PARTAGE EN PARTS ÉGALES',
       'ce2_division_exacte' => 'PARTAGE ET VÉRIFIE AVEC LA MULTIPLICATION',
       'ce2_problemes_partage_fcfa' => 'PARTAGE LA MONNAIE EN PARTS ÉGALES',
+      'ce2_problemes_deux_etapes' => 'RÉSOUS LE PROBLÈME EN DEUX OPÉRATIONS',
       'ce2_multiplication_posee' => 'MULTIPLIE ET EFFECTUE LES RETENUES',
       _ => 'REGARDE ET DÉCOUVRE',
     };
