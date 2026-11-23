@@ -23,6 +23,17 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   List<String> _difficultWords = [];
   int? _selectedComprehensionIndex;
   bool _comprehensionChecked = false;
+  int _comprehensionTotal = 0;
+  int _comprehensionCorrect = 0;
+
+  Future<void> _loadComprehensionStats() async {
+    final stats = await ReadingPracticeService.loadComprehensionStats();
+    if (!mounted) return;
+    setState(() {
+      _comprehensionTotal = stats['total'] ?? 0;
+      _comprehensionCorrect = stats['correct'] ?? 0;
+    });
+  }
 
   String get _passage {
     final level = ref.read(schoolLevelProvider);
@@ -43,6 +54,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   void initState() {
     super.initState();
     _tts.awaitSpeakCompletion(true);
+    _loadComprehensionStats();
   }
 
   Future<void> _startReading() async {
@@ -193,6 +205,30 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
           ),
         ),
         const SizedBox(height: 14),
+        Card(child: Padding(padding: const EdgeInsets.all(14), child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Ma progression en compréhension', style: TextStyle(fontWeight: FontWeight.w800)),
+            const SizedBox(height: 6),
+            if (_comprehensionTotal == 0)
+              const Text('Après ta première question, tu verras ici tes résultats. Chaque réponse t’aide à mieux comprendre les textes.')
+            else ...[
+              Text('$_comprehensionCorrect bonne(s) réponse(s) sur $_comprehensionTotal question(s)'),
+              const SizedBox(height: 8),
+              LinearProgressIndicator(
+                value: (_comprehensionCorrect / _comprehensionTotal).clamp(0.0, 1.0),
+                minHeight: 7,
+              ),
+              const SizedBox(height: 6),
+              Text('Réussite : ${((_comprehensionCorrect / _comprehensionTotal) * 100).round()} %',
+                style: const TextStyle(color: Color(0xFF006A4E), fontWeight: FontWeight.w600)),
+            ],
+            const SizedBox(height: 4),
+            const Text('Ce résultat concerne seulement les questions de ce coach, pas toutes tes capacités de lecture.',
+              style: TextStyle(fontSize: 12, color: Colors.grey)),
+          ],
+        ))),
+        const SizedBox(height: 14),
         Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text('Ton texte de lecture', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
           const SizedBox(height: 12),
@@ -255,8 +291,13 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                           await ReadingPracticeService.recordComprehensionAttempt(
                             isCorrect: isCorrect,
                           );
+                          final stats = await ReadingPracticeService.loadComprehensionStats();
                           if (!mounted) return;
-                          setState(() => _comprehensionChecked = true);
+                          setState(() {
+                            _comprehensionChecked = true;
+                            _comprehensionTotal = stats['total'] ?? _comprehensionTotal;
+                            _comprehensionCorrect = stats['correct'] ?? _comprehensionCorrect;
+                          });
                         },
                   child: const Text('Vérifier ma réponse'),
                 ),
