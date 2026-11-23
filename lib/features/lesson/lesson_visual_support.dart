@@ -19,8 +19,13 @@ class LessonVisualSupport extends StatelessWidget {
     if (RegExp(r'parties de la plante|structure de la plante|la plante et ses parties').hasMatch(title)) return _VisualKind.plant;
     if (RegExp(r'cycle de l.eau|évaporation|condensation|précipitation').hasMatch(title)) return _VisualKind.water;
     if (RegExp(r'corps humain|parties du corps humain').hasMatch(title)) return _VisualKind.body;
-    if (RegExp(r'figures géométriques|figures planes|triangle|rectangle|carré|cercle|polygone').hasMatch(title)) return _VisualKind.geometry;
-    if (RegExp(r'fractions|représenter une fraction|fraction en parts égales|moitié|quart|tiers').hasMatch(title)) return _VisualKind.fraction;
+    // La planche actuelle compare quatre figures : la réserver aux leçons
+    // générales. Une leçon sur le seul triangle/carré/etc. ne doit pas recevoir
+    // une planche qui pourrait faire croire que les autres figures sont étudiées.
+    if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title)) return _VisualKind.geometry;
+    // Ce schéma compare moitié, quart et trois quarts : ne pas l'afficher
+    // pour une leçon ciblant une seule fraction (moitié, tiers ou quart).
+    if (RegExp(r'fractions|représenter une fraction|fraction en parts égales').hasMatch(title)) return _VisualKind.fraction;
     return null;
   }
 
