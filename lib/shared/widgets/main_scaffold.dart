@@ -34,7 +34,9 @@ class _MainScaffoldState extends State<MainScaffold> {
       key: profTogoScaffoldKey,
       drawer: Drawer(
         child: SafeArea(
-          child: Column(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            physics: const ClampingScrollPhysics(),
             children: [
               Container(
                 width: double.infinity,
@@ -110,8 +112,7 @@ class _MainScaffoldState extends State<MainScaffold> {
               _menuItem(Icons.person_outline, 'Mon profil', 4),
               const Divider(),
               const ListTile(leading: Icon(Icons.info_outline), title: Text('À propos de PROFTOGO'), subtitle: Text('Application éducative pour le Togo')),
-              const Spacer(),
-              const Padding(padding: EdgeInsets.all(12), child: Text('APPRENDRE • COMPRENDRE • RÉUSSIR', style: TextStyle(color: Colors.grey, fontSize: 12))),
+                            const Padding(padding: EdgeInsets.all(12), child: Text('APPRENDRE • COMPRENDRE • RÉUSSIR', style: TextStyle(color: Colors.grey, fontSize: 12))),
             ],
           ),
         ),
