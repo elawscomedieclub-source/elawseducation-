@@ -437,4 +437,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_mesure_2','Une planche mesure 2 m et 50 cm. Quelle est sa longueur en centimètres ?',['205 cm','250 cm','2 050 cm'],1,'2 m = 200 cm ; 200 + 50 = 250 cm.'),
      SupplementalQuestion('bonus_ce2_mesure_3','Une corde mesure 340 cm. Cela correspond à…',['3 m et 40 cm','34 m','3 m et 4 cm'],0,'300 cm = 3 m ; il reste 40 cm.')]),
 
+
+  SupplementalLesson('ce2_mesures_masses', SchoolLevel.ce2, 'Mathématiques', 'Mesurer et convertir des masses',
+    'On utilise le gramme (g) pour les petites masses et le kilogramme (kg) pour les masses plus grandes. 1 kg = 1 000 g. Pour convertir des kilogrammes en grammes, on multiplie par 1 000.',
+    'Un sac de riz pèse 2 kg. Comme 1 kg = 1 000 g, alors 2 kg = 2 000 g. Une masse de 1 500 g correspond à 1 kg et 500 g.',
+    [SupplementalQuestion('bonus_ce2_masse_1','1 kilogramme équivaut à…',['100 g','1 000 g','10 000 g'],1,'1 kg = 1 000 g.'),
+     SupplementalQuestion('bonus_ce2_masse_2','Un sac pèse 2 kg. Quelle est sa masse en grammes ?',['200 g','2 000 g','20 000 g'],1,'2 × 1 000 = 2 000 g.'),
+     SupplementalQuestion('bonus_ce2_masse_3','1 500 g correspondent à…',['1 kg et 500 g','15 kg','1 kg et 50 g'],0,'1 000 g + 500 g = 1 500 g.')]),
+
 ];
