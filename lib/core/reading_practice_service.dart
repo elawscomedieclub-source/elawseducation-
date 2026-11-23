@@ -34,6 +34,33 @@ class ReadingPracticeService {
     return result;
   }
 
+  /// Enregistre les réponses aux questions de compréhension, par compte.
+  static Future<void> recordComprehensionAttempt({
+    required bool isCorrect,
+  }) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) return;
+    final totalKey = _key('proftogo_reading_comprehension_total', uid);
+    final correctKey = _key('proftogo_reading_comprehension_correct', uid);
+    await prefs.setInt(totalKey, (prefs.getInt(totalKey) ?? 0) + 1);
+    if (isCorrect && FirebaseAuth.instance.currentUser?.uid == uid) {
+      await prefs.setInt(correctKey, (prefs.getInt(correctKey) ?? 0) + 1);
+    }
+  }
+
+  static Future<Map<String, int>> loadComprehensionStats() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final prefs = await SharedPreferences.getInstance();
+    if (FirebaseAuth.instance.currentUser?.uid != uid) {
+      return {'total': 0, 'correct': 0};
+    }
+    return {
+      'total': prefs.getInt(_key('proftogo_reading_comprehension_total', uid)) ?? 0,
+      'correct': prefs.getInt(_key('proftogo_reading_comprehension_correct', uid)) ?? 0,
+    };
+  }
+
   static Future<void> recordAttempt({
     required int stageIndex,
     required bool isCorrect,
