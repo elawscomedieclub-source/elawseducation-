@@ -694,6 +694,22 @@ void main() {
 
 
 
+    test('le cours CE2 sur les problèmes de multiplication vérifie les situations', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_problemes_multiplication');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_probleme_mult_1': '12 cahiers',
+        'bonus_ce2_probleme_mult_2': '30 mangues',
+        'bonus_ce2_probleme_mult_3': '20 crayons',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Problème de multiplication incorrect dans ${question.id}');
+      }
+    });
+
     test('le cours CE2 sur la table de 2 vérifie les produits', () {
       final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_table_multiplication_2');
       expect(lesson.level, SchoolLevel.ce2);
