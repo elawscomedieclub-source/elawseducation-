@@ -388,5 +388,22 @@ void main() {
       }
     });
 
+
+    test('chaque cours bonus a une matière et trois choix distincts par question', () {
+      for (final lesson in supplementalLessons) {
+        expect(lesson.subject.trim(), isNotEmpty,
+            reason: 'Matière non renseignée : ${lesson.id}');
+        for (final question in lesson.questions) {
+          expect(question.choices, hasLength(3),
+              reason: 'Trois choix attendus pour ${question.id}');
+          final choices = question.choices
+              .map((choice) => choice.trim().toLowerCase())
+              .toSet();
+          expect(choices.length, 3,
+              reason: 'Les trois choix doivent être distincts : ${question.id}');
+        }
+      }
+    });
+
   });
 }
