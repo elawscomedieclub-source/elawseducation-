@@ -924,5 +924,22 @@ void main() {
       }
     });
 
+    test('le cours CE2 calcule des additions et soustractions jusqu’à 1 000', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_addition_soustraction_1000');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_addsub_1': '377',
+        'bonus_ce2_addsub_2': '484',
+        'bonus_ce2_addsub_3': '325',
+        'bonus_ce2_addsub_4': '435',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Calcul incorrect dans ${question.id}');
+      }
+    });
+
   });
 }

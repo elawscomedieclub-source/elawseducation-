@@ -580,4 +580,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_compare_2','Quel nombre est le plus grand ?',['609','690','906'],2,'906 possède 9 centaines, donc il est le plus grand.'),
      SupplementalQuestion('bonus_ce2_compare_3','Quel est l’ordre croissant ?',['430, 403, 340','340, 403, 430','403, 340, 430'],1,'On commence par 340, puis 403, puis 430.'),
      SupplementalQuestion('bonus_ce2_compare_4','Complète : 725 __ 725.',['<','>','='],2,'Les deux nombres sont identiques : 725 = 725.')]),
+  SupplementalLesson('ce2_addition_soustraction_1000', SchoolLevel.ce2, 'Mathématiques', 'Additionner et soustraire jusqu’à 1 000',
+    'Pour additionner, on peut réunir les centaines, les dizaines et les unités. Pour soustraire, on enlève une quantité ou on cherche la différence. Quand une colonne dépasse 9 unités, on échange 10 unités contre 1 dizaine. Quand il manque des unités, on peut échanger 1 dizaine contre 10 unités.',
+    '246 + 132 = 378. On calcule 200 + 100 = 300, 40 + 30 = 70 et 6 + 2 = 8. Donc 300 + 70 + 8 = 378. Pour 452 − 131 : 400 − 100 = 300, 50 − 30 = 20 et 2 − 1 = 1. Résultat : 321.',
+    [SupplementalQuestion('bonus_ce2_addsub_1','Calcule : 235 + 142.',['367','377','387'],1,'235 + 142 = 377.'),
+     SupplementalQuestion('bonus_ce2_addsub_2','Calcule : 326 + 158.',['474','484','494'],1,'326 + 158 = 484.'),
+     SupplementalQuestion('bonus_ce2_addsub_3','Calcule : 568 − 243.',['325','335','345'],0,'568 − 243 = 325.'),
+     SupplementalQuestion('bonus_ce2_addsub_4','Calcule : 700 − 265.',['435','445','435'],0,'700 − 265 = 435.')]),
 ];
