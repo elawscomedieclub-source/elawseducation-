@@ -86,11 +86,11 @@ class CloudProgressService {
         final oldAnswered = data['answeredExerciseIds'];
         final oldCorrect = data['correctExerciseIds'];
         final mergedCorrect = <String>{
-          ...?oldCorrect is List ? oldCorrect.whereType<String>() : null,
+          ...(oldCorrect is List ? oldCorrect.whereType<String>() : <String>[]),
           ...correctExerciseIds,
         };
         final mergedAnswered = <String>{
-          ...?oldAnswered is List ? oldAnswered.whereType<String>() : null,
+          ...(oldAnswered is List ? oldAnswered.whereType<String>() : <String>[]),
           ...answeredExerciseIds,
           ...mergedCorrect,
         };
