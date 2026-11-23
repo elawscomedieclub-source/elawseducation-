@@ -115,7 +115,20 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Réalise l’activité dans un endroit sûr, avec l’accord de ton enseignant.'
       );
     }
-    if (RegExp(r'mesure des longueurs|mesurer une longueur|unités de longueur|centimètre|centimètres|kilomètre').hasMatch(text)) {
+    if (RegExp(r'kilomètre|kilomètres|km\\b|convertir.*distance|distance.*kilométr').hasMatch(text)) {
+      return const _Support(
+        title: 'Mesurer et convertir une distance en kilomètres',
+        icon: Icons.route,
+        nodes: ['1 km', '1 000 m', 'Distance parcourue'],
+        explanation: 'Le kilomètre sert à mesurer de grandes distances. Un kilomètre équivaut à mille mètres : 1 km = 1 000 m. Pour convertir des kilomètres en mètres, on multiplie par 1 000.',
+        activity: 'Estimer et comparer une distance connue',
+        materials: 'Un itinéraire sûr connu avec un adulte, une carte ou un panneau de distance et un cahier.',
+        steps: ['Choisis avec un adulte un trajet sûr dont la distance est indiquée.', 'Note la distance en kilomètres.', 'Convertis-la en mètres en multipliant par 1 000.', 'Compare deux distances en utilisant la même unité.'],
+        result: '2 km = 2 000 m ; 0,5 km = 500 m. Il faut comparer les distances dans une unité commune.',
+        safety: 'Ne parcours pas de route ni de quartier seul pour mesurer une distance. Utilise une carte ou une mesure déjà disponible.'
+      );
+    }
+    if (RegExp(r'mesure des longueurs|mesurer une longueur|unités de longueur|centimètre|centimètres|millimètre|millimètres|mètre|mètres|règle graduée').hasMatch(text)) {
       return const _Support(
         title: 'Mesurer une longueur avec une règle graduée',
         icon: Icons.straighten,
