@@ -131,11 +131,11 @@ class _Painter extends CustomPainter{
    arrow(o,const Offset(90,225),green); // F3 = 50 N, opposée à la résultante
    label('F₁ = 30 N',const Offset(214,132),w:105,f:12);
    label('F₂ = 40 N',const Offset(158,45),w:105,f:12);
-   label('F₃ = 50 N',const Offset(15,227),w:105,f:12);
+   label('F₃ = 50 N',const Offset(15,202),w:105,f:12);
    label('O',const Offset(160,151),w:20,f:12);
    label('Échelle : 2 px = 1 N',const Offset(18,10),w:180,f:12);
    label('Résultante F₁ + F₂ = 50 N',const Offset(18,28),w:260,f:13);
-   label('Force équilibrante : 50 N',const Offset(18,246),w:260,f:13);
+   label('Force équilibrante : 50 N',const Offset(18,226),w:260,f:13);
   }else if(kind==2){
    c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(30,88,115,72),const Radius.circular(8)),fill);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(30,88,115,72),const Radius.circular(8)),ink);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(215,88,115,72),const Radius.circular(8)),fill);c.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(215,88,115,72),const Radius.circular(8)),ink);label('MAIN',const Offset(66,115));label('BLOC',const Offset(252,115));arrow(const Offset(145,72),const Offset(215,72),blue);arrow(const Offset(215,183),const Offset(145,183),red);label('F(main → bloc)',const Offset(145,39),w:155,f:11);label('F(bloc → main)',const Offset(145,192),w:155,f:11);label('Même intensité, sens opposés',const Offset(75,225),w:220,f:12);
   }else{
