@@ -26,7 +26,9 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   bool _listening = false;
   bool _speechAvailable = false;
   bool _searched = false;
-  double _speechRate = 0.78;
+  double _speechRate = 0.84;
+  List<Map<String, dynamic>> _availableVoices = [];
+  String? _selectedVoiceKey;
   List<Lesson> _matches = [];
 
   @override
@@ -45,6 +47,71 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
       if (mounted) setState(() => _speaking = false);
     });
     _tts.awaitSpeakCompletion(true);
+    _loadAvailableVoices();
+  }
+
+  String _voiceKey(Map<String, dynamic> voice) => '${voice['name']}|${voice['locale']}';
+
+  List<Map<String, dynamic>> get _voicesForLanguage {
+    final prefix = _language.split('-').first.toLowerCase();
+    return _availableVoices.where((voice) =>
+      '${voice['locale'] ?? ''}'.toLowerCase().startsWith(prefix)).toList();
+  }
+
+  Map<String, dynamic>? get _selectedVoice {
+    for (final voice in _voicesForLanguage) {
+      if (_voiceKey(voice) == _selectedVoiceKey) return voice;
+    }
+    return _voicesForLanguage.isEmpty ? null : _voicesForLanguage.first;
+  }
+
+  Future<void> _loadAvailableVoices() async {
+    try {
+      final raw = await _tts.getVoices;
+      if (raw is! List) return;
+      final voices = raw.whereType<Map>().map((voice) => Map<String, dynamic>.from(voice)).where((voice) =>
+        voice['name'] != null && voice['locale'] != null).toList();
+      int quality(Map<String, dynamic> voice) => int.tryParse('${voice['quality'] ?? ''}') ?? 0;
+      voices.sort((a, b) {
+        final byQuality = quality(b).compareTo(quality(a));
+        if (byQuality != 0) return byQuality;
+        final aNetwork = a['network_required'] == true ? 1 : 0;
+        final bNetwork = b['network_required'] == true ? 1 : 0;
+        return aNetwork.compareTo(bNetwork);
+      });
+      if (!mounted) return;
+      setState(() {
+        _availableVoices = voices;
+        final matching = _voicesForLanguage;
+        _selectedVoiceKey = matching.isEmpty ? null : _voiceKey(matching.first);
+      });
+    } catch (_) {
+      // Certains moteurs vocaux ne permettent pas d'énumérer leurs voix.
+    }
+  }
+
+  Future<void> _applySelectedVoice() async {
+    final voice = _selectedVoice;
+    if (voice == null) return;
+    await _tts.setVoice({
+      'name': voice['name'].toString(),
+      'locale': voice['locale'].toString(),
+    });
+  }
+
+  Future<void> _previewVoice() async {
+    if (_speaking) await _tts.stop();
+    try {
+      await _tts.setLanguage(_language);
+      await _applySelectedVoice();
+      await _tts.setSpeechRate(_speechRate);
+      await _tts.setPitch(0.98);
+      await _tts.setVolume(1.0);
+      await _tts.speak('Bonjour ! Je suis ton professeur. Prenons le temps de comprendre cette leçon, étape par étape.');
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Cette voix ne peut pas être utilisée. Essaie une autre voix installée sur ton téléphone.')));
+    }
   }
 
   Future<void> _startListening() async {
@@ -164,9 +231,10 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
     final text = '${lesson.title}. ${lesson.summary}. ${lesson.content}';
     try {
       await _tts.setLanguage(_language);
+      await _applySelectedVoice();
       await _tts.setSpeechRate(_speechRate);
       await _tts.setVolume(1.0);
-      await _tts.setPitch(1.0);
+      await _tts.setPitch(0.98);
       await _tts.speak(text);
     } catch (_) {
       if (!mounted) return;
@@ -237,9 +305,37 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
             onChanged: (_listening || _speaking)
                 ? null
                 : (value) {
-                    if (value != null) setState(() => _language = value);
+                    if (value != null) {
+                      setState(() {
+                        _language = value;
+                        final voices = _voicesForLanguage;
+                        _selectedVoiceKey = voices.isEmpty ? null : _voiceKey(voices.first);
+                      });
+                    }
                   },
           ),
+          const SizedBox(height: 12),
+          if (_voicesForLanguage.isNotEmpty) ...[
+            DropdownButtonFormField<String>(
+              key: ValueKey('voice-$_language-$_selectedVoiceKey'),
+              initialValue: _selectedVoiceKey,
+              isExpanded: true,
+              decoration: const InputDecoration(labelText: 'Voix du professeur', border: OutlineInputBorder()),
+              items: _voicesForLanguage.map((voice) => DropdownMenuItem<String>(
+                value: _voiceKey(voice),
+                child: Text('${voice['name']} · ${voice['locale']}', overflow: TextOverflow.ellipsis),
+              )).toList(),
+              onChanged: (_speaking || _listening) ? null : (value) {
+                if (value != null) setState(() => _selectedVoiceKey = value);
+              },
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: (_speaking || _listening) ? null : _previewVoice,
+              icon: const Icon(Icons.record_voice_over_outlined),
+              label: const Text('Écouter un exemple de cette voix'),
+            ),
+          ] else const Text('Les voix proposées dépendent du moteur vocal installé sur ton téléphone.'),
           const SizedBox(height: 12),
           Card(
             child: Padding(
@@ -254,21 +350,21 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                       const Expanded(
                         child: Text('Vitesse de la voix', style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                      Text(_speechRate < 0.62 ? 'Lente' : (_speechRate >= 0.82 ? 'Rapide' : 'Normale')),
+                      Text(_speechRate < 0.68 ? 'Lente' : (_speechRate >= 0.82 ? 'Rapide' : 'Normale')),
                     ],
                   ),
                   Slider(
                     value: _speechRate,
-                    min: 0.30,
-                    max: 0.85,
-                    divisions: 11,
+                    min: 0.50,
+                    max: 1.0,
+                    divisions: 10,
                     label: _speechRate.toStringAsFixed(2),
                     onChanged: (_speaking || _listening)
                         ? null
                         : (value) => setState(() => _speechRate = value),
                   ),
                   const Text(
-                    'Tu peux choisir un débit plus rapide. La vitesse réelle dépend aussi de la voix installée sur ton téléphone.',
+                    'Choisis un débit plus rapide ou plus posé. Une voix de meilleure qualité, si elle est installée, rendra aussi la lecture plus naturelle.',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],

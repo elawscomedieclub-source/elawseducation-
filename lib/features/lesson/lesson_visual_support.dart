@@ -9,13 +9,15 @@ class LessonVisualSupport extends StatelessWidget {
   const LessonVisualSupport({super.key, required this.lesson});
 
   _VisualKind? get _kind {
-    final text = '${lesson.title} ${lesson.content}'.toLowerCase();
-    if (RegExp(r'circuit|électric|electron|ohm|interrupteur|conducteur').hasMatch(text)) return _VisualKind.circuit;
-    if (RegExp(r'plante|germination|racine|feuille|photosynth').hasMatch(text)) return _VisualKind.plant;
-    if (RegExp(r'eau|cycle de l.eau|évaporation|condensation|précipitation').hasMatch(text)) return _VisualKind.water;
-    if (RegExp(r'corps humain|organe|appareil digestif|respiration|squelette').hasMatch(text)) return _VisualKind.body;
-    if (RegExp(r'triangle|angle|rectangle|périmètre|aire|géométr').hasMatch(text)) return _VisualKind.geometry;
-    if (RegExp(r'fraction|demi|quart|tiers').hasMatch(text)) return _VisualKind.fraction;
+    final title = lesson.title.toLowerCase();
+    // Choix volontairement strict : un mot rencontré dans le texte ne suffit
+    // pas à afficher un schéma qui pourrait illustrer une autre notion.
+    if (RegExp(r'circuit électrique|circuit en série|circuit en parallèle|circuit fermé').hasMatch(title)) return _VisualKind.circuit;
+    if (RegExp(r'germination|parties de la plante|structure de la plante|la plante et ses parties').hasMatch(title)) return _VisualKind.plant;
+    if (RegExp(r'cycle de l.eau|évaporation|condensation|précipitation').hasMatch(title)) return _VisualKind.water;
+    if (RegExp(r'corps humain|parties du corps humain').hasMatch(title)) return _VisualKind.body;
+    if (RegExp(r'figures géométriques|figures planes').hasMatch(title)) return _VisualKind.geometry;
+    if (RegExp(r'fractions|représenter une fraction|fraction en parts égales').hasMatch(title)) return _VisualKind.fraction;
     return null;
   }
 

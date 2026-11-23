@@ -10,8 +10,8 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
   const ExtendedLessonVisualSupport({super.key, required this.lesson});
 
   _Support? get _support {
-    final text = '${lesson.title} ${lesson.content}'.toLowerCase();
-    if (RegExp(r'multiplier|multiplication|groupes égaux|partage équitable').hasMatch(text)) {
+    final text = lesson.title.toLowerCase();
+    if (RegExp(r'groupes égaux|multiplication par addition répétée').hasMatch(text)) {
       return const _Support(
         title: 'La multiplication avec des groupes égaux',
         icon: Icons.calculate,
@@ -37,7 +37,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne place pas l’aimant près d’un téléphone, d’une carte magnétique ou d’un appareil médical.'
       );
     }
-    if (RegExp(r'vibration sonore|propagation du son|son et bruit|oreille|acoustique').hasMatch(text)) {
+    if (RegExp(r'propagation du son|vibration sonore|production du son').hasMatch(text)) {
       return const _Support(
         title: 'Comment le son se propage',
         icon: Icons.graphic_eq,
@@ -50,7 +50,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Évite les bruits très forts et ne frappe pas près des oreilles.'
       );
     }
-    if (RegExp(r'chaine alimentaire|chaîne alimentaire|réseau alimentaire|écosystème|milieu de vie').hasMatch(text)) {
+    if (RegExp(r'chaine alimentaire|chaîne alimentaire|réseau alimentaire').hasMatch(text)) {
       return const _Support(
         title: 'Exemple de chaîne alimentaire',
         icon: Icons.eco,
@@ -63,7 +63,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Observe les animaux à distance et ne détruis pas leur habitat.'
       );
     }
-    if (RegExp(r'composition du sol|types de sol|érosion|humus|couche du sol').hasMatch(text)) {
+    if (RegExp(r'composition du sol|couches du sol|profil du sol').hasMatch(text)) {
       return const _Support(
         title: 'Les couches simplifiées du sol',
         icon: Icons.landscape,
@@ -76,7 +76,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne goûte jamais la terre. Lave-toi les mains après l’activité.'
       );
     }
-    if (RegExp(r'mélange homogène|mélange hétérogène|dissolution|filtration|décantation').hasMatch(text)) {
+    if (RegExp(r'mélange homogène|mélange hétérogène|filtration|décantation').hasMatch(text)) {
       return const _Support(
         title: 'Séparer les constituants d’un mélange',
         icon: Icons.science,
@@ -89,7 +89,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne bois jamais le liquide obtenu : une filtration scolaire ne garantit pas la potabilité.'
       );
     }
-    if (RegExp(r'levier|poulie|plan incliné|machine simple').hasMatch(text)) {
+    if (RegExp(r'levier').hasMatch(text)) {
       return const _Support(
         title: 'Principe d’une machine simple',
         icon: Icons.build,
@@ -115,20 +115,33 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Réalise l’activité dans un endroit sûr, avec l’accord de ton enseignant.'
       );
     }
-    if (RegExp(r'mesurer|longueur|monnaie|centimètre|centimètres|franc cfa').hasMatch(text)) {
+    if (RegExp(r'mesure des longueurs|mesurer une longueur|unités de longueur|centimètre|centimètres|kilomètre').hasMatch(text)) {
       return const _Support(
-        title: 'Mesurer une longueur et calculer un prix',
+        title: 'Mesurer une longueur avec une règle graduée',
         icon: Icons.straighten,
-        nodes: ['Règle graduée', 'cm et m', 'Prix total', 'Monnaie rendue'],
-        explanation: 'On mesure une longueur avec une unité adaptée. Pour un achat, on additionne les prix ; pour trouver la monnaie rendue, on soustrait le prix de la somme donnée.',
-        activity: 'Mesurer un objet et préparer un achat fictif',
-        materials: 'Une règle graduée, deux objets de la classe, des étiquettes de prix et des billets dessinés.',
-        steps: ['Mesure un crayon en centimètres en plaçant le zéro au début.', 'Mesure un autre objet avec la même règle.', 'Additionne deux prix fictifs.', 'Soustrais le total de la somme donnée pour calculer la monnaie.'],
-        result: '1 m = 100 cm. Le prix total est une addition et la monnaie rendue est une soustraction.',
-        safety: 'Utilise des objets de classe sans les lancer et ne manipule pas d’argent réel sans autorisation.'
+        nodes: ['Placer le zéro', 'Aligner l’objet', 'Lire la graduation', 'Noter en cm'],
+        explanation: 'Pour mesurer un objet, on aligne son début sur le zéro de la règle, puis on lit la graduation située à son autre extrémité. On écrit toujours l’unité.',
+        activity: 'Mesurer deux objets de la classe',
+        materials: 'Une règle graduée et deux objets sans danger.',
+        steps: ['Place le zéro de la règle au début du premier objet.', 'Lis la graduation à l’autre extrémité.', 'Note la mesure en centimètres.', 'Recommence avec le deuxième objet et compare.'],
+        result: 'La longueur est la distance entre les deux extrémités. 1 m = 100 cm.',
+        safety: 'Ne pousse pas la règle vers le visage et manipule les objets avec soin.'
       );
     }
-    if (RegExp(r'accord.*verbe|conjugaison|sujet et le verbe|présent').hasMatch(text)) {
+    if (RegExp(r'monnaie|franc cfa|achat|prix|monnaie rendue').hasMatch(text)) {
+      return const _Support(
+        title: 'Calculer un achat et la monnaie rendue',
+        icon: Icons.payments_outlined,
+        nodes: ['Prix des articles', 'Somme donnée', 'Soustraction', 'Monnaie rendue'],
+        explanation: 'On additionne les prix pour trouver le total. On soustrait ensuite ce total de la somme donnée pour calculer la monnaie à rendre.',
+        activity: 'Simuler un achat au marché',
+        materials: 'Des étiquettes de prix et des billets dessinés.',
+        steps: ['Choisis deux articles et lis leurs prix.', 'Additionne les deux prix.', 'Choisis une somme suffisante pour payer.', 'Soustrais le total de la somme donnée.'],
+        result: 'Monnaie rendue = somme donnée − prix total.',
+        safety: 'Utilise de la monnaie fictive pour cette activité.'
+      );
+    }
+    if (RegExp(r'accord du verbe|conjugaison|sujet et verbe|accord sujet-verbe').hasMatch(text)) {
       return const _Support(
         title: 'La phrase : sujet et verbe',
         icon: Icons.menu_book,
@@ -141,7 +154,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Relis les phrases à voix haute pour vérifier qu’elles ont du sens.'
       );
     }
-    if (RegExp(r'animaux|animal|herbivore|carnivore|omnivore').hasMatch(text)) {
+    if (RegExp(r'régime alimentaire|herbivore|carnivore|omnivore').hasMatch(text)) {
       return const _Support(
         title: 'Les animaux et leurs relations alimentaires',
         icon: Icons.pets,
@@ -206,22 +219,8 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Respecte les idées des autres et cite le texte lorsque tu justifies une réponse.'
       );
     }
-    return _Support(
-      title: 'Méthode visuelle pour réussir : ${lesson.title}',
-      icon: Icons.school_outlined,
-      nodes: const ['Comprendre', 'Repérer', 'Appliquer', 'Vérifier'],
-      explanation: 'Pour cette leçon, commence par comprendre la consigne, repère les notions et les informations utiles, applique la méthode étudiée puis vérifie que ta réponse est cohérente et complète.',
-      activity: 'Faire une fiche de synthèse de la leçon',
-      materials: 'Le cahier, un crayon et une feuille.',
-      steps: [
-        'Écris le titre et l’objectif de la leçon.',
-        'Note trois notions ou règles importantes.',
-        'Résous un exemple sans regarder la correction.',
-        'Compare ton travail, corrige les erreurs et explique la méthode à voix haute.',
-      ],
-      result: 'Une fiche courte et ordonnée qui permet de réviser la notion et de refaire un exercice seul.',
-      safety: 'Travaille avec ton propre raisonnement et demande une explication à ton enseignant si une notion reste incomprise.',
-    );
+    // Pas de schéma générique : mieux vaut ne rien afficher qu'illustrer la mauvaise notion.
+    return null;
   }
 
   @override
