@@ -171,7 +171,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6') ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6' || lesson.id == 'ce2_table_multiplication_7') ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
@@ -301,6 +301,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_table_multiplication_4' => const ['4 × 1 = 4', '4 × 2 = 8', '4 × 3 = 12', '4 × 4 = 16', '4 × 5 = 20'],
       'ce2_table_multiplication_5' => const ['5 × 1 = 5', '5 × 2 = 10', '5 × 3 = 15', '5 × 4 = 20', '5 × 5 = 25'],
       'ce2_table_multiplication_6' => const ['6 × 1 = 6', '6 × 2 = 12', '6 × 3 = 18', '6 × 4 = 24', '6 × 5 = 30'],
+      'ce2_table_multiplication_7' => const ['7 × 1 = 7', '7 × 2 = 14', '7 × 3 = 21', '7 × 4 = 28', '7 × 5 = 35'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -331,6 +332,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_table_multiplication_4' => 'COMPTE DE QUATRE EN QUATRE',
       'ce2_table_multiplication_5' => 'COMPTE DE CINQ EN CINQ',
       'ce2_table_multiplication_6' => 'COMPTE DE SIX EN SIX',
+      'ce2_table_multiplication_7' => 'COMPTE DE SEPT EN SEPT',
       _ => 'REGARDE ET DÉCOUVRE',
     };
     return Container(
