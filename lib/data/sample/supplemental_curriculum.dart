@@ -477,4 +477,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_table3_2','3 × 4 = ?',['10','12','14'],1,'3 + 3 + 3 + 3 = 12.'),
      SupplementalQuestion('bonus_ce2_table3_3','3 × 5 = ?',['12','15','18'],1,'3 + 3 + 3 + 3 + 3 = 15.')]),
 
+
+  SupplementalLesson('ce2_table_multiplication_4', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 4',
+    'Multiplier par 4, c’est ajouter quatre fois le même nombre ou compter de quatre en quatre. Pour trouver 4 × 3, on peut calculer 4 + 4 + 4 = 12.',
+    '4 × 1 = 4 ; 4 × 2 = 8 ; 4 × 3 = 12 ; 4 × 4 = 16 ; 4 × 5 = 20.',
+    [SupplementalQuestion('bonus_ce2_table4_1','4 × 2 = ?',['6','8','10'],1,'4 + 4 = 8.'),
+     SupplementalQuestion('bonus_ce2_table4_2','4 × 3 = ?',['10','12','14'],1,'4 + 4 + 4 = 12.'),
+     SupplementalQuestion('bonus_ce2_table4_3','4 × 5 = ?',['16','20','24'],1,'4 + 4 + 4 + 4 + 4 = 20.')]),
+
 ];
