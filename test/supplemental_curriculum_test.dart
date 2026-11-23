@@ -357,5 +357,36 @@ void main() {
     });
 
 
+    test('contrôle global de qualité des cours bonus pour chaque niveau', () {
+      for (final lesson in supplementalLessons) {
+        expect(lesson.title.trim(), isNotEmpty, reason: 'Titre vide : ${lesson.id}');
+        expect(lesson.example.trim(), isNotEmpty, reason: 'Exemple vide : ${lesson.id}');
+        expect(lesson.explanation.trim(), isNotEmpty, reason: 'Explication vide : ${lesson.id}');
+
+        final normalizedPrompts = lesson.questions
+            .map((question) => question.prompt.trim().toLowerCase())
+            .toList();
+        expect(
+          normalizedPrompts.every((prompt) => prompt.isNotEmpty),
+          isTrue,
+          reason: 'Question vide dans ${lesson.id}',
+        );
+        expect(
+          normalizedPrompts.toSet().length,
+          normalizedPrompts.length,
+          reason: 'Questions répétées dans ${lesson.id}',
+        );
+
+        for (final question in lesson.questions) {
+          expect(question.choices.length, greaterThanOrEqualTo(2),
+              reason: 'Pas assez de choix : ${question.id}');
+          expect(question.explanation.trim(), isNotEmpty,
+              reason: 'Explication de réponse vide : ${question.id}');
+          expect(question.correctIndex, inInclusiveRange(0, question.choices.length - 1),
+              reason: 'Réponse correcte invalide : ${question.id}');
+        }
+      }
+    });
+
   });
 }
