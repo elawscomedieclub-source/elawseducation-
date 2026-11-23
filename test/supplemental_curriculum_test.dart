@@ -694,6 +694,17 @@ void main() {
 
 
 
+    test('le cours CE2 sur la table de 2 vérifie les produits', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_table_multiplication_2');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{'bonus_ce2_table2_1': '4','bonus_ce2_table2_2': '8','bonus_ce2_table2_3': '10'};
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id], reason: 'Produit incorrect dans ${question.id}');
+      }
+    });
+
     test('le cours CE2 sur la table de 3 vérifie les produits', () {
       final lesson = supplementalLessons.firstWhere(
         (item) => item.id == 'ce2_table_multiplication_3',
