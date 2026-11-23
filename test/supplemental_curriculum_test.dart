@@ -797,5 +797,17 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 sur la table de 10 vérifie les produits', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_table_multiplication_10');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{'bonus_ce2_table10_1': '20','bonus_ce2_table10_2': '40','bonus_ce2_table10_3': '50'};
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id], reason: 'Produit incorrect dans ${question.id}');
+      }
+    });
+
   });
 }
