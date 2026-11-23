@@ -414,4 +414,11 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('bonus_cp2_fcfa_1','Un cahier coûte 250 F et un crayon 100 F. Quel est le prix total ?',['300 F','350 F','400 F'],1,'250 + 100 = 350 F.'),
      SupplementalQuestion('bonus_cp2_fcfa_2','Tu achètes un article à 300 F et tu donnes 500 F. Quelle somme doit-on te rendre ?',['100 F','200 F','300 F'],1,'500 - 300 = 200 F.'),
      SupplementalQuestion('bonus_cp2_fcfa_3','Deux oranges coûtent 50 F chacune. Combien coûtent-elles ?',['50 F','100 F','150 F'],1,'50 + 50 = 100 F.')]),
+
+  SupplementalLesson('ce1_achats_fcfa', SchoolLevel.ce1, 'Mathématiques', 'Préparer un petit achat en franc CFA',
+    'Pour préparer un achat, lis le prix de chaque objet, additionne les dépenses et compare le total à la somme dont tu disposes. Si tu paies avec une somme plus grande, calcule la monnaie à recevoir.',
+    'Un cahier coûte 300 F et un stylo 150 F. Le total est 300 + 150 = 450 F. Avec 1 000 F, la monnaie est 1 000 - 450 = 550 F.',
+    [SupplementalQuestion('bonus_ce1_fcfa_1','Un cahier coûte 300 F et un stylo 150 F. Quel est le total ?',['400 F','450 F','500 F'],1,'300 + 150 = 450 F.'),
+     SupplementalQuestion('bonus_ce1_fcfa_2','Tu paies 1 000 F pour un achat de 450 F. Quelle monnaie reçois-tu ?',['450 F','500 F','550 F'],2,'1 000 - 450 = 550 F.'),
+     SupplementalQuestion('bonus_ce1_fcfa_3','Trois crayons coûtent 100 F chacun. Quel est leur prix total ?',['200 F','300 F','400 F'],1,'3 × 100 = 300 F.')]),
 ];
