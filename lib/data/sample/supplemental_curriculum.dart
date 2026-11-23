@@ -551,5 +551,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_operation_2','Ama a 500 F. Elle dépense 200 F. Quelle opération faut-il choisir pour connaître son argent restant ?',['Addition (+)','Soustraction (−)','Division (÷)'],1,'On cherche ce qui reste après une dépense : soustraction. 500 − 200 = 300 F.'),
      SupplementalQuestion('bonus_ce2_operation_3','Il y a 4 sachets contenant chacun 6 bonbons. Quelle opération faut-il choisir pour trouver le total ?',['Soustraction (−)','Multiplication (×)','Division (÷)'],1,'Il y a plusieurs groupes égaux : multiplication. 4 × 6 = 24 bonbons.'),
      SupplementalQuestion('bonus_ce2_operation_4','18 mangues sont partagées également entre 3 enfants. Quelle opération faut-il choisir ?',['Addition (+)','Multiplication (×)','Division (÷)'],2,'On partage en parts égales : division. 18 ÷ 3 = 6 mangues par enfant.')]),
+  SupplementalLesson('ce2_figures_geometriques', SchoolLevel.ce2, 'Mathématiques', 'Reconnaître les figures géométriques planes',
+    'Une figure plane est une forme dessinée sur une feuille. Le triangle a 3 côtés. Le carré a 4 côtés égaux et 4 angles droits. Le rectangle a 4 côtés et ses côtés opposés sont égaux. Le cercle est rond et n’a ni côté droit ni sommet.',
+    'Un panneau triangulaire a 3 côtés. Un carreau carré a 4 côtés égaux. Une porte rectangulaire a 4 côtés.',
+    [SupplementalQuestion('bonus_ce2_geo_1','Combien de côtés possède un triangle ?',['2','3','4'],1,'Un triangle possède 3 côtés.'),
+     SupplementalQuestion('bonus_ce2_geo_2','Quelle figure a 4 côtés égaux et 4 angles droits ?',['Le carré','Le cercle','Le triangle'],0,'Le carré a quatre côtés de même longueur et quatre angles droits.'),
+     SupplementalQuestion('bonus_ce2_geo_3','Quelle figure est ronde et n’a pas de sommet ?',['Le rectangle','Le triangle','Le cercle'],2,'Le cercle est rond et ne possède aucun sommet.'),
+     SupplementalQuestion('bonus_ce2_geo_4','Dans un rectangle, quels côtés ont la même longueur ?',['Tous les côtés sont toujours égaux','Les côtés opposés','Aucun côté'],1,'Dans un rectangle, les côtés opposés ont la même longueur.')]),
 
 ];
