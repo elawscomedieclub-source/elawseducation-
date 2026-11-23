@@ -293,6 +293,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce1_achats_fcfa' => const ['300 F', '+', '150 F', '=', '450 F', '1 000 F', '−', '450 F', '=', '550 F'],
       'ce2_budget_fcfa' => const ['400 F', '+', '400 F', '+', '500 F', '=', '1 300 F', '1 500 F', '−', '1 300 F', '=', '200 F'],
       'ce2_mesures_longueurs' => const ['1 km', '=', '1 000 m', '2 m', '+', '50 cm', '=', '250 cm', '340 cm', '=', '3 m', '+', '40 cm'],
+      'ce2_mesures_masses' => const ['1 kg', '=', '1 000 g', '2 kg', '=', '2 000 g', '1 500 g', '=', '1 kg', '+', '500 g'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -315,6 +316,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce1_achats_fcfa' => 'PRÉPARE TON ACHAT ET TA MONNAIE',
       'ce2_budget_fcfa' => 'CALCULE TES DÉPENSES ET TON RESTE',
       'ce2_mesures_longueurs' => 'OBSERVE LES UNITÉS ET CONVERTIS',
+      'ce2_mesures_masses' => 'OBSERVE LES MASSES ET CONVERTIS',
       _ => 'REGARDE ET DÉCOUVRE',
     };
     return Container(
