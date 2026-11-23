@@ -338,6 +338,19 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                     ),
                   ),
                 ),
+              if (_comprehensionChecked) ...[
+                const SizedBox(height: 8),
+                OutlinedButton.icon(
+                  onPressed: () => _speakText(
+                    'La question était : ${comprehension.question}. '
+                    'La bonne réponse est : ${comprehension.choices[comprehension.correctIndex]}. '
+                    '${comprehension.explanation}',
+                    rate: .38,
+                  ),
+                  icon: const Icon(Icons.volume_up_rounded),
+                  label: const Text('Écouter la correction'),
+                ),
+              ],
             ]),
           ),
         ),
