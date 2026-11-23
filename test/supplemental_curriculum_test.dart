@@ -977,5 +977,25 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 résout des partages égaux en francs CFA', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_problemes_partage_fcfa');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_partage_fcfa_1': '200 F',
+        'bonus_ce2_partage_fcfa_2': '300 F',
+        'bonus_ce2_partage_fcfa_3': '300 F',
+        'bonus_ce2_partage_fcfa_4': '300 F',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Partage de monnaie incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }

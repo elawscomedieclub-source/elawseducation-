@@ -601,4 +601,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_division_exacte_2','Calcule : 36 ÷ 4.',['8','9','10'],1,'36 partagé en 4 parts égales donne 9. 9 × 4 = 36.'),
      SupplementalQuestion('bonus_ce2_division_exacte_3','Calcule : 42 ÷ 6.',['6','7','8'],1,'42 partagé en 6 parts égales donne 7. 7 × 6 = 42.'),
      SupplementalQuestion('bonus_ce2_division_exacte_4','Calcule : 56 ÷ 7.',['7','8','9'],1,'56 partagé en 7 parts égales donne 8. 8 × 7 = 56.')]),
+  SupplementalLesson('ce2_problemes_partage_fcfa', SchoolLevel.ce2, 'Mathématiques', 'Résoudre des problèmes de partage en francs CFA',
+    'Dans un problème de partage, on distribue une somme en parts égales. On divise la somme totale par le nombre de personnes. Chaque personne reçoit la même somme. Pour vérifier, multiplie la somme reçue par le nombre de personnes.',
+    'Afi partage 600 F entre 3 enfants. 600 ÷ 3 = 200 F. Chaque enfant reçoit 200 F. Vérification : 200 × 3 = 600 F.',
+    [SupplementalQuestion('bonus_ce2_partage_fcfa_1','On partage 600 F entre 3 enfants. Combien reçoit chaque enfant ?',['100 F','200 F','300 F'],1,'600 ÷ 3 = 200 F pour chaque enfant.'),
+     SupplementalQuestion('bonus_ce2_partage_fcfa_2','Quatre élèves se partagent 1 200 F également. Quelle somme reçoit chacun ?',['200 F','300 F','400 F'],1,'1 200 ÷ 4 = 300 F pour chaque élève.'),
+     SupplementalQuestion('bonus_ce2_partage_fcfa_3','Trois frères partagent 900 F également. Combien reçoit chacun ?',['200 F','300 F','400 F'],1,'900 ÷ 3 = 300 F pour chaque frère.'),
+     SupplementalQuestion('bonus_ce2_partage_fcfa_4','Cinq enfants se partagent 1 500 F également. Combien reçoit chacun ?',['200 F','300 F','500 F'],1,'1 500 ÷ 5 = 300 F pour chaque enfant.')]),
 ];
