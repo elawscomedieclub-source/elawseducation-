@@ -310,10 +310,17 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
                             isCorrect: isCorrect,
                             levelKey: level.name,
                           );
+                          // Ne pas afficher les statistiques d'une ancienne classe
+                          // si l'élève change de niveau pendant la sauvegarde.
+                          if (!mounted || ref.read(schoolLevelProvider).name != level.name) {
+                            return;
+                          }
                           final stats = await ReadingPracticeService.loadComprehensionStats(
                             levelKey: level.name,
                           );
-                          if (!mounted) return;
+                          if (!mounted || ref.read(schoolLevelProvider).name != level.name) {
+                            return;
+                          }
                           setState(() {
                             _comprehensionChecked = true;
                             _comprehensionTotal = stats['total'] ?? _comprehensionTotal;
