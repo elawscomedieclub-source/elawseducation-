@@ -264,7 +264,7 @@ class LessonVisualSupport extends StatelessWidget {
   String _diagramCaption(_VisualKind kind) => switch (kind) {
     _VisualKind.circuit => 'Une boucle fermée permet au courant de circuler entre la pile et la lampe.',
     _VisualKind.plant => 'La racine absorbe l’eau, la tige soutient la plante et les feuilles captent la lumière.',
-    _VisualKind.water => 'L’eau s’évapore, se condense en nuages puis retombe sous forme de précipitations.',
+    _VisualKind.water => 'Sous l’action du Soleil, l’eau s’évapore. La vapeur se refroidit et se condense en nuages, puis l’eau retombe sous forme de précipitations et rejoint les sols et les cours d’eau.',
     _VisualKind.body => 'Le schéma situe la tête, le thorax et l’abdomen. Les organes sont représentés de façon simplifiée.',
     _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
     _VisualKind.fraction => 'La bande est partagée en quatre parts égales : trois parts colorées représentent trois quarts.',
@@ -326,18 +326,21 @@ class _LessonDiagramPainter extends CustomPainter {
         canvas.drawCircle(const Offset(55,48), 22, Paint()..color=const Color(0xFFFFC247));
         canvas.drawOval(const Rect.fromLTWH(195,35,100,36), fill..style=PaintingStyle.fill);
         canvas.drawOval(const Rect.fromLTWH(220,22,55,48), fill);
-        canvas.drawLine(const Offset(220,80),const Offset(220,112),blue);
-        canvas.drawLine(const Offset(250,80),const Offset(250,112),blue);
-        canvas.drawLine(const Offset(220,112),const Offset(214,103),blue);
-        canvas.drawLine(const Offset(220,112),const Offset(226,103),blue);
-        canvas.drawLine(const Offset(250,112),const Offset(244,103),blue);
-        canvas.drawLine(const Offset(250,112),const Offset(256,103),blue);
-        canvas.drawPath(Path()..moveTo(35,155)..quadraticBezierTo(95,120,155,155)..quadraticBezierTo(220,185,310,145), blue..strokeWidth=5);
+        // Précipitations : flèches orientées des nuages vers le sol.
+        canvas.drawLine(const Offset(245,83),const Offset(245,126),blue);
+        canvas.drawLine(const Offset(245,126),const Offset(238,116),blue);
+        canvas.drawLine(const Offset(245,126),const Offset(252,116),blue);
+        // Évaporation : flèche montante depuis la surface de l’eau.
+        canvas.drawLine(const Offset(112,160),const Offset(112,105),blue);
+        canvas.drawLine(const Offset(112,105),const Offset(105,115),blue);
+        canvas.drawLine(const Offset(112,105),const Offset(119,115),blue);
+        // Retour de l’eau vers la rivière ou la mer.
+        canvas.drawPath(Path()..moveTo(35,178)..quadraticBezierTo(95,150,155,178)..quadraticBezierTo(220,205,310,168), blue..strokeWidth=5);
         _text(canvas,'soleil',Offset(25,80),scale);
         _text(canvas,'nuages',Offset(215,8),scale);
-        _text(canvas,'pluie',Offset(265,105),scale);
-        _text(canvas,'eau',Offset(150,173),scale);
-        _text(canvas,'vapeur ↑',Offset(75,104),scale);
+        _text(canvas,'pluie',Offset(260,112),scale);
+        _text(canvas,'eau',Offset(150,194),scale);
+        _text(canvas,'évaporation',Offset(62,88),scale);
         break;
       case _VisualKind.body:
         canvas.drawCircle(const Offset(170,42), 25, fill);
