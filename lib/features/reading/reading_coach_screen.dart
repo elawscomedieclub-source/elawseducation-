@@ -25,12 +25,15 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   bool _comprehensionChecked = false;
   int _comprehensionTotal = 0;
   int _comprehensionCorrect = 0;
+  int _statsRequestId = 0;
 
-  Future<void> _loadComprehensionStats() async {
+  Future<void> _loadComprehensionStats({String? levelKey}) async {
+    final requestId = ++_statsRequestId;
+    final targetLevel = levelKey ?? ref.read(schoolLevelProvider).name;
     final stats = await ReadingPracticeService.loadComprehensionStats(
-      levelKey: ref.read(schoolLevelProvider).name,
+      levelKey: targetLevel,
     );
-    if (!mounted) return;
+    if (!mounted || requestId != _statsRequestId) return;
     setState(() {
       _comprehensionTotal = stats['total'] ?? 0;
       _comprehensionCorrect = stats['correct'] ?? 0;
@@ -183,6 +186,19 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<SchoolLevel>(schoolLevelProvider, (previous, next) {
+      if (previous?.name == next.name) return;
+      setState(() {
+        _selectedComprehensionIndex = null;
+        _comprehensionChecked = false;
+        _hasResult = false;
+        _recognized = '';
+        _difficultWords = [];
+        _comprehensionTotal = 0;
+        _comprehensionCorrect = 0;
+      });
+      _loadComprehensionStats(levelKey: next.name);
+    });
     final level = ref.watch(schoolLevelProvider);
     final total = _words(_passage).length;
     final missed = _difficultWords.length;
