@@ -557,5 +557,27 @@ void main() {
       }
     });
 
+
+    test('le cours CE2 sur le budget en franc CFA vérifie dépenses et reste', () {
+      final lesson = supplementalLessons.firstWhere(
+        (item) => item.id == 'ce2_budget_fcfa',
+      );
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(3));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_budget_1': '1 300 F',
+        'bonus_ce2_budget_2': '200 F',
+        'bonus_ce2_budget_3': 'Oui, il reste 250 F',
+      };
+      for (final question in lesson.questions) {
+        expect(
+          question.choices[question.correctIndex],
+          expectedAnswers[question.id],
+          reason: 'Calcul incorrect dans ${question.id}',
+        );
+      }
+    });
+
   });
 }
