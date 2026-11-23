@@ -594,4 +594,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_multposee_2','Calcule : 213 × 4.',['842','852','862'],1,'213 × 4 = 852.'),
      SupplementalQuestion('bonus_ce2_multposee_3','Calcule : 132 × 5.',['650','660','670'],1,'132 × 5 = 660.'),
      SupplementalQuestion('bonus_ce2_multposee_4','Calcule : 206 × 3.',['618','608','628'],0,'206 × 3 = 618.')]),
+  SupplementalLesson('ce2_division_exacte', SchoolLevel.ce2, 'Mathématiques', 'Diviser exactement par un chiffre',
+    'Diviser, c’est partager une quantité en parts égales ou former des groupes égaux. Dans une division exacte, il ne reste rien. Pour vérifier, multiplie le nombre de chaque part par le nombre de parts : tu dois retrouver la quantité de départ.',
+    '24 ÷ 3 = 8 : 24 objets partagés entre 3 élèves donnent 8 objets à chacun. Vérification : 8 × 3 = 24.',
+    [SupplementalQuestion('bonus_ce2_division_exacte_1','Calcule : 24 ÷ 3.',['6','8','9'],1,'24 partagé en 3 parts égales donne 8 dans chaque part. 8 × 3 = 24.'),
+     SupplementalQuestion('bonus_ce2_division_exacte_2','Calcule : 36 ÷ 4.',['8','9','10'],1,'36 partagé en 4 parts égales donne 9. 9 × 4 = 36.'),
+     SupplementalQuestion('bonus_ce2_division_exacte_3','Calcule : 42 ÷ 6.',['6','7','8'],1,'42 partagé en 6 parts égales donne 7. 7 × 6 = 42.'),
+     SupplementalQuestion('bonus_ce2_division_exacte_4','Calcule : 56 ÷ 7.',['7','8','9'],1,'56 partagé en 7 parts égales donne 8. 8 × 7 = 56.')]),
 ];

@@ -957,5 +957,25 @@ void main() {
             reason: 'Multiplication posée incorrecte dans ${question.id}');
       }
     });
+
+    test('le cours CE2 vérifie les divisions exactes par un chiffre', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce2_division_exacte');
+      expect(lesson.level, SchoolLevel.ce2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce2_division_exacte_1': '8',
+        'bonus_ce2_division_exacte_2': '9',
+        'bonus_ce2_division_exacte_3': '7',
+        'bonus_ce2_division_exacte_4': '8',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Division incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }

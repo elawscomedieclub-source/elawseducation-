@@ -171,7 +171,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_problemes_multiplication' || lesson.id == 'ce2_choisir_operation' || lesson.id == 'ce2_table_multiplication_2' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6' || lesson.id == 'ce2_table_multiplication_7' || lesson.id == 'ce2_table_multiplication_8' || lesson.id == 'ce2_table_multiplication_9' || lesson.id == 'ce2_table_multiplication_10' || lesson.id == 'ce2_figures_geometriques' || lesson.id == 'ce2_moitie_quart') ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_problemes_multiplication' || lesson.id == 'ce2_choisir_operation' || lesson.id == 'ce2_table_multiplication_2' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6' || lesson.id == 'ce2_table_multiplication_7' || lesson.id == 'ce2_table_multiplication_8' || lesson.id == 'ce2_table_multiplication_9' || lesson.id == 'ce2_table_multiplication_10' || lesson.id == 'ce2_figures_geometriques' || lesson.id == 'ce2_moitie_quart' || lesson.id == 'ce2_division_exacte') ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
@@ -314,6 +314,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_comparer_nombres_1000' => const ['348 < 384', '906 > 690', '340 < 403 < 430', '725 = 725'],
       'ce2_addition_soustraction_1000' => const ['235 + 142 = 377', '326 + 158 = 484', '568 − 243 = 325', '700 − 265 = 435'],
       'ce2_multiplication_posee' => const ['124 × 3', '4 × 3 = 12', '12 → 2 + 1 retenue', '372'],
+      'ce2_division_exacte' => const ['24 objets', '÷ 3 élèves', '= 8 chacun', 'Vérification : 8 × 3 = 24'],
       _ => const ['👀', '📚', '✏️'],
     };
     final heading = switch (lesson.id) {
@@ -353,6 +354,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_table_multiplication_10' => 'COMPTE DE DIX EN DIX',
       'ce2_figures_geometriques' => 'OBSERVE LES FORMES ET COMPTE LES CÔTÉS',
       'ce2_moitie_quart' => 'PARTAGE EN PARTS ÉGALES',
+      'ce2_division_exacte' => 'PARTAGE ET VÉRIFIE AVEC LA MULTIPLICATION',
       'ce2_multiplication_posee' => 'MULTIPLIE ET EFFECTUE LES RETENUES',
       _ => 'REGARDE ET DÉCOUVRE',
     };
