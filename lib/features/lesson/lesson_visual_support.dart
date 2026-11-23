@@ -352,9 +352,19 @@ class _LessonDiagramPainter extends CustomPainter {
         canvas.drawLine(const Offset(203,87),const Offset(237,137),ink);
         canvas.drawLine(const Offset(153,154),const Offset(143,195),ink);
         canvas.drawLine(const Offset(187,154),const Offset(197,195),ink);
-        canvas.drawCircle(const Offset(170,105), 10, Paint()..color=const Color(0xFFE46B64));
+        // Cœur stylisé placé dans le thorax : repère visuel, non anatomie détaillée.
+        final heart=Path()
+          ..moveTo(170,116)
+          ..cubicTo(151,105,150,91,160,89)
+          ..cubicTo(166,88,170,93,170,97)
+          ..cubicTo(174,91,181,88,186,93)
+          ..cubicTo(196,103,183,113,170,123)
+          ..close();
+        canvas.drawPath(heart,Paint()..color=const Color(0xFFE46B64)..style=PaintingStyle.fill);
+        canvas.drawPath(heart,ink);
         _text(canvas,'tête',Offset(207,30),scale);
-        _text(canvas,'thorax',Offset(215,90),scale);
+        _text(canvas,'cœur',Offset(215,105),scale);
+        _text(canvas,'thorax',Offset(215,82),scale);
         _text(canvas,'abdomen',Offset(210,137),scale);
         _text(canvas,'membres',Offset(42,175),scale);
         break;
