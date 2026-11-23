@@ -507,4 +507,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_table7_2','7 × 4 = ?',['21','28','35'],1,'7 + 7 + 7 + 7 = 28.'),
      SupplementalQuestion('bonus_ce2_table7_3','7 × 5 = ?',['30','35','40'],1,'5 groupes de 7 font 35.')]),
 
+
+  SupplementalLesson('ce2_table_multiplication_8', SchoolLevel.ce2, 'Mathématiques', 'Apprendre la table de 8',
+    'Multiplier par 8, c’est compter de huit en huit. Pour trouver 8 × 4, on peut additionner 8 + 8 + 8 + 8 = 32.',
+    '8 × 1 = 8 ; 8 × 2 = 16 ; 8 × 3 = 24 ; 8 × 4 = 32 ; 8 × 5 = 40.',
+    [SupplementalQuestion('bonus_ce2_table8_1','8 × 2 = ?',['14','16','18'],1,'8 + 8 = 16.'),
+     SupplementalQuestion('bonus_ce2_table8_2','8 × 4 = ?',['24','32','40'],1,'8 + 8 + 8 + 8 = 32.'),
+     SupplementalQuestion('bonus_ce2_table8_3','8 × 5 = ?',['35','40','45'],1,'5 groupes de 8 font 40.')]),
+
 ];
