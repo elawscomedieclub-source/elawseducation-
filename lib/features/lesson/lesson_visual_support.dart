@@ -257,7 +257,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.plant => 'Croquis : les parties d’une plante',
     _VisualKind.water => 'Schéma : le cycle de l’eau',
     _VisualKind.body => 'Schéma : le corps humain',
-    _VisualKind.geometry => 'Croquis : figures et mesures',
+    _VisualKind.geometry => 'Quelques figures planes : côtés, sommets et courbes',
     _VisualKind.fraction => 'Schéma : une fraction en parts égales',
   };
 
@@ -266,7 +266,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.plant => 'La racine absorbe l’eau, la tige soutient la plante et les feuilles captent la lumière.',
     _VisualKind.water => 'L’eau s’évapore, se condense en nuages puis retombe sous forme de précipitations.',
     _VisualKind.body => 'Le schéma situe la tête, le thorax et l’abdomen. Les organes sont représentés de façon simplifiée.',
-    _VisualKind.geometry => 'Observe les sommets, les côtés et les angles avant de mesurer la figure.',
+    _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
     _VisualKind.fraction => 'La bande est partagée en quatre parts égales : trois parts colorées représentent trois quarts.',
   };
 }
@@ -353,15 +353,20 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas,'membres',Offset(42,175),scale);
         break;
       case _VisualKind.geometry:
-        final triangle=Path()..moveTo(45,165)..lineTo(145,35)..lineTo(245,165)..close();
+        // Planche comparative : les quatre figures restent visibles même
+        // lorsque la leçon ne porte que sur l'une d'elles.
+        final triangle=Path()..moveTo(48,112)..lineTo(92,38)..lineTo(136,112)..close();
         canvas.drawPath(triangle, ink);
-        canvas.drawRect(const Rect.fromLTWH(250,80,65,85),fill);
-        canvas.drawRect(const Rect.fromLTWH(250,80,65,85),ink);
-        _text(canvas,'A',Offset(35,165),scale);
-        _text(canvas,'B',Offset(140,12),scale);
-        _text(canvas,'C',Offset(245,165),scale);
-        _text(canvas,'côté',Offset(265,174),scale);
-        _text(canvas,'angle',Offset(75,120),scale);
+        canvas.drawRect(const Rect.fromLTWH(188,48,112,62),fill);
+        canvas.drawRect(const Rect.fromLTWH(188,48,112,62),ink);
+        canvas.drawRect(const Rect.fromLTWH(48,155,72,72),fill);
+        canvas.drawRect(const Rect.fromLTWH(48,155,72,72),ink);
+        canvas.drawCircle(const Offset(244,191),36,fill);
+        canvas.drawCircle(const Offset(244,191),36,ink);
+        _text(canvas,'TRIANGLE',Offset(43,120),scale);
+        _text(canvas,'RECTANGLE',Offset(202,116),scale);
+        _text(canvas,'CARRÉ',Offset(60,231),scale);
+        _text(canvas,'CERCLE',Offset(225,235),scale);
         break;
       case _VisualKind.fraction:
         const left=30.0, top=78.0, width=280.0, height=58.0;
