@@ -405,5 +405,41 @@ void main() {
       }
     });
 
+
+    test('les résultats des calculs fondamentaux restent exacts', () {
+      const expectedAnswers = <String, String>{
+        'bonus_cp1_math_1': '4',
+        'bonus_cp1_math_2': '3',
+        'extra_review_cp1_compter': '5',
+        'bonus_cp1_add_img_1': '4',
+        'bonus_cp1_sub_img_1': '3',
+        'bonus_cp1_sub_img_2': '3',
+        'bonus_cp1_twenty_3': '17',
+        'bonus_cp2_add_tens_1': '34',
+        'bonus_cp2_add_tens_2': '47',
+        'bonus_cp2_sub_1': '23',
+        'bonus_cp2_sub_2': '26',
+        'bonus_cp2_sub_3': '12',
+        'bonus_ce1_table2_1': '6',
+        'bonus_ce2_share_2': '3',
+        'bonus_cm1_perim_1': '14 cm',
+      };
+
+      final questions = {
+        for (final lesson in supplementalLessons)
+          for (final question in lesson.questions) question.id: question,
+      };
+
+      for (final entry in expectedAnswers.entries) {
+        final question = questions[entry.key];
+        expect(question, isNotNull, reason: 'Exercice absent : ${entry.key}');
+        expect(
+          question!.choices[question.correctIndex].trim(),
+          entry.value,
+          reason: 'Résultat à corriger dans ${entry.key}',
+        );
+      }
+    });
+
   });
 }
