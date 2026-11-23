@@ -407,4 +407,11 @@ const supplementalLessons = <SupplementalLesson>[
     'L’information héréditaire est portée par l’ADN, organisé en chromosomes dans le noyau de nombreuses cellules. Un gène est une portion d’ADN qui participe à la détermination d’un caractère ou à la fabrication d’un produit biologique.',
     'Les chromosomes portent l’ADN ; les gènes sont des segments de cet ADN.',
     [SupplementalQuestion('bonus_3e_gene_1','Quelle molécule porte l’information génétique ?',['ADN','Eau','Amidon'],0,'L’ADN porte l’information génétique.'), SupplementalQuestion('bonus_3e_gene_2','Où se trouvent les chromosomes dans une cellule humaine typique ?',['Dans le noyau','Dans l’air','À l’extérieur du corps'],0,'Les chromosomes sont généralement situés dans le noyau des cellules.'), SupplementalQuestion('bonus_3e_gene_3','Un gène est…',['Une cellule entière','Une portion d’ADN','Un organe'],1,'Un gène correspond à une portion d’ADN.')]),
+
+  SupplementalLesson('cp2_monnaie_fcfa', SchoolLevel.cp2, 'Mathématiques', 'Calculer avec le franc CFA',
+    'La monnaie utilisée au Togo est le franc CFA (F CFA). Pour calculer une dépense, on additionne les prix. Pour trouver la monnaie rendue, on soustrait le prix de la somme donnée.',
+    'Un cahier coûte 250 F et un crayon coûte 100 F. Ensemble, ils coûtent 250 + 100 = 350 F. Si tu donnes 500 F, on te rend 500 - 350 = 150 F.',
+    [SupplementalQuestion('bonus_cp2_fcfa_1','Un cahier coûte 250 F et un crayon 100 F. Quel est le prix total ?',['300 F','350 F','400 F'],1,'250 + 100 = 350 F.'),
+     SupplementalQuestion('bonus_cp2_fcfa_2','Tu achètes un article à 300 F et tu donnes 500 F. Quelle somme doit-on te rendre ?',['100 F','200 F','300 F'],1,'500 - 300 = 200 F.'),
+     SupplementalQuestion('bonus_cp2_fcfa_3','Deux oranges coûtent 50 F chacune. Combien coûtent-elles ?',['50 F','100 F','150 F'],1,'50 + 50 = 100 F.')]),
 ];
