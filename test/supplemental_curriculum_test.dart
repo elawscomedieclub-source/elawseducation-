@@ -1076,5 +1076,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 identifie le verbe dans une phrase', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_reconnaitre_verbe');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_verbe_1': 'danse',
+        'bonus_cp2_verbe_2': 'dort',
+        'bonus_cp2_verbe_3': 'écrivent',
+        'bonus_cp2_verbe_4': 'brille',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Identification du verbe incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
