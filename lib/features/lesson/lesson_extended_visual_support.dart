@@ -65,6 +65,20 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Observe les animaux à distance et ne détruis pas leur habitat.'
       );
     }
+    if (RegExp(r'couches du sol|profil du sol|horizons du sol').hasMatch(text)) {
+      return const _Support(
+        title: 'Profil simplifié des horizons du sol',
+        showArrows: false,
+        icon: Icons.landscape,
+        nodes: ['Litière et humus', 'Horizon A', 'Horizon B', 'Roche mère altérée'],
+        explanation: 'Un profil de sol présente des horizons superposés. Leur épaisseur et leur aspect varient selon le climat, la roche, les organismes et la durée de formation ; ce schéma est simplifié et ne décrit pas tous les sols.',
+        activity: 'Lire et légender un profil de sol',
+        materials: 'Un dessin de profil de sol, une feuille et un crayon.',
+        steps: ['Observe les horizons représentés sur le document.', 'Repère la couche de surface riche en matière organique.', 'Repère les horizons plus profonds et la roche mère altérée.', 'Compare deux profils et note leurs différences.'],
+        result: 'Les horizons sont des couches du sol qui se distinguent par leurs propriétés.',
+        safety: 'Pour une observation sur le terrain, reste avec l’enseignant et ne creuse pas près d’une route ou d’un ouvrage.'
+      );
+    }
     if (RegExp(r'composition du sol|couches du sol|profil du sol').hasMatch(text)) {
       return const _Support(
         title: 'Observer la décantation d’un échantillon de sol',
