@@ -171,7 +171,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_problemes_multiplication' || lesson.id == 'ce2_choisir_operation' || lesson.id == 'ce2_table_multiplication_2' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6' || lesson.id == 'ce2_table_multiplication_7' || lesson.id == 'ce2_table_multiplication_8' || lesson.id == 'ce2_table_multiplication_9' || lesson.id == 'ce2_table_multiplication_10' || lesson.id == 'ce2_figures_geometriques' || lesson.id == 'ce2_moitie_quart' || lesson.id == 'ce2_division_exacte' || lesson.id == 'ce2_problemes_partage_fcfa' || lesson.id == 'ce2_problemes_deux_etapes' || lesson.id == 'ce2_problemes_multiplication_soustraction' || lesson.id == 'ce2_nombres_jusqua_1000' || lesson.id == 'ce2_comparer_nombres_1000' || lesson.id == 'ce2_addition_soustraction_1000' || lesson.id == 'ce2_multiplication_posee') ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_syllabes' || lesson.id == 'cp2_addition' || lesson.id == 'cp2_addition_dizaines' || lesson.id == 'cp2_soustraction' || lesson.id == 'cp2_addition_retenue_dizaines' || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_problemes_multiplication' || lesson.id == 'ce2_choisir_operation' || lesson.id == 'ce2_table_multiplication_2' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6' || lesson.id == 'ce2_table_multiplication_7' || lesson.id == 'ce2_table_multiplication_8' || lesson.id == 'ce2_table_multiplication_9' || lesson.id == 'ce2_table_multiplication_10' || lesson.id == 'ce2_figures_geometriques' || lesson.id == 'ce2_moitie_quart' || lesson.id == 'ce2_division_exacte' || lesson.id == 'ce2_problemes_partage_fcfa' || lesson.id == 'ce2_problemes_deux_etapes' || lesson.id == 'ce2_problemes_multiplication_soustraction' || lesson.id == 'ce2_nombres_jusqua_1000' || lesson.id == 'ce2_comparer_nombres_1000' || lesson.id == 'ce2_addition_soustraction_1000' || lesson.id == 'ce2_multiplication_posee') ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
@@ -289,6 +289,11 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_hygiene' => const ['🧼', '💧', '🪥', '🦷'],
       'cp1_animaux' => const ['🐟', '🐕', '🐔', '🐐'],
       'cp1_corps' => const ['👀', '👂', '👃', '🦶'],
+      'cp2_syllabes' => const ['M + A = MA', 'M + I = MI', 'M + O = MO', 'L + A = LA'],
+      'cp2_addition' => const ['4 + 3 = 7', '5 + 3 = 8', '3 + 2 = 5'],
+      'cp2_addition_dizaines' => const ['23 + 14', '3 + 4 = 7 unités', '20 + 10 = 30', 'Résultat : 37'],
+      'cp2_soustraction' => const ['35 − 12', '5 − 2 = 3 unités', '30 − 10 = 20', 'Résultat : 23'],
+      'cp2_addition_retenue_dizaines' => const ['27 + 15', '7 + 5 = 12', 'Écrire 2, retenir 1 dizaine', '2 + 1 + 1 = 4 dizaines', 'Résultat : 42'],
       'cp2_monnaie_fcfa' => const ['250 F', '+', '100 F', '=', '350 F', '500 F', '−', '350 F', '=', '150 F'],
       'ce1_achats_fcfa' => const ['300 F', '+', '150 F', '=', '450 F', '1 000 F', '−', '450 F', '=', '550 F'],
       'ce2_budget_fcfa' => const ['400 F', '+', '400 F', '+', '500 F', '=', '1 300 F', '1 500 F', '−', '1 300 F', '=', '200 F'],
@@ -336,6 +341,11 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_hygiene' => 'LES GESTES POUR ÊTRE PROPRE',
       'cp1_animaux' => 'OBSERVE LES ANIMAUX',
       'cp1_corps' => 'MONTRE LES PARTIES DU CORPS',
+      'cp2_syllabes' => 'ASSEMBLE LES LETTRES POUR LIRE',
+      'cp2_addition' => 'RÉUNIS LES QUANTITÉS',
+      'cp2_addition_dizaines' => 'ALIGNE DIZAINES ET UNITÉS',
+      'cp2_soustraction' => 'SOUSTRAIS LES UNITÉS ET LES DIZAINES',
+      'cp2_addition_retenue_dizaines' => 'CALCULE ET REPORTE LA RETENUE',
       'cp2_monnaie_fcfa' => 'CALCULE AVEC LE FRANC CFA',
       'ce1_achats_fcfa' => 'PRÉPARE TON ACHAT ET TA MONNAIE',
       'ce2_budget_fcfa' => 'CALCULE TES DÉPENSES ET TON RESTE',
