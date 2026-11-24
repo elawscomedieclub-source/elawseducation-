@@ -1267,5 +1267,25 @@ void main() {
       }
     });
 
+
+    test('le cours CP2 apprend à partager une quantité en parts égales', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_partage_equitable');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_partage_1': '4',
+        'bonus_cp2_partage_2': '2',
+        'bonus_cp2_partage_3': '3, 3 et 3 bonbons',
+        'bonus_cp2_partage_4': '3',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Partage incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
