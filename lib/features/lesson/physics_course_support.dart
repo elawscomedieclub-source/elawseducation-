@@ -10,7 +10,7 @@ class PhysicsCourseSupport extends StatelessWidget {
     final s=(chapterTitle+' '+lesson.title+' '+lesson.summary+' '+lesson.content).toLowerCase();
     final topics=<_Topic>[];
     final lessonHeading = (lesson.title + ' ' + lesson.summary).toLowerCase();
-    if (RegExp(r'équilibre|concourantes|polygone des forces').hasMatch(lessonHeading)) {
+    if (RegExp(r'équilibre.*forces|forces.*équilibre|concourantes|polygone des forces').hasMatch(lessonHeading)) {
       topics.add(_mechanics[1]);
     } else if (RegExp(r'interaction|actions réciproques|action réciproque').hasMatch(lessonHeading)) {
       topics.add(_mechanics[2]);
