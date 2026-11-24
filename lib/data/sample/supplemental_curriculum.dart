@@ -718,7 +718,7 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('bonus_cp2_mult_groupes_1','2 groupes de 3 crayons : combien de crayons en tout ?',['5','6','9'],1,'2 groupes de 3 donnent 3 + 3 = 6 crayons.'),
      SupplementalQuestion('bonus_cp2_mult_groupes_2','Que signifie 4 × 2 ?',['4 groupes de 2','2 groupes de 4 seulement','4 + 2'],0,'4 × 2 signifie 4 groupes de 2.'),
      SupplementalQuestion('bonus_cp2_mult_groupes_3','3 × 5 = ?',['8','15','10'],1,'3 groupes de 5 donnent 5 + 5 + 5 = 15.'),
-     SupplementalQuestion('bonus_cp2_mult_groupes_4','5 groupes de 2 cahiers : quel calcul convient ?',['5 + 2','5 × 2','5 − 2'],1,'5 groupes de 2 se représentent par 5 × 2.')]),,
+     SupplementalQuestion('bonus_cp2_mult_groupes_4','5 groupes de 2 cahiers : quel calcul convient ?',['5 + 2','5 × 2','5 − 2'],1,'5 groupes de 2 se représentent par 5 × 2.')]),
 
   SupplementalLesson('cp2_partage_equitable', SchoolLevel.cp2, 'Mathématiques', 'Partager une quantité en parts égales',
     'Partager équitablement, c’est donner la même quantité à chaque personne ou à chaque groupe. Pour trouver la quantité de chacun, distribue les objets un par un en faisant des tours, jusqu’à ce qu’il n’en reste plus. Vérifie que chaque personne a reçu le même nombre.',
