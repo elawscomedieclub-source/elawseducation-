@@ -308,6 +308,11 @@ void main() {
               reason: 'Question vide : ${question.id}');
           expect(question.choices.length, greaterThanOrEqualTo(2),
               reason: 'Pas assez de choix : ${question.id}');
+          final normalizedChoices = question.choices
+              .map((choice) => choice.trim().toLowerCase())
+              .toList();
+          expect(normalizedChoices.toSet().length, normalizedChoices.length,
+              reason: 'Choix dupliqués dans la question bonus : ${question.id}');
           expect(question.correctIndex,
               inInclusiveRange(0, question.choices.length - 1),
               reason: 'Indice de bonne réponse invalide : ${question.id}');
