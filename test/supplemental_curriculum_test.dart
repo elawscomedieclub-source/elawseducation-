@@ -1171,5 +1171,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 explique le lavage correct des mains', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_hygiene_mains');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_hygiene_1': 'Avec de l’eau et du savon',
+        'bonus_cp2_hygiene_2': 'Avant de manger',
+        'bonus_cp2_hygiene_3': 'Entre les doigts',
+        'bonus_cp2_hygiene_4': 'On les rince et on les sèche',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Règle d’hygiène incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
