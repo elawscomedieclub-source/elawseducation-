@@ -155,6 +155,9 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Réalise l’activité dans un endroit sûr, avec l’accord de ton enseignant.'
       );
     }
+    // La conversion km/m ne suffit pas pour illustrer les autres unités,
+    // les vitesses ou les calculs de durée.
+    if (RegExp(r'vitesse moyenne|durée du trajet|temps de parcours|mètre par seconde|kilomètres? par heure|\bkm/h\b|\bm/s\b|convertir.*(cm|mm|dm)|millimètre.*centimètre|centimètre.*millimètre').hasMatch(text)) return null;
     if (RegExp(r'kilomètre|kilomètres|km\b|convertir.*distance|distance.*kilométr').hasMatch(text)) {
       return const _Support(
         title: 'Mesurer et convertir une distance en kilomètres',
