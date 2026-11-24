@@ -42,13 +42,13 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
       return const _Support(
         title: 'Comment le son se propage',
         icon: Icons.graphic_eq,
-        nodes: ['Source qui vibre', 'Air en vibration', 'Oreille'],
-        explanation: 'Un son est produit par une vibration. Cette vibration se transmet dans un milieu matériel jusqu’à l’oreille.',
-        activity: 'Voir une vibration sonore',
-        materials: 'Un bol, un film alimentaire, quelques grains de riz et une cuillère.',
-        steps: ['Tends le film alimentaire sur le bol.', 'Dépose quelques grains de riz sur le film.', 'Frappe doucement dans tes mains près du bol.', 'Observe les mouvements des grains et recommence à différentes distances.'],
-        result: 'Les vibrations de l’air peuvent faire bouger le film et les grains.',
-        safety: 'Évite les bruits très forts et ne frappe pas près des oreilles.'
+        nodes: ['Source qui vibre', 'Milieu matériel', 'Oreille'],
+        explanation: 'Un son est produit par une vibration. Elle se transmet dans un milieu matériel (air, eau ou solide) jusqu’à l’oreille ; le son ne se propage pas dans le vide.',
+        activity: 'Observer la vibration qui produit un son',
+        materials: 'Une boîte en carton vide et un élastique épais, en bon état.',
+        steps: ['Place l’élastique autour de la boîte sans le tendre excessivement.', 'Avec l’accord de l’enseignant, pince doucement l’élastique et relâche-le.', 'Observe le mouvement rapide de l’élastique et écoute le son produit.', 'Pince-le doucement à différents endroits et compare les sons.'],
+        result: 'L’élastique vibre lorsqu’il produit un son. La boîte peut renforcer le son en transmettant ses vibrations à l’air.',
+        safety: 'N’utilise pas un élastique usé ou trop tendu. Ne le dirige pas vers le visage et ne produis pas de sons forts près des oreilles.'
       );
     }
     if (RegExp(r'chaine alimentaire|chaîne alimentaire|réseau alimentaire').hasMatch(text)) {
@@ -68,6 +68,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
       return const _Support(
         title: 'Observer la décantation d’un échantillon de sol',
         icon: Icons.landscape,
+        showArrows: false,
         nodes: ['Sol + eau', 'Matières flottantes', 'Particules déposées', 'Eau plus claire'],
         explanation: 'Après agitation et repos, certaines matières organiques peuvent flotter et les particules minérales se déposent à des vitesses différentes. Cette observation montre la composition d’un échantillon ; elle ne représente pas les véritables horizons d’un sol en place.',
         activity: 'Observer les constituants d’un sol par décantation',
