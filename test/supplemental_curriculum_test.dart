@@ -1326,5 +1326,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 compare correctement les nombres jusqu’à 100', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_comparer_nombres_100');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_compare_1': '32',
+        'bonus_cp2_compare_2': '<',
+        'bonus_cp2_compare_3': '=',
+        'bonus_cp2_compare_4': '67',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Comparaison incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
