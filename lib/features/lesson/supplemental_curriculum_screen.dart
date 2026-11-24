@@ -415,7 +415,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce1_dizaines' => 'DÉCOMPOSE EN DIZAINES ET UNITÉS',
       'ce1_soustraction_emprunt' => 'ÉCHANGE UNE DIZAINE CONTRE 10 UNITÉS',
       'ce1_mesurer_longueurs' => 'MESURE ET CONVERTIS LES LONGUEURS',
-      'cm1_cycle_eau' => 'SUIVIS LES ÉTAPES DU CYCLE DE L’EAU',
+      'cm1_cycle_eau' => 'OBSERVE LES ÉTAPES DU CYCLE DE L’EAU',
       'cm1_fraction_equivalentes' => 'COMPARE DES FRACTIONS ÉQUIVALENTES',
       'cm1_perimetre_rectangle' => 'CALCULE LE CONTOUR DU RECTANGLE',
       'cm2_conjugaison_futur' => 'CONJUGUE UN VERBE DU PREMIER GROUPE AU FUTUR',
