@@ -171,6 +171,8 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne parcours pas de route ni de quartier seul pour mesurer une distance. Utilise une carte ou une mesure déjà disponible.'
       );
     }
+    // Un tableau de conversion d'unités ne se représente pas par une règle graduée.
+    if (RegExp(r'tableau de conversion|conversion des unités de longueur|convertir des unités de longueur|multiples et sous-multiples du mètre|conversion.*(mètre|centimètre|millimètre|décimètre)|convertir.*(mètre|centimètre|millimètre|décimètre)').hasMatch(text)) return null;
     // La règle graduée convient à une mesure directe de longueur,
     // pas aux périmètres, aires, volumes ou conversions d'unités composées.
     if (RegExp(r'périmètre|aire|surface|volume|capacité|conversion.*(mètre carré|mètre cube|litre)|mètres? carrés?|mètres? cubes?').hasMatch(text)) return null;
