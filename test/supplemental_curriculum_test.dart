@@ -36,6 +36,7 @@ void main() {
         'cp1_classe',
         'cp1_hygiene',
         'cp1_securite',
+        'cp1_environnement',
         'cp1_nombres_10',
         'cp1_saluer',
         'cp1_animaux',
