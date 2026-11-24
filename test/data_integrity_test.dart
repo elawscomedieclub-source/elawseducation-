@@ -263,6 +263,26 @@ void main() {
     });
 
 
+    test('les cours bonus couvrent chaque niveau scolaire et ne réutilisent pas les IDs des exercices principaux', () {
+      for (final level in SchoolLevel.values) {
+        expect(
+          supplementalLessons.any((lesson) => lesson.level == level),
+          isTrue,
+          reason: 'Aucun cours bonus pour ${level.label}',
+        );
+      }
+      final mainExerciseIds = demoExercises.map((exercise) => exercise.id).toSet();
+      for (final lesson in supplementalLessons) {
+        for (final question in lesson.questions) {
+          expect(
+            mainExerciseIds,
+            isNot(contains(question.id)),
+            reason: 'ID de question partagé avec un exercice principal : ${question.id}',
+          );
+        }
+      }
+    });
+
     test('les cours bonus ont des identifiants uniques et des questions complètes', () {
       expect(
         _idsAreUnique(supplementalLessons.map((lesson) => lesson.id)),
