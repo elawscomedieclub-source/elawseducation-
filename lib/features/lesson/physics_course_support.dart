@@ -48,7 +48,7 @@ _Topic('2. Équilibre d’un corps soumis à des forces concourantes','Objectif 
 'Des forces sont concourantes lorsque leurs droites d’action passent par un même point. Un corps est en équilibre si la résultante vectorielle des forces est nulle. Il ne suffit pas d’additionner les intensités : il faut tenir compte des directions et des sens. Pour trois forces, les vecteurs placés bout à bout forment un triangle fermé.',
 'Un anneau immobile est tiré par deux cordes : une tension de 30 N vers la droite et une tension de 40 N vers le haut. Leur résultante vaut 50 N. Une troisième force de 50 N, de sens opposé, équilibre l’anneau.',
 'Σ F⃗ = 0⃗     •     ΣFₓ = 0     •     ΣFᵧ = 0',
-'Les trois droites d’action se rencontrent en O. Les vecteurs se compensent ; le polygone des forces se ferme. Le dessin illustre le principe, pas une échelle de mesure.',1,
+'Les trois droites d’action se rencontrent en O. Les vecteurs se compensent et le polygone des forces se ferme. L’échelle du dessin est de 2 pixels pour 1 N : les longueurs des flèches correspondent donc aux intensités indiquées.',1,
 ['Les forces ont un même point de concours.','L’équilibre exige une somme vectorielle nulle.','Les projections sur chaque axe sont nulles.','Le polygone des forces est fermé.'],
 ['Quelle condition traduit l’équilibre ?','Deux forces seules peuvent-elles équilibrer un corps ?','Deux forces perpendiculaires valent 6 N et 8 N. Quelle intensité doit avoir la force équilibrante ?'],
 [['La somme vectorielle est nulle','La somme des masses est nulle','La vitesse est maximale'],['Oui, si elles sont opposées, de même intensité et même droite','Oui, quelles que soient leurs directions','Jamais'],['14 N','10 N','2 N']],[0,0,1],
