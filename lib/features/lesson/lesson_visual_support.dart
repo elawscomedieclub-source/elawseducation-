@@ -308,7 +308,10 @@ class _LessonDiagramPainter extends CustomPainter {
     final blue = Paint()..color = const Color(0xFF2585C5)..style = PaintingStyle.stroke..strokeWidth = 3;
     switch (kind) {
       case _VisualKind.circuit:
-        canvas.drawLine(const Offset(55,65), const Offset(55,145), ink);
+        // La pile interrompt le conducteur : les deux traits représentent
+        // ses bornes et ne doivent pas être traversés par un fil continu.
+        canvas.drawLine(const Offset(55,65), const Offset(55,87), ink);
+        canvas.drawLine(const Offset(55,109), const Offset(55,145), ink);
         canvas.drawLine(const Offset(55,65), const Offset(270,65), ink);
         canvas.drawLine(const Offset(270,65), const Offset(270,145), ink);
         canvas.drawLine(const Offset(270,145), const Offset(55,145), ink);
