@@ -32,6 +32,9 @@ class LessonVisualSupport extends StatelessWidget {
     // et quatre angles droits, sans la planche comparative des figures.
     if (RegExp(r'^(le rectangle|rectangle|tracer un rectangle|construction du rectangle|propriétés du rectangle)').hasMatch(title)) return _VisualKind.rectangle;
     if (RegExp(r'^(le carré|carré|tracer un carré|construction du carré|propriétés du carré)').hasMatch(title)) return _VisualKind.square;
+    // Un triangle rectangle doit montrer explicitement son angle droit ;
+    // le triangle générique ne convient pas à cette leçon ciblée.
+    if (RegExp(r'triangle rectangle|triangles rectangles').hasMatch(title)) return _VisualKind.rightTriangle;
     if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
     if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title) &&
         !RegExp(r'triangle').hasMatch(title)) return _VisualKind.geometry;
@@ -98,6 +101,14 @@ class LessonVisualSupport extends StatelessWidget {
           steps: ['Trace un segment de 4 cm.', 'Construis un angle droit à chaque extrémité.', 'Reporte 4 cm sur chaque côté.', 'Relie les quatre sommets et vérifie les côtés et les angles.'],
           observe: 'Un carré possède quatre côtés de même longueur et quatre angles droits.',
           safety: 'Utilise la règle avec soin.'
+        );
+      case _VisualKind.rightTriangle:
+        return const _PracticalActivity(
+          title: 'Atelier : reconnaître un triangle rectangle',
+          materials: 'Une feuille, une règle et une équerre.',
+          steps: ['Trace deux segments perpendiculaires qui se rencontrent en A.', 'Relie leurs extrémités par un troisième segment.', 'Marque l’angle droit en A.', 'Repère l’hypoténuse : elle est opposée à l’angle droit.'],
+          observe: 'Un triangle rectangle possède un angle droit. Le côté opposé à cet angle est l’hypoténuse, le plus long côté du triangle.',
+          safety: 'Manipule l’équerre et la règle avec soin.'
         );
       case _VisualKind.triangle:
         return const _PracticalActivity(
@@ -312,6 +323,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.circle => 'Schéma : cercle, centre, rayon et diamètre',
     _VisualKind.rectangle => 'Schéma : rectangle, côtés opposés égaux et angles droits',
     _VisualKind.square => 'Schéma : carré, quatre côtés égaux et angles droits',
+    _VisualKind.rightTriangle => 'Schéma : triangle rectangle et hypoténuse',
     _VisualKind.triangle => 'Schéma : triangle et ses trois sommets',
     _VisualKind.geometry => 'Quelques figures planes : côtés, sommets et courbes',
     _VisualKind.fraction => 'Schéma : une fraction en parts égales',
@@ -325,13 +337,14 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.circle => 'Le cercle est une ligne courbe fermée dont tous les points sont à la même distance du centre. Le diamètre passe par le centre et mesure deux rayons.',
     _VisualKind.rectangle => 'Le rectangle est un quadrilatère qui possède quatre angles droits ; ses côtés opposés sont égaux et parallèles.',
     _VisualKind.square => 'Le carré est un quadrilatère : ses quatre côtés sont égaux et ses quatre angles sont droits.',
+    _VisualKind.rightTriangle => 'Le triangle rectangle possède un angle droit. L’hypoténuse est le côté opposé à cet angle.',
     _VisualKind.triangle => 'Un triangle est une figure fermée formée de trois segments : AB, BC et CA. Il possède trois sommets.',
     _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
     _VisualKind.fraction => 'Chaque bande est partagée en parts égales. Compare une moitié (1/2), un quart (1/4) et trois quarts (3/4).',
   };
 }
 
-enum _VisualKind { circuit, plant, water, body, circle, rectangle, square, triangle, geometry, fraction }
+enum _VisualKind { circuit, plant, water, body, circle, rectangle, square, rightTriangle, triangle, geometry, fraction }
 
 class _PracticalActivity {
   final String title, materials, observe, safety;
@@ -472,6 +485,22 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas, '4 côtés égaux', const Offset(115, 18), scale);
         _text(canvas, 'angle droit', const Offset(10, 75), scale);
         _text(canvas, '4 côtés égaux', const Offset(115, 210), scale);
+        break;
+      case _VisualKind.rightTriangle:
+        final rightTriangle = Path()
+          ..moveTo(82, 184)
+          ..lineTo(82, 48)
+          ..lineTo(270, 184)
+          ..close();
+        canvas.drawPath(rightTriangle, fill);
+        canvas.drawPath(rightTriangle, ink);
+        final rightMark = Paint()..color = colors.primary..style = PaintingStyle.stroke..strokeWidth = 2.5;
+        canvas.drawLine(const Offset(82, 160), const Offset(106, 160), rightMark);
+        canvas.drawLine(const Offset(106, 160), const Offset(106, 184), rightMark);
+        _text(canvas, 'A (angle droit)', const Offset(12, 190), scale);
+        _text(canvas, 'B', const Offset(70, 25), scale);
+        _text(canvas, 'C', const Offset(275, 184), scale);
+        _text(canvas, 'hypoténuse', const Offset(156, 105), scale);
         break;
       case _VisualKind.triangle:
         final triangle = Path()
