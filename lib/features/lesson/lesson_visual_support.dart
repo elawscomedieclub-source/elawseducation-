@@ -29,7 +29,10 @@ class LessonVisualSupport extends StatelessWidget {
     // une planche qui pourrait faire croire que les autres figures sont étudiées.
     // Le cercle générique ne doit pas remplacer un schéma spécialisé de trigonométrie.
     if (RegExp(r'cercle trigonométrique|trigonométrie|angle inscrit|tangente.*cercle|cercle.*tangente').hasMatch(title)) return null;
-    if (RegExp(r'cercle|cercles|disque|disques').hasMatch(title)) return _VisualKind.circle;
+    // Un disque est une surface, alors que le cercle est son contour :
+    // le support « cercle » ne doit pas illustrer une leçon sur le disque.
+    if (RegExp(r'disques?').hasMatch(title)) return null;
+    if (RegExp(r'cercles?').hasMatch(title)) return _VisualKind.circle;
     // Un cours consacré au carré reçoit son propre dessin : quatre côtés égaux
     // et quatre angles droits, sans la planche comparative des figures.
     if (RegExp(r'^(?:le\s+|les\s+)?rectangles?\b|^(?:tracer\s+(?:un|des)|(?:(?:la|les)\s+)?(?:construction|propriétés)\s+(?:du|des))\s+rectangles?\b').hasMatch(title)) return _VisualKind.rectangle;
@@ -449,7 +452,7 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas,'membres',Offset(42,175),scale);
         break;
       case _VisualKind.circle:
-        canvas.drawCircle(const Offset(170, 112), 72, fill);
+        // Le cercle est représenté par son contour, sans remplir le disque.
         canvas.drawCircle(const Offset(170, 112), 72, ink);
         canvas.drawCircle(const Offset(170, 112), 4, Paint()..color = colors.primary);
         canvas.drawLine(const Offset(170, 112), const Offset(242, 112), blue);
