@@ -27,7 +27,9 @@ class LessonVisualSupport extends StatelessWidget {
     // La planche actuelle compare quatre figures : la réserver aux leçons
     // générales. Une leçon sur le seul triangle/carré/etc. ne doit pas recevoir
     // une planche qui pourrait faire croire que les autres figures sont étudiées.
-    if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title)) return _VisualKind.geometry;
+    if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
+    if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title) &&
+        !RegExp(r'triangle').hasMatch(title)) return _VisualKind.geometry;
     // Ce schéma compare moitié, quart et trois quarts : ne pas l'afficher
     // pour une leçon ciblant une seule fraction (moitié, tiers ou quart).
     if (RegExp(r'fractions|représenter une fraction|fraction en parts égales').hasMatch(title)) return _VisualKind.fraction;
@@ -67,6 +69,14 @@ class LessonVisualSupport extends StatelessWidget {
           steps: ['Assieds-toi et reste calme pendant deux minutes.', 'Pose doucement deux doigts sur le poignet, sans utiliser le pouce.', 'Compte les battements pendant 30 secondes puis multiplie par deux.', 'Marche rapidement sur place une minute et recommence après l’effort.'],
           observe: 'Le cœur bat généralement plus vite après un effort, puis ralentit pendant le repos.',
           safety: 'Reste dans un effort modéré et arrête si tu ressens une gêne.'
+        );
+      case _VisualKind.triangle:
+        return const _PracticalActivity(
+          title: 'Atelier : reconnaître et tracer un triangle',
+          materials: 'Une feuille, une règle et un crayon.',
+          steps: ['Observe le triangle et repère ses trois sommets.', 'Trace un triangle avec une règle en reliant trois points non alignés.', 'Nomme les sommets A, B et C.', 'Compte ses côtés et ses angles.'],
+          observe: 'Un triangle est un polygone qui possède trois côtés, trois sommets et trois angles.',
+          safety: 'Utilise la règle avec soin et ne la dirige pas vers le visage.'
         );
       case _VisualKind.geometry:
         return const _PracticalActivity(
@@ -270,6 +280,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.plant => 'Croquis : les parties d’une plante',
     _VisualKind.water => 'Schéma : le cycle de l’eau',
     _VisualKind.body => 'Schéma : le corps humain',
+    _VisualKind.triangle => 'Schéma : triangle et ses trois sommets',
     _VisualKind.geometry => 'Quelques figures planes : côtés, sommets et courbes',
     _VisualKind.fraction => 'Schéma : une fraction en parts égales',
   };
@@ -279,12 +290,13 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.plant => 'La racine absorbe l’eau, la tige soutient la plante et les feuilles captent la lumière.',
     _VisualKind.water => 'Sous l’action du Soleil, l’eau s’évapore. La vapeur se refroidit et se condense en nuages, puis l’eau retombe sous forme de précipitations et rejoint les sols et les cours d’eau.',
     _VisualKind.body => 'Le schéma situe la tête, le thorax et l’abdomen. Les organes sont représentés de façon simplifiée.',
+    _VisualKind.triangle => 'Un triangle est une figure fermée formée de trois segments : AB, BC et CA. Il possède trois sommets.',
     _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
     _VisualKind.fraction => 'Chaque bande est partagée en parts égales. Compare une moitié (1/2), un quart (1/4) et trois quarts (3/4).',
   };
 }
 
-enum _VisualKind { circuit, plant, water, body, geometry, fraction }
+enum _VisualKind { circuit, plant, water, body, triangle, geometry, fraction }
 
 class _PracticalActivity {
   final String title, materials, observe, safety;
@@ -380,6 +392,21 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas,'thorax',Offset(215,82),scale);
         _text(canvas,'abdomen',Offset(210,137),scale);
         _text(canvas,'membres',Offset(42,175),scale);
+        break;
+      case _VisualKind.triangle:
+        final triangle = Path()
+          ..moveTo(70, 180)
+          ..lineTo(170, 45)
+          ..lineTo(270, 180)
+          ..close();
+        canvas.drawPath(triangle, fill);
+        canvas.drawPath(triangle, ink);
+        _text(canvas, 'A', const Offset(58, 184), scale);
+        _text(canvas, 'B', const Offset(166, 25), scale);
+        _text(canvas, 'C', const Offset(275, 184), scale);
+        _text(canvas, 'AB', const Offset(104, 105), scale);
+        _text(canvas, 'BC', const Offset(225, 105), scale);
+        _text(canvas, 'CA', const Offset(165, 190), scale);
         break;
       case _VisualKind.geometry:
         // Planche comparative : les quatre figures restent visibles même
