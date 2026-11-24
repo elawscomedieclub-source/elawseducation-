@@ -1114,5 +1114,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 reconnaît les figures géométriques de base', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_reconnaitre_figures_planes');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_figures_1': '3',
+        'bonus_cp2_figures_2': 'Le carré',
+        'bonus_cp2_figures_3': 'Le cercle',
+        'bonus_cp2_figures_4': '4',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Identification de figure incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
