@@ -1228,5 +1228,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 présente les besoins essentiels des animaux', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_besoins_animaux');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_besoins_animaux_1': 'D’eau et de nourriture',
+        'bonus_cp2_besoins_animaux_2': 'L’eau',
+        'bonus_cp2_besoins_animaux_3': 'Parce qu’il en a besoin pour vivre',
+        'bonus_cp2_besoins_animaux_4': 'Répondre à ses besoins et le traiter avec soin',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Besoin animal incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
