@@ -641,4 +641,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_regle_2','Un objet commence au repère 3 cm et finit au repère 9 cm. Quelle est sa longueur ?',['6 cm','9 cm','12 cm'],0,'On calcule 9 − 3 = 6 cm.'),
      SupplementalQuestion('bonus_cp2_regle_3','Pour mesurer correctement avec une règle, quel repère faut-il placer au début de l’objet ?',['Le repère 0','Le repère 5','N’importe quel repère sans calcul'],0,'On place le repère 0 au début, puis on lit la longueur à l’autre extrémité.'),
      SupplementalQuestion('bonus_cp2_regle_4','Une longueur va du repère 1 cm au repère 7 cm. Quelle est sa mesure ?',['5 cm','6 cm','7 cm'],1,'7 − 1 = 6 cm.')]),
+  SupplementalLesson('cp2_nom_propre_commun', SchoolLevel.cp2, 'Français', 'Distinguer le nom propre et le nom commun',
+    'Le nom commun désigne une personne, un animal, un lieu ou une chose de manière générale : une fille, un chien, une ville. Le nom propre désigne une personne ou un lieu précis : Afi, Kossi, Lomé. Il commence par une majuscule. Le nom commun prend aussi une majuscule lorsqu’il est au début d’une phrase, mais ce n’est pas ce qui en fait un nom propre.',
+    'Dans « Afi habite à Lomé », Afi et Lomé sont des noms propres. « fille », « chien » et « ville » sont des noms communs.',
+    [SupplementalQuestion('bonus_cp2_nom_1','Quel mot est un nom propre ?',['école','Kossi','garçon'],1,'Kossi est le nom précis d’une personne : c’est un nom propre.'),
+     SupplementalQuestion('bonus_cp2_nom_2','Quel mot est un nom commun ?',['Lomé','Afi','marché'],2,'Marché désigne un lieu en général : c’est un nom commun.'),
+     SupplementalQuestion('bonus_cp2_nom_3','Dans « Ama voit un chat », quel mot est un nom propre ?',['Ama','voit','chat'],0,'Ama désigne une personne précise et commence par une majuscule : nom propre.'),
+     SupplementalQuestion('bonus_cp2_nom_4','Quel groupe contient seulement des noms communs ?',['Kossi, Lomé','fille, école','Afi, marché'],1,'Fille et école désignent des catégories : ce sont deux noms communs.')]),
 ];
