@@ -120,7 +120,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Réalise l’activité dans un endroit sûr, avec l’accord de ton enseignant.'
       );
     }
-    if (RegExp(r'kilomètre|kilomètres|km\\b|convertir.*distance|distance.*kilométr').hasMatch(text)) {
+    if (RegExp(r'kilomètre|kilomètres|km\b|convertir.*distance|distance.*kilométr').hasMatch(text)) {
       return const _Support(
         title: 'Mesurer et convertir une distance en kilomètres',
         icon: Icons.route,
