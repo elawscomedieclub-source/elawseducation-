@@ -313,7 +313,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_nombres_jusqua_1000' => const ['347 = 300 + 40 + 7', '3 centaines', '4 dizaines', '7 unités', '506 = 500 + 6'],
       'ce2_comparer_nombres_1000' => const ['348 < 384', '906 > 690', '340 < 403 < 430', '725 = 725'],
       'ce2_addition_soustraction_1000' => const ['235 + 142 = 377', '326 + 158 = 484', '568 − 243 = 325', '700 − 265 = 435'],
-      'ce2_multiplication_posee' => const ['124 × 3', '4 × 3 = 12', '12 → 2 + 1 retenue', '372'],
+      'ce2_multiplication_posee' => const ['124 × 3', '4 × 3 = 12 : écrire 2, retenir 1', '2 × 3 + 1 = 7', '1 × 3 = 3', 'Résultat : 372'],
       'ce2_division_exacte' => const ['24 objets', '÷ 3 élèves', '= 8 chacun', 'Vérification : 8 × 3 = 24'],
       'ce2_problemes_partage_fcfa' => const ['600 F', '÷ 3 enfants', '= 200 F chacun', '200 F × 3 = 600 F'],
       'ce2_problemes_deux_etapes' => const ['125 + 48 = 173', '173 − 37', '= 136 mangues', 'Deux opérations'],
