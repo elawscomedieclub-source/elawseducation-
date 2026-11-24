@@ -308,7 +308,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cm2_proportionnalite_tableau' => const ['Cahiers : 1 | 2 | 4', 'Prix : 250 F | 500 F | 1 000 F', 'Coefficient : × 250'],
       'cm1_accord' => const ['Un enfant joue.', 'Des enfants jouent.', 'Sujet singulier → joue', 'Sujet pluriel → jouent'],
       'cm1_fractions' => const ['1/2 : une part sur 2', '1/3 : une part sur 3', '1/4 : une part sur 4', 'Dénominateur = parts égales'],
-      'cm2_aire' => const ['Longueur : 5 cm', 'Largeur : 3 cm', 'Aire = 5 × 3', 'Aire = 15 cm²']
+      'cm2_aire' => const ['Longueur : 5 cm', 'Largeur : 3 cm', 'Aire = 5 × 3', 'Aire = 15 cm²'],
       'ce1_achats_fcfa' => const ['300 F', '+', '150 F', '=', '450 F', '1 000 F', '−', '450 F', '=', '550 F'],
       'ce2_budget_fcfa' => const ['400 F', '+', '400 F', '+', '500 F', '=', '1 300 F', '1 500 F', '−', '1 300 F', '=', '200 F'],
       'ce2_mesures_longueurs' => const ['1 km', '=', '1 000 m', '2 m', '+', '50 cm', '=', '250 cm', '340 cm', '=', '3 m', '+', '40 cm'],
@@ -374,7 +374,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cm2_proportionnalite_tableau' => 'COMPLÈTE LE TABLEAU DE PROPORTIONNALITÉ',
       'cm1_accord' => 'ACCORDE LE VERBE AVEC SON SUJET',
       'cm1_fractions' => 'OBSERVE LES PARTS ÉGALES',
-      'cm2_aire' => 'CALCULE LA SURFACE DU RECTANGLE'
+      'cm2_aire' => 'CALCULE LA SURFACE DU RECTANGLE',
       'ce1_achats_fcfa' => 'PRÉPARE TON ACHAT ET TA MONNAIE',
       'ce2_budget_fcfa' => 'CALCULE TES DÉPENSES ET TON RESTE',
       'ce2_mesures_longueurs' => 'OBSERVE LES UNITÉS ET CONVERTIS',
