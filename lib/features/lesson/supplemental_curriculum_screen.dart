@@ -100,7 +100,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
         _feedback = 'Bravo ! Bonne réponse. ' + question.explanation;
       });
     } catch (_) {
-      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) setState(() => _feedback = 'Bonne réponse ! La sauvegarde sera réessayée plus tard.');
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) setState(() => _feedback = 'Bonne réponse, mais elle n’a pas été enregistrée. Vérifie ta connexion puis appuie de nouveau sur « Vérifier ma réponse ».');
     }
   }
 
