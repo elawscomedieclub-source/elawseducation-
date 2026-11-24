@@ -1038,5 +1038,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 mesure correctement les longueurs avec une règle graduée', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_regle_graduee');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_regle_1': '6 cm',
+        'bonus_cp2_regle_2': '6 cm',
+        'bonus_cp2_regle_3': 'Le repère 0',
+        'bonus_cp2_regle_4': '6 cm',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Mesure de longueur incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
