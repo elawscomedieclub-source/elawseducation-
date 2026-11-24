@@ -213,8 +213,8 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         explanation: 'Ces cases sont des catégories, pas une chaîne avec des flèches. Un herbivore mange des végétaux ; un carnivore mange d’autres animaux ; un omnivore consomme des aliments d’origine végétale et animale.',
         activity: 'Classer des animaux de son environnement',
         materials: 'Des dessins ou noms d’animaux connus et une feuille.',
-        steps: ['Choisis quatre animaux connus.', 'Indique ce que chacun mange, sans le capturer.', 'Classe-les selon leur alimentation.', 'Dessine une relation alimentaire simple avec des flèches.'],
-        result: 'Les animaux ont des régimes alimentaires différents et dépendent de leur milieu.',
+        steps: ['Choisis quatre animaux connus.', 'Indique ce que chacun mange, sans le capturer.', 'Classe-les selon leur alimentation.', 'Explique pourquoi chaque animal appartient à cette catégorie en t’appuyant sur son régime.'],
+        result: 'Les herbivores consomment des végétaux, les carnivores d’autres animaux et les omnivores des aliments d’origine végétale et animale. Les catégories peuvent varier selon les espèces et les aliments réellement consommés.',
         safety: 'Observe les animaux à distance. Ne touche pas les animaux inconnus et ne détruis pas leurs habitats.'
       );
     }
