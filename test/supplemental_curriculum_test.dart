@@ -1307,5 +1307,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 utilise les pronoms personnels sujets correctement', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_pronoms_personnels_sujets');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_pronoms_1': 'Elle',
+        'bonus_cp2_pronoms_2': 'Nous',
+        'bonus_cp2_pronoms_3': 'Ils',
+        'bonus_cp2_pronoms_4': 'Vous',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Pronom sujet incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
