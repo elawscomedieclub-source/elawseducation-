@@ -200,7 +200,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne visite aucun lieu sans l’accord d’un adulte responsable.'
       );
     }
-    if (RegExp(r'daily routines|wake up|what time is it|o.clock|moments of the day').hasMatch(text)) {
+    if (RegExp(r'daily routines|wake up|o.clock|moments of the day').hasMatch(text)) {
       return const _Support(
         title: 'Organiser sa journée en anglais',
         showArrows: false,
