@@ -55,11 +55,11 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         title: 'Exemple de chaîne alimentaire',
         icon: Icons.eco,
         nodes: ['Herbe', 'Criquet', 'Grenouille', 'Serpent'],
-        explanation: 'La flèche indique le transfert de matière et d’énergie : l’être vivant placé après se nourrit de celui qui le précède.',
+        explanation: 'La flèche va de l’organisme mangé vers celui qui le mange : elle indique le transfert de matière et d’énergie.',
         activity: 'Construire une chaîne alimentaire locale',
         materials: 'Feuille, crayon et exemples d’êtres vivants observés dans ton environnement.',
-        steps: ['Choisis une plante et trois animaux de ton milieu.', 'Identifie qui mange qui.', 'Dessine les êtres vivants dans l’ordre.', 'Trace les flèches du repas vers le consommateur.', 'Explique ce qui pourrait arriver si un maillon disparaissait.'],
-        result: 'Les êtres vivants sont liés entre eux. La disparition d’un maillon peut déséquilibrer le milieu.',
+        steps: ['Choisis une plante et trois animaux de ton milieu.', 'Identifie qui mange qui à partir d’observations ou d’un document fiable.', 'Dessine les êtres vivants dans l’ordre.', 'Trace chaque flèche de l’aliment vers le consommateur.', 'Vérifie que chaque organisme peut réellement se nourrir de celui qui le précède.'],
+        result: 'Exemple possible : herbe → criquet → grenouille → serpent. La chaîne dépend du milieu et toutes les espèces ne suivent pas nécessairement cette suite.',
         safety: 'Observe les animaux à distance et ne détruis pas leur habitat.'
       );
     }
