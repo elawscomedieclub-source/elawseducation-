@@ -1208,6 +1208,25 @@ void main() {
             reason: 'Choix dupliqué dans ${question.id}');
       }
     });
+ 
+    test('le cours CP2 décrit les déplacements de quelques animaux', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_deplacements_animaux');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_animaux_move_1': 'Le poisson',
+        'bonus_cp2_animaux_move_2': 'Il vole',
+        'bonus_cp2_animaux_move_3': 'Le serpent',
+        'bonus_cp2_animaux_move_4': 'Ses pattes',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Déplacement animal incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
 
   });
 }
