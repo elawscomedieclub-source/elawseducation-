@@ -30,6 +30,7 @@ class LessonVisualSupport extends StatelessWidget {
     if (RegExp(r'cercle|cercles|disque|disques').hasMatch(title)) return _VisualKind.circle;
     // Un cours consacré au carré reçoit son propre dessin : quatre côtés égaux
     // et quatre angles droits, sans la planche comparative des figures.
+    if (RegExp(r'^(le rectangle|rectangle|tracer un rectangle|construction du rectangle|propriétés du rectangle)').hasMatch(title)) return _VisualKind.rectangle;
     if (RegExp(r'^(le carré|carré|tracer un carré|construction du carré|propriétés du carré)').hasMatch(title)) return _VisualKind.square;
     if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
     if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title) &&
@@ -81,6 +82,14 @@ class LessonVisualSupport extends StatelessWidget {
           steps: ['Repère le centre du cercle.', 'Avec un compas, trace un cercle autour du centre.', 'Repère un rayon du centre jusqu’au cercle.', 'Compare le diamètre et le rayon.'],
           observe: 'Le cercle est l’ensemble des points situés à la même distance du centre. Le diamètre passe par le centre et vaut deux rayons.',
           safety: 'Manipule la pointe du compas avec prudence ; si tu utilises un objet rond, demande à un adulte de vérifier qu’il est stable.'
+        );
+      case _VisualKind.rectangle:
+        return const _PracticalActivity(
+          title: 'Atelier : construire un rectangle',
+          materials: 'Une feuille quadrillée, une règle et une équerre.',
+          steps: ['Trace une longueur de 6 cm.', 'Construis un angle droit à une extrémité.', 'Reporte une largeur de 3 cm.', 'Complète les côtés opposés et vérifie les quatre angles droits.'],
+          observe: 'Un rectangle possède quatre angles droits. Ses côtés opposés sont parallèles et de même longueur.',
+          safety: 'Utilise l’équerre et la règle avec soin.'
         );
       case _VisualKind.square:
         return const _PracticalActivity(
@@ -301,6 +310,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.water => 'Schéma : le cycle de l’eau',
     _VisualKind.body => 'Schéma : le corps humain',
     _VisualKind.circle => 'Schéma : cercle, centre, rayon et diamètre',
+    _VisualKind.rectangle => 'Schéma : rectangle, côtés opposés égaux et angles droits',
     _VisualKind.square => 'Schéma : carré, quatre côtés égaux et angles droits',
     _VisualKind.triangle => 'Schéma : triangle et ses trois sommets',
     _VisualKind.geometry => 'Quelques figures planes : côtés, sommets et courbes',
@@ -313,6 +323,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.water => 'Sous l’action du Soleil, l’eau s’évapore. La vapeur se refroidit et se condense en nuages, puis l’eau retombe sous forme de précipitations et rejoint les sols et les cours d’eau.',
     _VisualKind.body => 'Le schéma situe la tête, le thorax et l’abdomen. Les organes sont représentés de façon simplifiée.',
     _VisualKind.circle => 'Le cercle est une ligne courbe fermée dont tous les points sont à la même distance du centre. Le diamètre passe par le centre et mesure deux rayons.',
+    _VisualKind.rectangle => 'Le rectangle est un quadrilatère qui possède quatre angles droits ; ses côtés opposés sont égaux et parallèles.',
     _VisualKind.square => 'Le carré est un quadrilatère : ses quatre côtés sont égaux et ses quatre angles sont droits.',
     _VisualKind.triangle => 'Un triangle est une figure fermée formée de trois segments : AB, BC et CA. Il possède trois sommets.',
     _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
@@ -320,7 +331,7 @@ class LessonVisualSupport extends StatelessWidget {
   };
 }
 
-enum _VisualKind { circuit, plant, water, body, circle, square, triangle, geometry, fraction }
+enum _VisualKind { circuit, plant, water, body, circle, rectangle, square, triangle, geometry, fraction }
 
 class _PracticalActivity {
   final String title, materials, observe, safety;
@@ -426,6 +437,23 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas, 'O (centre)', const Offset(126, 120), scale);
         _text(canvas, 'rayon', const Offset(194, 91), scale);
         _text(canvas, 'diamètre', const Offset(175, 135), scale);
+        break;
+      case _VisualKind.rectangle:
+        const rect = Rect.fromLTWH(62, 72, 216, 112);
+        canvas.drawRect(rect, fill);
+        canvas.drawRect(rect, ink);
+        final rightAngle = Paint()..color = colors.primary..style = PaintingStyle.stroke..strokeWidth = 2;
+        canvas.drawLine(const Offset(62, 92), const Offset(82, 92), rightAngle);
+        canvas.drawLine(const Offset(82, 92), const Offset(82, 72), rightAngle);
+        canvas.drawLine(const Offset(258, 72), const Offset(258, 92), rightAngle);
+        canvas.drawLine(const Offset(258, 92), const Offset(278, 92), rightAngle);
+        canvas.drawLine(const Offset(62, 164), const Offset(82, 164), rightAngle);
+        canvas.drawLine(const Offset(82, 164), const Offset(82, 184), rightAngle);
+        canvas.drawLine(const Offset(258, 164), const Offset(278, 164), rightAngle);
+        canvas.drawLine(const Offset(258, 164), const Offset(258, 184), rightAngle);
+        _text(canvas, 'longueur', const Offset(132, 47), scale);
+        _text(canvas, 'largeur', const Offset(8, 120), scale);
+        _text(canvas, 'côtés opposés égaux', const Offset(92, 198), scale);
         break;
       case _VisualKind.square:
         const rect = Rect.fromLTWH(94, 48, 152, 152);
