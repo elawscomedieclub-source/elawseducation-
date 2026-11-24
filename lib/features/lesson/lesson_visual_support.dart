@@ -27,6 +27,7 @@ class LessonVisualSupport extends StatelessWidget {
     // La planche actuelle compare quatre figures : la réserver aux leçons
     // générales. Une leçon sur le seul triangle/carré/etc. ne doit pas recevoir
     // une planche qui pourrait faire croire que les autres figures sont étudiées.
+    if (RegExp(r'cercle|cercles|disque|disques').hasMatch(title)) return _VisualKind.circle;
     if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
     if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title) &&
         !RegExp(r'triangle').hasMatch(title)) return _VisualKind.geometry;
@@ -69,6 +70,14 @@ class LessonVisualSupport extends StatelessWidget {
           steps: ['Assieds-toi et reste calme pendant deux minutes.', 'Pose doucement deux doigts sur le poignet, sans utiliser le pouce.', 'Compte les battements pendant 30 secondes puis multiplie par deux.', 'Marche rapidement sur place une minute et recommence après l’effort.'],
           observe: 'Le cœur bat généralement plus vite après un effort, puis ralentit pendant le repos.',
           safety: 'Reste dans un effort modéré et arrête si tu ressens une gêne.'
+        );
+      case _VisualKind.circle:
+        return const _PracticalActivity(
+          title: 'Atelier : reconnaître et tracer un cercle',
+          materials: 'Une feuille, un crayon et un compas (ou un objet rond pour tracer le contour).',
+          steps: ['Repère le centre du cercle.', 'Avec un compas, trace un cercle autour du centre.', 'Repère un rayon du centre jusqu’au cercle.', 'Compare le diamètre et le rayon.'],
+          observe: 'Le cercle est l’ensemble des points situés à la même distance du centre. Le diamètre passe par le centre et vaut deux rayons.',
+          safety: 'Manipule la pointe du compas avec prudence ; si tu utilises un objet rond, demande à un adulte de vérifier qu’il est stable.'
         );
       case _VisualKind.triangle:
         return const _PracticalActivity(
@@ -280,6 +289,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.plant => 'Croquis : les parties d’une plante',
     _VisualKind.water => 'Schéma : le cycle de l’eau',
     _VisualKind.body => 'Schéma : le corps humain',
+    _VisualKind.circle => 'Schéma : cercle, centre, rayon et diamètre',
     _VisualKind.triangle => 'Schéma : triangle et ses trois sommets',
     _VisualKind.geometry => 'Quelques figures planes : côtés, sommets et courbes',
     _VisualKind.fraction => 'Schéma : une fraction en parts égales',
@@ -290,13 +300,14 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.plant => 'La racine absorbe l’eau, la tige soutient la plante et les feuilles captent la lumière.',
     _VisualKind.water => 'Sous l’action du Soleil, l’eau s’évapore. La vapeur se refroidit et se condense en nuages, puis l’eau retombe sous forme de précipitations et rejoint les sols et les cours d’eau.',
     _VisualKind.body => 'Le schéma situe la tête, le thorax et l’abdomen. Les organes sont représentés de façon simplifiée.',
+    _VisualKind.circle => 'Le cercle est une ligne courbe fermée dont tous les points sont à la même distance du centre. Le diamètre passe par le centre et mesure deux rayons.',
     _VisualKind.triangle => 'Un triangle est une figure fermée formée de trois segments : AB, BC et CA. Il possède trois sommets.',
     _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
     _VisualKind.fraction => 'Chaque bande est partagée en parts égales. Compare une moitié (1/2), un quart (1/4) et trois quarts (3/4).',
   };
 }
 
-enum _VisualKind { circuit, plant, water, body, triangle, geometry, fraction }
+enum _VisualKind { circuit, plant, water, body, circle, triangle, geometry, fraction }
 
 class _PracticalActivity {
   final String title, materials, observe, safety;
@@ -392,6 +403,16 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas,'thorax',Offset(215,82),scale);
         _text(canvas,'abdomen',Offset(210,137),scale);
         _text(canvas,'membres',Offset(42,175),scale);
+        break;
+      case _VisualKind.circle:
+        canvas.drawCircle(const Offset(170, 112), 72, fill);
+        canvas.drawCircle(const Offset(170, 112), 72, ink);
+        canvas.drawCircle(const Offset(170, 112), 4, Paint()..color = colors.primary);
+        canvas.drawLine(const Offset(170, 112), const Offset(242, 112), blue);
+        canvas.drawLine(const Offset(98, 112), const Offset(242, 112), ink);
+        _text(canvas, 'O (centre)', const Offset(126, 120), scale);
+        _text(canvas, 'rayon', const Offset(194, 91), scale);
+        _text(canvas, 'diamètre', const Offset(175, 135), scale);
         break;
       case _VisualKind.triangle:
         final triangle = Path()
