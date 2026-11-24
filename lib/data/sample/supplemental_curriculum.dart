@@ -662,4 +662,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_pluriel_2','« des fleurs » est au…',['singulier','pluriel','adjectif'],1,'« Des fleurs » désigne plusieurs fleurs : pluriel.'),
      SupplementalQuestion('bonus_cp2_pluriel_3','Quel groupe est au pluriel ?',['la table','les tables','une table'],1,'« Les tables » désigne plusieurs tables : pluriel.'),
      SupplementalQuestion('bonus_cp2_pluriel_4','Complète : « ___ enfants jouent. »',['Le','Les','Un'],1,'« Les » accompagne un nom pluriel : les enfants.')]),
+  SupplementalLesson('cp2_reconnaitre_figures_planes', SchoolLevel.cp2, 'Mathématiques', 'Reconnaître quelques figures géométriques',
+    'Une figure géométrique est une forme. Le triangle a 3 côtés. Le carré a 4 côtés de même longueur et 4 angles droits. Le rectangle a 4 côtés et 4 angles droits ; ses côtés opposés ont la même longueur. Le cercle est rond et son contour est courbe.',
+    'Observe les formes : un panneau triangulaire peut avoir la forme d’un triangle ; une fenêtre peut avoir la forme d’un rectangle ; une pièce ronde peut avoir la forme d’un cercle.',
+    [SupplementalQuestion('bonus_cp2_figures_1','Combien de côtés possède un triangle ?',['2','3','4'],1,'Un triangle possède 3 côtés.'),
+     SupplementalQuestion('bonus_cp2_figures_2','Quelle figure a 4 côtés de même longueur et 4 angles droits ?',['Le cercle','Le rectangle','Le carré'],2,'Le carré a 4 côtés égaux et 4 angles droits.'),
+     SupplementalQuestion('bonus_cp2_figures_3','Quelle figure a un contour courbe et aucun côté droit ?',['Le cercle','Le triangle','Le carré'],0,'Le contour du cercle est courbe : il ne possède pas de côté droit.'),
+     SupplementalQuestion('bonus_cp2_figures_4','Combien de côtés possède un rectangle ?',['3','4','5'],1,'Un rectangle possède 4 côtés.')]),
 ];
