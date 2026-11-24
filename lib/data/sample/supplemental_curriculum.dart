@@ -726,7 +726,7 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('bonus_cp2_partage_1','8 biscuits sont partagés entre 2 enfants également. Combien chacun reçoit-il ?',['3','4','6'],1,'8 biscuits partagés également entre 2 enfants donnent 4 biscuits chacun.'),
      SupplementalQuestion('bonus_cp2_partage_2','10 crayons sont partagés entre 5 élèves. Combien chaque élève reçoit-il ?',['2','5','10'],0,'Chaque élève reçoit 2 crayons : 2 × 5 = 10.'),
      SupplementalQuestion('bonus_cp2_partage_3','Quel partage est équitable entre 3 enfants ?',['2, 2 et 4 bonbons','3, 3 et 3 bonbons','1, 2 et 3 bonbons'],1,'Le partage 3, 3 et 3 est équitable car chacun reçoit 3 bonbons.'),
-     SupplementalQuestion('bonus_cp2_partage_4','12 oranges sont partagées également entre 4 paniers. Combien d’oranges par panier ?',['2','3','4'],1,'12 oranges réparties en 4 parts égales donnent 3 oranges par panier.')]),,
+     SupplementalQuestion('bonus_cp2_partage_4','12 oranges sont partagées également entre 4 paniers. Combien d’oranges par panier ?',['2','3','4'],1,'12 oranges réparties en 4 parts égales donnent 3 oranges par panier.')]),
 
   SupplementalLesson('cp2_identifier_sujet', SchoolLevel.cp2, 'Français', 'Identifier le sujet dans une phrase simple',
     'Dans une phrase, le sujet indique de qui ou de quoi on parle. Pour le trouver, demande : « Qui est-ce qui fait l’action ? » Le sujet peut être un nom ou un groupe de mots. Le verbe indique ce que fait le sujet ou ce qui lui arrive.',
