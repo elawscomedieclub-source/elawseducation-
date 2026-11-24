@@ -683,4 +683,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_eau_2','Comment appelle-t-on l’eau devenue solide par le froid ?',['La glace','La fumée','Le sable'],0,'La glace est de l’eau à l’état solide.'),
      SupplementalQuestion('bonus_cp2_eau_3','Quel état correspond à la vapeur d’eau ?',['Solide','Liquide','Gazeux'],2,'La vapeur d’eau est un gaz.'),
      SupplementalQuestion('bonus_cp2_eau_4','Que peut devenir l’eau si elle gèle suffisamment ?',['Du bois','De la glace','Du métal'],1,'En gelant, l’eau liquide devient de la glace.')]),
+  SupplementalLesson('cp2_hygiene_mains', SchoolLevel.cp2, 'Sciences', 'Comprendre l’importance du lavage des mains',
+    'Les mains touchent beaucoup d’objets et peuvent porter des microbes invisibles. Se laver les mains avec de l’eau propre et du savon aide à enlever les saletés et à réduire les microbes. Il faut se laver les mains avant de manger, après être allé aux toilettes et après avoir joué dehors ou touché des déchets. Frotte les paumes, le dos des mains, entre les doigts et autour des ongles, puis rince et sèche avec un linge propre.',
+    'Avant le repas, Afi se lave les mains avec de l’eau et du savon. Elle frotte entre les doigts, rince et sèche ses mains. Ce geste aide à éviter la transmission de certaines maladies.',
+    [SupplementalQuestion('bonus_cp2_hygiene_1','Avec quoi faut-il se laver les mains pour bien les nettoyer ?',['Avec de l’eau et du savon','Avec du sable seulement','Avec de la poussière'],0,'L’eau propre et le savon aident à enlever les saletés et à réduire les microbes.'),
+     SupplementalQuestion('bonus_cp2_hygiene_2','Quand faut-il se laver les mains ?',['Seulement le dimanche','Avant de manger','Jamais avant le repas'],1,'Il faut se laver les mains avant de manger.'),
+     SupplementalQuestion('bonus_cp2_hygiene_3','Quelle partie faut-il aussi frotter ?',['Entre les doigts','Seulement les poignets','Aucune partie'],0,'Il faut frotter les paumes, le dos des mains et entre les doigts.'),
+     SupplementalQuestion('bonus_cp2_hygiene_4','Que fait-on après avoir frotté les mains avec du savon ?',['On les couvre de poussière','On les rince et on les sèche','On les essuie sur le sol'],1,'Après le savonnage, on rince les mains et on les sèche avec un linge propre.')]),
 ];
