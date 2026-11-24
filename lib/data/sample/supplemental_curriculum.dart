@@ -743,4 +743,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_pronoms_3','Quel pronom remplace « les garçons » ?',['Elle','Ils','Tu'],1,'« Les garçons » est masculin pluriel : ils.'),
      SupplementalQuestion('bonus_cp2_pronoms_4','Complète : « ___ êtes dans la classe. »',['Vous','Il','Je'],0,'On dit « Vous êtes » pour s’adresser à plusieurs personnes ou à une personne avec politesse.')]),
 
+  SupplementalLesson('cp2_comparer_nombres_100', SchoolLevel.cp2, 'Mathématiques', 'Comparer les nombres jusqu’à 100',
+    'Pour comparer deux nombres, regarde d’abord les dizaines. Le nombre qui a le plus de dizaines est le plus grand. Si les dizaines sont égales, compare les unités. Le signe < signifie « plus petit que », > signifie « plus grand que » et = signifie « égal à ».',
+    'Exemples : 46 > 39 car 4 dizaines sont plus que 3 dizaines. 52 < 57 car les dizaines sont égales et 2 unités sont moins que 7 unités. 64 = 64 car les deux nombres sont identiques.',
+    [SupplementalQuestion('bonus_cp2_compare_1','Quel nombre est le plus grand ?',['28','32','23'],1,'32 a 3 dizaines, tandis que 28 et 23 en ont 2.'),
+     SupplementalQuestion('bonus_cp2_compare_2','Complète : 45 … 48.',['>','<','='],1,'45 est plus petit que 48 : 45 < 48.'),
+     SupplementalQuestion('bonus_cp2_compare_3','Quel signe convient : 61 … 61 ?',['<','>','='],2,'Les deux nombres sont égaux : on écrit =.'),
+     SupplementalQuestion('bonus_cp2_compare_4','Quel nombre est le plus petit ?',['70','67','76'],1,'67 est plus petit que 70 et 76.')]),
+
 ];
