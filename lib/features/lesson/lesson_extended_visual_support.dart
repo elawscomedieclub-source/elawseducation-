@@ -171,8 +171,8 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
       return const _Support(
         title: 'Les animaux et leurs relations alimentaires',
         icon: Icons.pets,
-        nodes: ['Végétaux', 'Herbivore', 'Carnivore'],
-        explanation: 'Les animaux ont besoin d’eau et de nourriture. Un herbivore mange des végétaux ; un carnivore mange d’autres animaux ; un omnivore consomme les deux types d’aliments.',
+        nodes: ['Trois régimes : herbivore • carnivore • omnivore'],
+        explanation: 'Ces cases sont des catégories, pas une chaîne avec des flèches. Un herbivore mange des végétaux ; un carnivore mange d’autres animaux ; un omnivore consomme des aliments d’origine végétale et animale.',
         activity: 'Classer des animaux de son environnement',
         materials: 'Des dessins ou noms d’animaux connus et une feuille.',
         steps: ['Choisis quatre animaux connus.', 'Indique ce que chacun mange, sans le capturer.', 'Classe-les selon leur alimentation.', 'Dessine une relation alimentaire simple avec des flèches.'],
