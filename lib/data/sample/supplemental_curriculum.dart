@@ -648,4 +648,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_nom_2','Quel mot est un nom commun ?',['Lomé','Afi','marché'],2,'Marché désigne un lieu en général : c’est un nom commun.'),
      SupplementalQuestion('bonus_cp2_nom_3','Dans « Ama voit un chat », quel mot est un nom propre ?',['Ama','voit','chat'],0,'Ama désigne une personne précise et commence par une majuscule : nom propre.'),
      SupplementalQuestion('bonus_cp2_nom_4','Quel groupe contient seulement des noms communs ?',['Kossi, Lomé','fille, école','Afi, marché'],1,'Fille et école désignent des catégories : ce sont deux noms communs.')]),
+  SupplementalLesson('cp2_reconnaitre_verbe', SchoolLevel.cp2, 'Français', 'Reconnaître le verbe dans une phrase',
+    'Le verbe indique souvent ce que fait une personne, un animal ou une chose, ou dans quel état elle se trouve. Pour le trouver, demande-toi : « Que fait le sujet ? » Le verbe change selon le sujet et le temps. Exemple : Afi chante. Le mot « chante » indique ce qu’Afi fait.',
+    'Dans « Le chien court », le chien est celui qui fait l’action. Le verbe est « court ». Dans « Les enfants jouent », le verbe est « jouent ».',
+    [SupplementalQuestion('bonus_cp2_verbe_1','Dans « Ama danse », quel est le verbe ?',['Ama','danse','la'],1,'« Danse » indique ce qu’Ama fait : c’est le verbe.'),
+     SupplementalQuestion('bonus_cp2_verbe_2','Dans « Le bébé dort », quel mot indique l’action ?',['bébé','le','dort'],2,'« Dort » indique ce que fait le bébé : c’est le verbe.'),
+     SupplementalQuestion('bonus_cp2_verbe_3','Choisis le verbe dans la phrase : « Les élèves écrivent. »',['élèves','écrivent','les'],1,'« Écrivent » est le verbe de la phrase.'),
+     SupplementalQuestion('bonus_cp2_verbe_4','Dans « Le soleil brille », quel est le verbe ?',['soleil','brille','le'],1,'« Brille » indique ce que fait le soleil dans cette phrase.')]),
 ];
