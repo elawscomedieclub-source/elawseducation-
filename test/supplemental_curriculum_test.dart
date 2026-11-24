@@ -1287,5 +1287,25 @@ void main() {
       }
     });
 
+
+    test('le cours CP2 repère le sujet dans une phrase simple', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_identifier_sujet');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_sujet_1': 'Kossi',
+        'bonus_cp2_sujet_2': 'La fille',
+        'bonus_cp2_sujet_3': 'Les élèves',
+        'bonus_cp2_sujet_4': 'Le chat',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Sujet incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
