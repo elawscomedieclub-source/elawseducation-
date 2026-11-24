@@ -510,19 +510,21 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas, 'hypoténuse', const Offset(156, 105), scale);
         break;
       case _VisualKind.triangle:
+        // Triangle quelconque : les deux côtés obliques ne doivent pas
+        // sembler égaux, sinon le dessin suggère à tort un triangle isocèle.
         final triangle = Path()
-          ..moveTo(70, 180)
-          ..lineTo(170, 45)
-          ..lineTo(270, 180)
+          ..moveTo(58, 180)
+          ..lineTo(145, 42)
+          ..lineTo(282, 156)
           ..close();
         canvas.drawPath(triangle, fill);
         canvas.drawPath(triangle, ink);
-        _text(canvas, 'A', const Offset(58, 184), scale);
-        _text(canvas, 'B', const Offset(166, 25), scale);
-        _text(canvas, 'C', const Offset(275, 184), scale);
-        _text(canvas, 'AB', const Offset(104, 105), scale);
-        _text(canvas, 'BC', const Offset(225, 105), scale);
-        _text(canvas, 'CA', const Offset(165, 190), scale);
+        _text(canvas, 'A', const Offset(43, 181), scale);
+        _text(canvas, 'B', const Offset(140, 20), scale);
+        _text(canvas, 'C', const Offset(285, 153), scale);
+        _text(canvas, 'AB', const Offset(78, 105), scale);
+        _text(canvas, 'BC', const Offset(220, 85), scale);
+        _text(canvas, 'CA', const Offset(160, 188), scale);
         break;
       case _VisualKind.geometry:
         // Planche comparative : les quatre figures restent visibles même
