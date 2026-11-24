@@ -256,6 +256,14 @@ void main() {
           final exercises = module.pool(term);
           expect(exercises, hasLength(module.perTerm), reason: '${module.name}: exercices attendus au trimestre $term');
           expect(exercises.every((e) => e.options.length >= 3), isTrue);
+          expect(exercises.every((e) => e.question.trim().isNotEmpty), isTrue,
+              reason: '${module.name}: question vide au trimestre $term');
+          expect(exercises.every((e) => e.options.every((option) => option.trim().isNotEmpty)), isTrue,
+              reason: '${module.name}: choix vide au trimestre $term');
+          expect(exercises.every((e) {
+            final normalized = e.options.map((option) => option.trim().toLowerCase()).toSet();
+            return normalized.length == e.options.length;
+          }), isTrue, reason: '${module.name}: choix dupliqués au trimestre $term');
           expect(exercises.every((e) => e.correctIndex >= 0 && e.correctIndex < e.options.length), isTrue);
           expect(exercises.every((e) => e.explanation.trim().isNotEmpty), isTrue);
         }
@@ -342,6 +350,13 @@ void main() {
           for (final unit in units) {
             expect(unit.question.trim(), isNotEmpty);
             expect(unit.options.length, greaterThanOrEqualTo(3));
+            expect(unit.options.every((option) => option.trim().isNotEmpty), isTrue,
+                reason: 'Choix vide dans ${unit.title}');
+            final normalizedOptions = unit.options
+                .map((option) => option.trim().toLowerCase())
+                .toSet();
+            expect(normalizedOptions.length, unit.options.length,
+                reason: 'Choix dupliqués dans ${unit.title}');
             expect(unit.answer, inInclusiveRange(0, unit.options.length - 1));
             expect(unit.explanation.trim(), isNotEmpty);
           }
@@ -367,8 +382,17 @@ void main() {
             expect(finalYear, hasLength(7), reason: 'Terminale $series, trimestre $term');
             for (final exercise in [...first, ...finalYear]) {
               expect(exercise.options.length, greaterThanOrEqualTo(3));
+              expect(exercise.question.trim(), isNotEmpty,
+                  reason: 'Question vide pour ${level.label}, série $series');
+              expect(exercise.options.every((option) => option.trim().isNotEmpty), isTrue,
+                  reason: 'Choix vide pour ${level.label}, série $series');
+              final normalizedOptions = exercise.options
+                  .map((option) => option.trim().toLowerCase())
+                  .toSet();
+              expect(normalizedOptions.length, exercise.options.length,
+                  reason: 'Choix dupliqués pour ${level.label}, série $series');
               expect(exercise.correctIndex, inInclusiveRange(0, exercise.options.length - 1));
-              expect(exercise.explanation.trim(), isNotEmpty);
+              expect(exercise.explanation.trim().isNotEmpty, isTrue);
             }
           }
         }
