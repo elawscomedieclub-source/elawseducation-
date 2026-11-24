@@ -82,7 +82,7 @@ void main() {
         expect(
           demoSubjects.any((subject) => subject.level == level),
           isTrue,
-          reason: 'Aucune matière disponible pour ${level.label}',
+          reason: 'Aucune matière disponible pour Première/Terminale',
         );
       }
     });
@@ -107,7 +107,7 @@ void main() {
                   subject.track == entry.key &&
                   subject.series == series),
               isTrue,
-              reason: 'Matière absente : ${level.label}, ${entry.key.label}, série $series',
+              reason: 'Matière absente : Première/Terminale, ${entry.key.label}, série $series',
             );
           }
         }
@@ -135,13 +135,13 @@ void main() {
                   (subject) => subject.track == track &&
                       (subject.series == null || subject.series == series)),
               isTrue,
-              reason: 'Mélange de parcours détecté pour ${level.label}, série $series',
+              reason: 'Mélange de parcours détecté pour Première/Terminale, série $series',
             );
             expect(
               visible.any((subject) =>
                   subject.track == track && subject.series == series),
               isTrue,
-              reason: 'Aucune matière spécifique pour ${level.label}, série $series',
+              reason: 'Aucune matière spécifique pour Première/Terminale, série $series',
             );
           }
         }
@@ -214,7 +214,7 @@ void main() {
             .where((exercise) => lessonIds.contains(exercise.lessonId))
             .length;
         expect(count, greaterThanOrEqualTo(20),
-            reason: 'Banque d’exercices trop faible pour ${level.label}');
+            reason: 'Banque d’exercices trop faible pour Première/Terminale');
       }
     });
 
@@ -276,7 +276,7 @@ void main() {
         expect(
           supplementalLessons.any((lesson) => lesson.level == level),
           isTrue,
-          reason: 'Aucun cours bonus pour ${level.label}',
+          reason: 'Aucun cours bonus pour Première/Terminale',
         );
       }
       final mainExerciseIds = demoExercises.map((exercise) => exercise.id).toSet();
@@ -383,14 +383,14 @@ void main() {
             for (final exercise in [...first, ...finalYear]) {
               expect(exercise.options.length, greaterThanOrEqualTo(3));
               expect(exercise.question.trim(), isNotEmpty,
-                  reason: 'Question vide pour ${level.label}, série $series');
+                  reason: 'Question vide pour Première/Terminale, série $series');
               expect(exercise.options.every((option) => option.trim().isNotEmpty), isTrue,
-                  reason: 'Choix vide pour ${level.label}, série $series');
+                  reason: 'Choix vide pour Première/Terminale, série $series');
               final normalizedOptions = exercise.options
                   .map((option) => option.trim().toLowerCase())
                   .toSet();
               expect(normalizedOptions.length, exercise.options.length,
-                  reason: 'Choix dupliqués pour ${level.label}, série $series');
+                  reason: 'Choix dupliqués pour Première/Terminale, série $series');
               expect(exercise.correctIndex, inInclusiveRange(0, exercise.options.length - 1));
               expect(exercise.explanation.trim().isNotEmpty, isTrue);
             }
