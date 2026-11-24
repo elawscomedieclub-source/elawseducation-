@@ -28,6 +28,9 @@ class LessonVisualSupport extends StatelessWidget {
     // générales. Une leçon sur le seul triangle/carré/etc. ne doit pas recevoir
     // une planche qui pourrait faire croire que les autres figures sont étudiées.
     if (RegExp(r'cercle|cercles|disque|disques').hasMatch(title)) return _VisualKind.circle;
+    // Un cours consacré au carré reçoit son propre dessin : quatre côtés égaux
+    // et quatre angles droits, sans la planche comparative des figures.
+    if (RegExp(r'^(le carré|carré|tracer un carré|construction du carré|propriétés du carré)').hasMatch(title)) return _VisualKind.square;
     if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
     if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title) &&
         !RegExp(r'triangle').hasMatch(title)) return _VisualKind.geometry;
@@ -78,6 +81,14 @@ class LessonVisualSupport extends StatelessWidget {
           steps: ['Repère le centre du cercle.', 'Avec un compas, trace un cercle autour du centre.', 'Repère un rayon du centre jusqu’au cercle.', 'Compare le diamètre et le rayon.'],
           observe: 'Le cercle est l’ensemble des points situés à la même distance du centre. Le diamètre passe par le centre et vaut deux rayons.',
           safety: 'Manipule la pointe du compas avec prudence ; si tu utilises un objet rond, demande à un adulte de vérifier qu’il est stable.'
+        );
+      case _VisualKind.square:
+        return const _PracticalActivity(
+          title: 'Atelier : construire un carré',
+          materials: 'Une feuille quadrillée, une règle et un crayon.',
+          steps: ['Trace un segment de 4 cm.', 'Construis un angle droit à chaque extrémité.', 'Reporte 4 cm sur chaque côté.', 'Relie les quatre sommets et vérifie les côtés et les angles.'],
+          observe: 'Un carré possède quatre côtés de même longueur et quatre angles droits.',
+          safety: 'Utilise la règle avec soin.'
         );
       case _VisualKind.triangle:
         return const _PracticalActivity(
@@ -290,6 +301,7 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.water => 'Schéma : le cycle de l’eau',
     _VisualKind.body => 'Schéma : le corps humain',
     _VisualKind.circle => 'Schéma : cercle, centre, rayon et diamètre',
+    _VisualKind.square => 'Schéma : carré, quatre côtés égaux et angles droits',
     _VisualKind.triangle => 'Schéma : triangle et ses trois sommets',
     _VisualKind.geometry => 'Quelques figures planes : côtés, sommets et courbes',
     _VisualKind.fraction => 'Schéma : une fraction en parts égales',
@@ -301,13 +313,14 @@ class LessonVisualSupport extends StatelessWidget {
     _VisualKind.water => 'Sous l’action du Soleil, l’eau s’évapore. La vapeur se refroidit et se condense en nuages, puis l’eau retombe sous forme de précipitations et rejoint les sols et les cours d’eau.',
     _VisualKind.body => 'Le schéma situe la tête, le thorax et l’abdomen. Les organes sont représentés de façon simplifiée.',
     _VisualKind.circle => 'Le cercle est une ligne courbe fermée dont tous les points sont à la même distance du centre. Le diamètre passe par le centre et mesure deux rayons.',
+    _VisualKind.square => 'Le carré est un quadrilatère : ses quatre côtés sont égaux et ses quatre angles sont droits.',
     _VisualKind.triangle => 'Un triangle est une figure fermée formée de trois segments : AB, BC et CA. Il possède trois sommets.',
     _VisualKind.geometry => 'Compare le triangle, le rectangle, le carré et le cercle. Les polygones ont des côtés droits et des sommets ; le cercle n’en a pas.',
     _VisualKind.fraction => 'Chaque bande est partagée en parts égales. Compare une moitié (1/2), un quart (1/4) et trois quarts (3/4).',
   };
 }
 
-enum _VisualKind { circuit, plant, water, body, circle, triangle, geometry, fraction }
+enum _VisualKind { circuit, plant, water, body, circle, square, triangle, geometry, fraction }
 
 class _PracticalActivity {
   final String title, materials, observe, safety;
@@ -413,6 +426,24 @@ class _LessonDiagramPainter extends CustomPainter {
         _text(canvas, 'O (centre)', const Offset(126, 120), scale);
         _text(canvas, 'rayon', const Offset(194, 91), scale);
         _text(canvas, 'diamètre', const Offset(175, 135), scale);
+        break;
+      case _VisualKind.square:
+        const rect = Rect.fromLTWH(94, 48, 152, 152);
+        canvas.drawRect(rect, fill);
+        canvas.drawRect(rect, ink);
+        // Petits repères d'angle droit dans les quatre coins.
+        final mark = Paint()..color = colors.primary..style = PaintingStyle.stroke..strokeWidth = 2;
+        canvas.drawLine(const Offset(94, 68), const Offset(114, 68), mark);
+        canvas.drawLine(const Offset(114, 68), const Offset(114, 48), mark);
+        canvas.drawLine(const Offset(226, 48), const Offset(226, 68), mark);
+        canvas.drawLine(const Offset(226, 68), const Offset(246, 68), mark);
+        canvas.drawLine(const Offset(94, 180), const Offset(114, 180), mark);
+        canvas.drawLine(const Offset(114, 180), const Offset(114, 200), mark);
+        canvas.drawLine(const Offset(226, 180), const Offset(246, 180), mark);
+        canvas.drawLine(const Offset(226, 180), const Offset(226, 200), mark);
+        _text(canvas, '4 côtés égaux', const Offset(115, 18), scale);
+        _text(canvas, 'angle droit', const Offset(10, 75), scale);
+        _text(canvas, '4 côtés égaux', const Offset(115, 210), scale);
         break;
       case _VisualKind.triangle:
         final triangle = Path()
