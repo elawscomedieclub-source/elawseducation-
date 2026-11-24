@@ -1133,5 +1133,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 choisit addition ou soustraction dans un problème', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_etapes_addition_soustraction');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_probleme_op_1': '15',
+        'bonus_cp2_probleme_op_2': '12',
+        'bonus_cp2_probleme_op_3': '11 + 8',
+        'bonus_cp2_probleme_op_4': '20 − 7',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Opération ou résultat incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
