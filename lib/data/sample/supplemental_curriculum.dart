@@ -735,4 +735,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_sujet_2','Dans « La fille lit », qui fait l’action ?',['La fille','lit','le livre'],0,'La fille fait l’action de lire : c’est le sujet.'),
      SupplementalQuestion('bonus_cp2_sujet_3','Quel est le sujet dans « Les élèves chantent » ?',['chantent','Les élèves','une chanson'],1,'Le sujet est « Les élèves », car ce sont eux qui chantent.'),
      SupplementalQuestion('bonus_cp2_sujet_4','Dans « Le chat dort », quel groupe est le sujet ?',['dort','Le chat','le lit'],1,'Le chat est celui dont on parle : « Le chat » est le sujet.')]),
+  SupplementalLesson('cp2_pronoms_personnels_sujets', SchoolLevel.cp2, 'Français', 'Employer les pronoms personnels sujets',
+    'Les pronoms personnels sujets remplacent le nom ou le groupe de mots qui fait l’action. Au singulier, on utilise je, tu, il ou elle. Au pluriel, on utilise nous, vous, ils ou elles. Le pronom doit correspondre à la personne ou aux personnes dont on parle.',
+    'Exemples : « Ama chante » devient « Elle chante ». « Kossi et moi jouons » devient « Nous jouons ». « Les garçons courent » devient « Ils courent ». « Les filles dansent » devient « Elles dansent ».',
+    [SupplementalQuestion('bonus_cp2_pronoms_1','Quel pronom peut remplacer « Afi » ?',['Il','Elle','Nous'],1,'Afi est une fille : on peut dire « elle ».'),
+     SupplementalQuestion('bonus_cp2_pronoms_2','« Kossi et moi » peut être remplacé par…',['Nous','Vous','Ils'],0,'Kossi et moi = nous.'),
+     SupplementalQuestion('bonus_cp2_pronoms_3','Quel pronom remplace « les garçons » ?',['Elle','Ils','Tu'],1,'« Les garçons » est masculin pluriel : ils.'),
+     SupplementalQuestion('bonus_cp2_pronoms_4','Complète : « ___ êtes dans la classe. »',['Vous','Il','Je'],0,'On dit « Vous êtes » pour s’adresser à plusieurs personnes ou à une personne avec politesse.')]),
+
 ];
