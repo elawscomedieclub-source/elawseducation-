@@ -1057,5 +1057,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 distingue les noms propres et les noms communs', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_nom_propre_commun');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_nom_1': 'Kossi',
+        'bonus_cp2_nom_2': 'marché',
+        'bonus_cp2_nom_3': 'Ama',
+        'bonus_cp2_nom_4': 'fille, école',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Identification du nom incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
