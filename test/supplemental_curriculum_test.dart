@@ -73,6 +73,7 @@ void main() {
         'cp2_lire_phrases',
         'cp2_addition_dizaines',
         'cp2_soustraction',
+        'cp2_monnaie_fcfa',
         'ce1_multiplication_groupes',
         'ce1_problemes_addition',
       ];
