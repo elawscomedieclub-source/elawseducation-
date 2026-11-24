@@ -422,6 +422,10 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('bonus_cp2_fcfa_1','Un cahier coûte 250 F et un crayon 100 F. Quel est le prix total ?',['300 F','350 F','400 F'],1,'250 + 100 = 350 F.'),
      SupplementalQuestion('bonus_cp2_fcfa_2','Tu achètes un article à 300 F et tu donnes 500 F. Quelle somme doit-on te rendre ?',['100 F','200 F','300 F'],1,'500 - 300 = 200 F.'),
      SupplementalQuestion('bonus_cp2_fcfa_3','Deux oranges coûtent 50 F chacune. Combien coûtent-elles ?',['50 F','100 F','150 F'],1,'50 + 50 = 100 F.')]),
+  SupplementalLesson('cp2_lire_heure_calendrier', SchoolLevel.cp2, 'Mathématiques', 'Lire l’heure et utiliser le calendrier',
+    'Une journée compte 24 heures. Sur une horloge à aiguilles, la petite aiguille indique les heures et la grande aiguille les minutes. Le calendrier permet de repérer les jours de la semaine et les dates. Une semaine compte 7 jours.',
+    'Quand la grande aiguille est sur 12 et la petite sur 8, il est 8 heures. Après lundi vient mardi.',
+    [SupplementalQuestion('bonus_cp2_time_1','La petite aiguille est sur 8 et la grande sur 12. Quelle heure est-il ?',['8 heures','12 heures','6 heures'],0,'La grande aiguille sur 12 indique une heure exacte ; la petite indique 8.'), SupplementalQuestion('bonus_cp2_time_2','Quel jour vient après jeudi ?',['Mercredi','Vendredi','Dimanche'],1,'Dans l’ordre des jours, après jeudi vient vendredi.'), SupplementalQuestion('bonus_cp2_time_3','Combien de jours compte une semaine ?',['5 jours','6 jours','7 jours'],2,'Une semaine compte sept jours.')]),
 
   SupplementalLesson('ce1_achats_fcfa', SchoolLevel.ce1, 'Mathématiques', 'Préparer un petit achat en franc CFA',
     'Pour préparer un achat, lis le prix de chaque objet, additionne les dépenses et compare le total à la somme dont tu disposes. Si tu paies avec une somme plus grande, calcule la monnaie à recevoir.',
