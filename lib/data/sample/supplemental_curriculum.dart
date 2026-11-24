@@ -710,5 +710,13 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('bonus_cp2_plante_1','Quelle partie de la plante se trouve généralement dans la terre ?',['La fleur','Les racines','Le fruit'],1,'Les racines se trouvent généralement dans la terre.'),
      SupplementalQuestion('bonus_cp2_plante_2','Quelle partie soutient la plante ?',['La tige','La graine','Le fruit'],0,'La tige soutient la plante et porte les feuilles.'),
      SupplementalQuestion('bonus_cp2_plante_3','Quelle partie aide la plante à fabriquer sa nourriture grâce à la lumière ?',['La pierre','Les feuilles','Le sable'],1,'Les feuilles utilisent la lumière pour aider la plante à fabriquer sa nourriture.'),
-     SupplementalQuestion('bonus_cp2_plante_4','Que peut contenir un fruit ?',['Des graines','Des cailloux','Du métal'],0,'Beaucoup de fruits contiennent des graines.')]),
+     SupplementalQuestion('bonus_cp2_plante_4','Que peut contenir un fruit ?',['Des graines','Des cailloux','Du métal'],0,'Beaucoup de fruits contiennent des graines.')]),,
+
+  SupplementalLesson('cp2_multiplication_groupes', SchoolLevel.cp2, 'Mathématiques', 'Comprendre la multiplication avec des groupes égaux',
+    'La multiplication permet de compter rapidement des groupes qui contiennent le même nombre d’objets. On peut d’abord additionner les groupes. Par exemple, 3 groupes de 4 objets donnent 4 + 4 + 4 = 12. On écrit aussi 3 × 4 = 12 : cela signifie 3 groupes de 4. Le résultat s’appelle le produit.',
+    'Dans 4 assiettes, il y a 2 mangues dans chaque assiette. On compte 2 + 2 + 2 + 2 = 8 mangues. C’est 4 groupes de 2, donc 4 × 2 = 8.',
+    [SupplementalQuestion('bonus_cp2_mult_groupes_1','2 groupes de 3 crayons : combien de crayons en tout ?',['5','6','9'],1,'2 groupes de 3 donnent 3 + 3 = 6 crayons.'),
+     SupplementalQuestion('bonus_cp2_mult_groupes_2','Que signifie 4 × 2 ?',['4 groupes de 2','2 groupes de 4 seulement','4 + 2'],0,'4 × 2 signifie 4 groupes de 2.'),
+     SupplementalQuestion('bonus_cp2_mult_groupes_3','3 × 5 = ?',['8','15','10'],1,'3 groupes de 5 donnent 5 + 5 + 5 = 15.'),
+     SupplementalQuestion('bonus_cp2_mult_groupes_4','5 groupes de 2 cahiers : quel calcul convient ?',['5 + 2','5 × 2','5 − 2'],1,'5 groupes de 2 se représentent par 5 × 2.')]),
 ];
