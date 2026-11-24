@@ -1152,5 +1152,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 identifie les états de l’eau', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_etats_eau');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_eau_1': 'Liquide',
+        'bonus_cp2_eau_2': 'La glace',
+        'bonus_cp2_eau_3': 'Gazeux',
+        'bonus_cp2_eau_4': 'De la glace',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'État de l’eau incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
