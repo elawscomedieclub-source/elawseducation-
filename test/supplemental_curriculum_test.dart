@@ -1190,5 +1190,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 identifie les principales parties d’une plante', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_parties_plante');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_plante_1': 'Les racines',
+        'bonus_cp2_plante_2': 'La tige',
+        'bonus_cp2_plante_3': 'Les feuilles',
+        'bonus_cp2_plante_4': 'Des graines',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Partie de plante incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
