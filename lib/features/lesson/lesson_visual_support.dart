@@ -41,7 +41,7 @@ class LessonVisualSupport extends StatelessWidget {
     // ces types nécessitent des côtés/angles explicitement marqués.
     if (RegExp(r'triangles?\s+(?:isocèle|équilatéral|scalène|obtusangle|acutangle)').hasMatch(title)) return null;
     if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
-    if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title) &&
+    if (RegExp(r'figures géométriques|figures planes').hasMatch(title) &&
         !RegExp(r'triangle').hasMatch(title)) return _VisualKind.geometry;
     // Ce schéma compare moitié, quart et trois quarts : ne pas l'afficher
     // pour une leçon ciblant une seule fraction (moitié, tiers ou quart).
