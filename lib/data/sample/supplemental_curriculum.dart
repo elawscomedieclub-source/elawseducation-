@@ -655,4 +655,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_verbe_2','Dans « Le bébé dort », quel mot indique l’action ?',['bébé','le','dort'],2,'« Dort » indique ce que fait le bébé : c’est le verbe.'),
      SupplementalQuestion('bonus_cp2_verbe_3','Choisis le verbe dans la phrase : « Les élèves écrivent. »',['élèves','écrivent','les'],1,'« Écrivent » est le verbe de la phrase.'),
      SupplementalQuestion('bonus_cp2_verbe_4','Dans « Le soleil brille », quel est le verbe ?',['soleil','brille','le'],1,'« Brille » indique ce que fait le soleil dans cette phrase.')]),
+  SupplementalLesson('cp2_singulier_pluriel', SchoolLevel.cp2, 'Français', 'Reconnaître le singulier et le pluriel',
+    'Le singulier désigne une seule personne, un seul animal ou une seule chose : un chat, la maison. Le pluriel désigne plusieurs personnes, animaux ou choses : des chats, les maisons. Les mots les et des indiquent souvent le pluriel. Beaucoup de noms prennent un s au pluriel, mais certains mots changent autrement.',
+    '« Une fleur » est au singulier : il y a une fleur. « Des fleurs » est au pluriel : il y en a plusieurs. Dans « Les enfants jouent », le groupe « les enfants » est au pluriel.',
+    [SupplementalQuestion('bonus_cp2_pluriel_1','« un chat » est au…',['singulier','pluriel','verbe'],0,'« Un chat » désigne un seul chat : singulier.'),
+     SupplementalQuestion('bonus_cp2_pluriel_2','« des fleurs » est au…',['singulier','pluriel','adjectif'],1,'« Des fleurs » désigne plusieurs fleurs : pluriel.'),
+     SupplementalQuestion('bonus_cp2_pluriel_3','Quel groupe est au pluriel ?',['la table','les tables','une table'],1,'« Les tables » désigne plusieurs tables : pluriel.'),
+     SupplementalQuestion('bonus_cp2_pluriel_4','Complète : « ___ enfants jouent. »',['Le','Les','Un'],1,'« Les » accompagne un nom pluriel : les enfants.')]),
 ];
