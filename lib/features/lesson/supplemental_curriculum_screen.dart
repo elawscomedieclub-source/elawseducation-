@@ -284,7 +284,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cp1_nombres_20' => const ['11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
       'cp1_ordonner_nombres' => const ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
       'cp1_couleurs' => const ['🔴', '🟡', '🔵', '🟢'],
-      'cp1_formes' => const ['⚪', '🟥', '🔺', '⭐'],
+      'cp1_formes' => const ['⚪', '🟥', '🔺'],
       'cp1_classe' => const ['📖', '📓', '✏️', '🧑‍🏫'],
       'cp1_hygiene' => const ['🧼', '💧', '🪥', '🦷'],
       'cp1_animaux' => const ['🐟', '🐕', '🐔', '🐐'],
