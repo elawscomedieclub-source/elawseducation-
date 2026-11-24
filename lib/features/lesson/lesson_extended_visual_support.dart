@@ -79,17 +79,21 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Ne goûte jamais la terre ni l’eau du bocal. Évite de respirer la poussière, lave-toi les mains et fais l’activité avec l’aide d’un adulte.'
       );
     }
-    if (RegExp(r'mélange homogène|mélange hétérogène|filtration|décantation').hasMatch(text)) {
+    // Ce schéma montre uniquement une filtration sable-eau.
+    // Il ne convient pas à la classification des mélanges homogènes
+    // ni à une leçon consacrée à la décantation.
+    if (RegExp(r'mélange homogène').hasMatch(text)) return null;
+    if (RegExp(r'filtration').hasMatch(text)) {
       return const _Support(
-        title: 'Séparer les constituants d’un mélange',
+        title: 'Filtrer un mélange de sable et d’eau',
         icon: Icons.science,
-        nodes: ['Mélange', 'Filtre', 'Résidu + liquide'],
-        explanation: 'La filtration retient certains solides dans le filtre et laisse passer le liquide. Elle ne rend pas forcément l’eau potable.',
+        nodes: ['Sable + eau', 'Filtre', 'Sable retenu', 'Eau filtrée'],
+        explanation: 'La filtration retient le sable dans le filtre et laisse passer l’eau. Elle ne rend pas forcément l’eau potable.',
         activity: 'Réaliser une filtration simple',
         materials: 'Un entonnoir, un filtre à café, un récipient, de l’eau et un peu de sable.',
-        steps: ['Mélange le sable avec l’eau dans un récipient.', 'Place le filtre dans l’entonnoir.', 'Verse doucement le mélange.', 'Observe le sable retenu et le liquide recueilli.', 'Décris ce que la filtration a séparé.'],
+        steps: ['Mélange le sable avec l’eau dans un récipient.', 'Place le filtre dans l’entonnoir.', 'Verse doucement le mélange.', 'Observe le sable retenu et l’eau recueillie.', 'Décris ce que la filtration a séparé.'],
         result: 'Le sable est retenu par le filtre tandis que l’eau traverse le papier.',
-        safety: 'Ne bois jamais le liquide obtenu : une filtration scolaire ne garantit pas la potabilité.'
+        safety: 'Ne bois jamais l’eau obtenue : une filtration scolaire ne garantit pas la potabilité.'
       );
     }
     if (RegExp(r'levier').hasMatch(text)) {
