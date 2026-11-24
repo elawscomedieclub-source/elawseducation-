@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/data/sample/sample_data.dart';
+import 'package:proftogo/data/sample/supplemental_curriculum.dart';
 import 'package:proftogo/data/models/models.dart';
 import 'package:proftogo/features/subjects/ce1_completion_screen.dart';
 import 'package:proftogo/features/subjects/ce2_completion_screen.dart';
@@ -261,6 +262,40 @@ void main() {
       }
     });
 
+
+    test('les cours bonus ont des identifiants uniques et des questions complètes', () {
+      expect(
+        _idsAreUnique(supplementalLessons.map((lesson) => lesson.id)),
+        isTrue,
+        reason: 'Identifiant de cours bonus dupliqué',
+      );
+      final questionIds = supplementalLessons.expand((lesson) =>
+          lesson.questions.map((question) => question.id));
+      expect(_idsAreUnique(questionIds), isTrue,
+          reason: 'Identifiant de question bonus dupliqué');
+
+      for (final lesson in supplementalLessons) {
+        expect(lesson.title.trim(), isNotEmpty,
+            reason: 'Titre vide pour ${lesson.id}');
+        expect(lesson.explanation.trim(), isNotEmpty,
+            reason: 'Explication vide pour ${lesson.id}');
+        expect(lesson.example.trim(), isNotEmpty,
+            reason: 'Exemple vide pour ${lesson.id}');
+        expect(lesson.questions, isNotEmpty,
+            reason: 'Aucune question pour ${lesson.id}');
+        for (final question in lesson.questions) {
+          expect(question.prompt.trim(), isNotEmpty,
+              reason: 'Question vide : ${question.id}');
+          expect(question.choices.length, greaterThanOrEqualTo(2),
+              reason: 'Pas assez de choix : ${question.id}');
+          expect(question.correctIndex,
+              inInclusiveRange(0, question.choices.length - 1),
+              reason: 'Indice de bonne réponse invalide : ${question.id}');
+          expect(question.explanation.trim(), isNotEmpty,
+              reason: 'Explication vide : ${question.id}');
+        }
+      }
+    });
 
     test('la Seconde propose trois cours propres à chaque série', () {
       final seriesByTrack = <SchoolTrack, List<String>>{
