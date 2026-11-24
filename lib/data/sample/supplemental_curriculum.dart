@@ -634,4 +634,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce2_mult_soust_2','Un jardinier plante 4 rangées de 15 fleurs. 17 fleurs fanent. Combien restent en bon état ?',['41','43','45'],1,'4 × 15 = 60, puis 60 − 17 = 43 fleurs.'),
      SupplementalQuestion('bonus_ce2_mult_soust_3','Une école achète 6 paquets de 10 crayons. Elle distribue 25 crayons. Combien restent ?',['30','35','40'],1,'6 × 10 = 60, puis 60 − 25 = 35 crayons.'),
      SupplementalQuestion('bonus_ce2_mult_soust_4','Un commerçant range 3 paniers de 24 oranges. Il vend 20 oranges. Combien lui en reste-t-il ?',['50','52','54'],1,'3 × 24 = 72, puis 72 − 20 = 52 oranges.')]),
+  SupplementalLesson('cp2_regle_graduee', SchoolLevel.cp2, 'Mathématiques', 'Utiliser une règle graduée',
+    'Pour mesurer une longueur, place le zéro de la règle au début de l’objet. Garde la règle droite et lis le nombre indiqué à l’autre extrémité. Les graduations numérotées de la règle sont en centimètres (cm). Si le bord de la règle est abîmé ou si le zéro n’est pas au bord, commence toujours au repère 0, pas au bord de la règle.',
+    'Un crayon commence au repère 0 cm et se termine au repère 8 cm : sa longueur est 8 cm. Si un objet commence au repère 2 cm et se termine au repère 7 cm, sa longueur est 7 − 2 = 5 cm.',
+    [SupplementalQuestion('bonus_cp2_regle_1','Le début d’un objet est placé sur 0 cm et sa fin sur 6 cm. Quelle est sa longueur ?',['4 cm','6 cm','8 cm'],1,'La longueur se lit entre 0 cm et 6 cm : 6 cm.'),
+     SupplementalQuestion('bonus_cp2_regle_2','Un objet commence au repère 3 cm et finit au repère 9 cm. Quelle est sa longueur ?',['6 cm','9 cm','12 cm'],0,'On calcule 9 − 3 = 6 cm.'),
+     SupplementalQuestion('bonus_cp2_regle_3','Pour mesurer correctement avec une règle, quel repère faut-il placer au début de l’objet ?',['Le repère 0','Le repère 5','N’importe quel repère sans calcul'],0,'On place le repère 0 au début, puis on lit la longueur à l’autre extrémité.'),
+     SupplementalQuestion('bonus_cp2_regle_4','Une longueur va du repère 1 cm au repère 7 cm. Quelle est sa mesure ?',['5 cm','6 cm','7 cm'],1,'7 − 1 = 6 cm.')]),
 ];
