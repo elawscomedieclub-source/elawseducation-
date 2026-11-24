@@ -30,10 +30,10 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         icon: Icons.explore,
         nodes: ['Pôle nord', 'Aimant', 'Pôle sud'],
         explanation: 'Un aimant possède deux pôles. Deux pôles opposés s’attirent ; deux pôles identiques se repoussent.',
-        activity: 'Tester l’attraction magnétique',
-        materials: 'Un aimant, un trombone, une pièce, du papier et un morceau de bois.',
-        steps: ['Approche l’aimant de chaque objet sans le toucher.', 'Note les objets attirés et ceux qui ne le sont pas.', 'Place une feuille de papier entre l’aimant et le trombone.', 'Compare les résultats et formule une conclusion.'],
-        result: 'Tous les métaux ne sont pas attirés par un aimant. Le fer et certains aciers le sont.',
+        activity: 'Observer l’attraction et la répulsion des pôles',
+        materials: 'Deux aimants dont les pôles nord et sud sont repérés.',
+        steps: ['Choisis un pôle de chaque aimant.', 'Approche doucement les deux pôles nord l’un de l’autre, sans les laisser heurter.', 'Inverse un aimant pour rapprocher un pôle nord et un pôle sud.', 'Observe et note si les aimants s’attirent ou se repoussent.'],
+        result: 'Deux pôles identiques se repoussent ; deux pôles opposés s’attirent. Ne conclus pas qu’un aimant attire tous les métaux. ',
         safety: 'Ne place pas l’aimant près d’un téléphone, d’une carte magnétique ou d’un appareil médical.'
       );
     }
