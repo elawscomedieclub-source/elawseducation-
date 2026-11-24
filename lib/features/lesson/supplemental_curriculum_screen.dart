@@ -171,7 +171,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_syllabes' || lesson.id == 'cp2_addition' || lesson.id == 'cp2_addition_dizaines' || lesson.id == 'cp2_soustraction' || lesson.id == 'cp2_addition_retenue_dizaines' || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'ce1_multiplication_groupes' || lesson.id == 'ce1_problemes_addition' || lesson.id == 'ce1_multiplication_table_2' || lesson.id == 'ce1_phrase' || lesson.id == 'ce1_dizaines' || lesson.id == 'ce1_soustraction_emprunt' || lesson.id == 'ce1_mesurer_longueurs' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_problemes_multiplication' || lesson.id == 'ce2_choisir_operation' || lesson.id == 'ce2_table_multiplication_2' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6' || lesson.id == 'ce2_table_multiplication_7' || lesson.id == 'ce2_table_multiplication_8' || lesson.id == 'ce2_table_multiplication_9' || lesson.id == 'ce2_table_multiplication_10' || lesson.id == 'ce2_figures_geometriques' || lesson.id == 'ce2_moitie_quart' || lesson.id == 'ce2_division_exacte' || lesson.id == 'ce2_problemes_partage_fcfa' || lesson.id == 'ce2_problemes_deux_etapes' || lesson.id == 'ce2_problemes_multiplication_soustraction' || lesson.id == 'ce2_nombres_jusqua_1000' || lesson.id == 'ce2_comparer_nombres_1000' || lesson.id == 'ce2_addition_soustraction_1000' || lesson.id == 'ce2_multiplication_posee') ...[
+                        if (level == SchoolLevel.cp1 || lesson.id == 'cp2_syllabes' || lesson.id == 'cp2_addition' || lesson.id == 'cp2_addition_dizaines' || lesson.id == 'cp2_soustraction' || lesson.id == 'cp2_addition_retenue_dizaines' || lesson.id == 'cp2_monnaie_fcfa' || lesson.id == 'ce1_achats_fcfa' || lesson.id == 'cm1_fraction_equivalentes' || lesson.id == 'cm1_perimetre_rectangle' || lesson.id == 'cm2_nombres_decimaux' || lesson.id == 'cm2_proportionnalite_tableau' || lesson.id == 'cm1_accord' || lesson.id == 'cm1_fractions' || lesson.id == 'cm2_aire' || lesson.id == 'ce1_multiplication_groupes' || lesson.id == 'ce1_problemes_addition' || lesson.id == 'ce1_multiplication_table_2' || lesson.id == 'ce1_phrase' || lesson.id == 'ce1_dizaines' || lesson.id == 'ce1_soustraction_emprunt' || lesson.id == 'ce1_mesurer_longueurs' || lesson.id == 'ce2_budget_fcfa' || lesson.id == 'ce2_mesures_longueurs' || lesson.id == 'ce2_mesures_masses' || lesson.id == 'ce2_mesures_capacites' || lesson.id == 'ce2_mesures_duree' || lesson.id == 'ce2_partage_division' || lesson.id == 'ce2_problemes_multiplication' || lesson.id == 'ce2_choisir_operation' || lesson.id == 'ce2_table_multiplication_2' || lesson.id == 'ce2_table_multiplication_3' || lesson.id == 'ce2_table_multiplication_4' || lesson.id == 'ce2_table_multiplication_5' || lesson.id == 'ce2_table_multiplication_6' || lesson.id == 'ce2_table_multiplication_7' || lesson.id == 'ce2_table_multiplication_8' || lesson.id == 'ce2_table_multiplication_9' || lesson.id == 'ce2_table_multiplication_10' || lesson.id == 'ce2_figures_geometriques' || lesson.id == 'ce2_moitie_quart' || lesson.id == 'ce2_division_exacte' || lesson.id == 'ce2_problemes_partage_fcfa' || lesson.id == 'ce2_problemes_deux_etapes' || lesson.id == 'ce2_problemes_multiplication_soustraction' || lesson.id == 'ce2_nombres_jusqua_1000' || lesson.id == 'ce2_comparer_nombres_1000' || lesson.id == 'ce2_addition_soustraction_1000' || lesson.id == 'ce2_multiplication_posee') ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
@@ -302,6 +302,13 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce1_dizaines' => const ['24 = 20 + 4', '2 dizaines = 20', '4 unités = 4', '52 = 5 dizaines + 2 unités'],
       'ce1_soustraction_emprunt' => const ['  5 2', '− 2 8', 'Échanger 1 dizaine : 12 unités', '12 − 8 = 4', '4 − 2 = 2', 'Résultat : 24'],
       'ce1_mesurer_longueurs' => const ['1 m = 100 cm', '1 m 25 cm', '100 cm + 25 cm', '= 125 cm'],
+      'cm1_fraction_equivalentes' => const ['1/2', '=', '2/4', '=', '3/6', 'Même quantité : une moitié'],
+      'cm1_perimetre_rectangle' => const ['Longueur : 6 cm', 'Largeur : 3 cm', 'P = 6 + 3 + 6 + 3', 'P = 18 cm'],
+      'cm2_nombres_decimaux' => const ['3,4 = 3,40', '3,45 > 3,40', 'Comparer les dixièmes', 'puis les centièmes'],
+      'cm2_proportionnalite_tableau' => const ['Cahiers : 1 | 2 | 4', 'Prix : 250 F | 500 F | 1 000 F', 'Coefficient : × 250'],
+      'cm1_accord' => const ['Un enfant joue.', 'Des enfants jouent.', 'Sujet singulier → joue', 'Sujet pluriel → jouent'],
+      'cm1_fractions' => const ['1/2 : une part sur 2', '1/3 : une part sur 3', '1/4 : une part sur 4', 'Dénominateur = parts égales'],
+      'cm2_aire' => const ['Longueur : 5 cm', 'Largeur : 3 cm', 'Aire = 5 × 3', 'Aire = 15 cm²']
       'ce1_achats_fcfa' => const ['300 F', '+', '150 F', '=', '450 F', '1 000 F', '−', '450 F', '=', '550 F'],
       'ce2_budget_fcfa' => const ['400 F', '+', '400 F', '+', '500 F', '=', '1 300 F', '1 500 F', '−', '1 300 F', '=', '200 F'],
       'ce2_mesures_longueurs' => const ['1 km', '=', '1 000 m', '2 m', '+', '50 cm', '=', '250 cm', '340 cm', '=', '3 m', '+', '40 cm'],
@@ -361,6 +368,13 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce1_dizaines' => 'DÉCOMPOSE EN DIZAINES ET UNITÉS',
       'ce1_soustraction_emprunt' => 'ÉCHANGE UNE DIZAINE CONTRE 10 UNITÉS',
       'ce1_mesurer_longueurs' => 'MESURE ET CONVERTIS LES LONGUEURS',
+      'cm1_fraction_equivalentes' => 'COMPARE DES FRACTIONS ÉQUIVALENTES',
+      'cm1_perimetre_rectangle' => 'CALCULE LE CONTOUR DU RECTANGLE',
+      'cm2_nombres_decimaux' => 'COMPARE LES DÉCIMAUX RANG PAR RANG',
+      'cm2_proportionnalite_tableau' => 'COMPLÈTE LE TABLEAU DE PROPORTIONNALITÉ',
+      'cm1_accord' => 'ACCORDE LE VERBE AVEC SON SUJET',
+      'cm1_fractions' => 'OBSERVE LES PARTS ÉGALES',
+      'cm2_aire' => 'CALCULE LA SURFACE DU RECTANGLE'
       'ce1_achats_fcfa' => 'PRÉPARE TON ACHAT ET TA MONNAIE',
       'ce2_budget_fcfa' => 'CALCULE TES DÉPENSES ET TON RESTE',
       'ce2_mesures_longueurs' => 'OBSERVE LES UNITÉS ET CONVERTIS',
