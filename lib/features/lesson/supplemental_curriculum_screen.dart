@@ -63,7 +63,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
     }
   }
 
-  Future<void> _read(String text) async {
+  Future<void> _read(String text, {String language = 'fr-FR'}) async {
     if (_speaking) {
       await _tts.stop();
       if (mounted) setState(() => _speaking = false);
@@ -72,7 +72,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
     try {
       final level = ref.read(schoolLevelProvider);
       await _tts.stop();
-      await _tts.setLanguage('fr-FR');
+      await _tts.setLanguage(language);
       await _tts.setSpeechRate(level.index <= SchoolLevel.cp2.index ? 0.58 : level.index <= SchoolLevel.cm2.index ? 0.66 : level.index <= SchoolLevel.troisieme.index ? 0.74 : 0.80);
       if (mounted) setState(() => _speaking = true);
       await _tts.speak(text);
@@ -82,6 +82,13 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('La lecture audio n’est pas disponible sur ce téléphone.')));
       }
     }
+  }
+
+  String _speechLanguageFor(String title) {
+    final normalized = title.toLowerCase();
+    return normalized.contains('anglais') || normalized.contains('english')
+        ? 'en-US'
+        : 'fr-FR';
   }
 
   Future<void> _check(SupplementalQuestion question) async {
@@ -189,7 +196,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                         SizedBox(
                           width: double.infinity,
                           child: FilledButton.icon(
-                            onPressed: () => _read(lesson.title + '. ' + lesson.explanation + '. Exemple. ' + lesson.example),
+                            onPressed: () => _read(lesson.title + '. ' + lesson.explanation + '. Exemple. ' + lesson.example, language: _speechLanguageFor(lesson.title)),
                             icon: Icon(_speaking ? Icons.stop_rounded : Icons.volume_up_rounded),
                             label: Text(_speaking ? 'Arrêter la lecture' : 'Écouter la leçon'),
                             style: FilledButton.styleFrom(minimumSize: Size.fromHeight(childMode ? 58 : 48), textStyle: TextStyle(fontSize: childMode ? 17 : 15, fontWeight: FontWeight.w700)),
@@ -215,7 +222,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                         SizedBox(
                           width: double.infinity,
                           child: OutlinedButton.icon(
-                            onPressed: () => _read('Question. ' + question.prompt + '. ' + question.choices.asMap().entries.map((e) => 'Choix ' + (e.key + 1).toString() + '. ' + e.value).join('. ')),
+                            onPressed: () => _read('Question. ' + question.prompt + '. ' + question.choices.asMap().entries.map((e) => 'Choix ' + (e.key + 1).toString() + '. ' + e.value).join('. '), language: _speechLanguageFor(lesson.title)),
                             icon: const Icon(Icons.volume_up_rounded),
                             label: const Text('Écouter la question'),
                             style: OutlinedButton.styleFrom(minimumSize: Size.fromHeight(childMode ? 52 : 44)),
