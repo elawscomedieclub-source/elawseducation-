@@ -43,8 +43,10 @@ class LessonVisualSupport extends StatelessWidget {
     if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
     if (RegExp(r'figures géométriques|figures planes').hasMatch(title) &&
         !RegExp(r'triangle').hasMatch(title)) return _VisualKind.geometry;
-    // Ce schéma compare moitié, quart et trois quarts : ne pas l'afficher
-    // pour une leçon ciblant une seule fraction (moitié, tiers ou quart).
+    // Ce schéma compare moitié, quart et trois quarts : il convient aux
+    // fractions introductives, pas aux opérations ou notions spécialisées.
+    if (RegExp(r'fraction').hasMatch(title) &&
+        RegExp(r'addition|soustraction|soustraire|comparer|équivalente|décimale|simplifier|multipli|divis').hasMatch(title)) return null;
     if (RegExp(r'fractions|représenter une fraction|fraction en parts égales').hasMatch(title)) return _VisualKind.fraction;
     return null;
   }
