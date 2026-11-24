@@ -23,6 +23,9 @@ class LessonVisualSupport extends StatelessWidget {
     // Le schéma représente le cycle complet ; il n'est pas adapté à une
     // leçon isolée sur l'évaporation, la condensation ou les précipitations.
     if (RegExp(r'cycle de l.eau').hasMatch(title)) return _VisualKind.water;
+    // Le dessin actuel localise seulement les grandes régions du corps.
+    // Il ne représente pas les organes ni les appareils spécialisés.
+    if (RegExp(r'appareil digestif|digestion|appareil respiratoire|respiration|appareil circulatoire|circulation sanguine|système nerveux|organes du corps|cœur humain|poumons').hasMatch(title)) return null;
     if (RegExp(r'corps humain|parties du corps humain').hasMatch(title)) return _VisualKind.body;
     // La planche actuelle compare quatre figures : la réserver aux leçons
     // générales. Une leçon sur le seul triangle/carré/etc. ne doit pas recevoir
