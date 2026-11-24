@@ -298,7 +298,7 @@ const supplementalLessons = <SupplementalLesson>[
   SupplementalLesson('premiere_suite_arithmetique', SchoolLevel.premiere, 'Mathématiques', 'Reconnaître une suite arithmétique',
     'Une suite est arithmétique lorsque l’on ajoute toujours le même nombre, appelé raison, pour passer d’un terme au suivant.',
     '4, 7, 10, 13 : la raison est 3 car chaque terme augmente de 3.',
-    [SupplementalQuestion('bonus_1ere_suite_1','Quelle est la raison de 2, 6, 10, 14 ?',['2','4','6'],1,'Chaque terme augmente de 4.'), SupplementalQuestion('bonus_1ere_suite_2','Après 5, 8, 11, quel est le terme suivant ?',['12','13','14'],1,'On ajoute 3 : 11 + 3 = 14.'), SupplementalQuestion('bonus_1ere_suite_3','Dans une suite arithmétique, on passe au terme suivant en…',['multipliant toujours','ajoutant la raison','divisant par le rang'],1,'La différence entre deux termes consécutifs est constante.')]),
+    [SupplementalQuestion('bonus_1ere_suite_1','Quelle est la raison de 2, 6, 10, 14 ?',['2','4','6'],1,'Chaque terme augmente de 4.'), SupplementalQuestion('bonus_1ere_suite_2','Après 5, 8, 11, quel est le terme suivant ?',['12','13','14'],2,'On ajoute 3 : 11 + 3 = 14.'), SupplementalQuestion('bonus_1ere_suite_3','Dans une suite arithmétique, on passe au terme suivant en…',['multipliant toujours','ajoutant la raison','divisant par le rang'],1,'La différence entre deux termes consécutifs est constante.')]),
   SupplementalLesson('terminale_probabilite_conditionnelle', SchoolLevel.terminale, 'Mathématiques', 'Comprendre une probabilité conditionnelle',
     'La probabilité de A sachant B se note P(A|B). Lorsque P(B) est non nulle, elle vaut P(A intersection B) divisée par P(B).',
     'Si P(A intersection B) = 0,12 et P(B) = 0,30, alors P(A|B) = 0,12 / 0,30 = 0,4.',
