@@ -27,7 +27,7 @@ class LessonVisualSupport extends StatelessWidget {
     // La planche actuelle compare quatre figures : la réserver aux leçons
     // générales. Une leçon sur le seul triangle/carré/etc. ne doit pas recevoir
     // une planche qui pourrait faire croire que les autres figures sont étudiées.
-    if (RegExp(r'cercle|cercles|disque|disques').hasMatch(title)) return _VisualKind.circle;
+    // Le cercle générique ne doit pas remplacer un schéma spécialisé de trigonométrie.\n    if (RegExp(r'cercle trigonométrique|trigonométrie|angle inscrit|tangente.*cercle|cercle.*tangente').hasMatch(title)) return null;\n    if (RegExp(r'cercle|cercles|disque|disques').hasMatch(title)) return _VisualKind.circle;
     // Un cours consacré au carré reçoit son propre dessin : quatre côtés égaux
     // et quatre angles droits, sans la planche comparative des figures.
     if (RegExp(r'^(?:le\s+|les\s+)?rectangles?\b|^(?:tracer\s+(?:un|des)|(?:(?:la|les)\s+)?(?:construction|propriétés)\s+(?:du|des))\s+rectangles?\b').hasMatch(title)) return _VisualKind.rectangle;
@@ -35,7 +35,7 @@ class LessonVisualSupport extends StatelessWidget {
     // Un triangle rectangle doit montrer explicitement son angle droit ;
     // le triangle générique ne convient pas à cette leçon ciblée.
     if (RegExp(r'triangle rectangle|triangles rectangles').hasMatch(title)) return _VisualKind.rightTriangle;
-    if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
+    // Ne pas présenter un triangle quelconque comme isocèle, équilatéral ou obtusangle :\n    // ces types nécessitent des côtés/angles explicitement marqués.\n    if (RegExp(r'triangles?\\s+(?:isocèle|équilatéral|scalène|obtusangle|acutangle)').hasMatch(title)) return null;\n    if (RegExp(r'triangle|triangles').hasMatch(title)) return _VisualKind.triangle;
     if (RegExp(r'figures géométriques|figures planes|polygones').hasMatch(title) &&
         !RegExp(r'triangle').hasMatch(title)) return _VisualKind.geometry;
     // Ce schéma compare moitié, quart et trois quarts : ne pas l'afficher
