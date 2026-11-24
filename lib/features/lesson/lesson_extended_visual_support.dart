@@ -27,6 +27,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     if (RegExp(r'aimants? et magnétisme|magnétisme|pôles d.un aimant|aimant permanent').hasMatch(text)) {
       return const _Support(
         title: 'Le magnétisme : deux pôles',
+        showArrows: false,
         icon: Icons.explore,
         nodes: ['Pôle nord', 'Aimant', 'Pôle sud'],
         explanation: 'Un aimant possède deux pôles. Deux pôles opposés s’attirent ; deux pôles identiques se repoussent.',
@@ -92,6 +93,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     if (RegExp(r'levier').hasMatch(text)) {
       return const _Support(
         title: 'Principe d’une machine simple',
+        showArrows: false,
         icon: Icons.build,
         nodes: ['Effort', 'Point d’appui', 'Charge'],
         explanation: 'Une machine simple peut modifier la direction ou l’intensité de l’effort nécessaire pour déplacer une charge.',
@@ -105,6 +107,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     if (RegExp(r'points cardinaux|rose des vents|s orienter avec une carte|lire une carte géographique').hasMatch(text)) {
       return const _Support(
         title: 'S’orienter avec les points cardinaux',
+        showArrows: false,
         icon: Icons.navigation,
         nodes: ['Nord', 'Est', 'Sud', 'Ouest'],
         explanation: 'Les quatre points cardinaux servent à décrire une direction et à lire une carte.',
@@ -170,6 +173,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     if (RegExp(r'régime alimentaire|herbivore|carnivore|omnivore').hasMatch(text)) {
       return const _Support(
         title: 'Les animaux et leurs relations alimentaires',
+        showArrows: false,
         icon: Icons.pets,
         nodes: ['Trois régimes : herbivore • carnivore • omnivore'],
         explanation: 'Ces cases sont des catégories, pas une chaîne avec des flèches. Un herbivore mange des végétaux ; un carnivore mange d’autres animaux ; un omnivore consomme des aliments d’origine végétale et animale.',
@@ -183,6 +187,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     if (RegExp(r'métiers|métier|services de proximité|services de la communauté|travailleurs de la communauté').hasMatch(text)) {
       return const _Support(
         title: 'Les métiers et les services de la communauté',
+        showArrows: false,
         icon: Icons.groups,
         nodes: ['École', 'Centre de santé', 'Marché', 'Mairie'],
         explanation: 'Les personnes et les services répondent à des besoins différents. Ils contribuent ensemble à la vie de la communauté.',
@@ -196,6 +201,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     if (RegExp(r'daily routines|wake up|what time is it|o.clock|moments of the day').hasMatch(text)) {
       return const _Support(
         title: 'Organiser sa journée en anglais',
+        showArrows: false,
         icon: Icons.schedule,
         nodes: ['Morning', 'Afternoon', 'Evening', 'Night'],
         explanation: 'Ces mots indiquent les moments de la journée. On peut les utiliser pour présenter ses habitudes et dire quand une action se déroule.',
@@ -209,6 +215,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     if (RegExp(r'droits de l.enfant|responsabilités de l.enfant|droits et devoirs de l.enfant|protection de l.enfance').hasMatch(text)) {
       return const _Support(
         title: 'Droits, responsabilités et protection',
+        showArrows: false,
         icon: Icons.shield_outlined,
         nodes: ['Droits', 'Respect', 'Responsabilités', 'Protection'],
         explanation: 'Les droits protègent chaque enfant. Les responsabilités adaptées à son âge aident à respecter les autres. En cas de danger, l’enfant demande l’aide d’un adulte responsable.',
@@ -252,7 +259,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
             Row(children: [Icon(support.icon, color: theme.colorScheme.primary), const SizedBox(width: 8), Expanded(child: Text(support.title, style: const TextStyle(fontWeight: FontWeight.bold)))]),
             const SizedBox(height: 14),
             Semantics(
-              label: 'Schéma en étapes : ${support.nodes.join(', puis ')}',
+              label: 'Schéma : ${support.nodes.join(', ')}',
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
@@ -289,7 +296,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (entry.key < support.nodes.length - 1)
+                    if (support.showArrows && entry.key < support.nodes.length - 1)
                       Icon(Icons.arrow_forward_rounded,
                           size: 22, color: theme.colorScheme.primary),
                   ]).toList(),
@@ -327,5 +334,6 @@ class _Support {
   final String title, explanation, activity, materials, result, safety;
   final IconData icon;
   final List<String> nodes, steps;
-  const _Support({required this.title, required this.icon, required this.nodes, required this.explanation, required this.activity, required this.materials, required this.steps, required this.result, required this.safety});
+  final bool showArrows;
+  const _Support({required this.title, required this.icon, required this.nodes, required this.explanation, required this.activity, required this.materials, required this.steps, required this.result, required this.safety, this.showArrows = true});
 }
