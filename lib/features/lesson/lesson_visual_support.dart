@@ -19,6 +19,9 @@ class LessonVisualSupport extends StatelessWidget {
     // Le croquis actuel représente une plante développée, pas les étapes
     // de germination : ne pas l'afficher pour une leçon sur la germination.
     if (RegExp(r'germination').hasMatch(title)) return null;
+    // Le dessin actuel identifie racines, tige et feuilles ; il ne montre
+    // ni les mécanismes de nutrition ni la reproduction végétale.
+    if (RegExp(r'photosynthèse|nutrition minérale|sève élaborée|sève brute|pollinisation|fécondation|reproduction végétale|fleur et ses parties|parties de la fleur').hasMatch(title)) return null;
     if (RegExp(r'parties de la plante|structure de la plante|la plante et ses parties').hasMatch(title)) return _VisualKind.plant;
     // Le schéma représente le cycle complet ; il n'est pas adapté à une
     // leçon isolée sur l'évaporation, la condensation ou les précipitations.
