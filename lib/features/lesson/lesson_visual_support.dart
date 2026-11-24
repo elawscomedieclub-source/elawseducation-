@@ -37,6 +37,12 @@ class LessonVisualSupport extends StatelessWidget {
     // et quatre angles droits, sans la planche comparative des figures.
     if (RegExp(r'^(?:le\s+|les\s+)?rectangles?\b|^(?:tracer\s+(?:un|des)|(?:(?:la|les)\s+)?(?:construction|propriétés)\s+(?:du|des))\s+rectangles?\b').hasMatch(title)) return _VisualKind.rectangle;
     if (RegExp(r'^(?:le\s+|les\s+)?carrés?\b|^(?:tracer\s+(?:un|des)|(?:(?:la|les)\s+)?(?:construction|propriétés)\s+(?:du|des))\s+carrés?\b').hasMatch(title)) return _VisualKind.square;
+    // Les schémas actuels montrent seulement la forme du triangle.
+    // Ils ne donnent ni construction de hauteur/base pour l'aire, ni
+    // configuration de rapports pour Thalès, ni carrés de côtés pour Pythagore.
+    // Ne pas afficher un simple triangle comme support d'un théorème ou calcul.
+    if (RegExp(r'aire|périmètre|pythagore|thalès|théorème|trigonométrie').hasMatch(title) &&
+        RegExp(r'triangle|triangles').hasMatch(title)) return null;
     // Un triangle rectangle doit montrer explicitement son angle droit ;
     // le triangle générique ne convient pas à cette leçon ciblée.
     if (RegExp(r'triangle rectangle|triangles rectangles').hasMatch(title)) return _VisualKind.rightTriangle;
