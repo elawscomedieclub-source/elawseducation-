@@ -1095,5 +1095,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 distingue le singulier et le pluriel', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_singulier_pluriel');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_pluriel_1': 'singulier',
+        'bonus_cp2_pluriel_2': 'pluriel',
+        'bonus_cp2_pluriel_3': 'les tables',
+        'bonus_cp2_pluriel_4': 'Les',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Identification du nombre incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
