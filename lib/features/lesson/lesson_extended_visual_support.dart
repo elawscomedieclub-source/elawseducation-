@@ -13,9 +13,10 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
     final text = lesson.title.toLowerCase();
     if (RegExp(r'groupes égaux|multiplication par addition répétée').hasMatch(text)) {
       return const _Support(
-        title: 'La multiplication avec des groupes égaux',
+        title: 'La multiplication représentée par des groupes égaux',
+        showArrows: false,
         icon: Icons.calculate,
-        nodes: ['4 groupes', '3 objets chacun', '12 objets'],
+        nodes: ['4 groupes de 3', '3 + 3 + 3 + 3', '4 × 3 = 12'],
         explanation: 'Quatre groupes de trois objets donnent 3 + 3 + 3 + 3 = 12, soit 4 × 3 = 12. La multiplication permet de compter plus rapidement des groupes égaux.',
         activity: 'Former des groupes et vérifier une multiplication',
         materials: '12 petits cailloux propres ou bouchons, une feuille et un crayon.',
