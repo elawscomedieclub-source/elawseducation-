@@ -1247,5 +1247,25 @@ void main() {
       }
     });
 
+
+    test('le cours CP2 représente la multiplication par des groupes égaux', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_multiplication_groupes');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_mult_groupes_1': '6',
+        'bonus_cp2_mult_groupes_2': '4 groupes de 2',
+        'bonus_cp2_mult_groupes_3': '15',
+        'bonus_cp2_mult_groupes_4': '5 × 2',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Multiplication ou groupement incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
