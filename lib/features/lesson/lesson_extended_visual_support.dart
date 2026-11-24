@@ -191,7 +191,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Utilise de la monnaie fictive pour cette activité.'
       );
     }
-    if (RegExp(r'accord du verbe|conjugaison|sujet et verbe|accord sujet-verbe').hasMatch(text)) {
+    if (RegExp(r'accord du verbe|sujet et verbe|accord sujet-verbe|accord du sujet avec le verbe').hasMatch(text)) {
       return const _Support(
         title: 'La phrase : sujet et verbe',
         icon: Icons.menu_book,
