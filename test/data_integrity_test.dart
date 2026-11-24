@@ -308,6 +308,9 @@ void main() {
               reason: 'Question vide : ${question.id}');
           expect(question.choices.length, greaterThanOrEqualTo(2),
               reason: 'Pas assez de choix : ${question.id}');
+          expect(question.choices.every((choice) => choice.trim().isNotEmpty),
+              isTrue,
+              reason: 'Choix vide dans la question bonus : ${question.id}');
           final normalizedChoices = question.choices
               .map((choice) => choice.trim().toLowerCase())
               .toList();
