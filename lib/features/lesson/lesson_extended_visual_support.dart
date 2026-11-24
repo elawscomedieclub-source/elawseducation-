@@ -65,6 +65,20 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Observe les animaux à distance et ne détruis pas leur habitat.'
       );
     }
+    if (RegExp(r'composition du sol|constituants du sol').hasMatch(text)) {
+      return const _Support(
+        title: 'Les principaux constituants du sol',
+        showArrows: false,
+        icon: Icons.landscape,
+        nodes: ['Matières minérales', 'Matière organique', 'Eau', 'Air'],
+        explanation: 'Le sol est un mélange de particules minérales, de matière organique, d’eau et d’air. Les proportions varient selon le lieu et les conditions du milieu.',
+        activity: 'Observer un échantillon de sol et identifier ses constituants',
+        materials: 'Un peu de terre, une coupelle, une loupe si disponible et un bocal transparent.',
+        steps: ['Observe la terre sèche dans la coupelle.', 'Repère les petits fragments minéraux et les restes végétaux visibles.', 'Place une petite quantité dans le bocal et ajoute un peu d’eau avec l’aide de l’enseignant.', 'Observe les bulles d’air qui peuvent s’échapper et les particules qui se déposent.', 'Note les constituants observés et ceux qui ne sont pas visibles directement.'],
+        result: 'Un sol contient des éléments solides, de l’eau et de l’air ; il abrite aussi des organismes vivants.',
+        safety: 'Ne goûte pas la terre, évite la poussière et lave-toi les mains après l’activité.'
+      );
+    }
     if (RegExp(r'couches du sol|profil du sol|horizons du sol').hasMatch(text)) {
       return const _Support(
         title: 'Profil simplifié des horizons du sol',
@@ -79,7 +93,7 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Pour une observation sur le terrain, reste avec l’enseignant et ne creuse pas près d’une route ou d’un ouvrage.'
       );
     }
-    if (RegExp(r'composition du sol|couches du sol|profil du sol').hasMatch(text)) {
+    if (RegExp(r'décantation d.un échantillon de sol|décantation du sol').hasMatch(text)) {
       return const _Support(
         title: 'Observer la décantation d’un échantillon de sol',
         icon: Icons.landscape,
