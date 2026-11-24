@@ -30,8 +30,8 @@ class LessonVisualSupport extends StatelessWidget {
     if (RegExp(r'cercle|cercles|disque|disques').hasMatch(title)) return _VisualKind.circle;
     // Un cours consacré au carré reçoit son propre dessin : quatre côtés égaux
     // et quatre angles droits, sans la planche comparative des figures.
-    if (RegExp(r'^(?:le\s+|les\s+)?rectangles?\b|^(?:tracer|construction|propriétés)\s+(?:un\s+|du\s+|des\s+)?rectangles?\b').hasMatch(title)) return _VisualKind.rectangle;
-    if (RegExp(r'^(?:le\s+|les\s+)?carrés?\b|^(?:tracer|construction|propriétés)\s+(?:un\s+|du\s+|des\s+)?carrés?\b').hasMatch(title)) return _VisualKind.square;
+    if (RegExp(r'^(?:le\s+|les\s+)?rectangles?\b|^(?:tracer\s+(?:un|des)|(?:(?:la|les)\s+)?(?:construction|propriétés)\s+(?:du|des))\s+rectangles?\b').hasMatch(title)) return _VisualKind.rectangle;
+    if (RegExp(r'^(?:le\s+|les\s+)?carrés?\b|^(?:tracer\s+(?:un|des)|(?:(?:la|les)\s+)?(?:construction|propriétés)\s+(?:du|des))\s+carrés?\b').hasMatch(title)) return _VisualKind.square;
     // Un triangle rectangle doit montrer explicitement son angle droit ;
     // le triangle générique ne convient pas à cette leçon ciblée.
     if (RegExp(r'triangle rectangle|triangles rectangles').hasMatch(title)) return _VisualKind.rightTriangle;
