@@ -676,4 +676,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_probleme_op_2','Kossi a 17 billes. Il en donne 5. Combien lui en reste-t-il ?',['12','22','13'],0,'On enlève les billes données : 17 − 5 = 12 billes.'),
      SupplementalQuestion('bonus_cp2_probleme_op_3','Une classe a 11 cahiers et reçoit encore 8 cahiers. Quel calcul faut-il faire ?',['11 − 8','11 + 8','11 × 8'],1,'On reçoit des cahiers : il faut ajouter, donc 11 + 8.'),
      SupplementalQuestion('bonus_cp2_probleme_op_4','Un vendeur a 20 œufs et en vend 7. Quel calcul donne le nombre restant ?',['20 + 7','20 − 7','20 × 7'],1,'On vend des œufs : on enlève 7, donc 20 − 7 = 13 œufs.')]),
+  SupplementalLesson('cp2_etats_eau', SchoolLevel.cp2, 'Sciences', 'Découvrir les états de l’eau',
+    'L’eau existe sous plusieurs formes. L’eau liquide coule et prend la forme du récipient. La glace est de l’eau solide : elle garde une forme. La vapeur d’eau est un gaz que l’on ne voit généralement pas. Quand on chauffe de l’eau, une partie peut se transformer en vapeur ; quand on refroidit de l’eau suffisamment, elle peut devenir de la glace.',
+    'Dans un verre, l’eau est liquide. Dans un congélateur, l’eau peut devenir de la glace. Au-dessus d’une eau très chaude, la vapeur d’eau peut se former ; attention, il ne faut jamais approcher le visage d’une casserole chaude.',
+    [SupplementalQuestion('bonus_cp2_eau_1','Quel est l’état de l’eau dans un verre ?',['Solide','Liquide','Pierre'],1,'Dans un verre, l’eau est à l’état liquide.'),
+     SupplementalQuestion('bonus_cp2_eau_2','Comment appelle-t-on l’eau devenue solide par le froid ?',['La glace','La fumée','Le sable'],0,'La glace est de l’eau à l’état solide.'),
+     SupplementalQuestion('bonus_cp2_eau_3','Quel état correspond à la vapeur d’eau ?',['Solide','Liquide','Gazeux'],2,'La vapeur d’eau est un gaz.'),
+     SupplementalQuestion('bonus_cp2_eau_4','Que peut devenir l’eau si elle gèle suffisamment ?',['Du bois','De la glace','Du métal'],1,'En gelant, l’eau liquide devient de la glace.')]),
 ];
