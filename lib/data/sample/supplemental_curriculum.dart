@@ -690,4 +690,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_hygiene_2','Quand faut-il se laver les mains ?',['Seulement le dimanche','Avant de manger','Jamais avant le repas'],1,'Il faut se laver les mains avant de manger.'),
      SupplementalQuestion('bonus_cp2_hygiene_3','Quelle partie faut-il aussi frotter ?',['Entre les doigts','Seulement les poignets','Aucune partie'],0,'Il faut frotter les paumes, le dos des mains et entre les doigts.'),
      SupplementalQuestion('bonus_cp2_hygiene_4','Que fait-on après avoir frotté les mains avec du savon ?',['On les couvre de poussière','On les rince et on les sèche','On les essuie sur le sol'],1,'Après le savonnage, on rince les mains et on les sèche avec un linge propre.')]),
+  SupplementalLesson('cp2_parties_plante', SchoolLevel.cp2, 'Sciences', 'Identifier les principales parties d’une plante',
+    'Une plante a plusieurs parties. Les racines se trouvent généralement dans la terre et absorbent l’eau et les sels minéraux. La tige soutient la plante et transporte la sève. Les feuilles aident la plante à fabriquer sa nourriture grâce à la lumière. Beaucoup de plantes portent aussi des fleurs, puis des fruits contenant des graines.',
+    'Observe un jeune plant : les racines sont sous la terre, la tige porte les feuilles, et les feuilles sont souvent vertes. Une fleur peut ensuite donner un fruit qui contient des graines.',
+    [SupplementalQuestion('bonus_cp2_plante_1','Quelle partie de la plante se trouve généralement dans la terre ?',['La fleur','Les racines','Le fruit'],1,'Les racines se trouvent généralement dans la terre.'),
+     SupplementalQuestion('bonus_cp2_plante_2','Quelle partie soutient la plante ?',['La tige','La graine','Le fruit'],0,'La tige soutient la plante et porte les feuilles.'),
+     SupplementalQuestion('bonus_cp2_plante_3','Quelle partie aide la plante à fabriquer sa nourriture grâce à la lumière ?',['La pierre','Les feuilles','Le sable'],1,'Les feuilles utilisent la lumière pour aider la plante à fabriquer sa nourriture.'),
+     SupplementalQuestion('bonus_cp2_plante_4','Que peut contenir un fruit ?',['Des graines','Des cailloux','Du métal'],0,'Beaucoup de fruits contiennent des graines.')]),
 ];
