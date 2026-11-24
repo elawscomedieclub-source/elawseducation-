@@ -138,6 +138,9 @@ class ExtendedLessonVisualSupport extends StatelessWidget {
         safety: 'Utilise uniquement un objet léger et ne dirige jamais la règle vers le visage.'
       );
     }
+    // La rose des vents ne représente pas les coordonnées géographiques,
+    // l'échelle, la légende ou les symboles d'une carte.
+    if (RegExp(r'latitude|longitude|coordonnées géographiques|échelle d.une carte|légende d.une carte|symboles cartographiques|calculer une distance sur une carte|projection cartographique').hasMatch(text)) return null;
     if (RegExp(r'points cardinaux|rose des vents|s orienter avec une carte|lire une carte géographique').hasMatch(text)) {
       return const _Support(
         title: 'S’orienter avec les points cardinaux',
