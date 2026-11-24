@@ -669,4 +669,11 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_figures_2','Quelle figure a 4 côtés de même longueur et 4 angles droits ?',['Le cercle','Le rectangle','Le carré'],2,'Le carré a 4 côtés égaux et 4 angles droits.'),
      SupplementalQuestion('bonus_cp2_figures_3','Quelle figure a un contour courbe et aucun côté droit ?',['Le cercle','Le triangle','Le carré'],0,'Le contour du cercle est courbe : il ne possède pas de côté droit.'),
      SupplementalQuestion('bonus_cp2_figures_4','Combien de côtés possède un rectangle ?',['3','4','5'],1,'Un rectangle possède 4 côtés.')]),
+  SupplementalLesson('cp2_etapes_addition_soustraction', SchoolLevel.cp2, 'Mathématiques', 'Résoudre un problème avec une addition ou une soustraction',
+    'Lis le problème jusqu’au bout et cherche ce que l’on te demande. Si on ajoute, on fait une addition (+). Si on enlève ou si l’on cherche ce qui reste, on fait une soustraction (−). Choisis l’opération, calcule, puis écris la réponse avec son unité.',
+    'Afi a 12 mangues. Sa mère lui en donne 5. On ajoute : 12 + 5 = 17. Afi a maintenant 17 mangues. Kossi a 18 billes et en perd 4. On enlève : 18 − 4 = 14. Il lui reste 14 billes.',
+    [SupplementalQuestion('bonus_cp2_probleme_op_1','Ama a 9 oranges. Elle en reçoit 6. Combien en a-t-elle maintenant ?',['3','15','16'],1,'On ajoute les oranges reçues : 9 + 6 = 15 oranges.'),
+     SupplementalQuestion('bonus_cp2_probleme_op_2','Kossi a 17 billes. Il en donne 5. Combien lui en reste-t-il ?',['12','22','13'],0,'On enlève les billes données : 17 − 5 = 12 billes.'),
+     SupplementalQuestion('bonus_cp2_probleme_op_3','Une classe a 11 cahiers et reçoit encore 8 cahiers. Quel calcul faut-il faire ?',['11 − 8','11 + 8','11 × 8'],1,'On reçoit des cahiers : il faut ajouter, donc 11 + 8.'),
+     SupplementalQuestion('bonus_cp2_probleme_op_4','Un vendeur a 20 œufs et en vend 7. Quel calcul donne le nombre restant ?',['20 + 7','20 − 7','20 × 7'],1,'On vend des œufs : on enlève 7, donc 20 − 7 = 13 œufs.')]),
 ];
