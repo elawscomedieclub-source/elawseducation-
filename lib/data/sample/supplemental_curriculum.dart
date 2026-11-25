@@ -875,4 +875,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_5e_digestion_3','Où se fait principalement l’absorption des nutriments ?',['Dans l’intestin grêle','Dans la bouche','Dans la trachée'],0,'La plupart des nutriments traversent la paroi de l’intestin grêle pour rejoindre le sang.'),
      SupplementalQuestion('bonus_5e_digestion_4','Après leur absorption, les nutriments sont transportés vers les organes par…',['Le sang','Les cheveux','Les os seuls'],0,'Le sang transporte les nutriments absorbés vers les différentes parties du corps.')]),
 
+  SupplementalLesson('troisieme_echelle_ph', SchoolLevel.troisieme, 'Physique-Chimie', 'Classer les solutions selon leur pH',
+    'Le pH indique si une solution aqueuse est acide, neutre ou basique. Dans l’échelle usuelle de 0 à 14 (à température ambiante), une solution est acide si son pH est inférieur à 7, neutre si son pH est égal à 7 et basique si son pH est supérieur à 7. Plus le pH est faible, plus la solution est acide ; plus il est élevé, plus elle est basique.',
+    'Exemples : le jus de citron est acide, l’eau pure est proche de pH 7 et une solution de bicarbonate peut être basique. On mesure le pH avec du papier indicateur ou un pH-mètre. En laboratoire, ne goûte jamais une solution et ne la touche pas directement. Pour diluer un acide concentré, on verse toujours l’acide dans l’eau, lentement, selon les consignes de l’enseignant.',
+    [SupplementalQuestion('bonus_3e_ph_1','Une solution de pH 3 est…',['Acide','Neutre','Basique'],0,'Un pH inférieur à 7 caractérise une solution acide.'),
+     SupplementalQuestion('bonus_3e_ph_2','À température ambiante, une solution neutre a généralement un pH de…',['2','7','12'],1,'Le pH 7 correspond à la neutralité dans l’échelle usuelle à température ambiante.'),
+     SupplementalQuestion('bonus_3e_ph_3','Une solution de pH 10 est…',['Acide','Neutre','Basique'],2,'Un pH supérieur à 7 caractérise une solution basique.'),
+     SupplementalQuestion('bonus_3e_ph_4','Quel instrument mesure précisément le pH ?',['Un pH-mètre','Une balance','Un chronomètre'],0,'Le pH-mètre permet de mesurer le pH d’une solution.')]),
+
 ];
