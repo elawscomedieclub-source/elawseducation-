@@ -835,5 +835,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cm1_angle_2','Un angle de 35° est…',['Aigu','Droit','Obtus'],0,'35° est inférieur à 90° : l’angle est aigu.'),
      SupplementalQuestion('bonus_cm1_angle_3','Un angle de 120° est…',['Aigu','Droit','Obtus'],2,'120° est supérieur à 90° et inférieur à 180° : l’angle est obtus.'),
      SupplementalQuestion('bonus_cm1_angle_4','Quel outil aide à vérifier un angle droit ?',['Une équerre','Une balance','Un thermomètre'],0,'L’équerre possède un angle droit qui sert de référence pour vérifier un angle.')]),
+  SupplementalLesson('sixieme_orienter_carte_points_cardinaux', SchoolLevel.sixieme, 'Géographie', 'S’orienter sur une carte avec les points cardinaux',
+    'Les points cardinaux servent à indiquer une direction : le nord (N), le sud (S), l’est (E) et l’ouest (O). Sur une carte classique, le nord se trouve généralement en haut, le sud en bas, l’est à droite et l’ouest à gauche. Une rose des vents indique ces directions.',
+    'Pour lire une carte, repère d’abord la rose des vents et la légende. Si la carte indique le nord en haut, un lieu situé à droite d’un autre est à l’est de celui-ci. Le soleil se lève approximativement à l’est et se couche à l’ouest ; cette observation peut aider à s’orienter, mais la rose des vents reste la référence sur la carte.',
+    [SupplementalQuestion('bonus_6e_orientation_1','Quel point cardinal se trouve généralement en haut d’une carte ?',['Le nord','Le sud','L’ouest'],0,'Sur une carte classique, le nord est généralement placé en haut.'),
+     SupplementalQuestion('bonus_6e_orientation_2','Quelle direction se trouve à droite lorsque le nord est en haut ?',['L’ouest','L’est','Le sud'],1,'Quand le nord est en haut, l’est se trouve à droite.'),
+     SupplementalQuestion('bonus_6e_orientation_3','Quelle direction est opposée au sud ?',['L’est','L’ouest','Le nord'],2,'Le nord et le sud sont deux points cardinaux opposés.'),
+     SupplementalQuestion('bonus_6e_orientation_4','Quel élément d’une carte aide à repérer les directions ?',['La rose des vents','Le titre seul','La couleur du papier'],0,'La rose des vents indique les points cardinaux et aide à s’orienter.')]),
 
-];
+];\n
