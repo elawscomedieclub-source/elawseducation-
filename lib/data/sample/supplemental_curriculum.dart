@@ -800,5 +800,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_suite_2','Complète : 5, 10, 15, __',['20','25','18'],0,'On ajoute 5 : 15 + 5 = 20.'),
      SupplementalQuestion('bonus_cp2_suite_3','Quel nombre manque : 10, 20, __, 40 ?',['25','30','35'],1,'On compte de 10 en 10 : 10, 20, 30, 40.'),
      SupplementalQuestion('bonus_cp2_suite_4','Quel est le pas de la suite 3, 6, 9, 12 ?',['2','3','4'],1,'Chaque nombre augmente de 3 : le pas est 3.')]),
+  SupplementalLesson('cp1_animaux_domestiques_sauvages', SchoolLevel.cp1, 'Éveil', 'Distinguer les animaux domestiques et sauvages',
+    'Les animaux domestiques vivent souvent près des humains et peuvent être élevés ou soignés par eux : par exemple la poule, la chèvre ou le chien. Les animaux sauvages vivent dans la nature sans être élevés comme des animaux de ferme ou de maison : par exemple le lion ou le singe sauvage. Il faut observer les animaux à distance et ne pas déranger ceux que l’on ne connaît pas.',
+    'Dans une ferme, une personne peut nourrir des chèvres et des poules. Dans la forêt, un singe sauvage cherche sa nourriture. Même un animal domestique peut mordre ou griffer : demande toujours à un adulte avant de t’approcher.',
+    [SupplementalQuestion('bonus_cp1_domwild_1','Lequel est généralement un animal domestique ?',['La chèvre','Le lion','Le singe sauvage'],0,'La chèvre est souvent élevée par les humains dans une ferme.'),
+     SupplementalQuestion('bonus_cp1_domwild_2','Lequel est un animal sauvage ?',['La poule de la ferme','Le lion','Le chien de la maison'],1,'Le lion vit à l’état sauvage et n’est pas un animal de ferme.'),
+     SupplementalQuestion('bonus_cp1_domwild_3','Qui peut nourrir les animaux domestiques de la ferme ?',['Un éleveur','Un rocher','Une feuille'],0,'L’éleveur s’occupe des animaux et leur donne les soins nécessaires.'),
+     SupplementalQuestion('bonus_cp1_domwild_4','Que faire si l’on rencontre un animal inconnu ?',['Le toucher tout de suite','Le poursuivre','Rester à distance et prévenir un adulte'],2,'On garde ses distances et on demande l’aide d’un adulte pour éviter les morsures ou les griffures.')]),
 
 ];
