@@ -814,5 +814,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce1_det_2','Complète : « ___ trousse »',['Un','Une','Des'],1,'Trousse est féminin singulier : on écrit « une trousse ».'),
      SupplementalQuestion('bonus_ce1_det_3','Quel déterminant convient à « cahiers » ?',['Le','La','Les'],2,'Cahiers est au pluriel : on utilise « les ».'),
      SupplementalQuestion('bonus_ce1_det_4','Quel groupe est correctement écrit ?',['un orange','une orange','des orange'],1,'Orange est ici un nom féminin singulier : « une orange ».')]),
+  SupplementalLesson('ce1_besoins_plantes', SchoolLevel.ce1, 'Sciences', 'Découvrir les besoins des plantes',
+    'Pour grandir, une plante a besoin d’eau, de lumière et d’air. Les racines absorbent l’eau et les sels minéraux présents dans le sol. La lumière permet à la plante de fabriquer sa nourriture. Une plante qui manque longtemps d’eau ou de lumière peut dépérir.',
+    'Observe une jeune plante : on l’arrose sans la noyer et on la place dans un endroit lumineux. On évite de l’arracher ou de casser ses feuilles. Compare son développement avec celui d’une plante bien entretenue.',
+    [SupplementalQuestion('bonus_ce1_plante_1','De quoi une plante a-t-elle besoin pour bien grandir ?',['D’eau et de lumière','De bonbons','De plastique'],0,'L’eau et la lumière sont indispensables au développement de la plupart des plantes.'),
+     SupplementalQuestion('bonus_ce1_plante_2','Quelle partie de la plante absorbe surtout l’eau du sol ?',['La fleur','Les racines','Le fruit'],1,'Les racines absorbent l’eau et les sels minéraux du sol.'),
+     SupplementalQuestion('bonus_ce1_plante_3','Pourquoi une plante a-t-elle besoin de lumière ?',['Pour fabriquer sa nourriture','Pour marcher','Pour faire du bruit'],0,'La lumière fournit l’énergie nécessaire à la fabrication de la nourriture de la plante.'),
+     SupplementalQuestion('bonus_ce1_plante_4','Quel geste aide une plante à pousser ?',['L’arroser raisonnablement et la placer à la lumière','La laisser toujours dans le noir','Arracher ses racines'],0,'Une plante a besoin d’eau, mais il ne faut pas la noyer ; elle a aussi besoin de lumière.')]),
 
 ];
