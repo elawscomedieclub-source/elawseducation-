@@ -2045,6 +2045,19 @@ void main() {
       'seconde_force_poids_masse': ['kg', 'N', '30 N'],
       'premiere_oxydoreduction': ['cède des électrons', 'une perte d’électrons', 'une oxydation'],
       'terminale_genetique_expression': ['l’ADN', 'un ARN', 'd’une protéine'],
+      'cp1_syllabes_pa_pe': ['PA', 'papa', 'PI'],
+      'cp2_addition_dizaines_renforce': ['50', '27', '48'],
+      'ce1_phrase_ponctuation': ['?', '.', '!'],
+      'ce2_perimetre_rectangle': ['14 cm', 'le contour', '16 cm'],
+      'cm1_duree_ecoulee': ['1 heure', '30 min', '90'],
+      'cm2_comparer_fractions': ['5/7', '<', '3/5'],
+      'sixieme_orientation_carte': ['à droite', 'le sud', 'une boussole'],
+      'cinquieme_melanges': ['homogène', 'hétérogène', 'uniforme'],
+      'quatrieme_masse_volume_densite': ['une balance', 'l’espace occupé', 'masse divisée par volume'],
+      'troisieme_equation_premier_degre': ['7', '6', '3'],
+      'seconde_equation_droite': ['4', '5', '5'],
+      'premiere_suite_arithmetique_renforce': ['3', '10', 'addition d’une constante'],
+      'terminale_acide_base_ph': ['acide', 'neutre', 'basique'],
       };
       for (final entry in expectedAnswers.entries) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == entry.key);
@@ -2062,16 +2075,16 @@ void main() {
       }
     });
 
-    test('la banque bonus contient au moins 213 leçons et 700 questions', () {
-      expect(supplementalLessons.length, greaterThanOrEqualTo(213));
+    test('la banque bonus contient au moins 226 leçons et 739 questions', () {
+      expect(supplementalLessons.length, greaterThanOrEqualTo(226));
       expect(supplementalLessons.expand((lesson) => lesson.questions).length,
-          greaterThanOrEqualTo(700));
+          greaterThanOrEqualTo(739);
     });
 
     test('chaque niveau dispose désormais d’au moins onze leçons bonus', () {
       for (final level in SchoolLevel.values) {
         final count = supplementalLessons.where((lesson) => lesson.level == level).length;
-        expect(count, greaterThanOrEqualTo(11),
+        expect(count, greaterThanOrEqualTo(12,
             reason: 'Couverture bonus insuffisante pour ${level.label}');
       }
     });
