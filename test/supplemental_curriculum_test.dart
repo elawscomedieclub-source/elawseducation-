@@ -1756,5 +1756,26 @@ void main() {
     });
 
 
+    test('Terminale physique-chimie : titrage et concentration', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'terminale_titrage_concentration');
+      expect(lesson.level, SchoolLevel.terminale);
+      expect(lesson.subject, 'Physique-Chimie');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_terminale_titrage_1': 'À déterminer une concentration inconnue',
+        'bonus_terminale_titrage_2': 'Dans les proportions stœchiométriques',
+        'bonus_terminale_titrage_3': 'n(A)/a = n(B)/b',
+        'bonus_terminale_titrage_4': 'Une burette',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur le titrage incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
