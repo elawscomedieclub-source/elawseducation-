@@ -1464,5 +1464,25 @@ void main() {
       }
     });
 
+    test('CP2 maths : compléter des suites numériques simples', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'cp2_suites_numeriques_pas');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_suite_1': '8',
+        'bonus_cp2_suite_2': '20',
+        'bonus_cp2_suite_3': '30',
+        'bonus_cp2_suite_4': '3',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse correcte incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
