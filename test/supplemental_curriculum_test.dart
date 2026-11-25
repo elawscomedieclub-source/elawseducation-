@@ -1714,5 +1714,26 @@ void main() {
     });
 
 
+    test('2nde SVT : la cellule, unité de base du vivant', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'seconde_cellule_unite_vivant');
+      expect(lesson.level, SchoolLevel.seconde);
+      expect(lesson.subject, 'SVT');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_2nde_cellule_1': 'La membrane',
+        'bonus_2nde_cellule_2': 'Dans le noyau',
+        'bonus_2nde_cellule_3': 'Une paroi',
+        'bonus_2nde_cellule_4': 'Un microscope',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur la cellule incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
