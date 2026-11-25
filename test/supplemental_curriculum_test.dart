@@ -2032,6 +2032,19 @@ void main() {
       'terminale_loi_binomiale': ['les succès de n essais indépendants', 'deux issues possibles', 'np'],
       'terminale_complexes_module': ['5', '√(a²+b²)', 'positif ou nul'],
       'terminale_philosophie_argumentation': ['une problématique claire', 'justifié et expliqué', 'examiner une limite ou un point de vue contraire'],
+      'cp1_sons_m_et_n': ['moto', 'nuit', 'm'],
+      'cp2_lire_heure_pleine': ['une heure pleine', '7 h', 'la petite'],
+      'ce1_monnaie_fcfa': ['300 FCFA', '150 FCFA', '300 FCFA'],
+      'ce2_multiplication_par_10': ['60', '230', '45 × 10'],
+      'cm1_fraction_partie_entier': ['9', '5', '15'],
+      'cm2_volume_cube_pave': ['24 cm³', 'cm³', '27 cm³'],
+      'sixieme_nature_mots': ['un adjectif', 'un verbe', 'un nom'],
+      'cinquieme_cycle_eau': ['du soleil', 'la condensation', 's’infiltre'],
+      'quatrieme_voix_active_passive': ['fait l’action', 'passive', 'par'],
+      'troisieme_pythagore_reciproque': ['3²+4²=5²', '5', 'rectangle'],
+      'seconde_force_poids_masse': ['kg', 'N', '30 N'],
+      'premiere_oxydoreduction': ['cède des électrons', 'une perte d’électrons', 'une oxydation'],
+      'terminale_genetique_expression': ['l’ADN', 'un ARN', 'd’une protéine'],
       };
       for (final entry in expectedAnswers.entries) {
         final lesson = supplementalLessons.firstWhere((item) => item.id == entry.key);
