@@ -13,20 +13,20 @@
 
 | Niveau | Leçons bonus | Questions bonus |
 |---|---:|---:|
-| CP1 | 37 | 116 |
-| CP2 | 37 | 116 |
-| CE1 | 18 | 58 |
-| CE2 | 40 | 124 |
-| CM1 | 17 | 55 |
-| CM2 | 16 | 52 |
+| CP1 | 37 | 112 |
+| CP2 | 37 | 134 |
+| CE1 | 18 | 57 |
+| CE2 | 40 | 131 |
+| CM1 | 17 | 53 |
+| CM2 | 16 | 48 |
 | 6e | 16 | 52 |
-| 5e | 16 | 52 |
+| 5e | 16 | 51 |
 | 4e | 17 | 55 |
-| 3e | 16 | 52 |
-| 2nde | 16 | 52 |
-| 1ère | 16 | 52 |
-| Terminale | 17 | 52 |
-| **Total** | **279** | **872** |
+| 3e | 16 | 51 |
+| 2nde | 16 | 50 |
+| 1ère | 16 | 50 |
+| Terminale | 17 | 54 |
+| **Total** | **279** | **898** |
 
 Les nombres de questions sont calculés à partir des leçons du dépôt et peuvent différer d’une question de certains rapports historiques si ceux-ci comptaient les éléments de façon différente. Les tests Flutter restent la source de validation technique.
 
