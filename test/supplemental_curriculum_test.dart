@@ -1345,5 +1345,24 @@ void main() {
       }
     });
 
+    test('le cours CP2 explique les gestes simples pour protéger les dents', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_proteger_dents');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_dents_1': 'À mâcher les aliments',
+        'bonus_cp2_dents_2': 'Les brosser chaque jour',
+        'bonus_cp2_dents_3': 'Le dire à un adulte',
+        'bonus_cp2_dents_4': 'Ils peuvent favoriser les caries',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse d’hygiène dentaire incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
