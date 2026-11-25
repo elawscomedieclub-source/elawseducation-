@@ -849,7 +849,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cm1_fraction_partie_entier' => 'CALCULE UNE FRACTION D’UNE QUANTITÉ',
       'cm2_volume_cube_pave' => 'CALCULE LE VOLUME D’UN PAVÉ DROIT',
       'sixieme_nature_mots' => 'IDENTIFIE NOM, VERBE ET ADJECTIF',
-      'cinquieme_cycle_eau' => 'SUIVIS LES ÉTAPES DU CYCLE DE L’EAU',
+      'cinquieme_cycle_eau' => 'SUIS LES ÉTAPES DU CYCLE DE L’EAU',
       'quatrieme_voix_active_passive' => 'PASSE DE LA VOIX ACTIVE À LA VOIX PASSIVE',
       'troisieme_pythagore_reciproque' => 'VÉRIFIE SI UN TRIANGLE EST RECTANGLE',
       'seconde_force_poids_masse' => 'DISTINGUE LA MASSE DU POIDS',
