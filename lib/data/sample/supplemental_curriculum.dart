@@ -900,4 +900,13 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_1ere_inflammation_3','Quel signe est classique lors d’une inflammation locale ?',['Rougeur','Disparition immédiate du sang','Baisse obligatoire de la température locale'],0,'La rougeur et la chaleur sont liées notamment à l’afflux sanguin local.'),
      SupplementalQuestion('bonus_1ere_inflammation_4','La phagocytose consiste à…',['Englober puis digérer un élément étranger','Produire des os','Transporter l’oxygène dans les globules rouges'],0,'Un phagocyte englobe l’élément à éliminer puis le digère.')]),
 
+
+  SupplementalLesson('terminale_titrage_concentration', SchoolLevel.terminale, 'Physique-Chimie', 'Déterminer une concentration par titrage',
+    'Un titrage permet de déterminer la quantité ou la concentration d’une espèce chimique dans une solution inconnue, appelée solution titrée. On la fait réagir avec une solution titrante de concentration connue, ajoutée progressivement. Le titrage doit s’appuyer sur une réaction support rapide, totale et de stoichiométrie connue.',
+    'L’équivalence est atteinte lorsque les réactifs ont été introduits dans les proportions stœchiométriques. Pour la réaction a A + b B → produits, à l’équivalence : n(A)/a = n(B)/b. Si A est dans un volume VA de concentration CA et B dans un volume VE de concentration CB, alors CA × VA / a = CB × VE / b. On peut repérer l’équivalence par un changement de couleur d’un indicateur adapté ou par une mesure instrumentale. Schéma de principe : burette contenant le titrant → ajout goutte à goutte dans un erlenmeyer contenant la solution titrée et l’indicateur.',
+    [SupplementalQuestion('bonus_terminale_titrage_1','À quoi sert un titrage ?',['À déterminer une concentration inconnue','À mesurer la masse d’un objet sans balance','À séparer toujours tous les solides'],0,'Un titrage permet notamment de déterminer la concentration d’une espèce en solution.'),
+     SupplementalQuestion('bonus_terminale_titrage_2','À l’équivalence, les réactifs sont introduits…',['Dans les proportions stœchiométriques','En quantités toujours égales','Sans réaction chimique'],0,'L’équivalence correspond aux proportions stœchiométriques de la réaction support.'),
+     SupplementalQuestion('bonus_terminale_titrage_3','Pour a A + b B → produits, la relation à l’équivalence est…',['n(A)/a = n(B)/b','n(A) = a + b','n(A) × n(B) = 0'],0,'La relation exprime l’égalité des quantités de matière rapportées aux coefficients stœchiométriques.'),
+     SupplementalQuestion('bonus_terminale_titrage_4','Quel dispositif peut ajouter le titrant progressivement ?',['Une burette','Un microscope','Un thermomètre seul'],0,'La burette permet de verser le titrant avec précision, progressivement.')]),
+
 ];
