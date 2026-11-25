@@ -1476,7 +1476,7 @@ const supplementalLessons = <SupplementalLesson>[
     "Observe la forme des lettres. Trace chaque lettre en respectant le sens du geste, puis associe-la au son correspondant.",
     "A, a : la lettre A peut s’écrire en majuscule ou en minuscule.",
     [SupplementalQuestion("extra_cp1_renforcement_annuel_plus_1_q1", "Quelle est la minuscule de A ?", ["o", "a", "e"], 1, "La minuscule de A est a."),
-      SupplementalQuestion("extra_cp1_renforcement_annuel_plus_1_q2", "Pourquoi trace-t-on les lettres dans le bon sens ?", ["Pour dessiner plus vite sans regarder", "Pour changer leur son", "Pour écrire clairement"], 2, "Le bon geste aide à former des lettres lisibles."), SupplementalQuestion("extra_cp1_renforcement_annuel_plus_1_q3", "Quelle lettre est écrite en majuscule ?", ["A", "a", "o"], 0, "La lettre A est la majuscule ; a est la minuscule.")]),
+      SupplementalQuestion("extra_cp1_renforcement_annuel_plus_1_q2", "Pourquoi trace-t-on les lettres dans le bon sens ?", ["Pour dessiner plus vite sans regarder", "Pour changer leur son", "Pour écrire clairement"], 2, "Le bon geste aide à former des lettres lisibles."), SupplementalQuestion("extra_cp1_renforcement_annuel_plus_1_q3", "Quelle lettre est écrite en majuscule ?", ["A", "a minuscule", "o"], 0, "La lettre A est la majuscule ; a est la minuscule.")]),
   SupplementalLesson("cp1_renforcement_annuel_plus_2", SchoolLevel.cp1, "Mathématiques", "Comparer des nombres jusqu’à 10",
     "Compare deux nombres en comptant. Le nombre qui vient plus tard dans la suite est le plus grand.",
     "7 est plus grand que 4 ; 2 est plus petit que 6.",
