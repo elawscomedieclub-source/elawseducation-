@@ -28,6 +28,13 @@ Le catalogue national NUSROPE sépare les cycles :
 | 1ère | matières communes et matières de spécialité selon série A4, C ou D ; cours, exercices et évaluations de chaque discipline | Contrôle série par série requis |
 | Terminale | matières communes et spécialités A4, C ou D ; préparation BAC I/BAC II selon progression et calendrier officiels | Contrôle série par série requis |
 
+## Priorités particulières pour l’année scolaire 2026–2027
+
+- Vérifier les classes scientifiques expérimentales et les collèges scientifiques annoncés pour 2026–2027.
+- Ajouter un audit distinct des classes-métiers expérimentales annoncées à partir du CM et dans les collèges/lycées scientifiques.
+- Utiliser le calendrier et les dates d’examens officiels : [repères 2026–2027](ANNEE_SCOLAIRE_2026_2027.md).
+- Vérifier l’EPS selon les nouveaux programmes entrés en vigueur en 2025–2026.
+
 ## Lycée général : séries à contrôler séparément
 
 | Parcours | Contrôle requis |
