@@ -9,6 +9,7 @@ import '../lesson/exercise_screen.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/supplemental_curriculum.dart';
 import '../../shared/widgets/menu_button.dart';
 import '../subjects/subject_detail_screen.dart';
 import '../lesson/supplemental_curriculum_screen.dart';
@@ -76,10 +77,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         .where((lesson) => chapterIds.contains(lesson.chapterId))
         .map((lesson) => lesson.id)
         .toSet();
-    final exerciseIds = demoExercises
-        .where((exercise) => lessonIds.contains(exercise.lessonId))
-        .map((exercise) => exercise.id)
-        .toSet();
+    final exerciseIds = {
+      ...demoExercises
+          .where((exercise) => lessonIds.contains(exercise.lessonId))
+          .map((exercise) => exercise.id),
+      ...supplementalLessons
+          .where((lesson) => lesson.level == level)
+          .expand((lesson) => lesson.questions)
+          .map((question) => question.id),
+    };
     final trackLabel = level.index >= SchoolLevel.seconde.index
         ? ' • ${track.label} • Série $series'
         : '';
