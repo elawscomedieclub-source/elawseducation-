@@ -33,6 +33,9 @@ Ces compléments sont des exercices de consolidation. Ils ne remplacent pas enco
 
 ## Audit de couverture et limites
 
+- [Matrice détaillée de contrôle annuel, par niveau et série](CURRICULUM_COVERAGE_MATRIX.md)
+- [Rapport de révision et sources officielles](CURRICULUM_REVIEW.md)
+
 - La dernière extension a ajouté 26 leçons complémentaires (52 questions) aux 27 leçons de renforcement précédentes. La banque bonus totalise 279 leçons et 872 questions, avec tests des corrigés.
 - Le programme officiel du collège comporte des thèmes transversaux et des compétences de vie : citoyenneté, climat, TIC, énergies renouvelables, prévention des violences et santé. Les compléments intègrent plusieurs de ces axes, mais l’affectation complète à chaque chapitre et trimestre reste à faire.
 - Les séries du lycée général et technique sont présentes dans la structure de l’application. Leur couverture doit toutefois être contrôlée séparément, matière par matière et série par série, notamment G1/G2/G3, E, F1/F2/F3/F4 et Ti/1. Les compléments bonus communs ne remplacent pas les cours professionnels spécifiques.
