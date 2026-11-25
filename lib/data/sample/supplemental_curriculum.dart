@@ -779,5 +779,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_pair_2','Quel nombre est impair ?',['12','15','20'],1,'15 se termine par 5 : c’est un nombre impair.'),
      SupplementalQuestion('bonus_cp2_pair_3','Quel chiffre peut terminer un nombre pair ?',['3','7','6'],2,'Les nombres pairs se terminent par 0, 2, 4, 6 ou 8.'),
      SupplementalQuestion('bonus_cp2_pair_4','Avec 9 cailloux, après avoir formé des paires, que reste-t-il ?',['Aucun caillou','Un caillou seul','Deux cailloux seuls'],1,'9 cailloux forment 4 paires et il reste 1 caillou : 9 est impair.')]),
+  SupplementalLesson('cp2_accord_adjectif_simple', SchoolLevel.cp2, 'Français', 'Accorder un adjectif simple avec le nom',
+    'Un adjectif donne une précision sur un nom. Il doit s’accorder avec le nom qu’il accompagne. Avec un nom masculin singulier, on peut dire « un petit sac ». Avec un nom féminin singulier, on dit « une petite boîte ». Au pluriel, on ajoute souvent un s à l’adjectif : « des petits sacs », « des petites boîtes ». Certains adjectifs ont des formes particulières : il faut les apprendre.',
+    'Observe les exemples : un chat noir ; une chatte noire ; des chats noirs ; des chattes noires. Le nom et l’adjectif changent ensemble selon le genre et le nombre.',
+    [SupplementalQuestion('bonus_cp2_adj_1','Complète : « une ___ fille »',['petit','petite','petits'],1,'Fille est féminin singulier : on écrit petite.'),
+     SupplementalQuestion('bonus_cp2_adj_2','Complète : « des sacs ___ »',['lourd','lourds','lourde'],1,'Sacs est masculin pluriel : on écrit lourds.'),
+     SupplementalQuestion('bonus_cp2_adj_3','Quel groupe est correctement écrit ?',['une robe rouge','une robe rouges','un robe rouge'],0,'Robe est féminin singulier ; rouge s’accorde au féminin singulier et reste ici sans e supplémentaire.'),
+     SupplementalQuestion('bonus_cp2_adj_4','Complète : « des maisons ___ »',['grand','grande','grandes'],2,'Maisons est féminin pluriel : grandes.')]),
 
 ];
