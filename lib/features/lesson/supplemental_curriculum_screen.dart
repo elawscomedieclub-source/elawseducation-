@@ -201,6 +201,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                   onChanged: (value) => setState(() {
                     _searchQuery = value;
                     _lessonIndex = 0;
+                    _feedback = null;
                   }),
                   textInputAction: TextInputAction.search,
                   decoration: InputDecoration(
@@ -221,21 +222,21 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                   ),
                 ),
                 const SizedBox(height: 8),
-                DropdownButtonFormField<String?>(
-                  value: _subjectFilter,
+                DropdownButtonFormField<String>(
+                  value: _subjectFilter ?? '__all__',
                   decoration: const InputDecoration(
                     labelText: 'Filtrer par matière',
                     border: OutlineInputBorder(),
                   ),
                   items: [
-                    const DropdownMenuItem<String?>(value: null, child: Text('Toutes les matières')),
-                    ...subjects.map((subject) => DropdownMenuItem<String?>(
+                    const DropdownMenuItem<String>(value: '__all__', child: Text('Toutes les matières')),
+                    ...subjects.map((subject) => DropdownMenuItem<String>(
                       value: subject,
                       child: Text(subject),
                     )),
                   ],
                   onChanged: (value) => setState(() {
-                    _subjectFilter = value;
+                    _subjectFilter = value == '__all__' ? null : value;
                     _lessonIndex = 0;
                     _feedback = null;
                   }),
