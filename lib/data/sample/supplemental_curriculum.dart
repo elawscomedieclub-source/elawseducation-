@@ -303,7 +303,7 @@ const supplementalLessons = <SupplementalLesson>[
     'Une équation du premier degré contient une inconnue à la puissance 1. Pour isoler x, effectue la même opération dans les deux membres.',
     '3x + 5 = 17 ; 3x = 12 ; x = 4.',
     [SupplementalQuestion('bonus_2nde_eq_1','Résous 2x + 6 = 14.',['x = 3','x = 4','x = 5'],1,'2x = 14 − 6 = 8, donc x = 4.'), SupplementalQuestion('bonus_2nde_eq_2','Résous 5x = 35.',['x = 5','x = 7','x = 30'],1,'On divise les deux membres par 5 : x = 7.'), SupplementalQuestion('bonus_2nde_eq_3','Quelle opération annule une addition de 9 ?',['Ajouter 9','Soustraire 9','Multiplier par 9'],1,'L’opération inverse de +9 est −9.')]),
-  SupplementalLesson('premiere_suite_arithmetique', SchoolLevel.premiere, 'Mathématiques', 'Reconnaître une suite arithmétique',
+  SupplementalLesson('premiere_suite_arithmetique_renforce', SchoolLevel.premiere, 'Mathématiques', 'Reconnaître une suite arithmétique',
     'Une suite est arithmétique lorsque l’on ajoute toujours le même nombre, appelé raison, pour passer d’un terme au suivant.',
     '4, 7, 10, 13 : la raison est 3 car chaque terme augmente de 3.',
     [SupplementalQuestion('bonus_1ere_suite_1','Quelle est la raison de 2, 6, 10, 14 ?',['2','4','6'],1,'Chaque terme augmente de 4.'), SupplementalQuestion('bonus_1ere_suite_2','Après 5, 8, 11, quel est le terme suivant ?',['12','13','14'],2,'On ajoute 3 : 11 + 3 = 14.'), SupplementalQuestion('bonus_1ere_suite_3','Dans une suite arithmétique, on passe au terme suivant en…',['multipliant toujours','ajoutant la raison','divisant par le rang'],1,'La différence entre deux termes consécutifs est constante.')]),
