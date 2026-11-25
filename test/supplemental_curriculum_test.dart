@@ -1484,5 +1484,25 @@ void main() {
       }
     });
 
+    test('CP1 éveil : animaux domestiques et sauvages', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'cp1_animaux_domestiques_sauvages');
+      expect(lesson.level, SchoolLevel.cp1);
+      expect(lesson.subject, 'Éveil');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp1_domwild_1': 'La chèvre',
+        'bonus_cp1_domwild_2': 'Le lion',
+        'bonus_cp1_domwild_3': 'Un éleveur',
+        'bonus_cp1_domwild_4': 'Rester à distance et prévenir un adulte',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse correcte incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
