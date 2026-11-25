@@ -1777,5 +1777,26 @@ void main() {
     });
 
 
+    test('4e français : identifier le complément d’objet indirect', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'quatrieme_coi_complement_indirect');
+      expect(lesson.level, SchoolLevel.quatrieme);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_4e_coi_1': 'à son ami',
+        'bonus_4e_coi_2': 'Une préposition',
+        'bonus_4e_coi_3': 'de son enfance',
+        'bonus_4e_coi_4': 'Un COI',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur le COI incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
