@@ -9,7 +9,8 @@ import '../../data/models/models.dart';
 import '../../data/sample/supplemental_curriculum.dart';
 
 class SupplementalCurriculumScreen extends ConsumerStatefulWidget {
-  const SupplementalCurriculumScreen({super.key});
+  final String? initialLessonId;
+  const SupplementalCurriculumScreen({super.key, this.initialLessonId});
   @override
   ConsumerState<SupplementalCurriculumScreen> createState() => _SupplementalCurriculumScreenState();
 }
@@ -27,10 +28,21 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   String? _feedback;
   late final StreamSubscription<User?> _authSubscription;
   int _progressLoadVersion = 0;
+  bool _initialLessonPending = false;
 
   @override
   void initState() {
     super.initState();
+    if (widget.initialLessonId != null) {
+      for (final lesson in supplementalLessons) {
+        if (lesson.id == widget.initialLessonId) {
+          _searchQuery = lesson.title;
+          _searchController.text = lesson.title;
+          _initialLessonPending = true;
+          break;
+        }
+      }
+    }
     _tts.setCompletionHandler(() {
       if (mounted) setState(() => _speaking = false);
     });
@@ -193,7 +205,12 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
         ),
       );
     }
-    if (_lessonIndex >= lessons.length) _lessonIndex = 0;
+    if (_initialLessonPending) {
+      final targetIndex = lessons.indexWhere((item) => item.id == widget.initialLessonId);
+      if (targetIndex >= 0) _lessonIndex = targetIndex;
+      _initialLessonPending = false;
+    }
+    if (_lessonIndex < 0 || _lessonIndex >= lessons.length) _lessonIndex = 0;
     final allQuestionCount = allLevelLessons.fold<int>(0, (sum, item) => sum + item.questions.length);
     final allCompletedCount = allLevelLessons
         .expand((item) => item.questions)
