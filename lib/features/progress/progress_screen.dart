@@ -7,8 +7,10 @@ import '../../core/progress_service.dart';
 import '../../core/evaluation_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/supplemental_curriculum.dart';
 import '../../data/models/models.dart';
 import '../lesson/exercise_screen.dart';
+import '../lesson/supplemental_curriculum_screen.dart';
 import '../../shared/widgets/menu_button.dart';
 
 class ProgressScreen extends ConsumerStatefulWidget {
@@ -79,6 +81,11 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
           final progress = snapshot.data![0] as ProgressSnapshot;
           final allHistory = snapshot.data![1] as List<EvaluationRecord>;
           final reviewIds = snapshot.data![2] as Set<String>;
+          final bonusReviewQuestions = supplementalLessons
+              .where((lesson) => lesson.level == selectedLevel)
+              .expand((lesson) => lesson.questions.map((question) => MapEntry(lesson, question)))
+              .where((entry) => reviewIds.contains(entry.value.id))
+              .toList();
           final subjects = demoSubjects.where((s) => subjectMatchesPath(s, selectedLevel, selectedTrack, selectedSeries)).toList();
           final subjectIds = subjects.map((s) => s.id).toSet();
           final history = allHistory.where((r) => r.level == selectedLevel.label && (subjectIds.contains(r.subjectId) || r.subjectId.startsWith('composition_${selectedLevel.name}_${selectedTrack.name}_${selectedSeries}_'))).toList();
@@ -128,7 +135,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                     child: Text('Mes erreurs à revoir',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
-                  Chip(label: Text('${reviewIds.where((id) => demoExercises.any((e) => e.id == id && allIds.contains(e.id))).length}')),
+                  Chip(label: Text('${reviewIds.where((id) => demoExercises.any((e) => e.id == id && allIds.contains(e.id))).length + bonusReviewQuestions.length}')),
                 ],
               ),
               const SizedBox(height: 8),
@@ -178,7 +185,48 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                   ),
                 ),
               )),
-              if (!demoExercises.any((e) => reviewIds.contains(e.id) && allIds.contains(e.id)))
+              ...bonusReviewQuestions.map((entry) => Card(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Cours bonus • À retravailler',
+                          style: TextStyle(fontWeight: FontWeight.w800, color: Colors.deepOrange)),
+                      const SizedBox(height: 6),
+                      Text(entry.key.title,
+                          style: const TextStyle(fontWeight: FontWeight.w700)),
+                      const SizedBox(height: 6),
+                      Text(entry.value.prompt, style: const TextStyle(height: 1.35)),
+                      const SizedBox(height: 8),
+                      Text('Bonne réponse : ${entry.value.choices[entry.value.correctIndex]}'),
+                      const SizedBox(height: 6),
+                      Text('Explication : ${entry.value.explanation}',
+                          style: const TextStyle(height: 1.4)),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton.icon(
+                          onPressed: () async {
+                            await Navigator.of(context).push<void>(
+                              MaterialPageRoute(
+                                builder: (_) => SupplementalCurriculumScreen(
+                                  initialLessonId: entry.key.id,
+                                ),
+                              ),
+                            );
+                            if (context.mounted) _refresh();
+                          },
+                          icon: const Icon(Icons.replay_rounded),
+                          label: const Text('Ouvrir cette leçon bonus'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
+              if (!demoExercises.any((e) => reviewIds.contains(e.id) && allIds.contains(e.id)) &&
+                  bonusReviewQuestions.isEmpty)
                 const Text('Aucune erreur à revoir pour ce niveau. Continue à t’entraîner !'),
               const SizedBox(height: 24),
               const Text('Résultats des évaluations', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
