@@ -851,4 +851,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_5e_melange_3','Dans une solution d’eau salée, le sel…',['A disparu et n’existe plus','Est toujours présent, même s’il n’est plus visible','Devient du sable'],1,'La dissolution ne fait pas disparaître le sel : il est réparti dans l’eau.'),
      SupplementalQuestion('bonus_5e_melange_4','Quel geste est prudent pendant une expérience ?',['Goûter le mélange','Sentir directement le récipient','Ne jamais goûter les substances'],2,'En laboratoire ou en classe, on ne goûte jamais les produits utilisés.')]),
 
+  SupplementalLesson('quatrieme_reproduction_plantes_fleurs', SchoolLevel.quatrieme, 'SVT', 'Comprendre la reproduction des plantes à fleurs',
+    'La fleur contient les organes reproducteurs de nombreuses plantes. Les étamines produisent le pollen. Le pistil comprend notamment le stigmate, le style et l’ovaire qui contient les ovules. La pollinisation est le transport du pollen jusqu’au stigmate, souvent grâce aux insectes ou au vent.',
+    'Après la pollinisation, le pollen peut permettre la fécondation d’un ovule. L’ovule fécondé devient une graine et l’ovaire se transforme généralement en fruit. Les graines peuvent ensuite germer si les conditions sont favorables : eau, température adaptée et souvent oxygène.',
+    [SupplementalQuestion('bonus_4e_plantes_1','Quelle partie de la fleur produit le pollen ?',['Les étamines','Les racines','Les feuilles'],0,'Les étamines portent les sacs polliniques où se forme le pollen.'),
+     SupplementalQuestion('bonus_4e_plantes_2','La pollinisation correspond au transport du pollen…',['Vers les racines','Jusqu’au stigmate','Dans les feuilles'],1,'La pollinisation est le dépôt ou transport du pollen jusqu’au stigmate du pistil.'),
+     SupplementalQuestion('bonus_4e_plantes_3','Après fécondation, l’ovule devient généralement…',['Une feuille','Une graine','Une racine'],1,'L’ovule fécondé se développe en graine.'),
+     SupplementalQuestion('bonus_4e_plantes_4','Quelle partie de la fleur devient généralement le fruit ?',['L’ovaire','L’étamine','Le pétale'],0,'Après la fécondation, l’ovaire se transforme généralement en fruit.')]),
+
 ];
