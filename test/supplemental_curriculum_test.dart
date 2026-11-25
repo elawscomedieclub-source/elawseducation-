@@ -1955,5 +1955,56 @@ void main() {
       }
     });
 
+    test('CE1 mathématiques : table de multiplication de 3', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'ce1_table_multiplication_3');
+      expect(lesson.level, SchoolLevel.ce1);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_ce1_table3_1': '12',
+        'bonus_ce1_table3_2': '18',
+        'bonus_ce1_table3_3': '3 × 8',
+        'bonus_ce1_table3_4': '30',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('3e mathématiques : moyenne et médiane', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'troisieme_moyenne_mediane');
+      expect(lesson.level, SchoolLevel.troisieme);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_3e_stats_1': '6',
+        'bonus_3e_stats_2': 'Ranger les valeurs',
+        'bonus_3e_stats_3': '5',
+        'bonus_3e_stats_4': '5',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('4e physique-chimie : conservation des atomes', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'quatrieme_conservation_atomes_reaction');
+      expect(lesson.level, SchoolLevel.quatrieme);
+      expect(lesson.subject, 'Physique-Chimie');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_4e_conservation_1': 'Se réorganisent',
+        'bonus_4e_conservation_2': '4',
+        'bonus_4e_conservation_3': 'Les coefficients',
+        'bonus_4e_conservation_4': '2 de chaque côté',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
   });
 }
