@@ -2056,7 +2056,7 @@ void main() {
       'quatrieme_masse_volume_densite': ['une balance', 'l’espace occupé', 'masse divisée par volume'],
       'troisieme_equation_premier_degre': ['7', '6', '3'],
       'seconde_equation_droite': ['4', '5', '5'],
-      'premiere_suite_arithmetique_renforce': ['3', '10', 'addition d’une constante'],
+      'premiere_suite_arithmetique_renforce': ['4', '14', 'ajoutant la raison'],
       'terminale_acide_base_ph': ['acide', 'neutre', 'basique'],
       };
       for (final entry in expectedAnswers.entries) {
