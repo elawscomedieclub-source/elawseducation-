@@ -843,4 +843,4 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_6e_orientation_3','Quelle direction est opposée au sud ?',['L’est','L’ouest','Le nord'],2,'Le nord et le sud sont deux points cardinaux opposés.'),
      SupplementalQuestion('bonus_6e_orientation_4','Quel élément d’une carte aide à repérer les directions ?',['La rose des vents','Le titre seul','La couleur du papier'],0,'La rose des vents indique les points cardinaux et aide à s’orienter.')]),
 
-];\n
+];
