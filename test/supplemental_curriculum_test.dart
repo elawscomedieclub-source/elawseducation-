@@ -2062,10 +2062,16 @@ void main() {
       }
     });
 
-    test('chaque niveau dispose désormais d’au moins dix leçons bonus', () {
+    test('la banque bonus contient au moins 213 leçons et 700 questions', () {
+      expect(supplementalLessons.length, greaterThanOrEqualTo(213));
+      expect(supplementalLessons.expand((lesson) => lesson.questions).length,
+          greaterThanOrEqualTo(700));
+    });
+
+    test('chaque niveau dispose désormais d’au moins onze leçons bonus', () {
       for (final level in SchoolLevel.values) {
         final count = supplementalLessons.where((lesson) => lesson.level == level).length;
-        expect(count, greaterThanOrEqualTo(10),
+        expect(count, greaterThanOrEqualTo(11),
             reason: 'Couverture bonus insuffisante pour ${level.label}');
       }
     });
