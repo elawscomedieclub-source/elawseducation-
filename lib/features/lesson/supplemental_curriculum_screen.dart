@@ -25,6 +25,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   int _lessonIndex = 0;
   bool _loading = true;
   bool _speaking = false;
+  bool _checking = false;
   String? _feedback;
   late final StreamSubscription<User?> _authSubscription;
   int _progressLoadVersion = 0;
@@ -57,6 +58,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
         _selected.clear();
         _feedback = null;
         _speaking = false;
+        _checking = false;
         _loading = true;
       });
       await _loadProgress();
@@ -109,7 +111,11 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   Future<void> _check(SupplementalQuestion question, String lessonId) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final answer = _selected[question.id];
-    if (answer == null || _completed.contains(question.id)) return;
+    if (answer == null || _completed.contains(question.id) || _checking) return;
+    setState(() {
+      _checking = true;
+      _feedback = null;
+    });
     if (answer != question.correctIndex) {
       try {
         await ProgressService.recordWrongAnswer(question.id, skillId: 'bonus_$lessonId');
@@ -119,10 +125,13 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
           isCorrect: false,
         );
       } catch (_) {
-        // La correction immédiate reste disponible même si l'historique local échoue.
+        // La correction reste disponible même si l'historique échoue.
       }
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
-      setState(() => _feedback = 'Essaie encore. Cette question est ajoutée à tes révisions. Écoute la question ou relis la leçon.');
+      setState(() {
+        _checking = false;
+        _feedback = 'Essaie encore. Cette question est ajoutée à tes révisions. Écoute la question ou relis la leçon.';
+      });
       return;
     }
     try {
@@ -139,11 +148,17 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       }
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
+        _checking = false;
         _completed.add(question.id);
         _feedback = 'Bravo ! Bonne réponse. ' + question.explanation;
       });
     } catch (_) {
-      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) setState(() => _feedback = 'Bonne réponse, mais elle n’a pas été enregistrée. Vérifie ta connexion puis appuie de nouveau sur « Vérifier ma réponse ».');
+      if (mounted && FirebaseAuth.instance.currentUser?.uid == uid) {
+        setState(() {
+          _checking = false;
+          _feedback = 'Bonne réponse, mais elle n’a pas été enregistrée. Vérifie ta connexion puis appuie de nouveau sur « Vérifier ma réponse ».';
+        });
+      }
     }
   }
 
@@ -421,18 +436,26 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                         SizedBox(
                           width: double.infinity,
                           child: FilledButton(
-                            onPressed: _completed.contains(question.id)
-                                ? () => setState(() {
-                                    _feedback = null;
-                                    if (questionIndex == lesson.questions.length - 1 && completedCount == lesson.questions.length) {
-                                      _lessonIndex = (_lessonIndex + 1) % lessons.length;
-                                    }
-                                  })
-                                : () => _check(question, lesson.id),
+                            onPressed: _checking
+                                ? null
+                                : _completed.contains(question.id)
+                                    ? () => setState(() {
+                                        _feedback = null;
+                                        if (questionIndex == lesson.questions.length - 1 && completedCount == lesson.questions.length) {
+                                          _lessonIndex = (_lessonIndex + 1) % lessons.length;
+                                        }
+                                      })
+                                    : () => _check(question, lesson.id),
                             style: FilledButton.styleFrom(minimumSize: Size.fromHeight(childMode ? 58 : 48)),
-                            child: Text(_completed.contains(question.id)
-                                ? (questionIndex == lesson.questions.length - 1 && completedCount == lesson.questions.length ? 'Terminer cette leçon' : 'Question suivante')
-                                : 'Vérifier ma réponse'),
+                            child: _checking
+                                ? const SizedBox(
+                                    height: 22,
+                                    width: 22,
+                                    child: CircularProgressIndicator(strokeWidth: 2),
+                                  )
+                                : Text(_completed.contains(question.id)
+                                    ? (questionIndex == lesson.questions.length - 1 && completedCount == lesson.questions.length ? 'Terminer cette leçon' : 'Question suivante')
+                                    : 'Vérifier ma réponse'),
                           ),
                         ),
                       ],
