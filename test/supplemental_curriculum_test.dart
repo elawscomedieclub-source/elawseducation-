@@ -1735,5 +1735,26 @@ void main() {
     });
 
 
+    test('1ère SVT : réaction inflammatoire et immunité innée', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'premiere_svt_reaction_inflammatoire');
+      expect(lesson.level, SchoolLevel.premiere);
+      expect(lesson.subject, 'SVT');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_1ere_inflammation_1': 'L’immunité innée',
+        'bonus_1ere_inflammation_2': 'L’histamine',
+        'bonus_1ere_inflammation_3': 'Rougeur',
+        'bonus_1ere_inflammation_4': 'Englober puis digérer un élément étranger',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur la réaction inflammatoire incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
