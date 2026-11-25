@@ -1404,5 +1404,25 @@ void main() {
     });
 
 
+    test('le cours CP2 distingue les nombres pairs et impairs', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_nombres_pairs_impairs');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_pair_1': 'Pair',
+        'bonus_cp2_pair_2': '15',
+        'bonus_cp2_pair_3': '6',
+        'bonus_cp2_pair_4': 'Un caillou seul',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Classification pair/impair incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
