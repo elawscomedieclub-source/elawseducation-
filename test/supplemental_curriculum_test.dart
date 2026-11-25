@@ -2084,7 +2084,7 @@ void main() {
     test('chaque niveau dispose désormais d’au moins douze leçons bonus', () {
       for (final level in SchoolLevel.values) {
         final count = supplementalLessons.where((lesson) => lesson.level == level).length;
-        expect(count, greaterThanOrEqualTo(12,
+        expect(count, greaterThanOrEqualTo(12),
             reason: 'Couverture bonus insuffisante pour ${level.label}');
       }
     });
