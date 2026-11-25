@@ -1525,5 +1525,26 @@ void main() {
     });
 
 
+    test('CE1 sciences : découvrir les besoins des plantes', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'ce1_besoins_plantes');
+      expect(lesson.level, SchoolLevel.ce1);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce1_plante_1': 'D’eau et de lumière',
+        'bonus_ce1_plante_2': 'Les racines',
+        'bonus_ce1_plante_3': 'Pour fabriquer sa nourriture',
+        'bonus_ce1_plante_4': 'L’arroser raisonnablement et la placer à la lumière',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse scientifique incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
