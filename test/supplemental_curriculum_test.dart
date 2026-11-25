@@ -1798,5 +1798,26 @@ void main() {
     });
 
 
+    test('3e français : proposition subordonnée relative', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'troisieme_proposition_subordonnee_relative');
+      expect(lesson.level, SchoolLevel.troisieme);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_3e_relative_1': 'qui court',
+        'bonus_3e_relative_2': 'que',
+        'bonus_3e_relative_3': 'La maison',
+        'bonus_3e_relative_4': 'Un verbe conjugué',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur la proposition relative incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
