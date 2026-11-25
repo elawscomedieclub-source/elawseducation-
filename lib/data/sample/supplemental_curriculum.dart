@@ -786,5 +786,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_adj_2','Complète : « des sacs ___ »',['lourd','lourds','lourde'],1,'Sacs est masculin pluriel : on écrit lourds.'),
      SupplementalQuestion('bonus_cp2_adj_3','Quel groupe est correctement écrit ?',['une robe rouge','une robe rouges','un robe rouge'],0,'Robe est féminin singulier ; rouge s’accorde au féminin singulier et reste ici sans e supplémentaire.'),
      SupplementalQuestion('bonus_cp2_adj_4','Complète : « des maisons ___ »',['grand','grande','grandes'],2,'Maisons est féminin pluriel : grandes.')]),
+  SupplementalLesson('cp2_objets_naturels_fabriques', SchoolLevel.cp2, 'Sciences', 'Distinguer les éléments naturels et les objets fabriqués',
+    'Un élément naturel existe dans la nature sans être fabriqué par une personne : un arbre, une pierre ou une coquille. Un objet fabriqué est réalisé ou transformé par les humains pour répondre à un besoin : une chaise, un cahier ou une cuillère. Un objet fabriqué peut être fait avec une matière naturelle, comme une chaise en bois.',
+    'Observe autour de toi : l’arbre pousse dans la nature. Le menuisier transforme du bois pour fabriquer une chaise. Le bois vient d’un arbre, mais la chaise est un objet fabriqué.',
+    [SupplementalQuestion('bonus_cp2_nature_1','Lequel est un élément naturel ?',['Un cahier','Une pierre','Une chaise'],1,'Une pierre existe dans la nature ; elle n’a pas été fabriquée comme un cahier ou une chaise.'),
+     SupplementalQuestion('bonus_cp2_nature_2','Lequel est un objet fabriqué ?',['Un arbre','Une coquille vide','Une cuillère'],2,'Une cuillère est réalisée par des personnes pour servir à manger.'),
+     SupplementalQuestion('bonus_cp2_nature_3','Une chaise est fabriquée avec du bois. Quelle affirmation est juste ?',['Le bois est une matière naturelle et la chaise est fabriquée','La chaise pousse comme un arbre','Le bois est toujours fabriqué par les humains'],0,'Le bois vient d’un arbre ; la chaise est construite à partir de ce bois.'),
+     SupplementalQuestion('bonus_cp2_nature_4','Quel groupe contient seulement des éléments naturels ?',['Stylo et cahier','Pierre et arbre','Chaise et cuillère'],1,'La pierre et l’arbre sont des éléments naturels.')]),
 
 ];
