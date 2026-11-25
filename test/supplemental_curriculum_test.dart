@@ -2078,10 +2078,10 @@ void main() {
     test('la banque bonus contient au moins 226 leçons et 739 questions', () {
       expect(supplementalLessons.length, greaterThanOrEqualTo(226));
       expect(supplementalLessons.expand((lesson) => lesson.questions).length,
-          greaterThanOrEqualTo(739);
+          greaterThanOrEqualTo(739));
     });
 
-    test('chaque niveau dispose désormais d’au moins onze leçons bonus', () {
+    test('chaque niveau dispose désormais d’au moins douze leçons bonus', () {
       for (final level in SchoolLevel.values) {
         final count = supplementalLessons.where((lesson) => lesson.level == level).length;
         expect(count, greaterThanOrEqualTo(12,
