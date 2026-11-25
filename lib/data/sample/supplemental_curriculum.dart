@@ -843,4 +843,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_6e_orientation_3','Quelle direction est opposée au sud ?',['L’est','L’ouest','Le nord'],2,'Le nord et le sud sont deux points cardinaux opposés.'),
      SupplementalQuestion('bonus_6e_orientation_4','Quel élément d’une carte aide à repérer les directions ?',['La rose des vents','Le titre seul','La couleur du papier'],0,'La rose des vents indique les points cardinaux et aide à s’orienter.')]),
 
+  SupplementalLesson('cinquieme_melanges_homogenes_heterogenes', SchoolLevel.cinquieme, 'Physique-Chimie', 'Distinguer les mélanges homogènes et hétérogènes',
+    'Un mélange contient plusieurs substances. Un mélange homogène paraît uniforme : on ne distingue pas ses constituants à l’œil nu, comme l’eau mélangée au sel après dissolution. Un mélange hétérogène présente plusieurs constituants ou phases visibles, comme l’eau et le sable.',
+    'Pour observer un mélange, on peut laisser reposer le contenu d’un récipient transparent. Le sable peut se déposer au fond de l’eau : le mélange est hétérogène. Le sel dissous dans l’eau forme une solution homogène ; le sel est toujours présent même s’il n’est plus visible. Ne goûte jamais une substance utilisée en expérience.',
+    [SupplementalQuestion('bonus_5e_melange_1','L’eau et le sable forment généralement un mélange…',['Homogène','Hétérogène','Pur'],1,'On peut distinguer le sable de l’eau : le mélange est hétérogène.'),
+     SupplementalQuestion('bonus_5e_melange_2','Après dissolution complète du sel dans l’eau, le mélange paraît…',['Homogène','Hétérogène','Solide uniquement'],0,'Le sel dissous se répartit dans l’eau et le mélange paraît uniforme.'),
+     SupplementalQuestion('bonus_5e_melange_3','Dans une solution d’eau salée, le sel…',['A disparu et n’existe plus','Est toujours présent, même s’il n’est plus visible','Devient du sable'],1,'La dissolution ne fait pas disparaître le sel : il est réparti dans l’eau.'),
+     SupplementalQuestion('bonus_5e_melange_4','Quel geste est prudent pendant une expérience ?',['Goûter le mélange','Sentir directement le récipient','Ne jamais goûter les substances'],2,'En laboratoire ou en classe, on ne goûte jamais les produits utilisés.')]),
+
 ];
