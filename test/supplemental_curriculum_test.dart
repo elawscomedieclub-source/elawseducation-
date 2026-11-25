@@ -1588,5 +1588,26 @@ void main() {
     });
 
 
+    test('6e géographie : s’orienter avec les points cardinaux', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'sixieme_orienter_carte_points_cardinaux');
+      expect(lesson.level, SchoolLevel.sixieme);
+      expect(lesson.subject, 'Géographie');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_6e_orientation_1': 'Le nord',
+        'bonus_6e_orientation_2': 'L’est',
+        'bonus_6e_orientation_3': 'Le nord',
+        'bonus_6e_orientation_4': 'La rose des vents',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur l’orientation incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
