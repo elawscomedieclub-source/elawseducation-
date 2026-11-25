@@ -158,6 +158,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                   _searchController.clear();
                   _subjectFilter = null;
                   _lessonIndex = 0;
+                  _feedback = null;
                 }),
                 icon: const Icon(Icons.clear_all_rounded),
                 label: const Text('Effacer les filtres'),
@@ -215,6 +216,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                               _searchQuery = '';
                               _searchController.clear();
                               _lessonIndex = 0;
+                              _feedback = null;
                             }),
                             icon: const Icon(Icons.close_rounded),
                           ),
@@ -264,11 +266,21 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                 const SizedBox(height: 8),
                 ...lessons.asMap().entries.map((entry) {
                   final selected = entry.key == _lessonIndex;
+                  final subjectIcon = switch (entry.value.subject) {
+                    'Mathématiques' => Icons.calculate_rounded,
+                    'Français' => Icons.text_fields_rounded,
+                    'Physique-Chimie' => Icons.science_rounded,
+                    'SVT' => Icons.eco_rounded,
+                    'Anglais' => Icons.language_rounded,
+                    'Philosophie' => Icons.psychology_rounded,
+                    'Sciences' => Icons.lightbulb_rounded,
+                    _ => Icons.menu_book_rounded,
+                  };
                   return Card(
                     clipBehavior: Clip.antiAlias,
                     child: ListTile(
                       minVerticalPadding: childMode ? 14 : 8,
-                      leading: CircleAvatar(radius: childMode ? 25 : 20, child: Icon(entry.value.subject == 'Mathématiques' ? Icons.calculate_rounded : Icons.menu_book_rounded)),
+                      leading: CircleAvatar(radius: childMode ? 25 : 20, child: Icon(subjectIcon)),
                       title: Text(entry.value.title, style: TextStyle(fontSize: childMode ? 18 : 16, fontWeight: FontWeight.w800)),
                       subtitle: Text('${entry.value.subject} • ${entry.value.questions.where((question) => _completed.contains(question.id)).length}/${entry.value.questions.length} exercices'),
                       trailing: selected
