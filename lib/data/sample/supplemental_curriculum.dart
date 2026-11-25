@@ -1238,7 +1238,7 @@ const supplementalLessons = <SupplementalLesson>[
     [SupplementalQuestion('cp1_pa_pe_q1', 'P + A forme…', ['PA', 'MA', 'LA'], 0, 'La consonne p avec a forme pa.'),
       SupplementalQuestion('cp1_pa_pe_q2', 'Quel mot commence par pa ?', ['papa', 'maman', 'lune'], 0, 'Papa commence par pa.'),
       SupplementalQuestion('cp1_pa_pe_q3', 'P + I forme…', ['PI', 'PU', 'PE'], 0, 'La syllabe est pi.')]),
-  SupplementalLesson('cp2_addition_dizaines', SchoolLevel.cp2, 'Mathématiques', 'Additionner des dizaines',
+  SupplementalLesson('cp2_addition_dizaines_renforce', SchoolLevel.cp2, 'Mathématiques', 'Additionner des dizaines',
     'Les dizaines se regroupent par dizaines. Additionne les dizaines et les unités en respectant leur position.',
     '20 + 30 = 50 ; 24 + 13 = 37.',
     [SupplementalQuestion('cp2_add_diz_q1', '30 + 20 = …', ['50', '32', '60'], 0, 'Trois dizaines plus deux dizaines font cinq dizaines.'),
