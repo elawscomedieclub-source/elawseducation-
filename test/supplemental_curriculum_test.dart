@@ -1609,5 +1609,26 @@ void main() {
     });
 
 
+    test('5e physique-chimie : distinguer les mélanges', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'cinquieme_melanges_homogenes_heterogenes');
+      expect(lesson.level, SchoolLevel.cinquieme);
+      expect(lesson.subject, 'Physique-Chimie');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_5e_melange_1': 'Hétérogène',
+        'bonus_5e_melange_2': 'Homogène',
+        'bonus_5e_melange_3': 'Est toujours présent, même s’il n’est plus visible',
+        'bonus_5e_melange_4': 'Ne jamais goûter les substances',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Classification du mélange incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
