@@ -16,6 +16,9 @@ class SupplementalCurriculumScreen extends ConsumerStatefulWidget {
 
 class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurriculumScreen> {
   final FlutterTts _tts = FlutterTts();
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  String? _subjectFilter;
   final Set<String> _completed = {};
   final Map<String, int> _selected = {};
   int _lessonIndex = 0;
@@ -114,6 +117,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   @override
   void dispose() {
     _authSubscription.cancel();
+    _searchController.dispose();
     unawaited(_tts.stop());
     super.dispose();
   }
@@ -122,9 +126,46 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
   Widget build(BuildContext context) {
     final level = ref.watch(schoolLevelProvider);
     final childMode = level.index <= SchoolLevel.cm2.index;
-    final lessons = supplementalLessons.where((item) => item.level == level).toList();
-    if (lessons.isEmpty) {
+    final allLevelLessons = supplementalLessons.where((item) => item.level == level).toList();
+    final subjects = allLevelLessons.map((item) => item.subject).toSet().toList()..sort();
+    final query = _searchQuery.trim().toLowerCase();
+    final lessons = allLevelLessons.where((item) {
+      final matchesSubject = _subjectFilter == null || item.subject == _subjectFilter;
+      final matchesSearch = query.isEmpty ||
+          item.title.toLowerCase().contains(query) ||
+          item.subject.toLowerCase().contains(query) ||
+          item.explanation.toLowerCase().contains(query);
+      return matchesSubject && matchesSearch;
+    }).toList();
+    if (allLevelLessons.isEmpty) {
       return Scaffold(appBar: AppBar(title: const Text('Cours bonus')), body: const Center(child: Text('De nouvelles activités seront ajoutées pour cette classe.')));
+    }
+    if (lessons.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: Text('Cours bonus • ${level.label}')),
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.search_off_rounded, size: 48),
+              const SizedBox(height: 12),
+              const Text('Aucune leçon ne correspond à cette recherche.', textAlign: TextAlign.center),
+              const SizedBox(height: 12),
+              FilledButton.icon(
+                onPressed: () => setState(() {
+                  _searchQuery = '';
+                  _searchController.clear();
+                  _subjectFilter = null;
+                  _lessonIndex = 0;
+                }),
+                icon: const Icon(Icons.clear_all_rounded),
+                label: const Text('Effacer les filtres'),
+              ),
+            ],
+          ),
+        ),
+      );
     }
     if (_lessonIndex >= lessons.length) _lessonIndex = 0;
     final lesson = lessons[_lessonIndex];
@@ -150,7 +191,52 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                   ),
                 ),
                 const SizedBox(height: 12),
-                Text('Choisis une leçon', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+                TextField(
+                  controller: _searchController,
+                  onChanged: (value) => setState(() {
+                    _searchQuery = value;
+                    _lessonIndex = 0;
+                  }),
+                  textInputAction: TextInputAction.search,
+                  decoration: InputDecoration(
+                    labelText: 'Rechercher un cours ou une notion',
+                    prefixIcon: const Icon(Icons.search_rounded),
+                    suffixIcon: _searchQuery.isEmpty
+                        ? null
+                        : IconButton(
+                            tooltip: 'Effacer la recherche',
+                            onPressed: () => setState(() {
+                              _searchQuery = '';
+                              _searchController.clear();
+                              _lessonIndex = 0;
+                            }),
+                            icon: const Icon(Icons.close_rounded),
+                          ),
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String?>(
+                  value: _subjectFilter,
+                  decoration: const InputDecoration(
+                    labelText: 'Filtrer par matière',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: [
+                    const DropdownMenuItem<String?>(value: null, child: Text('Toutes les matières')),
+                    ...subjects.map((subject) => DropdownMenuItem<String?>(
+                      value: subject,
+                      child: Text(subject),
+                    )),
+                  ],
+                  onChanged: (value) => setState(() {
+                    _subjectFilter = value;
+                    _lessonIndex = 0;
+                    _feedback = null;
+                  }),
+                ),
+                const SizedBox(height: 12),
+                Text('Choisis une leçon (${lessons.length}/${allLevelLessons.length})', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
                 const SizedBox(height: 8),
                 ...lessons.asMap().entries.map((entry) {
                   final selected = entry.key == _lessonIndex;
