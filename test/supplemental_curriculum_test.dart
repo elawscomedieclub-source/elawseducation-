@@ -1546,5 +1546,26 @@ void main() {
     });
 
 
+    test('Terminale maths : étudier les variations avec la dérivée', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'terminale_variations_derivee');
+      expect(lesson.level, SchoolLevel.terminale);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_term_var_1': 'Croissante',
+        'bonus_term_var_2': '2x−4',
+        'bonus_term_var_3': 'En x=2',
+        'bonus_term_var_4': '−1 en x=2',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur les variations incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
