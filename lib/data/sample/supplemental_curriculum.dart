@@ -1079,7 +1079,7 @@ const supplementalLessons = <SupplementalLesson>[
     'Pour 4, 7, 9, 12 : étendue = 12 − 4 = 8.',
     [SupplementalQuestion('troisieme_statistiques_etendue_q1', 'Étendue de 2, 5, 8 ?', ['3', '6', '10'], 1, '8 − 2 = 6.'),
       SupplementalQuestion('troisieme_statistiques_etendue_q2', 'Pour calculer l’étendue, on fait…', ['max + min', 'max − min', 'min ÷ max'], 1, 'L’étendue est la différence entre maximum et minimum.'),
-      SupplementalQuestion('troisieme_statistiques_etendue_q3', 'Étendue de 10, 10, 15, 20 ?', ['10', '15', '20'], 1, '20 − 10 = 10. Correction: l’étendue vaut 10.')]),
+      SupplementalQuestion('troisieme_statistiques_etendue_q3', 'Étendue de 10, 10, 15, 20 ?', ['10', '15', '20'], 0, '20 − 10 = 10.')]),
   SupplementalLesson('troisieme_energie_electrique', SchoolLevel.troisieme, 'Physique-Chimie', 'Puissance et énergie électrique',
     'L’énergie électrique consommée se calcule par E = P × t, avec une puissance en watts et un temps en heures pour obtenir des wattheures.',
     'Un appareil de 100 W utilisé 2 h consomme 200 Wh, soit 0,2 kWh.',
