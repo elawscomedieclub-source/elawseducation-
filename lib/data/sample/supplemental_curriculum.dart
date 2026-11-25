@@ -909,4 +909,13 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_terminale_titrage_3','Pour a A + b B → produits, la relation à l’équivalence est…',['n(A)/a = n(B)/b','n(A) = a + b','n(A) × n(B) = 0'],0,'La relation exprime l’égalité des quantités de matière rapportées aux coefficients stœchiométriques.'),
      SupplementalQuestion('bonus_terminale_titrage_4','Quel dispositif peut ajouter le titrant progressivement ?',['Une burette','Un microscope','Un thermomètre seul'],0,'La burette permet de verser le titrant avec précision, progressivement.')]),
 
+
+  SupplementalLesson('quatrieme_coi_complement_indirect', SchoolLevel.quatrieme, 'Français', 'Identifier le complément d’objet indirect (COI)',
+    'Le complément d’objet indirect (COI) complète le verbe et est généralement introduit par une préposition, souvent à ou de. Pour le repérer, on pose une question comme « à qui ? », « à quoi ? », « de qui ? » ou « de quoi ? » après le verbe. Exemple : « Awa parle à sa sœur. » → Awa parle à qui ? à sa sœur : « à sa sœur » est le COI.',
+    'Le COI peut être un groupe nominal (« Il se souvient de cette histoire ») ou un pronom (« Il lui parle »). Attention : le COI n’est pas toujours un groupe de mots placé après le verbe ; il peut être remplacé par un pronom. Schéma de repérage : sujet + verbe + préposition + complément. À distinguer du COD, qui se construit sans préposition : « Awa lit un livre » → lit quoi ? un livre (COD).',
+    [SupplementalQuestion('bonus_4e_coi_1','Dans « Il téléphone à son ami », quel est le COI ?',['Il','à son ami','téléphone'],1,'On demande : il téléphone à qui ? « à son ami » est le COI.'),
+     SupplementalQuestion('bonus_4e_coi_2','Le COI est généralement introduit par…',['Une préposition','Un déterminant seul','Un adjectif'],0,'Le COI est souvent introduit par une préposition comme à ou de.'),
+     SupplementalQuestion('bonus_4e_coi_3','Dans « Elle se souvient de son enfance », le COI est…',['Elle','se souvient','de son enfance'],2,'Elle se souvient de quoi ? « de son enfance » est le COI.'),
+     SupplementalQuestion('bonus_4e_coi_4','Dans « Il lui écrit », le pronom « lui » remplace ici…',['Un COI','Un COD toujours','Le sujet'],0,'« Lui » remplace le complément indirect : il écrit à qui ? à cette personne.')]),
+
 ];
