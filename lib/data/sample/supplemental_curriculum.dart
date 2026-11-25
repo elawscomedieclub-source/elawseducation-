@@ -758,5 +758,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_dents_2','Quel geste aide à garder les dents propres ?',['Les brosser chaque jour','Les laver avec du sable','Ne jamais les nettoyer'],0,'Le brossage régulier aide à garder les dents propres.'),
      SupplementalQuestion('bonus_cp2_dents_3','Que faut-il faire si une dent fait mal ?',['Le dire à un adulte','Cacher la douleur','Mordre un objet dur'],0,'Il faut prévenir un adulte pour obtenir de l’aide appropriée.'),
      SupplementalQuestion('bonus_cp2_dents_4','Pourquoi limiter les grignotages sucrés ?',['Ils peuvent favoriser les caries','Ils rendent les dents plus longues','Ils remplacent le brossage'],0,'Les prises fréquentes d’aliments sucrés peuvent favoriser les caries.')]),
+  SupplementalLesson('cp2_mots_position_espace', SchoolLevel.cp2, 'Français', 'Employer les mots pour situer dans l’espace',
+    'Les mots de position aident à dire où se trouve une personne ou un objet. « Sur » indique qu’un objet est posé au-dessus et touche généralement un support. « Sous » indique qu’il est en dessous. « Devant » et « derrière » indiquent la place par rapport à un repère. « Entre » indique une place au milieu de deux objets.',
+    'Observe la scène : le livre est sur la table ; le ballon est sous la chaise ; Afi se tient devant la porte ; le sac est derrière Afi ; le crayon est entre deux cahiers. Ces mots permettent de décrire précisément la place des objets.',
+    [SupplementalQuestion('bonus_cp2_position_1','Le livre est posé sur la table. Où est le livre ?',['Sous la table','Sur la table','Dans la table'],1,'Le livre touche le dessus de la table : il est sur la table.'),
+     SupplementalQuestion('bonus_cp2_position_2','Le ballon est en dessous de la chaise. Où est-il ?',['Sous la chaise','Sur la chaise','Devant la chaise'],0,'En dessous de la chaise signifie sous la chaise.'),
+     SupplementalQuestion('bonus_cp2_position_3','Afi se place à l’avant de la porte. Où se trouve Afi ?',['Derrière la porte','Devant la porte','Sous la porte'],1,'À l’avant du repère, on dit devant.'),
+     SupplementalQuestion('bonus_cp2_position_4','Le crayon est au milieu de deux cahiers. Où est le crayon ?',['Entre les cahiers','Sur les cahiers','Derrière les cahiers'],0,'Au milieu de deux objets, le crayon est entre les cahiers.')]),
 
 ];
