@@ -859,4 +859,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_4e_plantes_3','Après fécondation, l’ovule devient généralement…',['Une feuille','Une graine','Une racine'],1,'L’ovule fécondé se développe en graine.'),
      SupplementalQuestion('bonus_4e_plantes_4','Quelle partie de la fleur devient généralement le fruit ?',['L’ovaire','L’étamine','Le pétale'],0,'Après la fécondation, l’ovaire se transforme généralement en fruit.')]),
 
+  SupplementalLesson('sixieme_types_phrases', SchoolLevel.sixieme, 'Français', 'Reconnaître les types de phrases',
+    'Une phrase déclarative donne une information et se termine généralement par un point. Une phrase interrogative pose une question et se termine par un point d’interrogation. Une phrase impérative exprime un ordre, un conseil ou une consigne. Une phrase exclamative exprime une émotion ou une intensité et se termine par un point d’exclamation.',
+    'Exemples : « Le marché ouvre tôt. » est déclarative ; « Quand ouvre le marché ? » est interrogative ; « Écoute attentivement. » est impérative ; « Quelle belle récolte ! » est exclamative. Le type dépend de l’intention du locuteur, pas seulement de la ponctuation.',
+    [SupplementalQuestion('bonus_6e_types_1','Quelle phrase pose une question ?',['Le bus arrive.','Où vas-tu ?','Ferme la porte.'],1,'« Où vas-tu ? » demande une information : c’est une phrase interrogative.'),
+     SupplementalQuestion('bonus_6e_types_2','« Les élèves travaillent. » est une phrase…',['Déclarative','Interrogative','Exclamative'],0,'Cette phrase donne une information : elle est déclarative.'),
+     SupplementalQuestion('bonus_6e_types_3','« Range tes cahiers. » exprime surtout…',['Une question','Une consigne','Une émotion'],1,'Cette phrase donne un ordre ou une consigne : elle est impérative.'),
+     SupplementalQuestion('bonus_6e_types_4','Quel signe termine généralement une phrase exclamative ?',['?','!',';'],1,'Le point d’exclamation marque souvent une émotion ou une intensité.')]),
+
 ];
