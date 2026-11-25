@@ -1567,5 +1567,26 @@ void main() {
     });
 
 
+    test('CM1 maths : reconnaître les angles droits, aigus et obtus', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'cm1_reconnaitre_angles');
+      expect(lesson.level, SchoolLevel.cm1);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cm1_angle_1': '90°',
+        'bonus_cm1_angle_2': 'Aigu',
+        'bonus_cm1_angle_3': 'Obtus',
+        'bonus_cm1_angle_4': 'Une équerre',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Classification d’angle incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
