@@ -65,4 +65,17 @@ void main() {
     expect(questions, hasLength(52));
     expect(questions.map((question) => question.id).toSet(), hasLength(52));
   });
+  test('les bonnes réponses des nouveaux quiz ne sont pas toujours en première position', () {
+    final questions = supplementalLessons
+        .where((lesson) => lesson.id.contains('renforcement_annuel_plus_'))
+        .expand((lesson) => lesson.questions)
+        .toList();
+    final positions = questions.map((question) => question.correctIndex).toSet();
+    expect(positions, contains(0));
+    expect(positions, contains(1));
+    expect(positions, contains(2));
+    expect(questions.where((question) => question.correctIndex == 0).length,
+        lessThan(questions.length));
+  });
+
 }
