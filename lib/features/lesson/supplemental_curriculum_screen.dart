@@ -94,16 +94,32 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
         : 'fr-FR';
   }
 
-  Future<void> _check(SupplementalQuestion question) async {
+  Future<void> _check(SupplementalQuestion question, String lessonId) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final answer = _selected[question.id];
     if (answer == null || _completed.contains(question.id)) return;
     if (answer != question.correctIndex) {
-      setState(() => _feedback = 'Essaie encore. Écoute la question ou relis la leçon.');
+      try {
+        await ProgressService.recordWrongAnswer(question.id, skillId: 'bonus_$lessonId');
+        await ProgressService.recordAttempt(
+          exerciseId: question.id,
+          lessonId: lessonId,
+          isCorrect: false,
+        );
+      } catch (_) {
+        // La correction immédiate reste disponible même si l'historique local échoue.
+      }
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
+      setState(() => _feedback = 'Essaie encore. Cette question est ajoutée à tes révisions. Écoute la question ou relis la leçon.');
       return;
     }
     try {
       await ProgressService.recordAnswer(exerciseId: question.id, isCorrect: true);
+      await ProgressService.recordAttempt(
+        exerciseId: question.id,
+        lessonId: lessonId,
+        isCorrect: true,
+      );
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _completed.add(question.id);
@@ -386,7 +402,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                                       _lessonIndex = (_lessonIndex + 1) % lessons.length;
                                     }
                                   })
-                                : () => _check(question),
+                                : () => _check(question, lesson.id),
                             style: FilledButton.styleFrom(minimumSize: Size.fromHeight(childMode ? 58 : 48)),
                             child: Text(_completed.contains(question.id)
                                 ? (questionIndex == lesson.questions.length - 1 && completedCount == lesson.questions.length ? 'Terminer cette leçon' : 'Question suivante')
