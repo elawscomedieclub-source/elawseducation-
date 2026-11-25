@@ -1384,5 +1384,25 @@ void main() {
     });
 
 
+    test('le cours CP2 décrit le temps qu’il fait et les précautions simples', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_observer_temps');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_meteo_1': 'Nuageux',
+        'bonus_cp2_meteo_2': 'Un parapluie',
+        'bonus_cp2_meteo_3': 'Ensoleillé',
+        'bonus_cp2_meteo_4': 'Regarder le ciel depuis un endroit sûr',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Observation météo incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
