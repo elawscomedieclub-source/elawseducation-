@@ -27,7 +27,7 @@ Ces ressources sont une base pédagogique de travail. Elles doivent être compar
 
 ## Compléments pédagogiques ajoutés
 
-La banque de cours bonus contient maintenant **279 leçons et 872 questions** sur les 13 niveaux. La banque a été enrichie par 27 leçons de renforcement et 26 leçons complémentaires supplémentaires, soit 53 nouvelles leçons réparties sur les 13 niveaux. Les ajouts renforcent les fondamentaux en français et mathématiques au primaire, les sciences, l’histoire-géographie, la citoyenneté, la grammaire, la physique-chimie, l’argumentation et la philosophie. Les tests vérifient les identifiants, la présence des 13 niveaux, les choix, les explications et les réponses attendues des leçons nouvellement ajoutées. Les erreurs aux exercices bonus sont enregistrées dans les révisions et l’historique de l’élève, puis affichées dans « Ma progression » avec la bonne réponse, l’explication et un accès direct à la leçon.
+La banque de cours bonus contient maintenant **279 leçons et 898 questions** sur les 13 niveaux. La banque a été enrichie par 27 leçons de renforcement et 26 leçons complémentaires supplémentaires, soit 53 nouvelles leçons réparties sur les 13 niveaux. Les ajouts renforcent les fondamentaux en français et mathématiques au primaire, les sciences, l’histoire-géographie, la citoyenneté, la grammaire, la physique-chimie, l’argumentation et la philosophie. Les tests vérifient les identifiants, la présence des 13 niveaux, les choix, les explications et les réponses attendues des leçons nouvellement ajoutées. Les erreurs aux exercices bonus sont enregistrées dans les révisions et l’historique de l’élève, puis affichées dans « Ma progression » avec la bonne réponse, l’explication et un accès direct à la leçon.
 
 Ces compléments sont des exercices de consolidation. Ils ne remplacent pas encore la vérification complète des programmes officiels, l’affectation de chaque cours au trimestre, ni la validation par des enseignants togolais.
 
@@ -37,7 +37,7 @@ Ces compléments sont des exercices de consolidation. Ils ne remplacent pas enco
 - [Calendrier scolaire et examens 2026–2027](ANNEE_SCOLAIRE_2026_2027.md)
 - [Rapport de révision et sources officielles](CURRICULUM_REVIEW.md)
 
-- La dernière extension a ajouté 26 leçons complémentaires (52 questions) aux 27 leçons de renforcement précédentes. La banque bonus totalise 279 leçons et 872 questions, avec tests des corrigés.
+- La dernière extension a ajouté 26 leçons complémentaires (78 questions) aux 27 leçons de renforcement précédentes. La banque bonus totalise 279 leçons et 898 questions, avec tests des corrigés.
 - Le programme officiel du collège comporte des thèmes transversaux et des compétences de vie : citoyenneté, climat, TIC, énergies renouvelables, prévention des violences et santé. Les compléments intègrent plusieurs de ces axes, mais l’affectation complète à chaque chapitre et trimestre reste à faire.
 - Les séries du lycée général et technique sont présentes dans la structure de l’application. Leur couverture doit toutefois être contrôlée séparément, matière par matière et série par série, notamment G1/G2/G3, E, F1/F2/F3/F4 et Ti/1. Les compléments bonus communs ne remplacent pas les cours professionnels spécifiques.
 - Le référentiel des programmes du collège et le catalogue officiel des ressources éducatives doivent servir à une vérification chapitre par chapitre. Une relecture par des enseignants togolais reste nécessaire avant toute affirmation d’exhaustivité ou d’homologation.
