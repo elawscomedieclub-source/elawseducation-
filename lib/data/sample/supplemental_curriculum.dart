@@ -867,4 +867,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_6e_types_3','« Range tes cahiers. » exprime surtout…',['Une question','Une consigne','Une émotion'],1,'Cette phrase donne un ordre ou une consigne : elle est impérative.'),
      SupplementalQuestion('bonus_6e_types_4','Quel signe termine généralement une phrase exclamative ?',['?','!',';'],1,'Le point d’exclamation marque souvent une émotion ou une intensité.')]),
 
+  SupplementalLesson('cinquieme_digestion_absorption_nutriments', SchoolLevel.cinquieme, 'SVT', 'Comprendre la digestion et l’absorption des nutriments',
+    'La digestion transforme les aliments en substances plus simples que l’organisme peut utiliser. Elle commence dans la bouche par la mastication et l’action de la salive. Dans l’estomac et l’intestin grêle, les sucs digestifs poursuivent la transformation. Les nutriments obtenus sont de petites molécules utilisables par le corps.',
+    'Dans l’intestin grêle, les nutriments traversent la paroi intestinale et passent dans le sang : c’est l’absorption intestinale. Le sang les transporte vers les organes. Les aliments ne deviennent pas tous directement des nutriments : la digestion les transforme. Une alimentation variée, de l’eau et une bonne hygiène favorisent la santé.',
+    [SupplementalQuestion('bonus_5e_digestion_1','Quel organe commence la digestion par la mastication ?',['La bouche','Le cœur','Le poumon'],0,'La digestion commence dans la bouche, où les aliments sont mastiqués et mélangés à la salive.'),
+     SupplementalQuestion('bonus_5e_digestion_2','Quel est le rôle principal de la digestion ?',['Transformer les aliments en nutriments','Fabriquer l’air','Faire circuler le sang'],0,'La digestion transforme les aliments en nutriments simples que l’organisme peut utiliser.'),
+     SupplementalQuestion('bonus_5e_digestion_3','Où se fait principalement l’absorption des nutriments ?',['Dans l’intestin grêle','Dans la bouche','Dans la trachée'],0,'La plupart des nutriments traversent la paroi de l’intestin grêle pour rejoindre le sang.'),
+     SupplementalQuestion('bonus_5e_digestion_4','Après leur absorption, les nutriments sont transportés vers les organes par…',['Le sang','Les cheveux','Les os seuls'],0,'Le sang transporte les nutriments absorbés vers les différentes parties du corps.')]),
+
 ];
