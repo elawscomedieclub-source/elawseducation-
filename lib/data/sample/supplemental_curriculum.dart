@@ -772,5 +772,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_meteo_2','Que peut-on utiliser lorsqu’il pleut ?',['Un parapluie','Une paire de lunettes de soleil seulement','Un éventail pour arrêter la pluie'],0,'Un parapluie peut aider à se protéger de la pluie.'),
      SupplementalQuestion('bonus_cp2_meteo_3','Quel temps fait-il quand le soleil brille et que le ciel est dégagé ?',['Pluvieux','Ensoleillé','Venteux'],1,'Quand le soleil brille et que le ciel est dégagé, il fait ensoleillé.'),
      SupplementalQuestion('bonus_cp2_meteo_4','Comment observer la météo en sécurité ?',['Regarder le ciel depuis un endroit sûr','Sortir pendant un orage','Monter sur un toit'],0,'On observe le temps depuis un endroit sûr, sans s’exposer aux dangers.')]),
+  SupplementalLesson('cp2_nombres_pairs_impairs', SchoolLevel.cp2, 'Mathématiques', 'Reconnaître les nombres pairs et impairs',
+    'Un nombre est pair lorsqu’on peut ranger ses objets par deux sans en laisser seul. Un nombre est impair lorsqu’il reste un objet seul après avoir fait des paires. Pour les nombres écrits en chiffres, ceux qui se terminent par 0, 2, 4, 6 ou 8 sont pairs. Ceux qui se terminent par 1, 3, 5, 7 ou 9 sont impairs.',
+    'Exemple : 6 noix peuvent former 3 paires : 6 est pair. Avec 7 noix, on forme 3 paires et il reste 1 noix : 7 est impair. On peut aussi regarder le chiffre des unités.',
+    [SupplementalQuestion('bonus_cp2_pair_1','Le nombre 8 est…',['Pair','Impair','Ni pair ni impair'],0,'8 objets forment 4 paires : 8 est pair.'),
+     SupplementalQuestion('bonus_cp2_pair_2','Quel nombre est impair ?',['12','15','20'],1,'15 se termine par 5 : c’est un nombre impair.'),
+     SupplementalQuestion('bonus_cp2_pair_3','Quel chiffre peut terminer un nombre pair ?',['3','7','6'],2,'Les nombres pairs se terminent par 0, 2, 4, 6 ou 8.'),
+     SupplementalQuestion('bonus_cp2_pair_4','Avec 9 cailloux, après avoir formé des paires, que reste-t-il ?',['Aucun caillou','Un caillou seul','Deux cailloux seuls'],1,'9 cailloux forment 4 paires et il reste 1 caillou : 9 est impair.')]),
 
 ];
