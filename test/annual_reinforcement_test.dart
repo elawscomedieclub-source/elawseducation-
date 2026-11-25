@@ -58,9 +58,9 @@ void main() {
     }
   });
 
-  test('la banque bonus atteint au moins 279 leçons et 872 questions', () {
+  test('la banque bonus atteint au moins 279 leçons et 898 questions', () {
     expect(supplementalLessons.length, greaterThanOrEqualTo(279));
     expect(supplementalLessons.expand((lesson) => lesson.questions).length,
-        greaterThanOrEqualTo(898);
+        greaterThanOrEqualTo(898));
   });
 }
