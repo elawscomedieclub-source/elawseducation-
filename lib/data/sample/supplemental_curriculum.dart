@@ -891,4 +891,13 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_2nde_cellule_3','Quelle structure est caractéristique des cellules végétales, en plus de la membrane ?',['Une paroi','Des poumons','Des os'],0,'Les cellules végétales possèdent généralement une paroi située à l’extérieur de la membrane.'),
      SupplementalQuestion('bonus_2nde_cellule_4','Avec quel instrument observe-t-on des cellules très petites ?',['Un microscope','Un thermomètre','Une balance'],0,'Le microscope permet d’observer des structures trop petites pour être vues à l’œil nu.')]),
 
+
+  SupplementalLesson('premiere_svt_reaction_inflammatoire', SchoolLevel.premiere, 'SVT', 'La réaction inflammatoire, une défense rapide',
+    'Lorsqu’un tissu est blessé ou qu’un micro-organisme pénètre dans le corps, une réaction inflammatoire locale peut se déclencher. Elle fait partie de l’immunité innée : elle est rapide et ne dépend pas d’une reconnaissance préalable précise du microbe. Des cellules sentinelles des tissus, dont certains mastocytes, libèrent des médiateurs chimiques comme l’histamine.',
+    'Ces médiateurs provoquent notamment la dilatation de petits vaisseaux et une augmentation de leur perméabilité. Le sang afflue davantage et des cellules immunitaires, comme les phagocytes, rejoignent la zone. Les signes classiques sont rougeur, chaleur, gonflement et douleur. Schéma fonctionnel : blessure ou microbe → médiateurs chimiques → vaisseaux dilatés et plus perméables → arrivée des phagocytes → phagocytose. La phagocytose consiste à englober puis digérer un élément étranger. Une inflammation persistante ou importante nécessite un avis médical.',
+    [SupplementalQuestion('bonus_1ere_inflammation_1','La réaction inflammatoire appartient principalement à…',['L’immunité innée','La mémoire scolaire','La digestion'],0,'La réaction inflammatoire est une réponse rapide de l’immunité innée.'),
+     SupplementalQuestion('bonus_1ere_inflammation_2','Quel médiateur peut être libéré par les mastocytes ?',['L’histamine','L’insuline uniquement','La chlorophylle'],0,'Les mastocytes peuvent libérer de l’histamine, qui participe aux modifications locales des vaisseaux.'),
+     SupplementalQuestion('bonus_1ere_inflammation_3','Quel signe est classique lors d’une inflammation locale ?',['Rougeur','Disparition immédiate du sang','Baisse obligatoire de la température locale'],0,'La rougeur et la chaleur sont liées notamment à l’afflux sanguin local.'),
+     SupplementalQuestion('bonus_1ere_inflammation_4','La phagocytose consiste à…',['Englober puis digérer un élément étranger','Produire des os','Transporter l’oxygène dans les globules rouges'],0,'Un phagocyte englobe l’élément à éliminer puis le digère.')]),
+
 ];
