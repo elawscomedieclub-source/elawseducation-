@@ -765,5 +765,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_position_2','Le ballon est en dessous de la chaise. Où est-il ?',['Sous la chaise','Sur la chaise','Devant la chaise'],0,'En dessous de la chaise signifie sous la chaise.'),
      SupplementalQuestion('bonus_cp2_position_3','Afi se place à l’avant de la porte. Où se trouve Afi ?',['Derrière la porte','Devant la porte','Sous la porte'],1,'À l’avant du repère, on dit devant.'),
      SupplementalQuestion('bonus_cp2_position_4','Le crayon est au milieu de deux cahiers. Où est le crayon ?',['Entre les cahiers','Sur les cahiers','Derrière les cahiers'],0,'Au milieu de deux objets, le crayon est entre les cahiers.')]),
+  SupplementalLesson('cp2_observer_temps', SchoolLevel.cp2, 'Sciences', 'Observer le temps qu’il fait',
+    'Le temps qu’il fait peut changer d’un jour à l’autre. On peut observer le ciel et décrire le temps : ensoleillé, nuageux, pluvieux ou venteux. La météo aide à choisir des vêtements et à préparer les activités de la journée. Il faut observer sans se mettre en danger.',
+    'Le matin, Afi regarde le ciel depuis la cour avec son enseignant. Le ciel est couvert de nuages : elle dit qu’il fait nuageux. Si la pluie tombe, on peut utiliser un parapluie ou un imperméable avec l’aide d’un adulte.',
+    [SupplementalQuestion('bonus_cp2_meteo_1','Le ciel est rempli de nuages. Comment décrit-on le temps ?',['Nuageux','Ensoleillé','Neigeux'],0,'Quand le ciel est couvert de nuages, on peut dire qu’il est nuageux.'),
+     SupplementalQuestion('bonus_cp2_meteo_2','Que peut-on utiliser lorsqu’il pleut ?',['Un parapluie','Une paire de lunettes de soleil seulement','Un éventail pour arrêter la pluie'],0,'Un parapluie peut aider à se protéger de la pluie.'),
+     SupplementalQuestion('bonus_cp2_meteo_3','Quel temps fait-il quand le soleil brille et que le ciel est dégagé ?',['Pluvieux','Ensoleillé','Venteux'],1,'Quand le soleil brille et que le ciel est dégagé, il fait ensoleillé.'),
+     SupplementalQuestion('bonus_cp2_meteo_4','Comment observer la météo en sécurité ?',['Regarder le ciel depuis un endroit sûr','Sortir pendant un orage','Monter sur un toit'],0,'On observe le temps depuis un endroit sûr, sans s’exposer aux dangers.')]),
 
 ];
