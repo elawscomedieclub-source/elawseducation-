@@ -1672,5 +1672,26 @@ void main() {
     });
 
 
+    test('5e SVT : digestion et absorption des nutriments', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'cinquieme_digestion_absorption_nutriments');
+      expect(lesson.level, SchoolLevel.cinquieme);
+      expect(lesson.subject, 'SVT');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_5e_digestion_1': 'La bouche',
+        'bonus_5e_digestion_2': 'Transformer les aliments en nutriments',
+        'bonus_5e_digestion_3': 'Dans l’intestin grêle',
+        'bonus_5e_digestion_4': 'Le sang',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur la digestion incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
