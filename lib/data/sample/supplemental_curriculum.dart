@@ -828,5 +828,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_term_var_2','Pour f(x)=x²−4x+3, quelle est la dérivée ?',['2x−4','x−4','2x+3'],0,'La dérivée de x² est 2x et celle de −4x est −4 ; la constante 3 a pour dérivée 0.'),
      SupplementalQuestion('bonus_term_var_3','Pour f’(x)=2x−4, où la dérivée s’annule-t-elle ?',['En x=−2','En x=2','En x=4'],1,'2x−4=0 donne 2x=4, donc x=2.'),
      SupplementalQuestion('bonus_term_var_4','Quel est le minimum de f(x)=x²−4x+3 ?',['−1 en x=2','3 en x=0','0 en x=4'],0,'La fonction décroît jusqu’à x=2 puis croît ; f(2)=4−8+3=−1.')]),
+  SupplementalLesson('cm1_reconnaitre_angles', SchoolLevel.cm1, 'Mathématiques', 'Reconnaître les angles droits, aigus et obtus',
+    'Un angle est formé par deux demi-droites qui ont la même origine, appelée sommet. Un angle droit mesure 90°. Un angle aigu est plus petit qu’un angle droit ; un angle obtus est plus grand qu’un angle droit mais plus petit qu’un angle plat (180°). On peut comparer un angle à l’angle droit d’une équerre.',
+    'Exemples : le coin d’une feuille carrée forme un angle droit. L’ouverture d’une paire de ciseaux peu ouverte peut former un angle aigu. Une porte largement ouverte peut former un angle obtus. Pour vérifier, place le sommet et un côté de l’angle contre ceux de l’équerre.',
+    [SupplementalQuestion('bonus_cm1_angle_1','Combien mesure un angle droit ?',['45°','90°','180°'],1,'Un angle droit mesure exactement 90 degrés.'),
+     SupplementalQuestion('bonus_cm1_angle_2','Un angle de 35° est…',['Aigu','Droit','Obtus'],0,'35° est inférieur à 90° : l’angle est aigu.'),
+     SupplementalQuestion('bonus_cm1_angle_3','Un angle de 120° est…',['Aigu','Droit','Obtus'],2,'120° est supérieur à 90° et inférieur à 180° : l’angle est obtus.'),
+     SupplementalQuestion('bonus_cm1_angle_4','Quel outil aide à vérifier un angle droit ?',['Une équerre','Une balance','Un thermomètre'],0,'L’équerre possède un angle droit qui sert de référence pour vérifier un angle.')]),
 
 ];
