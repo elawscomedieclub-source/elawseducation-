@@ -168,6 +168,11 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       );
     }
     if (_lessonIndex >= lessons.length) _lessonIndex = 0;
+    final allQuestionCount = allLevelLessons.fold<int>(0, (sum, item) => sum + item.questions.length);
+    final allCompletedCount = allLevelLessons
+        .expand((item) => item.questions)
+        .where((question) => _completed.contains(question.id))
+        .length;
     final lesson = lessons[_lessonIndex];
     final questionIndex = _selectedQuestionIndex(lesson);
     final question = lesson.questions[questionIndex];
@@ -236,6 +241,24 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                   }),
                 ),
                 const SizedBox(height: 12),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Progression des cours bonus : $allCompletedCount / $allQuestionCount questions',
+                            style: const TextStyle(fontWeight: FontWeight.w800)),
+                        const SizedBox(height: 8),
+                        LinearProgressIndicator(
+                          value: allQuestionCount == 0 ? 0 : allCompletedCount / allQuestionCount,
+                          minHeight: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
                 Text('Choisis une leçon (${lessons.length}/${allLevelLessons.length})', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
                 const SizedBox(height: 8),
                 ...lessons.asMap().entries.map((entry) {
@@ -246,8 +269,12 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       minVerticalPadding: childMode ? 14 : 8,
                       leading: CircleAvatar(radius: childMode ? 25 : 20, child: Icon(entry.value.subject == 'Mathématiques' ? Icons.calculate_rounded : Icons.menu_book_rounded)),
                       title: Text(entry.value.title, style: TextStyle(fontSize: childMode ? 18 : 16, fontWeight: FontWeight.w800)),
-                      subtitle: Text(entry.value.subject),
-                      trailing: selected ? const Icon(Icons.check_circle_rounded) : const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+                      subtitle: Text('${entry.value.subject} • ${entry.value.questions.where((question) => _completed.contains(question.id)).length}/${entry.value.questions.length} exercices'),
+                      trailing: selected
+                          ? const Icon(Icons.radio_button_checked_rounded)
+                          : entry.value.questions.every((question) => _completed.contains(question.id))
+                              ? const Icon(Icons.task_alt_rounded)
+                              : const Icon(Icons.arrow_forward_ios_rounded, size: 16),
                       selected: selected,
                       onTap: () => setState(() {
                         _lessonIndex = entry.key;
