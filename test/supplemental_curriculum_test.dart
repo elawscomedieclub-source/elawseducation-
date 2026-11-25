@@ -1651,5 +1651,26 @@ void main() {
     });
 
 
+    test('6e français : reconnaître les types de phrases', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'sixieme_types_phrases');
+      expect(lesson.level, SchoolLevel.sixieme);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_6e_types_1': 'Où vas-tu ?',
+        'bonus_6e_types_2': 'Déclarative',
+        'bonus_6e_types_3': 'Une consigne',
+        'bonus_6e_types_4': '!',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Type de phrase incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
