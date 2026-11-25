@@ -633,7 +633,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'ce2_problemes_multiplication_soustraction' => const ['5 × 12 = 60', '60 − 18', '= 42 cahiers', 'Multiplie puis enlève'],
       'cm1_multiples_diviseurs' => const ['6 × 4 = 24', '20 ÷ 5 = 4', '24 est multiple de 8'],
       'cm1_mesure_masse' => const ['1 kg = 1 000 g', '2 kg = 2 000 g', 'Balance → mesure la masse'],
-      'cm2_aire_parallelogramme' => const ['A──────B', ' \\    \\', '  D──────C', 'hauteur ⟂ = 3 cm', 'base DC = 8 cm', 'Aire = 8 × 3 = 24 cm²'],
+      'cm2_aire_parallelogramme' => const ['A──────B', ' /    /', '  D──────C', 'hauteur ⟂ = 3 cm', 'base DC = 8 cm', 'Aire = 8 × 3 = 24 cm²'],
       'cm2_electricite_circuit' => const ['PILE (+) → fil → LAMPE', '→ fil → PILE (−)', 'Le circuit forme une boucle fermée'],
       'sixieme_accord_determinant_nom' => const ['UN garçon', 'UNE fille', 'DES élèves', 'Déterminant et nom s’accordent'],
       'sixieme_fraction_unite' => const ['3/3 = 1', '5/5 = 1', 'numérateur = dénominateur'],
