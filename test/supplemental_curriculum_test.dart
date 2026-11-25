@@ -1444,5 +1444,25 @@ void main() {
     });
 
 
+    test('CP2 sciences : distinguer naturel et fabriqué', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'cp2_objets_naturels_fabriques');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Sciences');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_nature_1': 'Une pierre',
+        'bonus_cp2_nature_2': 'Une cuillère',
+        'bonus_cp2_nature_3': 'Le bois est une matière naturelle et la chaise est fabriquée',
+        'bonus_cp2_nature_4': 'Pierre et arbre',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse correcte incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
   });
 }
