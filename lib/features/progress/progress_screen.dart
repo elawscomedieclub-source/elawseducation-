@@ -96,8 +96,17 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
             exercisesBySubject[subject.id] = demoExercises
                 .where((e) => lessonIds.contains(e.lessonId)).map((e) => e.id).toList();
           }
-          final allIds = exercisesBySubject.values.expand((ids) => ids).toSet();
+          final bonusIds = supplementalLessons
+              .where((lesson) => lesson.level == selectedLevel)
+              .expand((lesson) => lesson.questions)
+              .map((question) => question.id)
+              .toSet();
+          final allIds = {
+            ...exercisesBySubject.values.expand((ids) => ids),
+            ...bonusIds,
+          };
           final answered = allIds.where(progress.answeredExerciseIds.contains).length;
+          final bonusAnswered = bonusIds.where(progress.answeredExerciseIds.contains).length;
           final xp = progress.xp;
           final overall = allIds.isEmpty ? 0.0 : answered / allIds.length;
           final average = history.isEmpty ? 0.0 : history.map((r) => r.score).reduce((a, b) => a + b) / history.length;
@@ -272,6 +281,35 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                   ]),
                 );
               }),
+              if (bonusIds.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        const Expanded(
+                          child: Text('Cours bonus',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                        ),
+                        Text('$bonusAnswered/${bonusIds.length}'),
+                      ]),
+                      const SizedBox(height: 7),
+                      LinearProgressIndicator(
+                        value: bonusIds.isEmpty ? 0 : bonusAnswered / bonusIds.length,
+                        minHeight: 9,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '${(bonusAnswered / bonusIds.length * 100).round()} %',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: 10),
               Text(
                 'Sans compte connecté, la progression et les notes restent sur cet appareil. Avec un compte et une connexion disponible, elles peuvent être synchronisées avec Firestore.',
