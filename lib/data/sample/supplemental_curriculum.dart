@@ -821,5 +821,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_ce1_plante_2','Quelle partie de la plante absorbe surtout l’eau du sol ?',['La fleur','Les racines','Le fruit'],1,'Les racines absorbent l’eau et les sels minéraux du sol.'),
      SupplementalQuestion('bonus_ce1_plante_3','Pourquoi une plante a-t-elle besoin de lumière ?',['Pour fabriquer sa nourriture','Pour marcher','Pour faire du bruit'],0,'La lumière fournit l’énergie nécessaire à la fabrication de la nourriture de la plante.'),
      SupplementalQuestion('bonus_ce1_plante_4','Quel geste aide une plante à pousser ?',['L’arroser raisonnablement et la placer à la lumière','La laisser toujours dans le noir','Arracher ses racines'],0,'Une plante a besoin d’eau, mais il ne faut pas la noyer ; elle a aussi besoin de lumière.')]),
+  SupplementalLesson('terminale_variations_derivee', SchoolLevel.terminale, 'Mathématiques', 'Étudier les variations avec la dérivée',
+    'La dérivée permet de connaître le sens de variation d’une fonction sur un intervalle. Si f’(x) est positive sur un intervalle, f est croissante ; si f’(x) est négative, f est décroissante. Pour étudier les variations, on calcule f’, on étudie son signe, puis on déduit les variations de f. Les points où f’(x)=0 peuvent correspondre à un extremum.',
+    'Exemple : f(x)=x²−4x+3. Alors f’(x)=2x−4. Pour x<2, f’(x)<0 : f décroît. Pour x>2, f’(x)>0 : f croît. En x=2, f(2)=−1 ; la fonction atteint donc son minimum −1 en x=2.',
+    [SupplementalQuestion('bonus_term_var_1','Si f’(x)>0 sur un intervalle, f est…',['Décroissante','Croissante','Constante'],1,'Une dérivée positive indique que la fonction est croissante sur cet intervalle.'),
+     SupplementalQuestion('bonus_term_var_2','Pour f(x)=x²−4x+3, quelle est la dérivée ?',['2x−4','x−4','2x+3'],0,'La dérivée de x² est 2x et celle de −4x est −4 ; la constante 3 a pour dérivée 0.'),
+     SupplementalQuestion('bonus_term_var_3','Pour f’(x)=2x−4, où la dérivée s’annule-t-elle ?',['En x=−2','En x=2','En x=4'],1,'2x−4=0 donne 2x=4, donc x=2.'),
+     SupplementalQuestion('bonus_term_var_4','Quel est le minimum de f(x)=x²−4x+3 ?',['−1 en x=2','3 en x=0','0 en x=4'],0,'La fonction décroît jusqu’à x=2 puis croît ; f(2)=4−8+3=−1.')]),
 
 ];
