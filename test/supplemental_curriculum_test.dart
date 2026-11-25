@@ -1630,5 +1630,26 @@ void main() {
     });
 
 
+    test('4e SVT : comprendre la reproduction des plantes à fleurs', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'quatrieme_reproduction_plantes_fleurs');
+      expect(lesson.level, SchoolLevel.quatrieme);
+      expect(lesson.subject, 'SVT');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_4e_plantes_1': 'Les étamines',
+        'bonus_4e_plantes_2': 'Jusqu’au stigmate',
+        'bonus_4e_plantes_3': 'Une graine',
+        'bonus_4e_plantes_4': 'L’ovaire',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur la reproduction des plantes incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
