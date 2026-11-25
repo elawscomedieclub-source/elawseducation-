@@ -1,66 +1,75 @@
-# ProfTogo — contrôle de couverture pédagogique
+# ProfTogo — audit pédagogique et couverture annuelle
 
-## Révision du 25 novembre 2026
+**Mise à jour : 25 novembre 2026**
 
-La banque de cours bonus contient **253 leçons et 820 questions**. La révision actuelle a ajouté 27 leçons de renforcement (81 questions), chacune avec trois exercices corrigés et un test de réponse attendu.
+## État quantitatif vérifié
 
-### Répartition des leçons bonus par niveau
+- Base principale : **165 matières, 280 chapitres, 793 leçons et 2 328 exercices** (chiffres indiqués par la documentation actuelle du projet).
+- Banque bonus : **279 leçons et 872 questions**, réparties sur les 13 niveaux.
+- Les bonus comprennent 53 leçons de renforcement ajoutées lors des révisions récentes : 27 leçons avec 3 questions et 26 leçons avec 2 questions.
+- Tests dédiés : identifiants, présence des niveaux, choix distincts, explications, réponses attendues des leçons ajoutées et seuils de volume.
 
-| Niveau | Leçons bonus |
-|---|---:|
-| CP1 | 35 |
-| CP2 | 35 |
-| CE1 | 16 |
-| CE2 | 38 |
-| CM1 | 15 |
-| CM2 | 14 |
-| 6e | 14 |
-| 5e | 14 |
-| 4e | 15 |
-| 3e | 14 |
-| 2nde | 14 |
-| 1ère | 14 |
-| Terminale | 15 |
+## Répartition actuelle de la banque bonus
 
-Les compléments bonus sont accessibles dans l’espace de cours. Ils sont distincts du parcours principal et ne remplacent pas une progression annuelle officielle.
+| Niveau | Leçons bonus | Questions bonus |
+|---|---:|---:|
+| CP1 | 37 | 114 |
+| CP2 | 37 | 114 |
+| CE1 | 18 | 56 |
+| CE2 | 40 | 122 |
+| CM1 | 17 | 53 |
+| CM2 | 16 | 50 |
+| 6e | 16 | 50 |
+| 5e | 16 | 50 |
+| 4e | 17 | 53 |
+| 3e | 16 | 50 |
+| 2nde | 16 | 50 |
+| 1ère | 16 | 50 |
+| Terminale | 17 | 50 |
+| **Total** | **279** | **872** |
 
-## Compléments ajoutés pendant cette révision
+Les nombres de questions sont calculés à partir des leçons du dépôt et peuvent différer d’une question de certains rapports historiques si ceux-ci comptaient les éléments de façon différente. Les tests Flutter restent la source de validation technique.
 
-- **CP1 :** raconter une histoire, repérer les positions.
-- **CP2 :** mesurer une longueur, lire et exécuter une consigne.
-- **CE1 :** partager en parts égales, besoins d’une plante.
-- **CE2 :** situer le Togo et ses voisins, accord sujet-verbe.
-- **CM1 :** division avec reste, régions du Togo, alimentation équilibrée.
-- **CM2 :** opérations décimales, droits et devoirs de l’élève.
-- **6e :** civilisations anciennes et fleuves, angles et rapporteur.
-- **5e :** météo et climat, système respiratoire.
-- **4e :** transformation chimique, distributivité.
-- **3e :** indépendance du Togo, puissance et énergie électrique.
-- **2nde :** densité de population, vitesse moyenne.
-- **1ère :** paragraphe argumentatif, système nerveux.
-- **Terminale :** probabilité conditionnelle, introduction de dissertation philosophique.
+## Compléments récents
 
-## Contrôles automatiques
+Les 26 dernières leçons couvrent notamment :
+- graphisme des lettres et comparaison de nombres au CP1 ;
+- phrase simple et dizaines-unités au CP2 ;
+- synonymes, saisons, eau et sécurité routière au CE1-CE2 ;
+- lettre personnelle, fractions, histoire et aire au CM1-CM2 ;
+- grammaire, fonctions du corps, citoyenneté et circuits électriques au collège ;
+- ressources économiques, reproduction des plantes, Pythagore, argumentation ;
+- atomes et molécules, analyse du récit, fonctions affines, histoire des échanges atlantiques ;
+- fréquence des ondes et synthèse de documents en Terminale.
 
-Le test `test/annual_reinforcement_test.dart` vérifie :
-1. la présence de chacune des 27 nouvelles leçons ;
-2. les trois réponses correctes attendues par leçon ;
-3. les choix distincts et les explications ;
-4. la présence de renforcement dans chacun des 13 niveaux ;
-5. le seuil global d’au moins 253 leçons et 820 questions bonus.
+## Vérification du programme officiel : méthode à poursuivre
 
-## Ce qui reste à vérifier avant de déclarer le programme annuel exhaustif
+La banque de cours ne suffit pas à prouver que le programme annuel officiel est complet. Il faut contrôler, pour chaque niveau et chaque matière :
 
-- Comparer chaque chapitre de la base principale aux programmes et progressions officiels en vigueur.
-- Affecter chaque chapitre et chaque leçon au trimestre réel (T1, T2, T3) et contrôler les prérequis.
-- Contrôler séparément chaque série et filière : A4, C, D, G1, G2, G3, E, F1, F2, F3, F4 et Ti/1.
-- Ajouter les chapitres professionnels propres aux séries techniques, sans les remplacer par des cours généraux.
-- Faire relire les cours, schémas, barèmes et sujets d’examen par des enseignants togolais.
+1. les compétences et contenus prescrits ;
+2. la progression et les prérequis ;
+3. l’affectation au trimestre réel (T1, T2, T3) ;
+4. les cours, exemples, schémas, travaux pratiques et évaluations ;
+5. la correspondance avec les manuels et documents officiels en vigueur ;
+6. la validation par un enseignant de la discipline.
 
-## Références de travail
+### Points de vigilance spécifiques
 
-- Ministère de l’Éducation nationale du Togo, **Programme allégé et actualisé du collège** : https://education.gouv.tg/programme-allege-et-actualise-du-college/
-- Portail officiel des cours du collège : https://ecole.gouv.tg/college/course/index.php?lang=fr
-- Catalogue officiel des ressources éducatives du Togo : https://nusrope.education.gouv.tg/opac_css/index.php
+- Le catalogue national des ressources éducatives distingue le primaire, le secondaire 1, le secondaire 2 et le secondaire technique/professionnel.
+- Les parcours du lycée général et les séries techniques doivent être contrôlés séparément. Les bonus actuels sont des compléments communs : ils ne remplacent pas les contenus propres aux séries G1/G2/G3, E, F1/F2/F3/F4 et Ti/1.
+- Le ministère a annoncé de nouveaux programmes d’EPS applicables à partir de la rentrée 2025–2026. Les cours d’EPS de l’application doivent être rapprochés de ces documents.
+- Le collège comprend des thématiques transversales (citoyenneté, compétences de vie, climat, TIC, énergie, prévention et santé) à relier explicitement aux chapitres.
+- L’application n’affecte pas encore toutes les leçons à un trimestre ; le filtre trimestriel des compositions reste à développer et vérifier.
 
-Le ministère précise que les programmes du collège intègrent notamment des compétences de vie, des valeurs citoyennes, la climatologie, les TIC, les énergies renouvelables, la prévention des violences et des questions de santé. Les compléments de ProfTogo renforcent certains de ces thèmes, mais la validation de l’exhaustivité et de l’homologation exige encore une comparaison chapitre par chapitre et une relecture pédagogique.
+## Sources de référence
+
+- Ministère de l’Éducation nationale : [documentation officielle](https://education.gouv.tg/ministere/documentation)
+- [Programme allégé et actualisé du collège](https://education.gouv.tg/programme-allege-et-actualise-du-college/)
+- [Catalogue national des ressources éducatives (NUSROPE)](https://nusrope.education.gouv.tg/opac_css/index.php)
+- [Cours du primaire – portail officiel](https://ecole.gouv.tg/primaire/course/index.php?categoryid=8&lang=fr)
+- [Nouveaux programmes d’EPS (rentrée 2025–2026)](https://education.gouv.tg/meps-reforme-educative-de-nouveaux-programmes-deps-entrent-en-vigueur-au-togo/)
+- [Ressource officielle sur les offres de l’enseignement technique](https://education.gouv.tg/wp-content/uploads/2023/10/lien_9_1_1.pdf)
+
+## Conclusion
+
+ProfTogo dispose d’une base principale substantielle et d’une banque bonus renforcée. La finalisation pédagogique exige encore un relevé officiel chapitre par chapitre, une progression trimestrielle et une relecture de chaque matière/série. Ne pas annoncer l’application comme « programme annuel intégralement homologué » avant cette vérification.
