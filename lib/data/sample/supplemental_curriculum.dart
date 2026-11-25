@@ -751,4 +751,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_compare_3','Quel signe convient : 61 … 61 ?',['<','>','='],2,'Les deux nombres sont égaux : on écrit =.'),
      SupplementalQuestion('bonus_cp2_compare_4','Quel nombre est le plus petit ?',['70','67','76'],1,'67 est plus petit que 70 et 76.')]),
 
+  SupplementalLesson('cp2_proteger_dents', SchoolLevel.cp2, 'Sciences', 'Prendre soin de ses dents',
+    'Les dents servent à couper et à mâcher les aliments. Pour les garder propres, on se brosse les dents chaque jour avec une brosse adaptée. On limite les grignotages sucrés et on demande l’aide d’un adulte si une dent fait mal.',
+    'Le brossage aide à retirer les restes d’aliments et la plaque qui se forme sur les dents. Il faut brosser doucement toutes les faces des dents et ne pas partager sa brosse à dents.',
+    [SupplementalQuestion('bonus_cp2_dents_1','À quoi servent les dents ?',['À mâcher les aliments','À entendre les sons','À respirer'],0,'Les dents servent notamment à couper et mâcher les aliments.'),
+     SupplementalQuestion('bonus_cp2_dents_2','Quel geste aide à garder les dents propres ?',['Les brosser chaque jour','Les laver avec du sable','Ne jamais les nettoyer'],0,'Le brossage régulier aide à garder les dents propres.'),
+     SupplementalQuestion('bonus_cp2_dents_3','Que faut-il faire si une dent fait mal ?',['Le dire à un adulte','Cacher la douleur','Mordre un objet dur'],0,'Il faut prévenir un adulte pour obtenir de l’aide appropriée.'),
+     SupplementalQuestion('bonus_cp2_dents_4','Pourquoi limiter les grignotages sucrés ?',['Ils peuvent favoriser les caries','Ils rendent les dents plus longues','Ils remplacent le brossage'],0,'Les prises fréquentes d’aliments sucrés peuvent favoriser les caries.')]),
+
 ];
