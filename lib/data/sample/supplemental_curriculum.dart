@@ -883,4 +883,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_3e_ph_3','Une solution de pH 10 est…',['Acide','Neutre','Basique'],2,'Un pH supérieur à 7 caractérise une solution basique.'),
      SupplementalQuestion('bonus_3e_ph_4','Quel instrument mesure précisément le pH ?',['Un pH-mètre','Une balance','Un chronomètre'],0,'Le pH-mètre permet de mesurer le pH d’une solution.')]),
 
+  SupplementalLesson('seconde_cellule_unite_vivant', SchoolLevel.seconde, 'SVT', 'La cellule, unité de base du vivant',
+    'Tous les êtres vivants sont constitués d’une ou plusieurs cellules. Une cellule est délimitée par une membrane et contient du cytoplasme. De nombreuses cellules possèdent un noyau qui contient l’information génétique. Les cellules sont très petites et peuvent être observées au microscope.',
+    'Les cellules végétales possèdent généralement une paroi autour de la membrane. Les cellules chlorophylliennes des plantes contiennent aussi des chloroplastes, où se déroule la photosynthèse. Pour observer une cellule, on prépare une lame, on la place sur la platine du microscope et on commence avec le plus faible grossissement.',
+    [SupplementalQuestion('bonus_2nde_cellule_1','Quelle structure délimite la cellule ?',['La membrane','Le noyau seul','Le chloroplaste'],0,'La membrane plasmique délimite la cellule et contrôle les échanges avec son milieu.'),
+     SupplementalQuestion('bonus_2nde_cellule_2','Dans de nombreuses cellules, où se trouve l’information génétique principale ?',['Dans le noyau','Dans la membrane','Dans la paroi'],0,'Le noyau contient l’essentiel de l’information génétique des cellules eucaryotes.'),
+     SupplementalQuestion('bonus_2nde_cellule_3','Quelle structure est caractéristique des cellules végétales, en plus de la membrane ?',['Une paroi','Des poumons','Des os'],0,'Les cellules végétales possèdent généralement une paroi située à l’extérieur de la membrane.'),
+     SupplementalQuestion('bonus_2nde_cellule_4','Avec quel instrument observe-t-on des cellules très petites ?',['Un microscope','Un thermomètre','Une balance'],0,'Le microscope permet d’observer des structures trop petites pour être vues à l’œil nu.')]),
+
 ];
