@@ -1887,5 +1887,73 @@ void main() {
       }
     });
 
+    test('4e physique-chimie : atomes, molécules et ions', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'quatrieme_atomes_molecules');
+      expect(lesson.level, SchoolLevel.quatrieme);
+      expect(lesson.subject, 'Physique-Chimie');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_4e_atom_1': 'Un assemblage d’atomes liés',
+        'bonus_4e_atom_2': '2',
+        'bonus_4e_atom_3': 'Na⁺',
+        'bonus_4e_atom_4': 'Neutre',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('6e géographie : échelle d’un plan ou d’une carte', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'sixieme_echelle_plan_carte');
+      expect(lesson.level, SchoolLevel.sixieme);
+      expect(lesson.subject, 'Géographie');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_6e_echelle_1': '1 km',
+        'bonus_6e_echelle_2': '1 km',
+        'bonus_6e_echelle_3': 'Multiplier la distance de la carte par le dénominateur de l’échelle',
+        'bonus_6e_echelle_4': 'Mettre les unités en cohérence',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('1ère mathématiques : équation d’une tangente', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'premiere_tangente_derivee');
+      expect(lesson.level, SchoolLevel.premiere);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_1ere_tangente_1': 'f′(a)',
+        'bonus_1ere_tangente_2': 'y = f′(a)(x − a) + f(a)',
+        'bonus_1ere_tangente_3': '2x',
+        'bonus_1ere_tangente_4': '4',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('Terminale mathématiques : logarithme népérien', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'terminale_logarithme_neperien');
+      expect(lesson.level, SchoolLevel.terminale);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_terminale_ln_1': 'x > 0',
+        'bonus_terminale_ln_2': '1',
+        'bonus_terminale_ln_3': 'ln x + ln y',
+        'bonus_terminale_ln_4': 'ln(x + y) = ln x + ln y',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
   });
 }
