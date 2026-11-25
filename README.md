@@ -34,6 +34,7 @@ Ces compléments sont des exercices de consolidation. Ils ne remplacent pas enco
 ## Audit de couverture et limites
 
 - [Matrice détaillée de contrôle annuel, par niveau et série](CURRICULUM_COVERAGE_MATRIX.md)
+- [Calendrier scolaire et examens 2026–2027](ANNEE_SCOLAIRE_2026_2027.md)
 - [Rapport de révision et sources officielles](CURRICULUM_REVIEW.md)
 
 - La dernière extension a ajouté 26 leçons complémentaires (52 questions) aux 27 leçons de renforcement précédentes. La banque bonus totalise 279 leçons et 872 questions, avec tests des corrigés.
