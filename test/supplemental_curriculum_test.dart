@@ -1364,5 +1364,25 @@ void main() {
       }
     });
 
+    test('le cours CP2 utilise les mots de position dans l’espace correctement', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_mots_position_espace');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_position_1': 'Sur la table',
+        'bonus_cp2_position_2': 'Sous la chaise',
+        'bonus_cp2_position_3': 'Devant la porte',
+        'bonus_cp2_position_4': 'Entre les cahiers',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Mot de position incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
