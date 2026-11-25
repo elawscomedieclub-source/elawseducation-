@@ -1693,5 +1693,26 @@ void main() {
     });
 
 
+    test('3e physique-chimie : classer les solutions selon leur pH', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'troisieme_echelle_ph');
+      expect(lesson.level, SchoolLevel.troisieme);
+      expect(lesson.subject, 'Physique-Chimie');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_3e_ph_1': 'Acide',
+        'bonus_3e_ph_2': '7',
+        'bonus_3e_ph_3': 'Basique',
+        'bonus_3e_ph_4': 'Un pH-mètre',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Réponse sur le pH incorrecte dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
