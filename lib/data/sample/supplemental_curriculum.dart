@@ -918,4 +918,13 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_4e_coi_3','Dans « Elle se souvient de son enfance », le COI est…',['Elle','se souvient','de son enfance'],2,'Elle se souvient de quoi ? « de son enfance » est le COI.'),
      SupplementalQuestion('bonus_4e_coi_4','Dans « Il lui écrit », le pronom « lui » remplace ici…',['Un COI','Un COD toujours','Le sujet'],0,'« Lui » remplace le complément indirect : il écrit à qui ? à cette personne.')]),
 
+
+  SupplementalLesson('troisieme_proposition_subordonnee_relative', SchoolLevel.troisieme, 'Français', 'Reconnaître la proposition subordonnée relative',
+    'Une proposition subordonnée relative complète généralement un nom ou un pronom appelé antécédent. Elle est introduite par un pronom relatif : qui, que, dont, où, lequel et ses formes. Exemple : « Le livre que tu lis est intéressant. » La relative « que tu lis » précise le nom « livre ». Elle contient un verbe conjugué et dépend de la proposition principale.',
+    'Pour analyser la phrase, repère le verbe de la relative, le pronom relatif et son antécédent. « La fille qui chante est ma sœur » : antécédent = « la fille » ; pronom relatif = « qui » ; relative = « qui chante ». « Qui » est sujet du verbe « chante ». « Le film que nous regardons » : « que » est COD de « regardons ». Schéma : nom antécédent + pronom relatif + proposition relative.',
+    [SupplementalQuestion('bonus_3e_relative_1','Dans « Le garçon qui court est rapide », quelle est la relative ?',['Le garçon','qui court','est rapide'],1,'La proposition relative commence par le pronom relatif « qui » et précise « le garçon ».'),
+     SupplementalQuestion('bonus_3e_relative_2','Quel mot est le pronom relatif dans « le livre que je lis » ?',['livre','que','lis'],1,'« Que » introduit la proposition relative « que je lis ».'),
+     SupplementalQuestion('bonus_3e_relative_3','Dans « La maison où je vis », quel est l’antécédent de « où » ?',['La maison','je','vis'],0,'« Où » reprend le nom « la maison », qui est son antécédent.'),
+     SupplementalQuestion('bonus_3e_relative_4','Une proposition relative contient généralement…',['Un verbe conjugué','Aucun verbe','Seulement un adjectif'],0,'La proposition relative est une proposition subordonnée et comporte un verbe conjugué.')]),
+
 ];
