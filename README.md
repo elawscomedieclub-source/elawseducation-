@@ -25,6 +25,20 @@ La base contient **165 matières, 280 chapitres, 793 leçons et 2 328 exercices*
 
 Ces ressources sont une base pédagogique de travail. Elles doivent être comparées aux programmes officiels en vigueur au Togo et relues par des enseignants avant d’être considérées comme exhaustives ou homologuées. La présence d’un niveau et d’un grand nombre d’exercices ne garantit pas à elle seule la couverture complète de chaque trimestre ou de chaque épreuve nationale.
 
+## Compléments pédagogiques ajoutés
+
+La banque de cours bonus contient maintenant **200 leçons et 661 questions** sur les 13 niveaux. Les 23 dernières leçons renforcent notamment les mathématiques, le français, les sciences, l’anglais et la philosophie au collège et au lycée. La couverture bonus est testée automatiquement : chaque niveau possède au moins 10 leçons, les identifiants sont contrôlés, les choix doivent être distincts et les réponses des nouvelles leçons sont vérifiées par tests.
+
+Ces compléments sont des exercices de consolidation. Ils ne remplacent pas encore la vérification complète des programmes officiels, l’affectation de chaque cours au trimestre, ni la validation par des enseignants togolais.
+
+## Priorités de finalisation
+
+1. **Organiser le programme par trimestre** (T1, T2, T3) et filtrer les compositions sur le trimestre réellement étudié.
+2. **Vérifier les progressions et contenus officiels** pour chaque niveau, matière et série, avec relecture pédagogique.
+3. **Compléter les séries techniques et les sujets d’examen**, en particulier les matières professionnelles et les exercices avec barème.
+4. **Finaliser l’espace enseignant** : classes, devoirs, correction et suivi des résultats.
+5. **Tester les parcours réels sur téléphone Android**, y compris l’accès hors connexion, la sauvegarde et la publication de la version Web/APK.
+
 ## Points de vigilance connus
 
 - Les données de progression et les productions APC sont conservées localement. La progression, le profil et les évaluations peuvent aussi être synchronisés avec Firestore lorsqu’un élève est connecté et que le service est accessible. La synchronisation dépend de la configuration Firebase et de la connexion.
