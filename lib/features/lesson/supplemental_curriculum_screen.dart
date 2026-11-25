@@ -115,11 +115,16 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
     }
     try {
       await ProgressService.recordAnswer(exerciseId: question.id, isCorrect: true);
-      await ProgressService.recordAttempt(
-        exerciseId: question.id,
-        lessonId: lessonId,
-        isCorrect: true,
-      );
+      if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
+      try {
+        await ProgressService.recordAttempt(
+          exerciseId: question.id,
+          lessonId: lessonId,
+          isCorrect: true,
+        );
+      } catch (_) {
+        // L'historique est secondaire : une bonne réponse validée doit rester acquise.
+      }
       if (!mounted || FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _completed.add(question.id);
@@ -150,7 +155,11 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       final matchesSearch = query.isEmpty ||
           item.title.toLowerCase().contains(query) ||
           item.subject.toLowerCase().contains(query) ||
-          item.explanation.toLowerCase().contains(query);
+          item.explanation.toLowerCase().contains(query) ||
+          item.example.toLowerCase().contains(query) ||
+          item.questions.any((question) =>
+              question.prompt.toLowerCase().contains(query) ||
+              question.choices.any((choice) => choice.toLowerCase().contains(query)));
       return matchesSubject && matchesSearch;
     }).toList();
     if (allLevelLessons.isEmpty) {
