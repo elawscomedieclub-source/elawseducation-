@@ -1424,5 +1424,25 @@ void main() {
     });
 
 
+    test('le cours CP2 accorde les adjectifs simples avec le nom', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cp2_accord_adjectif_simple');
+      expect(lesson.level, SchoolLevel.cp2);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_cp2_adj_1': 'petite',
+        'bonus_cp2_adj_2': 'lourds',
+        'bonus_cp2_adj_3': 'une robe rouge',
+        'bonus_cp2_adj_4': 'grandes',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Accord de l’adjectif incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
