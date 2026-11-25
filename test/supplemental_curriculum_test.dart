@@ -2006,5 +2006,55 @@ void main() {
       }
     });
 
+
+    test('renforcement ciblé : 23 nouvelles leçons et réponses vérifiées', () {
+      const expectedAnswers = <String, List<String>>{
+      cm1_multiples_diviseurs: ['6', '5', '24'],
+      cm1_mesure_masse: ['1 000 g', '1 kg', 'Une balance'],
+      cm2_aire_parallelogramme: ['base × hauteur', '20 cm²', 'perpendiculaire à la base'],
+      cm2_electricite_circuit: ['Circuit fermé', 'La pile', 'ouvert'],
+      sixieme_accord_determinant_nom: ['les arbres', 'une', 'ces'],
+      sixieme_fraction_unite: ['1', '7/7', 'une unité'],
+      cinquieme_energie_renouvelable: ['Le soleil', 'le vent', 'non renouvelable'],
+      cinquieme_adverbe: ['vite', 'hier', 'un adjectif ou un adverbe'],
+      quatrieme_puissance_dix: ['100', '10 000', '10⁻²'],
+      quatrieme_reproduction_plantes: ['les étamines', 'une graine', 'du pollen'],
+      troisieme_statistiques_etendue: ['6', 'max − min', '10'],
+      troisieme_energie_electrique: ['300 Wh', '1 000 Wh', 'P par t'],
+      seconde_vecteurs_coordonnees: ['(3;3)', 'B − A', '(-2;3)'],
+      seconde_chaines_alimentaires: ['le transfert vers le consommateur', 'une plante verte', 'l’herbe'],
+      seconde_anglais_present_simple: ['goes', 'une habitude', 'speak'],
+      premiere_derivation_produit: ['u’v + uv’', '3x²', '2x+1'],
+      premiere_suite_geometrique: ['uₙ₊₁ = q × uₙ', '12', '2'],
+      premiere_probabilite_independante: ['P(A∩B)=P(A)P(B)', '0,1', 'A ne change pas la probabilité de B'],
+      premiere_lecture_graphique_derivative: ['croissante', 'décroissante', 'constante'],
+      terminale_integrale_primitive: ['F’=f', 'x³', '2'],
+      terminale_loi_binomiale: ['les succès de n essais indépendants', 'deux issues possibles', 'np'],
+      terminale_complexes_module: ['5', '√(a²+b²)', 'positif ou nul'],
+      terminale_philosophie_argumentation: ['une problématique claire', 'justifié et expliqué', 'examiner une limite ou un point de vue contraire'],
+      };
+      for (final entry in expectedAnswers.entries) {
+        final lesson = supplementalLessons.firstWhere((item) => item.id == entry.key);
+        expect(lesson.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.explanation.trim(), isNotEmpty);
+        expect(lesson.example.trim(), isNotEmpty);
+        for (var i = 0; i < lesson.questions.length; i++) {
+          final question = lesson.questions[i];
+          expect(question.choices[question.correctIndex], entry.value[i],
+              reason: 'Réponse attendue incorrecte : ${question.id}');
+          expect(question.choices.map((x) => x.trim().toLowerCase()).toSet(),
+              hasLength(question.choices.length), reason: question.id);
+          expect(question.explanation.trim(), isNotEmpty, reason: question.id);
+        }
+      }
+    });
+
+    test('chaque niveau dispose désormais d’au moins dix leçons bonus', () {
+      for (final level in SchoolLevel.values) {
+        final count = supplementalLessons.where((lesson) => lesson.level == level).length;
+        expect(count, greaterThanOrEqualTo(10),
+            reason: 'Couverture bonus insuffisante pour ${level.label}');
+      }
+    });
   });
 }
