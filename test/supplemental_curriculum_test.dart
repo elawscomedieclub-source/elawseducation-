@@ -1819,5 +1819,73 @@ void main() {
     });
 
 
+    test('CM1 mathématiques : multiplier par 10, 100 ou 1 000', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cm1_multiplication_10_100');
+      expect(lesson.level, SchoolLevel.cm1);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_cm1_mult10_1': '260',
+        'bonus_cm1_mult10_2': '4 500',
+        'bonus_cm1_mult10_3': '7 000',
+        'bonus_cm1_mult10_4': '32 × 100',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('6e géographie : continents et océans', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'sixieme_continents_oceans');
+      expect(lesson.level, SchoolLevel.sixieme);
+      expect(lesson.subject, 'Géographie');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_6e_continents_1': 'Afrique',
+        'bonus_6e_continents_2': 'Océan Atlantique',
+        'bonus_6e_continents_3': 'Pacifique',
+        'bonus_6e_continents_4': 'Antarctique',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('5e géographie : distinguer météo et climat', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'cinquieme_climats_zones');
+      expect(lesson.level, SchoolLevel.cinquieme);
+      expect(lesson.subject, 'Géographie');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_5e_climat_1': 'Le temps à court terme',
+        'bonus_5e_climat_2': 'Sur une longue période',
+        'bonus_5e_climat_3': 'La température',
+        'bonus_5e_climat_4': 'Des périodes pluvieuses et sèches',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
+    test('2nde mathématiques : fonction affine', () {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == 'seconde_fonction_affine');
+      expect(lesson.level, SchoolLevel.seconde);
+      expect(lesson.subject, 'Mathématiques');
+      expect(lesson.questions, hasLength(4));
+      const answers = <String, String>{
+        'bonus_2nde_affine_1': '4',
+        'bonus_2nde_affine_2': '5',
+        'bonus_2nde_affine_3': 'Une droite',
+        'bonus_2nde_affine_4': 'x = 3',
+      };
+      for (final q in lesson.questions) {
+        expect(q.choices[q.correctIndex], answers[q.id], reason: 'Réponse incorrecte : ${q.id}');
+        expect(q.choices.toSet(), hasLength(q.choices.length));
+      }
+    });
+
   });
 }
