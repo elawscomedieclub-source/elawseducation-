@@ -178,7 +178,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(lesson.title, style: TextStyle(fontSize: childMode ? 23 : 20, fontWeight: FontWeight.w800)),
-                        if (_hasVisualForLesson(lesson))
+                        if (_hasVisualForLesson(lesson)) ...[
                           const SizedBox(height: 14),
                           _lessonVisual(lesson),
                           const SizedBox(height: 14),
@@ -660,7 +660,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       'cinquieme_energie_renouvelable' => 'IDENTIFIE LES SOURCES D’ÉNERGIE RENOUVELABLES',
       'cinquieme_adverbe' => 'REPÈRE L’ADVERBE DANS LA PHRASE',
       'quatrieme_puissance_dix' => 'ÉCRIS ET CALCULE LES PUISSANCES DE DIX',
-      'quatrieme_reproduction_plantes' => 'SUIVIS LES ÉTAPES DE LA REPRODUCTION DES PLANTES À FLEURS',
+      'quatrieme_reproduction_plantes' => 'SUIS LES ÉTAPES DE LA REPRODUCTION DES PLANTES À FLEURS',
       'troisieme_statistiques_etendue' => 'CALCULE L’ÉTENDUE ENTRE LE MINIMUM ET LE MAXIMUM',
       'troisieme_energie_electrique' => 'CALCULE L’ÉNERGIE AVEC E = P × T',
       'seconde_vecteurs_coordonnees' => 'CALCULE LES COORDONNÉES DU VECTEUR AB',
