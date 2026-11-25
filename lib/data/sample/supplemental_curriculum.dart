@@ -1485,7 +1485,7 @@ const supplementalLessons = <SupplementalLesson>[
   SupplementalLesson("cp2_renforcement_annuel_plus_3", SchoolLevel.cp2, "Français", "Construire une phrase simple",
     "Une phrase exprime une idée. Elle commence par une majuscule et se termine par un point, un point d’interrogation ou un point d’exclamation.",
     "Ama joue. Le garçon lit.",
-    [SupplementalQuestion("extra_cp2_renforcement_annuel_plus_3_q1", "Quelle phrase est correctement écrite ?", ["ama joue", "Ama joue.", "Ama joue"], 1, "Une phrase commence par une majuscule et se termine par un signe."),
+    [SupplementalQuestion("extra_cp2_renforcement_annuel_plus_3_q1", "Quelle phrase est correctement écrite ?", ["ama joue", "Ama joue.", "Ama joue!"], 1, "Une phrase commence par une majuscule et se termine par un signe."),
       SupplementalQuestion("extra_cp2_renforcement_annuel_plus_3_q2", "Quel signe termine une question ?", ["?", "!", ";"], 0, "Le point d’interrogation marque une question.")]),
   SupplementalLesson("cp2_renforcement_annuel_plus_4", SchoolLevel.cp2, "Mathématiques", "Comprendre dizaines et unités",
     "Dix unités forment une dizaine. Dans 34, il y a 3 dizaines et 4 unités.",
