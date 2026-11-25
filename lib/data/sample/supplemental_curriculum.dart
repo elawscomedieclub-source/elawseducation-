@@ -807,5 +807,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp1_domwild_2','Lequel est un animal sauvage ?',['La poule de la ferme','Le lion','Le chien de la maison'],1,'Le lion vit à l’état sauvage et n’est pas un animal de ferme.'),
      SupplementalQuestion('bonus_cp1_domwild_3','Qui peut nourrir les animaux domestiques de la ferme ?',['Un éleveur','Un rocher','Une feuille'],0,'L’éleveur s’occupe des animaux et leur donne les soins nécessaires.'),
      SupplementalQuestion('bonus_cp1_domwild_4','Que faire si l’on rencontre un animal inconnu ?',['Le toucher tout de suite','Le poursuivre','Rester à distance et prévenir un adulte'],2,'On garde ses distances et on demande l’aide d’un adulte pour éviter les morsures ou les griffures.')]),
+  SupplementalLesson('ce1_determinants_articles', SchoolLevel.ce1, 'Français', 'Utiliser les déterminants simples',
+    'Le déterminant se place généralement devant le nom. Il aide à préciser le nom et s’accorde avec lui en genre et en nombre. On peut utiliser les articles définis le, la, les ou les articles indéfinis un, une, des.',
+    'Exemples : le livre, la trousse, les cahiers ; un ballon, une orange, des crayons. « Le » accompagne un nom masculin singulier, « la » un nom féminin singulier et « les » un nom pluriel.',
+    [SupplementalQuestion('bonus_ce1_det_1','Complète : « ___ livre »',['La','Le','Les'],1,'Livre est masculin singulier : on écrit « le livre ».'),
+     SupplementalQuestion('bonus_ce1_det_2','Complète : « ___ trousse »',['Un','Une','Des'],1,'Trousse est féminin singulier : on écrit « une trousse ».'),
+     SupplementalQuestion('bonus_ce1_det_3','Quel déterminant convient à « cahiers » ?',['Le','La','Les'],2,'Cahiers est au pluriel : on utilise « les ».'),
+     SupplementalQuestion('bonus_ce1_det_4','Quel groupe est correctement écrit ?',['un orange','une orange','des orange'],1,'Orange est ici un nom féminin singulier : « une orange ».')]),
 
 ];
