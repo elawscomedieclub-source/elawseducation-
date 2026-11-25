@@ -15,7 +15,7 @@ Application éducative destinée aux élèves au Togo, du CP1 à la Terminale.
 - Exercices interactifs, corrections expliquées, reprise après erreur et points XP.
 - Compositions d’entraînement par matière ou en mode mélangé, avec historique des notes.
 - Missions APC avec sauvegarde de la production de l’élève sur son appareil.
-- Suivi de la progression par niveau, matière et leçon, avec actualisation.
+- Suivi de la progression par niveau, matière et leçon, avec actualisation. Les cours bonus sont inclus dans le total de progression de l’accueil et de l’espace de suivi.
 - Profil élève, choix de classe/parcours/série, photo, compte et thème clair/sombre.
 - Lecture vocale des cours et recherche par texte ou microphone lorsque l’appareil prend en charge les services vocaux.
 
