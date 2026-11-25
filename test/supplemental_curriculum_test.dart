@@ -1504,5 +1504,26 @@ void main() {
       }
     });
 
+    test('CE1 français : utiliser les déterminants simples', () {
+      final lesson = supplementalLessons.firstWhere(
+          (item) => item.id == 'ce1_determinants_articles');
+      expect(lesson.level, SchoolLevel.ce1);
+      expect(lesson.subject, 'Français');
+      expect(lesson.questions, hasLength(4));
+      const expectedAnswers = <String, String>{
+        'bonus_ce1_det_1': 'Le',
+        'bonus_ce1_det_2': 'Une',
+        'bonus_ce1_det_3': 'Les',
+        'bonus_ce1_det_4': 'une orange',
+      };
+      for (final question in lesson.questions) {
+        expect(question.choices[question.correctIndex], expectedAnswers[question.id],
+            reason: 'Déterminant incorrect dans ${question.id}');
+        expect(question.choices.toSet(), hasLength(question.choices.length),
+            reason: 'Choix dupliqué dans ${question.id}');
+      }
+    });
+
+
   });
 }
