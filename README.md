@@ -27,7 +27,7 @@ Ces ressources sont une base pédagogique de travail. Elles doivent être compar
 
 ## Compléments pédagogiques ajoutés
 
-La banque de cours bonus contient maintenant **213 leçons et 700 questions** sur les 13 niveaux. Les 36 dernières leçons renforcent notamment les fondamentaux en français et mathématiques du primaire, les sciences, la grammaire, la physique-chimie et la philosophie au collège et au lycée. Les 13 dernières leçons sont illustrées par des schémas adaptés. La couverture bonus est testée automatiquement : chaque niveau possède au moins 11 leçons, les identifiants sont contrôlés, les choix doivent être distincts et les réponses des 36 dernières leçons sont vérifiées par tests. Les erreurs aux exercices bonus sont enregistrées dans les révisions et l’historique de l’élève.
+La banque de cours bonus contient maintenant **213 leçons et 700 questions** sur les 13 niveaux. Les 26 dernières leçons ajoutées renforcent notamment les fondamentaux en français et mathématiques du primaire, les sciences, la grammaire, la physique-chimie et la philosophie au collège et au lycée. Les 13 dernières leçons sont illustrées par des schémas adaptés. La couverture bonus est testée automatiquement : chaque niveau possède au moins 12 leçons, les identifiants sont contrôlés, les choix doivent être distincts et les réponses des 36 dernières leçons sont vérifiées par tests. Les erreurs aux exercices bonus sont enregistrées dans les révisions et l’historique de l’élève.
 
 Ces compléments sont des exercices de consolidation. Ils ne remplacent pas encore la vérification complète des programmes officiels, l’affectation de chaque cours au trimestre, ni la validation par des enseignants togolais.
 
