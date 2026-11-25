@@ -793,5 +793,12 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_cp2_nature_2','Lequel est un objet fabriqué ?',['Un arbre','Une coquille vide','Une cuillère'],2,'Une cuillère est réalisée par des personnes pour servir à manger.'),
      SupplementalQuestion('bonus_cp2_nature_3','Une chaise est fabriquée avec du bois. Quelle affirmation est juste ?',['Le bois est une matière naturelle et la chaise est fabriquée','La chaise pousse comme un arbre','Le bois est toujours fabriqué par les humains'],0,'Le bois vient d’un arbre ; la chaise est construite à partir de ce bois.'),
      SupplementalQuestion('bonus_cp2_nature_4','Quel groupe contient seulement des éléments naturels ?',['Stylo et cahier','Pierre et arbre','Chaise et cuillère'],1,'La pierre et l’arbre sont des éléments naturels.')]),
+  SupplementalLesson('cp2_suites_numeriques_pas', SchoolLevel.cp2, 'Mathématiques', 'Compléter des suites numériques simples',
+    'Une suite numérique est une liste de nombres rangés dans un ordre. Pour la continuer, observe ce qui change d’un nombre au suivant. On peut compter de 2 en 2, de 5 en 5 ou de 10 en 10. Il faut garder le même pas dans toute la suite.',
+    'Exemples : 2, 4, 6, 8… (on ajoute 2) ; 5, 10, 15, 20… (on ajoute 5) ; 10, 20, 30, 40… (on ajoute 10). Pour trouver le nombre suivant, ajoute le pas au dernier nombre.',
+    [SupplementalQuestion('bonus_cp2_suite_1','Complète : 2, 4, 6, __',['7','8','9'],1,'On ajoute 2 : 6 + 2 = 8.'),
+     SupplementalQuestion('bonus_cp2_suite_2','Complète : 5, 10, 15, __',['20','25','18'],0,'On ajoute 5 : 15 + 5 = 20.'),
+     SupplementalQuestion('bonus_cp2_suite_3','Quel nombre manque : 10, 20, __, 40 ?',['25','30','35'],1,'On compte de 10 en 10 : 10, 20, 30, 40.'),
+     SupplementalQuestion('bonus_cp2_suite_4','Quel est le pas de la suite 3, 6, 9, 12 ?',['2','3','4'],1,'Chaque nombre augmente de 3 : le pas est 3.')]),
 
 ];
