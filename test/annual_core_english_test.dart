@@ -286,8 +286,8 @@ void main() {
     expect(annualSecondaryEnglishLessons, hasLength(14));
     expect(annualSecondaryEnglishExercises, hasLength(42));
     expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 14);
-    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 10);
-    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 30);
+    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 14);
+    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 42);
     expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(14));
     expect(annualSecondaryEnglishExercises.map((e) => e.id).toSet(), hasLength(42));
     for (final unit in annualSecondaryEnglishUnits) {
