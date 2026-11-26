@@ -31,11 +31,14 @@ La banque de cours bonus contient maintenant **292 leçons et 937 questions** su
 
 Ces compléments sont des exercices de consolidation. Ils ne remplacent pas encore la vérification complète des programmes officiels, l’affectation de chaque cours au trimestre, ni la validation par des enseignants togolais.
 
+**Total arithmétique des ressources principales et bonus : 1 085 leçons et 3 265 exercices/questions** (793 + 292 leçons ; 2 328 + 937 exercices/questions). Les contenus principaux et les bonus sont comptés séparément dans les sections ci-dessus ; ce total mesure le volume, pas une validation d’exhaustivité.
+
 ## Audit de couverture et limites
 
 - [Matrice détaillée de contrôle annuel, par niveau et série](CURRICULUM_COVERAGE_MATRIX.md)
 - [Calendrier scolaire et examens 2026–2027](ANNEE_SCOLAIRE_2026_2027.md)
 - [Rapport de révision et sources officielles](CURRICULUM_REVIEW.md)
+- [Guide de mise en œuvre des classes-métiers 2026–2027 (proposition non homologuée)](GUIDE_CLASSES_METIERS_2026_2027.md)
 
 - La dernière extension a ajouté 13 leçons de mise à jour (39 questions) aux 53 compléments précédents. La banque bonus totalise 292 leçons et 937 questions, avec tests des corrigés et des schémas pédagogiques.
 - Le programme officiel du collège comporte des thèmes transversaux et des compétences de vie : citoyenneté, climat, TIC, énergies renouvelables, prévention des violences et santé. Les compléments intègrent plusieurs de ces axes, mais l’affectation complète à chaque chapitre et trimestre reste à faire.
