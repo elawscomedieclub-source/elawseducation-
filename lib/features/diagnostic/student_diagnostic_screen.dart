@@ -9,7 +9,7 @@ import '../../data/models/models.dart';
 import '../../core/reading_practice_service.dart';
 import '../reading/reading_basics_screen.dart';
 import '../../data/sample/sample_data.dart';
-import '../../data/sample/annual_core_english.dart';
+import '../../data/sample/annual_core_catalog.dart';
 import '../lesson/lesson_screen.dart';
 import '../lesson/exercise_screen.dart';
 
@@ -73,9 +73,9 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
     final level = ref.watch(schoolLevelProvider);
     final track = ref.watch(schoolTrackProvider);
     final series = ref.watch(schoolSeriesProvider);
-    final subjects = [...demoSubjects, ...annualEnglishSubjects].where((s) => subjectMatchesPath(s, level, track, series)).toList();
-    final chapters = [...demoChapters, ...annualEnglishChapters].where((c) => subjects.any((s) => s.id == c.subjectId)).toList();
-    final lessons = [...demoLessons, ...annualEnglishLessons].where((l) => chapters.any((c) => c.id == l.chapterId)).toList();
+    final subjects = [...demoSubjects, ...annualCoreSubjects].where((s) => subjectMatchesPath(s, level, track, series)).toList();
+    final chapters = [...demoChapters, ...annualCoreChapters].where((c) => subjects.any((s) => s.id == c.subjectId)).toList();
+    final lessons = [...demoLessons, ...annualCoreLessons].where((l) => chapters.any((c) => c.id == l.chapterId)).toList();
     return Scaffold(
       appBar: AppBar(title: const Text('Mon diagnostic intelligent'), actions: [
         IconButton(onPressed: () => setState(() => _future = _load()), icon: const Icon(Icons.refresh_rounded)),
@@ -152,7 +152,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           // État pédagogique calculé uniquement à partir des exercices réellement
           // présents et des réponses enregistrées pour le compte courant.
           final lessonProgress = lessons.map((lesson) {
-            final exercises = [...demoExercises, ...annualEnglishExercises].where((e) => e.lessonId == lesson.id).toList();
+            final exercises = [...demoExercises, ...annualCoreExercises].where((e) => e.lessonId == lesson.id).toList();
             final correctCount = exercises.where((e) => d.progress.correctExerciseIds.contains(e.id)).length;
             final reviewCount = exercises.where((e) => d.reviewIds.contains(e.id)).length;
             final wrongCount = exercises.fold<int>(0, (sum, e) => sum + (d.exerciseErrors[e.id] ?? 0));
@@ -503,7 +503,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                   final lesson = lessons.firstWhere((l) => l.id == entry.key);
                   final chapter = chapters.where((c) => c.id == lesson.chapterId);
                   final subject = chapter.isEmpty ? null : subjects.firstWhere((s) => s.id == chapter.first.subjectId);
-                  final hasExercises = [...demoExercises, ...annualEnglishExercises].any((exercise) => exercise.lessonId == lesson.id);
+                  final hasExercises = [...demoExercises, ...annualCoreExercises].any((exercise) => exercise.lessonId == lesson.id);
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(14),
