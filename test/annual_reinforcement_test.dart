@@ -61,6 +61,6 @@ void main() {
   test('la banque bonus atteint au moins 292 leçons et 937 questions', () {
     expect(supplementalLessons.length, greaterThanOrEqualTo(292));
     expect(supplementalLessons.expand((lesson) => lesson.questions).length,
-        greaterThanOrEqualTo(937);
+        greaterThanOrEqualTo(937));
   });
 }
