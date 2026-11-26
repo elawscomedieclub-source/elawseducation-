@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/progress_service.dart';
+import '../../core/learner_adaptation_service.dart';
 import '../../core/evaluation_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
@@ -122,6 +123,21 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
             ...annualCoreSubjects.where((s) => subjectMatchesPath(s, selectedLevel, selectedTrack, selectedSeries)),
           ];
           final subjectIds = subjects.map((s) => s.id).toSet();
+          final selectedChapterIds = [...demoChapters, ...annualCoreChapters]
+              .where((chapter) => subjectIds.contains(chapter.subjectId))
+              .map((chapter) => chapter.id)
+              .toSet();
+          final selectedLessons = [...demoLessons, ...annualCoreLessons]
+              .where((lesson) => selectedChapterIds.contains(lesson.chapterId))
+              .toList();
+          final selectedLessonIds = selectedLessons.map((lesson) => lesson.id).toSet();
+          final selectedAttempts = attempts
+              .where((attempt) => selectedLessonIds.contains(attempt.lessonId))
+              .toList();
+          final learnerAdvice = LearnerAdaptationService.buildAdvice(
+            selectedAttempts,
+            lessonTitles: {for (final lesson in selectedLessons) lesson.id: lesson.title},
+          );
           final history = allHistory.where((r) => r.level == selectedLevel.label && (subjectIds.contains(r.subjectId) || r.subjectId.startsWith('composition_${selectedLevel.name}_${selectedTrack.name}_${selectedSeries}_'))).toList();
           final exercisesBySubject = <String, List<String>>{};
           for (final subject in subjects) {
@@ -213,6 +229,41 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                       if (weekAttempts.isEmpty)
                         const Text('Ton activité apparaîtra ici après tes premières réponses cette semaine.',
                             style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.psychology_alt_rounded, color: Color(0xFF006A4E), size: 28),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Mon conseil personnalisé',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 6),
+                            Text(learnerAdvice.title,
+                                style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF006A4E))),
+                            const SizedBox(height: 4),
+                            Text(learnerAdvice.message),
+                            if (learnerAdvice.lessonId != null) ...[
+                              const SizedBox(height: 6),
+                              Text('Leçon à revoir : ${selectedLessons.firstWhere((lesson) => lesson.id == learnerAdvice.lessonId).title}',
+                                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                            ],
+                            const SizedBox(height: 6),
+                            const Text('Ce conseil se base sur tes réponses récentes dans cette classe et ces matières.',
+                                style: TextStyle(fontSize: 11, color: Colors.black54)),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
