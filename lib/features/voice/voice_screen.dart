@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -36,6 +39,8 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   List<ExerciseAttemptRecord> _attemptHistory = [];
   Set<String> _reviewExerciseIds = {};
   bool _learnerContextLoaded = false;
+  int _learnerContextRequestId = 0;
+  late final StreamSubscription<User?> _authSubscription;
   bool _studyPlanQuery = false;
   String _coachMessage = '';
 
@@ -56,22 +61,43 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
     });
     _tts.awaitSpeakCompletion(true);
     _loadAvailableVoices();
-    _loadLearnerContext();
+    // The auth stream emits the current account and every later account change.
+    // Clear the previous learner's context before loading the new account.
+    _authSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (!mounted) return;
+      ++_learnerContextRequestId;
+      setState(() {
+        _attemptHistory = [];
+        _reviewExerciseIds = {};
+        _learnerContextLoaded = false;
+      });
+      _loadLearnerContext(expectedUid: user?.uid);
+    });
   }
 
-  Future<void> _loadLearnerContext() async {
+  Future<void> _loadLearnerContext({required String? expectedUid}) async {
+    final requestId = ++_learnerContextRequestId;
+    final uid = expectedUid;
     try {
       final history = await ProgressService.loadAttemptHistory();
       final reviewIds = await ProgressService.loadReviewExerciseIds();
-      if (!mounted) return;
+      if (!mounted ||
+          requestId != _learnerContextRequestId ||
+          FirebaseAuth.instance.currentUser?.uid != uid) return;
       setState(() {
         _attemptHistory = history;
         _reviewExerciseIds = reviewIds;
         _learnerContextLoaded = true;
       });
     } catch (_) {
-      if (!mounted) return;
-      setState(() => _learnerContextLoaded = false);
+      if (!mounted ||
+          requestId != _learnerContextRequestId ||
+          FirebaseAuth.instance.currentUser?.uid != uid) return;
+      setState(() {
+        _attemptHistory = [];
+        _reviewExerciseIds = {};
+        _learnerContextLoaded = false;
+      });
     }
   }
 
@@ -388,6 +414,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
 
   @override
   void dispose() {
+    _authSubscription.cancel();
     _speech.cancel();
     _tts.stop();
     _textController.dispose();
