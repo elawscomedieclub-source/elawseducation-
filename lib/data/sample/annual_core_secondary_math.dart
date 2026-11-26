@@ -1,0 +1,67 @@
+import '../models/models.dart';
+
+class AnnualSecondaryMathUnit {
+  final SchoolLevel level;
+  final String code, title, lessonId, lessonTitle, summary, content;
+  final int unitOrder;
+  final List<String> keyPoints;
+  final List<Exercise> exercises;
+  const AnnualSecondaryMathUnit({
+    required this.level, required this.code, required this.unitOrder,
+    required this.title, required this.lessonId, required this.lessonTitle,
+    required this.summary, required this.content, required this.keyPoints,
+    required this.exercises,
+  });
+  String get subjectId => switch (code) {
+    '5e' => 'cinq_math',
+    '4e' => 'quatre_math',
+    '3e' => 'trois_math',
+    _ => 'core_secondary_math_$code',
+  };
+  String get chapterId => 'core_secondary_math_${code}_unit_${unitOrder}';
+}
+
+const annualSecondaryMathUnits = <AnnualSecondaryMathUnit>[
+  AnnualSecondaryMathUnit(level:SchoolLevel.cinquieme,code:'5e',unitOrder:1,title:'Fractions et calcul',lessonId:'core_math_5e_fractions',lessonTitle:'Calculer avec des fractions simples',summary:'Comparer des fractions et effectuer des additions de même dénominateur.',content:'Une fraction a un numérateur et un dénominateur. Le dénominateur indique le nombre de parts égales et ne peut pas être nul. Pour comparer des fractions de même dénominateur, compare les numérateurs. Pour additionner des fractions de même dénominateur, additionne les numérateurs et conserve le dénominateur : 2/7 + 3/7 = 5/7. Pour des dénominateurs différents, il faut les réduire au même dénominateur avant de calculer.',keyPoints:['Le dénominateur ne peut pas être nul','Même dénominateur : comparer les numérateurs','Addition de même dénominateur : (a+b)/n'],exercises:[
+    Exercise(id:'core_math_5e_fr1',lessonId:'core_math_5e_fractions',question:'2/9 + 4/9 = ?',options:['6/9','6/18','2/13'],correctIndex:0,explanation:'On additionne les numérateurs : 2 + 4 = 6 et on conserve 9.'),
+    Exercise(id:'core_math_5e_fr2',lessonId:'core_math_5e_fractions',question:'Quelle fraction est la plus grande ?',options:['5/8','3/8','2/8'],correctIndex:0,explanation:'Les dénominateurs sont égaux ; 5 est le plus grand numérateur.'),
+    Exercise(id:'core_math_5e_fr3',lessonId:'core_math_5e_fractions',question:'Quel nombre est interdit comme dénominateur ?',options:['0','2','10'],correctIndex:0,explanation:'On ne peut pas diviser par zéro.'),
+  ]),
+  AnnualSecondaryMathUnit(level:SchoolLevel.cinquieme,code:'5e',unitOrder:2,title:'Proportionnalité',lessonId:'core_math_5e_proportion',lessonTitle:'Résoudre une situation de proportionnalité',summary:'Utiliser un coefficient multiplicateur et un tableau de proportionnalité.',content:'Deux grandeurs sont proportionnelles lorsque l’on multiplie chaque valeur de la première par un même nombre pour obtenir la seconde. Ce nombre est le coefficient de proportionnalité. Exemple : 3 cahiers coûtent 600 F ; un cahier coûte 600 ÷ 3 = 200 F, donc 5 cahiers coûtent 5 × 200 = 1 000 F. Vérifie les unités et la cohérence du résultat.',keyPoints:['Même coefficient pour toutes les colonnes','Prix unitaire = prix total ÷ quantité','Vérifier les unités'],exercises:[
+    Exercise(id:'core_math_5e_pr1',lessonId:'core_math_5e_proportion',question:'4 stylos coûtent 800 F. Combien coûtent 6 stylos au même prix ?',options:['1 000 F','1 200 F','1 600 F'],correctIndex:1,explanation:'Un stylo coûte 200 F ; 6 × 200 = 1 200 F.'),
+    Exercise(id:'core_math_5e_pr2',lessonId:'core_math_5e_proportion',question:'Le coefficient qui transforme 5 en 20 est…',options:['2','4','5'],correctIndex:1,explanation:'5 × 4 = 20.'),
+    Exercise(id:'core_math_5e_pr3',lessonId:'core_math_5e_proportion',question:'Dans un tableau proportionnel, le coefficient est…',options:['Le même pour toutes les valeurs correspondantes','Toujours différent','Toujours égal à zéro'],correctIndex:0,explanation:'La proportionnalité utilise un coefficient constant.'),
+  ]),
+  AnnualSecondaryMathUnit(level:SchoolLevel.quatrieme,code:'4e',unitOrder:1,title:'Théorème de Pythagore',lessonId:'core_math_4e_pythagore',lessonTitle:'Calculer une longueur dans un triangle rectangle',summary:'Appliquer le théorème de Pythagore pour calculer une longueur.',content:'Dans un triangle rectangle, le carré de l’hypoténuse est égal à la somme des carrés des deux autres côtés. Si ABC est rectangle en A, alors BC² = AB² + AC². L’hypoténuse est le côté opposé à l’angle droit et c’est le plus long côté. Pour calculer une longueur, écris la relation, remplace par les valeurs, calcule puis prends la racine carrée si nécessaire.',keyPoints:['Le triangle doit être rectangle','L’hypoténuse est opposée à l’angle droit','c² = a² + b²'],exercises:[
+    Exercise(id:'core_math_4e_py1',lessonId:'core_math_4e_pythagore',question:'Un triangle rectangle a des côtés de l’angle droit 3 cm et 4 cm. L’hypoténuse vaut…',options:['5 cm','7 cm','12 cm'],correctIndex:0,explanation:'c² = 3² + 4² = 9 + 16 = 25, donc c = 5 cm.'),
+    Exercise(id:'core_math_4e_py2',lessonId:'core_math_4e_pythagore',question:'Dans un triangle rectangle, l’hypoténuse est…',options:['Le côté opposé à l’angle droit','Le plus petit côté toujours','Un angle'],correctIndex:0,explanation:'L’hypoténuse est le côté opposé à l’angle droit.'),
+    Exercise(id:'core_math_4e_py3',lessonId:'core_math_4e_pythagore',question:'Si l’hypoténuse vaut 13 cm et un côté 5 cm, l’autre côté vaut…',options:['12 cm','8 cm','18 cm'],correctIndex:0,explanation:'x² = 13² − 5² = 169 − 25 = 144, donc x = 12 cm.'),
+  ]),
+  AnnualSecondaryMathUnit(level:SchoolLevel.quatrieme,code:'4e',unitOrder:2,title:'Équations du premier degré',lessonId:'core_math_4e_equations',lessonTitle:'Résoudre une équation simple',summary:'Résoudre une équation en conservant l’égalité.',content:'Une équation est une égalité contenant une inconnue. Pour isoler x, on effectue la même opération aux deux membres. Exemple : x + 7 = 19 ; on soustrait 7 des deux côtés, donc x = 12. Vérifie en remplaçant x dans l’équation initiale : 12 + 7 = 19.',keyPoints:['Faire la même opération des deux côtés','Isoler l’inconnue','Vérifier la solution dans l’équation'],exercises:[
+    Exercise(id:'core_math_4e_eq1',lessonId:'core_math_4e_equations',question:'Résous x + 8 = 21.',options:['x = 13','x = 29','x = 8'],correctIndex:0,explanation:'On soustrait 8 : x = 21 − 8 = 13.'),
+    Exercise(id:'core_math_4e_eq2',lessonId:'core_math_4e_equations',question:'Résous 3x = 18.',options:['x = 6','x = 15','x = 21'],correctIndex:0,explanation:'On divise les deux membres par 3 : x = 6.'),
+    Exercise(id:'core_math_4e_eq3',lessonId:'core_math_4e_equations',question:'Comment vérifier une solution ?',options:['Remplacer l’inconnue dans l’équation initiale','Changer le signe au hasard','Ne pas calculer'],correctIndex:0,explanation:'La solution doit rendre l’égalité vraie.'),
+  ]),
+  AnnualSecondaryMathUnit(level:SchoolLevel.troisieme,code:'3e',unitOrder:1,title:'Théorème de Thalès',lessonId:'core_math_3e_thales',lessonTitle:'Calculer une longueur avec Thalès',summary:'Utiliser la proportionnalité des longueurs dans des triangles en configuration de Thalès.',content:'Dans un triangle ABC, si M appartient à [AB], N appartient à [AC] et MN est parallèle à BC, alors AM/AB = AN/AC = MN/BC. Avant d’appliquer le théorème, vérifie les points alignés et le parallélisme. Écris les rapports dans le même ordre, puis utilise un produit en croix pour calculer la longueur inconnue.',keyPoints:['Vérifier alignement et parallélisme','Écrire les rapports dans le même ordre','Calculer par produit en croix'],exercises:[
+    Exercise(id:'core_math_3e_th1',lessonId:'core_math_3e_thales',question:'AM/AB = 2/5 et AB = 15 cm. AM vaut…',options:['6 cm','7,5 cm','10 cm'],correctIndex:0,explanation:'AM = (2/5) × 15 = 6 cm.'),
+    Exercise(id:'core_math_3e_th2',lessonId:'core_math_3e_thales',question:'Avant d’appliquer Thalès, il faut vérifier…',options:['Les alignements et le parallélisme','La couleur du triangle','La température'],correctIndex:0,explanation:'La configuration géométrique est nécessaire.'),
+    Exercise(id:'core_math_3e_th3',lessonId:'core_math_3e_thales',question:'Si 3/6 = x/10, alors x = …',options:['5','3','20'],correctIndex:0,explanation:'x = 10 × 3 ÷ 6 = 5.'),
+  ]),
+  AnnualSecondaryMathUnit(level:SchoolLevel.troisieme,code:'3e',unitOrder:2,title:'Fonctions linéaires et affines',lessonId:'core_math_3e_functions',lessonTitle:'Lire et utiliser une fonction affine',summary:'Calculer une image et interpréter une relation y = ax + b.',content:'Une fonction affine s’écrit f(x) = ax + b. Le nombre a est le coefficient directeur et b l’ordonnée à l’origine. Pour calculer l’image d’un nombre, remplace x par cette valeur et effectue les opérations. Une fonction linéaire est un cas particulier : f(x) = ax, donc b = 0. Un tableau de valeurs aide à représenter la fonction.',keyPoints:['Fonction affine : f(x) = ax + b','Image : remplacer x par sa valeur','Fonction linéaire : b = 0'],exercises:[
+    Exercise(id:'core_math_3e_fn1',lessonId:'core_math_3e_functions',question:'Si f(x) = 2x + 3, quelle est f(4) ?',options:['11','8','14'],correctIndex:0,explanation:'f(4) = 2 × 4 + 3 = 11.'),
+    Exercise(id:'core_math_3e_fn2',lessonId:'core_math_3e_functions',question:'Quelle fonction est linéaire ?',options:['f(x) = 5x','f(x) = 5x + 2','f(x) = x²'],correctIndex:0,explanation:'Une fonction linéaire est de la forme ax.'),
+    Exercise(id:'core_math_3e_fn3',lessonId:'core_math_3e_functions',question:'Dans f(x) = 3x − 7, l’ordonnée à l’origine vaut…',options:['−7','3','7'],correctIndex:0,explanation:'b = −7.'),
+  ]),
+];
+
+final annualSecondaryMathChapters = annualSecondaryMathUnits.map((unit) => Chapter(
+  id:unit.chapterId,subjectId:unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
+  order:unit.unitOrder,term:unit.unitOrder,totalLessons:1,
+)).toList();
+
+final annualSecondaryMathLessons = annualSecondaryMathUnits.map((unit) => Lesson(
+  id:unit.lessonId,chapterId:unit.chapterId,title:unit.lessonTitle,
+  summary:unit.summary,content:unit.content,keyPoints:unit.keyPoints,durationMinutes:25,
+)).toList();
+
+final annualSecondaryMathExercises = annualSecondaryMathUnits.expand((unit)=>unit.exercises).toList();
