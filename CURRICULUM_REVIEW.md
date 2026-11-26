@@ -4,6 +4,8 @@
 
 ## État quantitatif vérifié
 
+- Total arithmétique base principale + bonus : **1 085 leçons et 3 265 exercices/questions** (volume total, sans prétendre à l’homologation ni à l’exhaustivité).
+
 - Base principale : **165 matières, 280 chapitres, 793 leçons et 2 328 exercices** (chiffres indiqués par la documentation actuelle du projet).
 - Banque bonus : **292 leçons et 937 questions**, réparties sur les 13 niveaux.
 - Les bonus comprennent 66 leçons de renforcement ajoutées lors des révisions récentes : 27 leçons initiales, 26 compléments et 13 leçons de mise à jour 2026–2027, chacune avec 3 questions.
