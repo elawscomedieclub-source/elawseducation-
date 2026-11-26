@@ -7,6 +7,7 @@ import 'package:proftogo/data/sample/annual_core_math.dart';
 import 'package:proftogo/data/sample/annual_core_physics.dart';
 import 'package:proftogo/data/sample/annual_core_history_civics.dart';
 import 'package:proftogo/data/sample/annual_core_secondary_math.dart';
+import 'package:proftogo/data/sample/annual_core_secondary_french.dart';
 
 void main() {
   test('primary English course covers CP1 through CM2 as core lessons', () {
@@ -41,10 +42,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(27));
-    expect(annualCoreLessons, hasLength(78));
-    expect(annualCoreExercises, hasLength(234));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(78));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(234));
+    expect(annualCoreLessons, hasLength(84));
+    expect(annualCoreExercises, hasLength(252));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(84));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(252));
   });
 
   test('primary mathematics units have complete exercises', () {
@@ -107,6 +108,23 @@ void main() {
     expect(annualSecondaryMathLessons.map((l) => l.id).toSet(), hasLength(6));
     expect(annualSecondaryMathExercises.map((e) => e.id).toSet(), hasLength(18));
     for (final unit in annualSecondaryMathUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+  });
+
+  test('middle-school French lessons include grammar, reading and writing', () {
+    expect(annualSecondaryFrenchUnits, hasLength(6));
+    expect(annualSecondaryFrenchLessons, hasLength(6));
+    expect(annualSecondaryFrenchExercises, hasLength(18));
+    expect(annualSecondaryFrenchLessons.map((l) => l.id).toSet(), hasLength(6));
+    expect(annualSecondaryFrenchExercises.map((e) => e.id).toSet(), hasLength(18));
+    for (final unit in annualSecondaryFrenchUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
       for (final question in unit.exercises) {
