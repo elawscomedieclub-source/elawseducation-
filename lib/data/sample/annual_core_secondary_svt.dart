@@ -14,7 +14,6 @@ class AnnualSecondarySvtUnit {
   });
   String get subjectId => switch (code) {
     '6e' => 'svt',
-    '6e' => 'svt',
     '5e' => 'cinq_svt',
     '4e' => 'quatre_svt',
     '3e' => 'trois_svt',
