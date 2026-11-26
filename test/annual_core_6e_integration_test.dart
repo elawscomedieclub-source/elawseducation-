@@ -4,51 +4,64 @@ import 'package:proftogo/data/sample/annual_core_catalog.dart';
 import 'package:proftogo/data/sample/sample_data.dart';
 
 void main() {
-  test('6e core lessons are connected to existing subject pages and chapter totals', () {
+  test('6e annual lessons remain accessible in existing subject chapters', () {
     final mergedSubjects = mergeSubjectsByPath(demoSubjects, annualCoreSubjects);
-    final expectedChapterCounts = <String, int>{
+    final lessonPrefixes = <String, String>{
+      'math': 'core_math_6e_',
+      'fr': 'core_fr_6e_',
+      'anglais': 'core_en_6e_',
+      'svt': 'core_svt_6e_',
+      'hist': 'core_hg_6e_',
+    };
+    final expectedLessons = <String, int>{
       'math': 5,
       'fr': 5,
       'anglais': 5,
       'svt': 5,
       'hist': 4,
     };
+    final demoChapterIds = demoChapters.map((chapter) => chapter.id).toSet();
 
-    for (final entry in expectedChapterCounts.entries) {
+    for (final entry in lessonPrefixes.entries) {
       final subjectId = entry.key;
-      final coreChapters = annualCoreChapters
-          .where((chapter) =>
-              chapter.subjectId == subjectId &&
-              chapter.id.contains('_6e_unit_'))
-          .toList();
-      expect(coreChapters, hasLength(entry.value), reason: subjectId);
-      expect(coreChapters.map((chapter) => chapter.id).toSet(),
-          hasLength(entry.value), reason: 'Les identifiants de chapitres doivent être uniques.');
-
-      final chapterIds = coreChapters.map((chapter) => chapter.id).toSet();
       final lessons = annualCoreLessons
-          .where((lesson) => chapterIds.contains(lesson.chapterId))
+          .where((lesson) => lesson.id.startsWith(entry.value))
           .toList();
-      expect(lessons, hasLength(entry.value), reason: subjectId);
-      expect(lessons.map((lesson) => lesson.id).toSet(), hasLength(entry.value));
+      expect(lessons, hasLength(expectedLessons[subjectId]), reason: subjectId);
+      expect(lessons.map((lesson) => lesson.id).toSet(), hasLength(lessons.length),
+          reason: 'Les identifiants de leçons doivent être uniques pour $subjectId.');
+
+      for (final lesson in lessons) {
+        expect(demoChapterIds, contains(lesson.chapterId),
+            reason: 'La leçon ${lesson.id} doit être reliée à un chapitre existant.');
+        final chapter = demoChapters.firstWhere((item) => item.id == lesson.chapterId);
+        expect(chapter.subjectId, subjectId,
+            reason: 'La leçon ${lesson.id} doit rester dans la bonne matière.');
+      }
 
       final lessonIds = lessons.map((lesson) => lesson.id).toSet();
       expect(
         annualCoreExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
-        hasLength(entry.value * 3),
+        hasLength(lessons.length * 3),
         reason: 'Chaque leçon de $subjectId doit proposer trois exercices.',
       );
 
-      final demoChapterCount =
-          demoChapters.where((chapter) => chapter.subjectId == subjectId).length;
-      final mergedSubject = mergedSubjects.firstWhere(
+      final mergedMatches = mergedSubjects
+          .where((subject) => subject.id == subjectId && subject.level == SchoolLevel.sixieme)
+          .toList();
+      expect(mergedMatches, hasLength(1),
+          reason: 'Une seule carte de matière doit être affichée pour $subjectId.');
+      final demoSubject = demoSubjects.firstWhere(
         (subject) => subject.id == subjectId && subject.level == SchoolLevel.sixieme,
       );
-      expect(
-        mergedSubject.totalChapters,
-        demoChapterCount + entry.value,
-        reason: 'Le total affiché doit correspondre aux chapitres réellement accessibles de $subjectId.',
+      final annualSubject = annualCoreSubjects.firstWhere(
+        (subject) => subject.id == subjectId && subject.level == SchoolLevel.sixieme,
       );
+      final expectedTotal = demoSubject.totalChapters >= annualSubject.totalChapters
+          ? demoSubject.totalChapters
+          : annualSubject.totalChapters;
+      expect(mergedMatches.single.totalChapters, expectedTotal,
+          reason: 'Le total des chapitres ne doit pas être augmenté par des leçons ajoutées à des chapitres existants.');
     }
   });
 
