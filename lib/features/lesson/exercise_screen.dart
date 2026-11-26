@@ -7,6 +7,7 @@ import '../../core/school_level_provider.dart';
 import '../../core/progress_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/annual_core_english.dart';
 
 class ExerciseScreen extends ConsumerStatefulWidget {
   final Lesson lesson;
@@ -210,10 +211,10 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     final childMode = ref.watch(schoolLevelProvider).index <= SchoolLevel.cm2.index;
-    final items = demoExercises.where((e) =>
-        e.lessonId == widget.lesson.id &&
-        (widget.reviewExerciseId == null || e.id == widget.reviewExerciseId),
-      ).toList();
+    final items = [
+      ...demoExercises.where((e) => e.lessonId == widget.lesson.id),
+      ...annualEnglishExercises.where((e) => e.lessonId == widget.lesson.id),
+    ].where((e) => widget.reviewExerciseId == null || e.id == widget.reviewExerciseId).toList();
     final completedCount = items.where((e) => _correctIds.contains(e.id)).length;
     final completion = items.isEmpty ? 0.0 : completedCount / items.length;
 

@@ -8,6 +8,7 @@ import '../../core/evaluation_service.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
 import '../../data/sample/supplemental_curriculum.dart';
+import '../../data/sample/annual_core_english.dart';
 import '../../data/models/models.dart';
 import '../lesson/exercise_screen.dart';
 import '../lesson/supplemental_curriculum_screen.dart';
@@ -116,14 +117,17 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
               .expand((lesson) => lesson.questions.map((question) => MapEntry(lesson, question)))
               .where((entry) => reviewIds.contains(entry.value.id))
               .toList();
-          final subjects = demoSubjects.where((s) => subjectMatchesPath(s, selectedLevel, selectedTrack, selectedSeries)).toList();
+          final subjects = [
+            ...demoSubjects.where((s) => subjectMatchesPath(s, selectedLevel, selectedTrack, selectedSeries)),
+            ...annualEnglishSubjects.where((s) => subjectMatchesPath(s, selectedLevel, selectedTrack, selectedSeries)),
+          ];
           final subjectIds = subjects.map((s) => s.id).toSet();
           final history = allHistory.where((r) => r.level == selectedLevel.label && (subjectIds.contains(r.subjectId) || r.subjectId.startsWith('composition_${selectedLevel.name}_${selectedTrack.name}_${selectedSeries}_'))).toList();
           final exercisesBySubject = <String, List<String>>{};
           for (final subject in subjects) {
-            final chapterIds = demoChapters.where((c) => c.subjectId == subject.id).map((c) => c.id).toSet();
-            final lessonIds = demoLessons.where((l) => chapterIds.contains(l.chapterId)).map((l) => l.id).toSet();
-            exercisesBySubject[subject.id] = demoExercises
+            final chapterIds = [...demoChapters, ...annualEnglishChapters].where((c) => c.subjectId == subject.id).map((c) => c.id).toSet();
+            final lessonIds = [...demoLessons, ...annualEnglishLessons].where((l) => chapterIds.contains(l.chapterId)).map((l) => l.id).toSet();
+            exercisesBySubject[subject.id] = [...demoExercises, ...annualEnglishExercises]
                 .where((e) => lessonIds.contains(e.lessonId)).map((e) => e.id).toList();
           }
           final bonusIds = supplementalLessons
@@ -220,11 +224,11 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                     child: Text('Mes erreurs à revoir',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
-                  Chip(label: Text('${reviewIds.where((id) => demoExercises.any((e) => e.id == id && allIds.contains(e.id))).length + bonusReviewQuestions.length}')),
+                  Chip(label: Text('${reviewIds.where((id) => [...demoExercises, ...annualEnglishExercises].any((e) => e.id == id && allIds.contains(e.id))).length + bonusReviewQuestions.length}')),
                 ],
               ),
               const SizedBox(height: 8),
-              ...demoExercises.where((e) => reviewIds.contains(e.id) && allIds.contains(e.id)).map((exercise) => Card(
+              ...[...demoExercises, ...annualEnglishExercises].where((e) => reviewIds.contains(e.id) && allIds.contains(e.id)).map((exercise) => Card(
                 margin: const EdgeInsets.only(bottom: 10),
                 child: Padding(
                   padding: const EdgeInsets.all(14),
@@ -242,7 +246,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton.icon(
                           onPressed: () async {
-                            final matchingLessons = demoLessons
+                            final matchingLessons = [...demoLessons, ...annualEnglishLessons]
                                 .where((lesson) => lesson.id == exercise.lessonId);
                             if (matchingLessons.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -310,7 +314,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                   ),
                 ),
               )),
-              if (!demoExercises.any((e) => reviewIds.contains(e.id) && allIds.contains(e.id)) &&
+              if (![...demoExercises, ...annualEnglishExercises].any((e) => reviewIds.contains(e.id) && allIds.contains(e.id)) &&
                   bonusReviewQuestions.isEmpty)
                 const Text('Aucune erreur à revoir pour ce niveau. Continue à t’entraîner !'),
               const SizedBox(height: 24),

@@ -5,6 +5,7 @@ import '../../core/progress_service.dart';
 
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/annual_core_english.dart';
 import 'exercise_screen.dart';
 import 'apc_lesson_guide.dart';
 import 'apc_mission_screen.dart';
@@ -18,7 +19,10 @@ class LessonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lessons = demoLessons.where((lesson) => lesson.chapterId == chapter.id).toList();
+    final lessons = [
+      ...demoLessons.where((lesson) => lesson.chapterId == chapter.id),
+      ...annualEnglishLessons.where((lesson) => lesson.chapterId == chapter.id),
+    ];
 
     return Scaffold(
       appBar: AppBar(title: Text(chapter.title)),
@@ -69,9 +73,10 @@ class LessonScreen extends StatelessWidget {
           ...lessons.asMap().entries.map((entry) {
             final index = entry.key;
             final lesson = entry.value;
-            final exerciseCount = demoExercises
-                .where((exercise) => exercise.lessonId == lesson.id)
-                .length;
+            final exerciseCount = [
+              ...demoExercises.where((exercise) => exercise.lessonId == lesson.id),
+              ...annualEnglishExercises.where((exercise) => exercise.lessonId == lesson.id),
+            ].length;
             return Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Card(
@@ -146,9 +151,9 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   double _speechRate = 0.74;
 
   double _defaultSpeechRateForLesson() {
-    final chapter = demoChapters.where((item) => item.id == widget.lesson.chapterId);
+    final chapter = [...demoChapters, ...annualEnglishChapters].where((item) => item.id == widget.lesson.chapterId);
     if (chapter.isEmpty) return 0.74;
-    final subject = demoSubjects.where((item) => item.id == chapter.first.subjectId);
+    final subject = [...demoSubjects, ...annualEnglishSubjects].where((item) => item.id == chapter.first.subjectId);
     if (subject.isEmpty) return 0.74;
     final level = subject.first.level;
     if (level.index <= SchoolLevel.cp2.index) return 0.58;
@@ -232,14 +237,16 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   @override
   Widget build(BuildContext context) {
     final lesson = widget.lesson;
-    final chapter = demoChapters.firstWhere(
+    final allChapters = [...demoChapters, ...annualEnglishChapters];
+    final chapter = allChapters.firstWhere(
       (item) => item.id == lesson.chapterId,
-      orElse: () => demoChapters.first,
+      orElse: () => allChapters.first,
     );
     final apc = ApcLessonGuide.forLesson(lesson, chapter);
-    final subject = demoSubjects.firstWhere(
+    final allSubjects = [...demoSubjects, ...annualEnglishSubjects];
+    final subject = allSubjects.firstWhere(
       (item) => item.id == chapter.subjectId,
-      orElse: () => demoSubjects.first,
+      orElse: () => allSubjects.first,
     );
     final childMode = subject.level.index <= SchoolLevel.cm2.index;
 
