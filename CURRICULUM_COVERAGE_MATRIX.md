@@ -31,7 +31,7 @@ Le catalogue national NUSROPE sépare les cycles :
 ## Priorités particulières pour l’année scolaire 2026–2027
 
 - Vérifier les classes scientifiques expérimentales et les collèges scientifiques annoncés pour 2026–2027.
-- Ajouter un audit distinct des classes-métiers expérimentales annoncées à partir du CM et dans les collèges/lycées scientifiques.
+- Utiliser le [guide préparatoire des classes-métiers 2026–2027](GUIDE_CLASSES_METIERS_2026_2027.md) comme proposition d'activités, puis valider les séances et les modalités auprès de l'établissement. La progression du guide n'est pas un programme officiel homologué.
 - Utiliser le calendrier et les dates d’examens officiels : [repères 2026–2027](ANNEE_SCOLAIRE_2026_2027.md).
 - Vérifier l’EPS selon les nouveaux programmes entrés en vigueur en 2025–2026.
 
