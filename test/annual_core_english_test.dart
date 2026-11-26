@@ -49,10 +49,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(38));
-    expect(annualCoreLessons, hasLength(168));
-    expect(annualCoreExercises, hasLength(504));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(168));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(504));
+    expect(annualCoreLessons, hasLength(184));
+    expect(annualCoreExercises, hasLength(552));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(184));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(552));
   });
 
   test('Seconde C and D physics and chemistry are included as core lessons', () {
@@ -145,11 +145,11 @@ void main() {
   });
 
   test('middle-school mathematics lessons cover fractions, geometry and functions', () {
-    expect(annualSecondaryMathUnits, hasLength(10));
-    expect(annualSecondaryMathLessons, hasLength(10));
-    expect(annualSecondaryMathExercises, hasLength(30));
-    expect(annualSecondaryMathLessons.map((l) => l.id).toSet(), hasLength(10));
-    expect(annualSecondaryMathExercises.map((e) => e.id).toSet(), hasLength(30));
+    expect(annualSecondaryMathUnits, hasLength(14));
+    expect(annualSecondaryMathLessons, hasLength(14));
+    expect(annualSecondaryMathExercises, hasLength(42));
+    expect(annualSecondaryMathLessons.map((l) => l.id).toSet(), hasLength(14));
+    expect(annualSecondaryMathExercises.map((e) => e.id).toSet(), hasLength(42));
     for (final unit in annualSecondaryMathUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
@@ -162,11 +162,11 @@ void main() {
   });
 
   test('middle-school French lessons include grammar, reading and writing', () {
-    expect(annualSecondaryFrenchUnits, hasLength(10));
-    expect(annualSecondaryFrenchLessons, hasLength(10));
-    expect(annualSecondaryFrenchExercises, hasLength(30));
-    expect(annualSecondaryFrenchLessons.map((l) => l.id).toSet(), hasLength(10));
-    expect(annualSecondaryFrenchExercises.map((e) => e.id).toSet(), hasLength(30));
+    expect(annualSecondaryFrenchUnits, hasLength(14));
+    expect(annualSecondaryFrenchLessons, hasLength(14));
+    expect(annualSecondaryFrenchExercises, hasLength(42));
+    expect(annualSecondaryFrenchLessons.map((l) => l.id).toSet(), hasLength(14));
+    expect(annualSecondaryFrenchExercises.map((e) => e.id).toSet(), hasLength(42));
     for (final unit in annualSecondaryFrenchUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
@@ -179,11 +179,11 @@ void main() {
   });
 
   test('middle-school SVT lessons cover environment, geology and health', () {
-    expect(annualSecondarySvtUnits, hasLength(11));
-    expect(annualSecondarySvtLessons, hasLength(11));
-    expect(annualSecondarySvtExercises, hasLength(33));
-    expect(annualSecondarySvtLessons.map((l) => l.id).toSet(), hasLength(11));
-    expect(annualSecondarySvtExercises.map((e) => e.id).toSet(), hasLength(33));
+    expect(annualSecondarySvtUnits, hasLength(15));
+    expect(annualSecondarySvtLessons, hasLength(15));
+    expect(annualSecondarySvtExercises, hasLength(45));
+    expect(annualSecondarySvtLessons.map((l) => l.id).toSet(), hasLength(15));
+    expect(annualSecondarySvtExercises.map((e) => e.id).toSet(), hasLength(45));
     for (final unit in annualSecondarySvtUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
@@ -281,15 +281,15 @@ void main() {
   });
 
   test('middle-school English lessons have complete grammar and communication practice', () {
-    expect(annualSecondaryEnglishUnits, hasLength(10));
-    expect(annualSecondaryEnglishChapters, hasLength(10));
-    expect(annualSecondaryEnglishLessons, hasLength(10));
-    expect(annualSecondaryEnglishExercises, hasLength(30));
-    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 10);
-    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 10);
-    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 30);
-    expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(10));
-    expect(annualSecondaryEnglishExercises.map((e) => e.id).toSet(), hasLength(30));
+    expect(annualSecondaryEnglishUnits, hasLength(14));
+    expect(annualSecondaryEnglishChapters, hasLength(14));
+    expect(annualSecondaryEnglishLessons, hasLength(14));
+    expect(annualSecondaryEnglishExercises, hasLength(42));
+    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 14);
+    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 14);
+    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 42);
+    expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(14));
+    expect(annualSecondaryEnglishExercises.map((e) => e.id).toSet(), hasLength(42));
     for (final unit in annualSecondaryEnglishUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
@@ -315,6 +315,24 @@ void main() {
     expect(fiveCoreChapters.map((chapter) => chapter.id).toSet(), hasLength(24));
     for (final id in ['cinq_math', 'cinq_fr', 'cinq_ang', 'cinq_svt']) {
       expect(fiveCoreChapters.where((chapter) => chapter.subjectId == id).map((chapter) => chapter.order).toSet(),
+          {1, 2, 3, 4, 5, 6});
+    }
+  });
+
+  test('4e core units complete the seven-chapter subject plans and are reachable', () {
+    final subjectIds = demoSubjects
+        .where((subject) => subject.level == SchoolLevel.quatrieme)
+        .map((subject) => subject.id)
+        .toSet();
+    expect(subjectIds, containsAll(['quatre_math', 'quatre_fr', 'quatre_ang', 'quatre_svt']));
+    final fourCoreChapters = annualCoreChapters
+        .where((chapter) => chapter.id.startsWith('core_secondary_') &&
+            ['quatre_math', 'quatre_fr', 'quatre_ang', 'quatre_svt'].contains(chapter.subjectId))
+        .toList();
+    expect(fourCoreChapters, hasLength(24));
+    expect(fourCoreChapters.map((chapter) => chapter.id).toSet(), hasLength(24));
+    for (final id in ['quatre_math', 'quatre_fr', 'quatre_ang', 'quatre_svt']) {
+      expect(fourCoreChapters.where((chapter) => chapter.subjectId == id).map((chapter) => chapter.order).toSet(),
           {1, 2, 3, 4, 5, 6});
     }
   });
