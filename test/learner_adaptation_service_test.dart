@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:elawseducation/core/learner_adaptation_service.dart';
+import 'package:proftogo/core/learner_adaptation_service.dart';
 import 'package:elawseducation/core/progress_service.dart';
 
 ExerciseAttemptRecord attempt(String lesson, bool correct, int minutesAgo) =>
