@@ -17,7 +17,8 @@ class EvaluationScreen extends StatefulWidget {
 
 class _EvaluationScreenState extends State<EvaluationScreen> {
   final Map<String, int> _answers = {};
-  late final List<Exercise> _questions;
+  List<Exercise> _questions = [];
+  String _selectedChapterId = '';
   List<EvaluationRecord> _history = [];
   bool _loading = true;
   bool _submitted = false;
@@ -29,7 +30,8 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
 
   List<Exercise> _buildQuestions() {
     final chapterIds = demoChapters
-        .where((chapter) => chapter.subjectId == widget.subject.id)
+        .where((chapter) => chapter.subjectId == widget.subject.id &&
+            (_selectedChapterId.isEmpty || chapter.id == _selectedChapterId))
         .map((chapter) => chapter.id)
         .toSet();
     final lessonIds = demoLessons
@@ -43,6 +45,64 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
       ..shuffle(Random());
     // Une évaluation reste courte et réalisable sur téléphone.
     return pool.take(20).toList();
+  }
+
+  Widget _chapterSelector() {
+    final chapters = demoChapters
+        .where((chapter) => chapter.subjectId == widget.subject.id)
+        .toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+    return Card(
+      margin: const EdgeInsets.only(bottom: 14),
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Réviser une partie précise',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            DropdownButtonFormField<String>(
+              value: _selectedChapterId,
+              isExpanded: true,
+              decoration: const InputDecoration(
+                labelText: 'Périmètre de l’évaluation',
+                border: OutlineInputBorder(),
+              ),
+              items: [
+                const DropdownMenuItem(
+                  value: '',
+                  child: Text('Toute la matière'),
+                ),
+                ...chapters.map((chapter) => DropdownMenuItem(
+                      value: chapter.id,
+                      child: Text(chapter.title,
+                          overflow: TextOverflow.ellipsis),
+                    )),
+              ],
+              onChanged: _submitted || _saving
+                  ? null
+                  : (value) {
+                      if (value == null) return;
+                      setState(() {
+                        _selectedChapterId = value;
+                        _questions = _buildQuestions();
+                        _answers.clear();
+                        _submitted = false;
+                        _correct = 0;
+                      });
+                    },
+            ),
+            const SizedBox(height: 6),
+            Text(
+              'Choisis un chapitre déjà étudié pour t’entraîner uniquement sur cette partie. Le programme officiel peut varier selon la progression de ta classe.',
+              style: TextStyle(
+                  color: Theme.of(context).hintColor, fontSize: 12),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -146,13 +206,16 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : questions.isEmpty
-              ? const Center(child: Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Text('Aucun exercice disponible pour cette matière. Les questions seront ajoutées progressivement.', textAlign: TextAlign.center),
-                ))
+              ? ListView(padding: const EdgeInsets.all(16), children: [
+                  _chapterSelector(),
+                  const Padding(
+                    padding: EdgeInsets.all(24),
+                    child: Text('Aucun exercice disponible dans cette sélection. Choisis un autre chapitre ou toute la matière.', textAlign: TextAlign.center),
+                ])
               : ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
+                    _chapterSelector(),
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -231,7 +294,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                       )
                     else
                       OutlinedButton.icon(
-                        onPressed: () => setState(() { _answers.clear(); _submitted = false; _saving = false; _correct = 0; }),
+                        onPressed: () => setState(() { _questions = _buildQuestions(); _answers.clear(); _submitted = false; _saving = false; _correct = 0; }),
                         icon: const Icon(Icons.refresh),
                         label: const Text('Recommencer cette évaluation'),
                       ),
