@@ -80,10 +80,12 @@ const annualHistoryCivicsUnits = <AnnualHistoryCivicsUnit>[
 ];
 
 final annualHistoryCivicsSubjects = [
-  for (final level in [SchoolLevel.cinquieme, SchoolLevel.quatrieme, SchoolLevel.troisieme])
-    Subject(id:'core_hg_${level.name}',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:level,totalChapters:2),
-  for (final level in [SchoolLevel.cinquieme, SchoolLevel.quatrieme, SchoolLevel.troisieme])
-    Subject(id:'core_ecm_${level.name}',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:level,totalChapters:2),
+  Subject(id:'core_hg_5e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.cinquieme,totalChapters:2),
+  Subject(id:'core_hg_4e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.quatrieme,totalChapters:2),
+  Subject(id:'core_hg_3e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.troisieme,totalChapters:2),
+  Subject(id:'core_ecm_5e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.cinquieme,totalChapters:2),
+  Subject(id:'core_ecm_4e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.quatrieme,totalChapters:2),
+  Subject(id:'core_ecm_3e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.troisieme,totalChapters:2),
 ];
 
 final annualHistoryCivicsChapters = annualHistoryCivicsUnits.map((unit) => Chapter(
