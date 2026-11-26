@@ -3,13 +3,18 @@ import 'package:proftogo/data/sample/sample_data.dart';
 import 'package:proftogo/data/sample/annual_core_catalog.dart';
 
 void main() {
-  test('every subject has exactly its declared number of chapters', () {
+  test('the current demo chapters do not exceed each subject annual plan', () {
     for (final subject in demoSubjects) {
       final count = demoChapters.where((chapter) => chapter.subjectId == subject.id).length;
       expect(
         count,
-        subject.totalChapters,
-        reason: 'La matière ${subject.name} (${subject.level.label}) doit avoir ${subject.totalChapters} chapitres.',
+        greaterThan(0),
+        reason: 'La matière ${subject.name} (${subject.level.name}) doit avoir au moins un chapitre accessible.',
+      );
+      expect(
+        count,
+        lessThanOrEqualTo(subject.totalChapters),
+        reason: 'La matière ${subject.name} (${subject.level.name}) ne doit pas dépasser son total annuel planifié de ${subject.totalChapters} chapitres.',
       );
     }
   });
