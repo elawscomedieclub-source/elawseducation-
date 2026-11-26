@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../../core/school_level_provider.dart';
 import '../../core/progress_service.dart';
@@ -77,8 +78,21 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
         : '';
     try {
       await _tts.stop();
+      final prefs = await SharedPreferences.getInstance();
       await _tts.setLanguage('fr-FR');
-      await _tts.setSpeechRate(0.70);
+      final savedVoiceKey = prefs.getString('proftogo_voice_key');
+      if (savedVoiceKey != null) {
+        final separator = savedVoiceKey.lastIndexOf('|');
+        if (separator > 0) {
+          final voiceName = savedVoiceKey.substring(0, separator);
+          final voiceLocale = savedVoiceKey.substring(separator + 1);
+          if (voiceLocale.toLowerCase().startsWith('fr')) {
+            await _tts.setVoice({'name': voiceName, 'locale': voiceLocale});
+          }
+        }
+      }
+      final savedRate = prefs.getDouble('proftogo_voice_rate');
+      await _tts.setSpeechRate((savedRate ?? 0.70).clamp(0.50, 1.0).toDouble());
       if (mounted) setState(() => _speaking = true);
       await _tts.speak('Question ${_currentIndex + 1}. ${exercise.question}. $choices.$explanation');
     } catch (_) {
