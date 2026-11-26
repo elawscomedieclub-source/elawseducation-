@@ -377,6 +377,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
             const Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: Text('ProfTogo privilégie les voix améliorées lorsqu’elles sont disponibles. La langue, la voix et la vitesse choisies sont réutilisées pour la lecture des cours et des questions.', style: TextStyle(fontSize: 12, color: Colors.grey)),
+            ),
           const SizedBox(height: 12),
           Card(
             child: Padding(
