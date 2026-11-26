@@ -107,10 +107,6 @@ final annualHistoryCivicsSubjects = [
   Subject(id:'core_ecm_5e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.cinquieme,totalChapters:2),
   Subject(id:'core_ecm_4e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.quatrieme,totalChapters:2),
   Subject(id:'core_ecm_3e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.troisieme,totalChapters:2),
-  ,
-    ,
-    ,
-    ,
 ];
 
 final annualHistoryCivicsChapters = annualHistoryCivicsUnits.map((unit) => Chapter(
