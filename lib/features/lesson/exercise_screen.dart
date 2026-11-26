@@ -79,16 +79,14 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
     try {
       await _tts.stop();
       final prefs = await SharedPreferences.getInstance();
-      await _tts.setLanguage('fr-FR');
+      await _tts.setLanguage(prefs.getString('proftogo_voice_language') ?? 'fr-FR');
       final savedVoiceKey = prefs.getString('proftogo_voice_key');
       if (savedVoiceKey != null) {
         final separator = savedVoiceKey.lastIndexOf('|');
         if (separator > 0) {
           final voiceName = savedVoiceKey.substring(0, separator);
           final voiceLocale = savedVoiceKey.substring(separator + 1);
-          if (voiceLocale.toLowerCase().startsWith('fr')) {
-            await _tts.setVoice({'name': voiceName, 'locale': voiceLocale});
-          }
+          await _tts.setVoice({'name': voiceName, 'locale': voiceLocale});
         }
       }
       final savedRate = prefs.getDouble('proftogo_voice_rate');
