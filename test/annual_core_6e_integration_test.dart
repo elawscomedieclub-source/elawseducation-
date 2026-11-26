@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/data/models/models.dart';
 import 'package:proftogo/data/sample/annual_core_catalog.dart';
+import 'package:proftogo/data/sample/annual_core_history_civics.dart' as history;
 import 'package:proftogo/data/sample/sample_data.dart';
 
 void main() {
@@ -18,7 +19,13 @@ void main() {
     for (final entry in prefixes.entries) {
       final subjectId = entry.key;
       final count = expected[subjectId]!;
-      final lessons = annualCoreLessons.where((lesson) => lesson.id.startsWith(entry.value)).toList();
+      final lessons = subjectId == 'hist'
+          ? history.annualHistoryCivicsLessons.where((lesson) => lesson.id.startsWith(entry.value)).toList()
+          : annualCoreLessons.where((lesson) => lesson.id.startsWith(entry.value)).toList();
+      if (subjectId == 'hist') {
+        expect(annualCoreLessons.map((lesson) => lesson.id), containsAll(lessons.map((lesson) => lesson.id)),
+            reason: 'Les leçons d’histoire-géographie doivent être incluses dans le catalogue principal.');
+      }
       expect(lessons, hasLength(count), reason: subjectId);
       expect(lessons.map((lesson) => lesson.id).toSet(), hasLength(count));
       final chapters = annualCoreChapters.where((chapter) =>
