@@ -62,7 +62,7 @@ const demoSubjects = <Subject>[
 
   Subject(id:'seconde_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.seconde,totalChapters:5,progress:0),
   Subject(id:'seconde_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.seconde,totalChapters:5,progress:0),
-  Subject(id:'seconde_svt',name:'Sciences de la vie et de la Terre',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.seconde,totalChapters:5,progress:0),
+  Subject(id:'seconde_svt',name:'Sciences de la vie et de la Terre',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.seconde,track:SchoolTrack.generalLiterary,series:'A4',totalChapters:5,progress:0),
   Subject(id:'seconde_ang',name:'Anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.seconde,totalChapters:5,progress:0),
 
   Subject(id:'premiere_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.premiere,totalChapters:5,progress:0),
