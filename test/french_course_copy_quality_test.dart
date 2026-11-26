@@ -36,7 +36,7 @@ void main() {
             question.prompt + ' ' + question.choices.join(' ') + ' ' + question.explanation,
       ];
       final commonFrenchTypos = RegExp(
-        r'\b(apparament|souvant|parmis|malgrès|acceuill\w*|dévelopement|environement|connaissence)\b',
+        r'\b(apparament|souvant|parmis|malgrès|acceuill\w*|dévelopement|environement|connaissence|est arriveront)\b',
         caseSensitive: false,
       );
       for (final text in texts) {
