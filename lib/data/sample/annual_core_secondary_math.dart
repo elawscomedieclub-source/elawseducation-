@@ -18,7 +18,36 @@ class AnnualSecondaryMathUnit {
     '3e' => 'trois_math',
     _ => 'core_secondary_math_$code',
   };
-  String get chapterId => 'core_secondary_math_${code}_unit_${unitOrder}';
+  String get chapterId => switch (code) {
+    '5e' => switch (unitOrder) {
+      1 => 'cinq_m1',
+      2 => 'cinq_plus_math',
+      3 => 'cinq_m1',
+      4 => 'cinq_plus_math',
+      5 => 'ptg_year_cinq_math_6',
+      6 => 'ptg_year_cinq_math_7',
+      _ => 'cinq_m1',
+    },
+    '4e' => switch (unitOrder) {
+      1 => 'ptg_year_quatre_math_6',
+      2 => 'quatre_plus_math',
+      3 => 'quatre_math_c2',
+      4 => 'quatre_m1',
+      5 => 'ptg_extension_quatre_math',
+      6 => 'ptg_year_quatre_math_7',
+      _ => 'ptg_year_quatre_math_6',
+    },
+    '3e' => switch (unitOrder) {
+      1 => 'ptg_year_trois_math_5',
+      2 => 'ptg_year_trois_math_7',
+      3 => 'ptg_year_trois_math_6',
+      4 => 'trois_m1',
+      5 => 'ptg_year_trois_math_7',
+      6 => 'trois_math_c2',
+      _ => 'ptg_year_trois_math_5',
+    },
+    _ => 'core_secondary_math_${code}_unit_${unitOrder}',
+  };
 }
 
 const annualSecondaryMathUnits = <AnnualSecondaryMathUnit>[

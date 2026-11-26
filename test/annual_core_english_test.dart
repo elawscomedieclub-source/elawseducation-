@@ -285,7 +285,7 @@ void main() {
     expect(annualSecondaryEnglishChapters, hasLength(18));
     expect(annualSecondaryEnglishLessons, hasLength(18));
     expect(annualSecondaryEnglishExercises, hasLength(54));
-    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 18);
+    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 0);
     expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_6e_') || l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 18);
     expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_6e_') || e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 54);
     expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(18));
@@ -301,61 +301,42 @@ void main() {
     }
   });
 
-  test('5e core units complete the seven-chapter subject plans and are reachable', () {
-    final subjectIds = demoSubjects
-        .where((subject) => subject.level == SchoolLevel.cinquieme)
-        .map((subject) => subject.id)
-        .toSet();
-    expect(subjectIds, containsAll(['cinq_math', 'cinq_fr', 'cinq_ang', 'cinq_svt']));
-    final fiveCoreChapters = annualCoreChapters
-        .where((chapter) => chapter.id.startsWith('core_secondary_') &&
-            ['cinq_math', 'cinq_fr', 'cinq_ang', 'cinq_svt'].contains(chapter.subjectId))
-        .toList();
-    expect(fiveCoreChapters, hasLength(24));
-    expect(fiveCoreChapters.map((chapter) => chapter.id).toSet(), hasLength(24));
-    for (final id in ['cinq_math', 'cinq_fr', 'cinq_ang', 'cinq_svt']) {
-      expect(fiveCoreChapters.where((chapter) => chapter.subjectId == id).map((chapter) => chapter.order).toSet(),
-          {1, 2, 3, 4, 5, 6});
+  
+
+  
+
+  
+
+    test('secondary annual lessons are integrated into existing subject chapters', () {
+    final lessons = <Lesson>[
+      ...annualSecondaryMathLessons,
+      ...annualSecondaryFrenchLessons,
+      ...annualSecondaryEnglishLessons,
+      ...annualSecondarySvtLessons,
+    ];
+    expect(lessons, hasLength(72));
+    final demoChapterIds = demoChapters.map((chapter) => chapter.id).toSet();
+    for (final lesson in lessons) {
+      expect(demoChapterIds, contains(lesson.chapterId), reason: lesson.id);
+    }
+    final subjectPaths = <SchoolLevel, List<String>>{
+      SchoolLevel.cinquieme: ['cinq_math', 'cinq_fr', 'cinq_ang', 'cinq_svt'],
+      SchoolLevel.quatrieme: ['quatre_math', 'quatre_fr', 'quatre_ang', 'quatre_svt'],
+      SchoolLevel.troisieme: ['trois_math', 'trois_fr', 'trois_ang', 'trois_svt'],
+    };
+    for (final entry in subjectPaths.entries) {
+      for (final id in entry.value) {
+        final subject = demoSubjects.firstWhere(
+          (s) => s.id == id && s.level == entry.key,
+        );
+        final chapterCount = demoChapters.where((c) => c.subjectId == id).length;
+        expect(subject.totalChapters, 7);
+        expect(chapterCount, subject.totalChapters);
+      }
     }
   });
 
-  test('4e core units complete the seven-chapter subject plans and are reachable', () {
-    final subjectIds = demoSubjects
-        .where((subject) => subject.level == SchoolLevel.quatrieme)
-        .map((subject) => subject.id)
-        .toSet();
-    expect(subjectIds, containsAll(['quatre_math', 'quatre_fr', 'quatre_ang', 'quatre_svt']));
-    final fourCoreChapters = annualCoreChapters
-        .where((chapter) => chapter.id.startsWith('core_secondary_') &&
-            ['quatre_math', 'quatre_fr', 'quatre_ang', 'quatre_svt'].contains(chapter.subjectId))
-        .toList();
-    expect(fourCoreChapters, hasLength(24));
-    expect(fourCoreChapters.map((chapter) => chapter.id).toSet(), hasLength(24));
-    for (final id in ['quatre_math', 'quatre_fr', 'quatre_ang', 'quatre_svt']) {
-      expect(fourCoreChapters.where((chapter) => chapter.subjectId == id).map((chapter) => chapter.order).toSet(),
-          {1, 2, 3, 4, 5, 6});
-    }
-  });
-
-  test('3e core units complete the seven-chapter subject plans and are reachable', () {
-    final subjectIds = demoSubjects
-        .where((subject) => subject.level == SchoolLevel.troisieme)
-        .map((subject) => subject.id)
-        .toSet();
-    expect(subjectIds, containsAll(['trois_math', 'trois_fr', 'trois_ang', 'trois_svt']));
-    final threeCoreChapters = annualCoreChapters
-        .where((chapter) => chapter.id.startsWith('core_secondary_') &&
-            ['trois_math', 'trois_fr', 'trois_ang', 'trois_svt'].contains(chapter.subjectId))
-        .toList();
-    expect(threeCoreChapters, hasLength(24));
-    expect(threeCoreChapters.map((chapter) => chapter.id).toSet(), hasLength(24));
-    for (final id in ['trois_math', 'trois_fr', 'trois_ang', 'trois_svt']) {
-      expect(threeCoreChapters.where((chapter) => chapter.subjectId == id).map((chapter) => chapter.order).toSet(),
-          {1, 2, 3, 4, 5, 6});
-    }
-  });
-
-  test('6e existing subject chapters match their declared annual totals', () {
+test('6e existing subject chapters match their declared annual totals', () {
     for (final id in ['math', 'fr', 'anglais', 'svt', 'hist']) {
       final subject = demoSubjects.firstWhere(
         (s) => s.id == id && s.level == SchoolLevel.sixieme,

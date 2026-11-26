@@ -18,7 +18,36 @@ class AnnualSecondaryFrenchUnit {
     '3e' => 'trois_fr',
     _ => 'core_secondary_french_$code',
   };
-  String get chapterId => 'core_secondary_french_${code}_unit_${unitOrder}';
+  String get chapterId => switch (code) {
+    '5e' => switch (unitOrder) {
+      1 => 'cinq_f1',
+      2 => 'cinq_fr_c2',
+      3 => 'ptg_year_cinq_fr_5',
+      4 => 'cinq_plus_fr',
+      5 => 'ptg_extension_cinq_fr',
+      6 => 'ptg_year_cinq_fr_7',
+      _ => 'cinq_f1',
+    },
+    '4e' => switch (unitOrder) {
+      1 => 'quatre_plus_fr',
+      2 => 'ptg_year_quatre_fr_6',
+      3 => 'ptg_year_quatre_fr_5',
+      4 => 'quatre_fr_c2',
+      5 => 'ptg_extension_quatre_fr',
+      6 => 'quatre_f1',
+      _ => 'quatre_plus_fr',
+    },
+    '3e' => switch (unitOrder) {
+      1 => 'ptg_year_trois_fr_7',
+      2 => 'ptg_year_trois_fr_5',
+      3 => 'trois_fr_c3',
+      4 => 'ptg_extension_trois_fr',
+      5 => 'trois_f1',
+      6 => 'ptg_year_trois_fr_6',
+      _ => 'ptg_year_trois_fr_7',
+    },
+    _ => 'core_secondary_french_${code}_unit_${unitOrder}',
+  };
 }
 
 const annualSecondaryFrenchUnits = <AnnualSecondaryFrenchUnit>[
