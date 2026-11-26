@@ -98,6 +98,28 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           }
           final weekCorrect = weekRecords.where((a) => a.isCorrect).length;
           final weekWrong = weekRecords.length - weekCorrect;
+          final recentRecords = d.attemptHistory.take(10).toList();
+          final previousRecords = d.attemptHistory.skip(10).take(10).toList();
+          final recentCorrect = recentRecords.where((a) => a.isCorrect).length;
+          final recentRate = recentRecords.isEmpty ? 0 : (recentCorrect * 100 / recentRecords.length).round();
+          final previousCorrect = previousRecords.where((a) => a.isCorrect).length;
+          final previousRate = previousRecords.isEmpty ? 0 : (previousCorrect * 100 / previousRecords.length).round();
+          final trendLabel = recentRecords.length < 3
+              ? 'Je collecte encore quelques réponses pour mieux comprendre ton rythme.'
+              : previousRecords.length < 3
+                  ? 'Je commence à repérer les notions qui te demandent plus d’efforts.'
+                  : recentRate >= previousRate + 10
+                      ? 'Tes réponses récentes montrent une progression. Continue cette méthode.'
+                      : recentRate <= previousRate - 10
+                          ? 'Les dernières questions sont plus difficiles. Nous allons ralentir et reprendre les bases.'
+                          : 'Tes résultats récents sont assez stables. Une pratique régulière t’aidera à consolider tes acquis.';
+          final personalizedMethod = recentRecords.length < 3
+              ? 'Réponds à quelques exercices supplémentaires : je pourrai ensuite te proposer une révision plus précise.'
+              : recentRate < 50
+                  ? 'Lis d’abord la leçon, écoute l’explication si tu le souhaites, observe un exemple corrigé, puis fais 3 exercices à ton rythme.'
+                  : recentRate < 80
+                      ? 'Alterne une courte relecture et 4 à 5 exercices. Après chaque erreur, explique pourquoi la bonne réponse est correcte.'
+                      : 'Tu peux avancer vers la leçon suivante. Reviens demain sur 2 ou 3 questions pour vérifier que tu retiens bien la notion.';
           final correct = d.progress.correctExerciseIds.length;
           // Chaque erreur est une tentative distincte ; les réussites sont
           // comptées une fois par exercice validé.
@@ -189,6 +211,34 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                   Chip(avatar: const Icon(Icons.replay), label: Text(d.reviewIds.length.toString() + ' à revoir')),
                 ]),
               ]))),
+              if (recentRecords.isNotEmpty)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Row(children: [
+                          Icon(Icons.auto_awesome_rounded),
+                          SizedBox(width: 9),
+                          Expanded(child: Text('Ma méthode adaptée', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800))),
+                        ]),
+                        const SizedBox(height: 8),
+                        Text('Sur tes ${recentRecords.length} réponses les plus récentes : $recentCorrect correcte(s), soit $recentRate % de réussite.'),
+                        if (previousRecords.length >= 3) ...[
+                          const SizedBox(height: 5),
+                          Text('Période précédente : $previousRate %.'),
+                        ],
+                        const SizedBox(height: 7),
+                        Text(trendLabel),
+                        const SizedBox(height: 10),
+                        Text(personalizedMethod, style: const TextStyle(fontWeight: FontWeight.w600)),
+                        const SizedBox(height: 7),
+                        const Text('Cette recommandation se met à jour à partir de tes réponses enregistrées, séparées par compte sur cet appareil.', style: TextStyle(fontSize: 11, color: Colors.grey)),
+                      ],
+                    ),
+                  ),
+                ),
               if (nextLesson != null) ...[
                 Card(
                   child: Padding(
