@@ -30,10 +30,10 @@ class SubjectsScreen extends ConsumerWidget {
     final selectedLevel = ref.watch(schoolLevelProvider);
     final selectedTrack = ref.watch(schoolTrackProvider);
     final selectedSeries = ref.watch(schoolSeriesProvider);
-    final subjects = [
-      ...demoSubjects.where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries)),
-      ...annualCoreSubjects.where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries)),
-    ];
+    final subjects = mergeSubjectsByPath(
+      demoSubjects.where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries)),
+      annualCoreSubjects.where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries)),
+    );
 
     return Scaffold(
       appBar: AppBar(
