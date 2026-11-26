@@ -4,6 +4,7 @@ import 'package:proftogo/data/sample/annual_core_english.dart';
 import 'package:proftogo/data/sample/annual_core_science.dart';
 import 'package:proftogo/data/sample/annual_core_catalog.dart';
 import 'package:proftogo/data/sample/annual_core_math.dart';
+import 'package:proftogo/data/sample/annual_core_physics.dart';
 
 void main() {
   test('primary English course covers CP1 through CM2 as core lessons', () {
@@ -37,11 +38,11 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(18));
-    expect(annualCoreLessons, hasLength(48));
-    expect(annualCoreExercises, hasLength(144));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(48));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(144));
+    expect(annualCoreSubjects, hasLength(21));
+    expect(annualCoreLessons, hasLength(60));
+    expect(annualCoreExercises, hasLength(180));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(60));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(180));
   });
 
   test('primary mathematics units have complete exercises', () {
@@ -51,6 +52,25 @@ void main() {
     for (final lesson in annualMathLessons) {
       expect(lesson.content.trim(), isNotEmpty);
       final questions = annualMathExercises.where((e) => e.lessonId == lesson.id);
+      expect(questions, hasLength(3));
+      for (final question in questions) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+  });
+
+  test('secondary physics and chemistry courses are regular lessons', () {
+    expect(annualPhysicsUnits, hasLength(12));
+    expect(annualPhysicsLessons, hasLength(12));
+    expect(annualPhysicsExercises, hasLength(36));
+    expect(annualPhysicsSubjects.map((s) => s.level).toSet(), {
+      SchoolLevel.sixieme, SchoolLevel.cinquieme, SchoolLevel.quatrieme,
+    });
+    for (final lesson in annualPhysicsLessons) {
+      expect(lesson.content.trim(), isNotEmpty);
+      final questions = annualPhysicsExercises.where((e) => e.lessonId == lesson.id);
       expect(questions, hasLength(3));
       for (final question in questions) {
         expect(question.options.length, greaterThanOrEqualTo(3));
