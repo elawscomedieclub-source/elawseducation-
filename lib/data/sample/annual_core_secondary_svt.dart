@@ -18,7 +18,36 @@ class AnnualSecondarySvtUnit {
     '3e' => 'trois_svt',
     _ => 'core_svt_$code',
   };
-  String get chapterId => 'core_secondary_svt_${code}_unit_${unitOrder}';
+  String get chapterId => switch (code) {
+    '5e' => switch (unitOrder) {
+      1 => 'cinq_s1',
+      2 => 'cinq_svt_c2',
+      3 => 'cinq_svt_c2',
+      4 => 'ptg_extension_cinq_svt',
+      5 => 'cinq_s1',
+      6 => 'ptg_year_cinq_svt_7',
+      _ => 'cinq_s1',
+    },
+    '4e' => switch (unitOrder) {
+      1 => 'ptg_extension_quatre_svt',
+      2 => 'quatre_svt_c2',
+      3 => 'quatre_plus_svt',
+      4 => 'ptg_extension_quatre_svt',
+      5 => 'quatre_svt_c2',
+      6 => 'ptg_year_quatre_svt_7',
+      _ => 'ptg_extension_quatre_svt',
+    },
+    '3e' => switch (unitOrder) {
+      1 => 'ptg_extension_trois_svt',
+      2 => 'ptg_extension_trois_svt',
+      3 => 'trois_svt_c2',
+      4 => 'trois_svt_c3',
+      5 => 'ptg_year_trois_svt_6',
+      6 => 'trois_svt_c2',
+      _ => 'ptg_extension_trois_svt',
+    },
+    _ => 'core_secondary_svt_${code}_unit_${unitOrder}',
+  };
 }
 
 const annualSecondarySvtUnits = <AnnualSecondarySvtUnit>[
