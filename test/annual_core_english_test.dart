@@ -48,11 +48,11 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(44));
-    expect(annualCoreLessons, hasLength(221));
-    expect(annualCoreExercises, hasLength(663));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(221));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(663));
+    expect(annualCoreSubjects, hasLength(48));
+    expect(annualCoreLessons, hasLength(225));
+    expect(annualCoreExercises, hasLength(675));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(225));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(675));
   });
 
   test('Seconde C and D physics and chemistry are included as core lessons', () {
