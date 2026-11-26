@@ -380,4 +380,33 @@ test('6e existing subject chapters match their declared annual totals', () {
     expect(keys, hasLength(merged.length));
   });
 
+  test('every annual core chapter, lesson and exercise is reachable from its parent', () {
+    final subjectIds = {
+      ...demoSubjects.map((subject) => subject.id),
+      ...annualCoreSubjects.map((subject) => subject.id),
+    };
+    final chapters = [...demoChapters, ...annualCoreChapters];
+    final chapterIds = chapters.map((chapter) => chapter.id).toSet();
+    final lessons = [...demoLessons, ...annualCoreLessons];
+    final lessonIds = lessons.map((lesson) => lesson.id).toSet();
+
+    final orphanChapters = annualCoreChapters
+        .where((chapter) => !subjectIds.contains(chapter.subjectId))
+        .map((chapter) => '${chapter.id} -> ${chapter.subjectId}')
+        .toList();
+    final orphanLessons = annualCoreLessons
+        .where((lesson) => !chapterIds.contains(lesson.chapterId))
+        .map((lesson) => '${lesson.id} -> ${lesson.chapterId}')
+        .toList();
+    final orphanExercises = annualCoreExercises
+        .where((exercise) => !lessonIds.contains(exercise.lessonId))
+        .map((exercise) => '${exercise.id} -> ${exercise.lessonId}')
+        .toList();
+
+    expect(orphanChapters, isEmpty, reason: 'Core chapters must appear under an existing subject.');
+    expect(orphanLessons, isEmpty, reason: 'Core lessons must appear inside an existing chapter.');
+    expect(orphanExercises, isEmpty, reason: 'Core exercises must open their corresponding lesson.');
+  });
+
+
 }
