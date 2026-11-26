@@ -18,6 +18,7 @@ class LearnerAdaptationService {
   static LearnerCoachAdvice buildAdvice(
     List<ExerciseAttemptRecord> attempts, {
     Map<String, String> lessonTitles = const {},
+    DateTime? now,
   }) {
     if (attempts.isEmpty) {
       return const LearnerCoachAdvice(
@@ -31,7 +32,7 @@ class LearnerAdaptationService {
       ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
     final recent = ordered.take(20).toList();
     final recentByLesson = <String, List<ExerciseAttemptRecord>>{};
-    for (final attempt in recent) {
+    for (final attempt in boundedRecent) {
       final list = recentByLesson.putIfAbsent(attempt.lessonId, () => []);
       if (list.length < 5) list.add(attempt);
     }
@@ -58,7 +59,7 @@ class LearnerAdaptationService {
     }
 
     var streak = 0;
-    for (final attempt in recent) {
+    for (final attempt in boundedRecent) {
       if (!attempt.isCorrect) break;
       streak++;
     }
@@ -69,9 +70,9 @@ class LearnerAdaptationService {
       );
     }
 
-    final correct = recent.where((attempt) => attempt.isCorrect).length;
-    final accuracy = correct / recent.length;
-    if (recent.length >= 5 && accuracy >= 0.8) {
+    final correct = boundedRecent.where((attempt) => attempt.isCorrect).length;
+    final accuracy = correct / boundedRecent.length;
+    if (boundedRecent.length >= 5 && accuracy >= 0.8) {
       return const LearnerCoachAdvice(
         title: 'Tes acquis se consolident',
         message: 'Tes réponses récentes sont solides. Pour retenir durablement, reviens sur cette notion demain et explique la méthode avec tes propres mots.',
