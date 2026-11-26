@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/annual_core_english.dart';
 import '../../shared/widgets/menu_button.dart';
 
 class VoiceScreen extends ConsumerStatefulWidget {
@@ -234,17 +235,13 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
     final selectedLevel = ref.read(schoolLevelProvider);
     final selectedTrack = ref.read(schoolTrackProvider);
     final selectedSeries = ref.read(schoolSeriesProvider);
-    final selectedSubjectIds = demoSubjects
-        .where((subject) => subjectMatchesPath(
-              subject, selectedLevel, selectedTrack, selectedSeries))
-        .map((subject) => subject.id)
-        .toSet();
-    final selectedChapterIds = demoChapters
+    final selectedSubjectIds = [...demoSubjects, ...annualEnglishSubjects]
+        .where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries))
+        .map((subject) => subject.id).toSet();
+    final selectedChapterIds = [...demoChapters, ...annualEnglishChapters]
         .where((chapter) => selectedSubjectIds.contains(chapter.subjectId))
-        .map((chapter) => chapter.id)
-        .toSet();
-    final lessonsForLevel = demoLessons
-        .whereType<Lesson>()
+        .map((chapter) => chapter.id).toSet();
+    final lessonsForLevel = [...demoLessons.whereType<Lesson>(), ...annualEnglishLessons]
         .where((lesson) => selectedChapterIds.contains(lesson.chapterId));
 
     final scored = lessonsForLevel.map((lesson) {
