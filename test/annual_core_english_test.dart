@@ -286,8 +286,8 @@ void main() {
     expect(annualSecondaryEnglishLessons, hasLength(23));
     expect(annualSecondaryEnglishExercises, hasLength(69));
     expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 23);
-    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 23);
-    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 69);
+    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_6e_') || l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 23);
+    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_6e_') || e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 69);
     expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(23));
     expect(annualSecondaryEnglishExercises.map((e) => e.id).toSet(), hasLength(69));
     for (final unit in annualSecondaryEnglishUnits) {
