@@ -4,9 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import '../../core/reading_practice_service.dart';
+import '../../core/french_tts_voice_selector.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
 import '../../shared/widgets/menu_button.dart';
@@ -29,6 +31,7 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
   int _comprehensionTotal = 0;
   int _comprehensionCorrect = 0;
   int _statsRequestId = 0;
+  bool _voiceConfigured = false;
   late final StreamSubscription<User?> _authSubscription;
 
   Future<void> _loadComprehensionStats({String? levelKey}) async {
@@ -192,12 +195,51 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
     return missed.reversed.toList();
   }
 
+  double? _savedFrenchRate;
+
+  Future<void> _configureFrenchVoice() async {
+    if (_voiceConfigured) return;
+    _voiceConfigured = true;
+    try {
+      await _tts.awaitSpeakCompletion(true);
+      final prefs = await SharedPreferences.getInstance();
+      _savedFrenchRate = prefs.getDouble('proftogo_voice_rate');
+      final savedKey = prefs.getString('proftogo_voice_key');
+      final rawVoices = await _tts.getVoices;
+      if (rawVoices is! List) return;
+      final available = rawVoices.whereType<Map>().toList();
+      Map<String, String>? selected;
+      if (savedKey != null) {
+        final separator = savedKey.lastIndexOf('|');
+        if (separator > 0) {
+          final name = savedKey.substring(0, separator);
+          final locale = savedKey.substring(separator + 1);
+          final match = available.where((voice) =>
+              voice['name']?.toString() == name &&
+              voice['locale']?.toString() == locale &&
+              locale.toLowerCase().startsWith('fr'));
+          if (match.isNotEmpty) {
+            selected = {'name': name, 'locale': locale};
+          }
+        }
+      }
+      selected ??= selectFrenchTtsVoice(available);
+      if (selected != null) await _tts.setVoice(selected);
+    } catch (_) {
+      // Si le moteur ne permet pas de choisir une voix, la voix fr-FR
+      // par défaut reste disponible : ne pas bloquer la lecture du cours.
+    }
+  }
+
   Future<void> _speakText(String text, {double rate = .42}) async {
     try {
       await _tts.stop();
       await _tts.setLanguage('fr-FR');
-      await _tts.setSpeechRate(rate);
+      await _configureFrenchVoice();
+      final preferredRate = rate < .40 ? rate : (_savedFrenchRate ?? rate);
+      await _tts.setSpeechRate(preferredRate.clamp(.30, 1.0).toDouble());
       await _tts.setPitch(1.0);
+      await _tts.setVolume(.95);
       await _tts.speak(text);
     } catch (_) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(
