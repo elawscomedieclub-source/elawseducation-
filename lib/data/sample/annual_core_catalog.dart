@@ -8,6 +8,7 @@ import 'annual_core_secondary_french.dart' as secondaryFrench;
 import 'annual_core_secondary_svt.dart' as secondarySvt;
 import 'annual_core_lycee_history_civics.dart' as lyceeHistoryCivics;
 import 'annual_core_seconde_physics.dart' as secondePhysics;
+import 'annual_core_seconde_svt.dart' as secondeSvt;
 
 /// Matières du programme principal ajoutées à la banque de cours, séparées
 /// des leçons bonus et regroupées pour les écrans communs de ProfTogo.
@@ -19,6 +20,7 @@ final annualCoreSubjects = [
   ...historyCivics.annualHistoryCivicsSubjects,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsSubjects,
   secondePhysics.annualSecondePhysicsSubject,
+  secondeSvt.annualSecondeCdSvtSubject,
 ];
 final annualCoreChapters = [
   ...english.annualEnglishChapters,
@@ -31,6 +33,7 @@ final annualCoreChapters = [
   ...secondarySvt.annualSecondarySvtChapters,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsChapters,
   ...secondePhysics.annualSecondePhysicsChapters,
+  ...secondeSvt.annualSecondeSvtChapters,
 ];
 final annualCoreLessons = [
   ...english.annualEnglishLessons,
@@ -43,6 +46,7 @@ final annualCoreLessons = [
   ...secondarySvt.annualSecondarySvtLessons,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsLessons,
   ...secondePhysics.annualSecondePhysicsLessons,
+  ...secondeSvt.annualSecondeSvtLessons,
 ];
 final annualCoreExercises = [
   ...english.annualEnglishExercises,
@@ -55,4 +59,5 @@ final annualCoreExercises = [
   ...secondarySvt.annualSecondarySvtExercises,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsExercises,
   ...secondePhysics.annualSecondePhysicsExercises,
+  ...secondeSvt.annualSecondeSvtExercises,
 ];
