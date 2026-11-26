@@ -31,6 +31,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
         EvaluationService.loadHistory(),
         ProgressService.loadReviewExerciseIds(),
         ProgressService.loadAttemptHistory(),
+        ProgressService.loadLearningBarrierCounts(),
       ]);
 
   @override
@@ -85,6 +86,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
           final allHistory = snapshot.data![1] as List<EvaluationRecord>;
           final reviewIds = snapshot.data![2] as Set<String>;
           final attempts = snapshot.data![3] as List<ExerciseAttemptRecord>;
+          final learningBarrierCounts = snapshot.data![4] as Map<String, int>;
           final now = DateTime.now();
           final today = DateTime(now.year, now.month, now.day);
           final activityDays = List<DateTime>.generate(
@@ -137,6 +139,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
           final learnerAdvice = LearnerAdaptationService.buildAdvice(
             selectedAttempts,
             lessonTitles: {for (final lesson in selectedLessons) lesson.id: lesson.title},
+            learningBarrierCounts: learningBarrierCounts,
           );
           final history = allHistory.where((r) => r.level == selectedLevel.label && (subjectIds.contains(r.subjectId) || r.subjectId.startsWith('composition_${selectedLevel.name}_${selectedTrack.name}_${selectedSeries}_'))).toList();
           final exercisesBySubject = <String, List<String>>{};
