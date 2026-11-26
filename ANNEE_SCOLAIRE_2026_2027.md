@@ -40,6 +40,10 @@ Les activités culturelles sont prévues pendant la dernière semaine avant les 
 - Les établissements scientifiques et les parcours STEM doivent être considérés comme des contextes d’apprentissage spécifiques ; ils ne remplacent pas les matières et séries déjà déclarées dans l’application.
 - Les contenus pédagogiques diffusés comme manuels ou documents scolaires doivent être contrôlés au regard du cadre d’homologation ministériel.
 
+## Guide pédagogique préparatoire des classes-métiers
+
+ProfTogo propose un [guide de mise en œuvre des classes-métiers 2026–2027](GUIDE_CLASSES_METIERS_2026_2027.md) : activités d’observation, projets simples, fiches de séance et évaluation formative. Ce document est un support de travail, non un programme officiel. La progression doit être validée par l’établissement et ajustée à la circulaire officielle, au niveau des élèves et aux règles de sécurité.
+
 ## Usage dans ProfTogo
 
 1. Utiliser les dates pour planifier le calendrier scolaire et les rappels.
@@ -53,6 +57,5 @@ Les activités culturelles sont prévues pendant la dernière semaine avant les 
 - [Togo Officiel — découpage de l’année scolaire 2026–2027](https://www.republiquetogolaise.tg/education/3007-12143-annee-scolaire-2026-2027-le-decoupage)
 - [Togo Officiel — dates des examens et concours 2026–2027](https://www.republiquetogolaise.tg/education/2810-12435-annee-scolaire-2026-2027-dates-des-examens-et-concours)
 - [Ministère — rentrée 2026–2027, classes scientifiques et classes-métiers](https://education.gouv.tg/rentree-scolaire-2026-2027-mama-omorou-donne-le-ton-au-lycee-scientifique-de-lome/)
-- [Ministère — rentrée 2026–2027, classes-métiers et établissements scientifiques](https://education.gouv.tg/rentree-scolaire-2026-2027-mama-omorou-donne-le-ton-au-lycee-scientifique-de-lome/)
 - [Ministère — cadre d’homologation des supports pédagogiques](https://education.gouv.tg/homologation-des-manuels-et-documents-pedagogiques-un-nouveau-cadre-reglementaire-pour-leducation-au-togo/)
 - [Ministère — nouveaux programmes d’EPS](https://education.gouv.tg/meps-reforme-educative-de-nouveaux-programmes-deps-entrent-en-vigueur-au-togo/)
