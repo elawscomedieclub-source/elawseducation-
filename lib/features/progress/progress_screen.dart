@@ -28,6 +28,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
         ProgressService.load(),
         EvaluationService.loadHistory(),
         ProgressService.loadReviewExerciseIds(),
+        ProgressService.loadAttemptHistory(),
       ]);
 
   @override
@@ -81,6 +82,25 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
           final progress = snapshot.data![0] as ProgressSnapshot;
           final allHistory = snapshot.data![1] as List<EvaluationRecord>;
           final reviewIds = snapshot.data![2] as Set<String>;
+          final attempts = snapshot.data![3] as List<ExerciseAttemptRecord>;
+          final now = DateTime.now();
+          final today = DateTime(now.year, now.month, now.day);
+          final activityDays = List<DateTime>.generate(
+            7,
+            (index) => today.subtract(Duration(days: 6 - index)),
+          );
+          final activityCounts = activityDays.map((day) {
+            return attempts.where((attempt) {
+              final localDate = attempt.timestamp.toLocal();
+              return localDate.year == day.year &&
+                  localDate.month == day.month &&
+                  localDate.day == day.day;
+            }).length;
+          }).toList();
+          final maxActivity = activityCounts.fold<int>(
+            1,
+            (maximum, count) => count > maximum ? count : maximum,
+          );
           final bonusReviewQuestions = supplementalLessons
               .where((lesson) => lesson.level == selectedLevel)
               .expand((lesson) => lesson.questions.map((question) => MapEntry(lesson, question)))
@@ -137,6 +157,46 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
               LinearProgressIndicator(value: overall, minHeight: 10, borderRadius: BorderRadius.circular(8)),
               const SizedBox(height: 6),
               Text('${(overall * 100).round()} % des exercices validés'),
+              const SizedBox(height: 18),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Mon activité des 7 derniers jours',
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 6),
+                      const Text('Tentatives réalisées, bonnes réponses et erreurs comprises.',
+                          style: TextStyle(fontSize: 12)),
+                      const SizedBox(height: 12),
+                      ...List.generate(activityDays.length, (index) {
+                        final day = activityDays[index];
+                        final weekday = const ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'][day.weekday - 1];
+                        final label = day == today ? 'Aujourd’hui' : weekday;
+                        final count = activityCounts[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(children: [
+                            SizedBox(width: 76, child: Text(label, style: const TextStyle(fontSize: 12))),
+                            Expanded(child: LinearProgressIndicator(
+                              value: count / maxActivity,
+                              minHeight: 8,
+                              borderRadius: BorderRadius.circular(8),
+                            )),
+                            const SizedBox(width: 10),
+                            SizedBox(width: 24, child: Text('$count', textAlign: TextAlign.end,
+                                style: const TextStyle(fontWeight: FontWeight.w600))),
+                          ]),
+                        );
+                      }),
+                      if (attempts.isEmpty)
+                        const Text('Ton activité apparaîtra ici après tes premières réponses.',
+                            style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 22),
               Row(
                 children: [
