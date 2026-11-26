@@ -356,7 +356,8 @@ test('6e existing subject chapters match their declared annual totals', () {
     final annualSubject = annualPhysicsSubjects.firstWhere((s) => s.id == 'trois_pc' && s.level == SchoolLevel.troisieme);
     expect(annualSubject.totalChapters, 11);
     expect(demoCount + coreChapters.length, annualSubject.totalChapters);
-    final lessons = annualPhysicsLessons.where((l) => l.id.startsWith('core_pct_troisieme_')).toList();
+    final chapterIds = coreChapters.map((chapter) => chapter.id).toSet();
+    final lessons = annualPhysicsLessons.where((lesson) => chapterIds.contains(lesson.chapterId)).toList();
     expect(lessons, hasLength(5));
     final lessonIds = lessons.map((l) => l.id).toSet();
     expect(annualPhysicsExercises.where((e) => lessonIds.contains(e.lessonId)), hasLength(15));
