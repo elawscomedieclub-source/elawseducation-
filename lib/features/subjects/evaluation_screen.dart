@@ -174,6 +174,10 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
       score: score,
       correct: correct,
       total: questions.length,
+      chapterId: _selectedChapterId,
+      chapterTitle: _selectedChapterId.isEmpty
+          ? 'Toute la matière'
+          : demoChapters.firstWhere((chapter) => chapter.id == _selectedChapterId).title,
       date: DateTime.now(),
     );
 
