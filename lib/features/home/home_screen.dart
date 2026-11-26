@@ -521,6 +521,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     final titles = <String, String>{
                       for (final lesson in [...demoLessons, ...annualCoreLessons])
                         lesson.id: lesson.title,
+                      for (final lesson in supplementalLessons)
+                        lesson.id: lesson.title,
                     };
                     final advice = LearnerAdaptationService.buildAdvice(
                       historySnapshot.data ?? const <ExerciseAttemptRecord>[],
