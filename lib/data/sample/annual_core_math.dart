@@ -77,7 +77,38 @@ const annualMathUnits = <AnnualMathUnit>[
     Exercise(id:'core_math_cm2_prop2',lessonId:'core_math_cm2_proportion',question:'What is half of 48?',options:['12','24','36'],correctIndex:1,explanation:'48 ÷ 2 = 24.'),
     Exercise(id:'core_math_cm2_prop3',lessonId:'core_math_cm2_proportion',question:'One notebook costs 150 CFA. Two cost…',options:['200 CFA','250 CFA','300 CFA'],correctIndex:2,explanation:'150 × 2 = 300 CFA.'),
   ]),
-];
+
+  AnnualMathUnit(level:SchoolLevel.cp1,code:'cp1',unitOrder:3,title:'Formes et positions',lessonId:'core_math_cp1_shapes',lessonTitle:'Reconnaître les formes et se repérer',summary:'Reconnaître les formes simples et décrire leur position.',content:'Observe les objets autour de toi. Un cercle est rond, un triangle possède trois côtés et un rectangle possède quatre côtés avec des angles droits. Pour se repérer, on utilise devant, derrière, à côté, au-dessus et en dessous. Dessine les formes puis nomme-les.',keyPoints:['Le triangle a 3 côtés','Le rectangle a 4 côtés et 4 angles droits','Utiliser des mots de position'],exercises:[
+    Exercise(id:'core_math_cp1_sh1',lessonId:'core_math_cp1_shapes',question:'Combien de côtés a un triangle ?',options:['2','3','4'],correctIndex:1,explanation:'Un triangle possède trois côtés.'),
+    Exercise(id:'core_math_cp1_sh2',lessonId:'core_math_cp1_shapes',question:'Quelle forme est ronde ?',options:['Le cercle','Le rectangle','Le triangle'],correctIndex:0,explanation:'Le cercle est une forme ronde.'),
+    Exercise(id:'core_math_cp1_sh3',lessonId:'core_math_cp1_shapes',question:'Le livre est sur la table. Où est le livre ?',options:['Sous la table','Sur la table','Derrière la table'],correctIndex:1,explanation:'La phrase indique que le livre est sur la table.'),
+  ]),
+  AnnualMathUnit(level:SchoolLevel.cp2,code:'cp2',unitOrder:3,title:'Calendrier et monnaie',lessonId:'core_math_cp2_time_money',lessonTitle:'Lire le calendrier et compter l’argent',summary:'Lire les jours de la semaine et résoudre de petits achats.',content:'Une semaine compte sept jours. Le calendrier indique les jours, les dates et les mois. Pour compter de l’argent, additionne les valeurs des pièces ou billets. Si un article coûte 200 F et tu donnes 500 F, la monnaie rendue est 500 − 200 = 300 F.',keyPoints:['Une semaine compte 7 jours','Lire la date sur le calendrier','Monnaie rendue = somme donnée − prix'],exercises:[
+    Exercise(id:'core_math_cp2_tm1',lessonId:'core_math_cp2_time_money',question:'Combien de jours compte une semaine ?',options:['5','7','10'],correctIndex:1,explanation:'Une semaine compte sept jours.'),
+    Exercise(id:'core_math_cp2_tm2',lessonId:'core_math_cp2_time_money',question:'Un cahier coûte 200 F. Tu donnes 500 F. Quelle monnaie ?',options:['200 F','300 F','700 F'],correctIndex:1,explanation:'500 − 200 = 300 F.'),
+    Exercise(id:'core_math_cp2_tm3',lessonId:'core_math_cp2_time_money',question:'Quel jour vient après mardi ?',options:['Lundi','Mercredi','Vendredi'],correctIndex:1,explanation:'Après mardi vient mercredi.'),
+  ]),
+  AnnualMathUnit(level:SchoolLevel.ce1,code:'ce1',unitOrder:3,title:'Tables et problèmes de multiplication',lessonId:'core_math_ce1_tables',lessonTitle:'Utiliser les tables pour résoudre un problème',summary:'Mobiliser les tables de multiplication dans des situations concrètes.',content:'Les tables de multiplication permettent de calculer rapidement des groupes égaux. Pour résoudre un problème, repère le nombre de groupes et le nombre d’objets par groupe. Écris l’opération, calcule puis vérifie si la réponse est raisonnable.',keyPoints:['Repérer les groupes égaux','Choisir la multiplication','Écrire une phrase réponse'],exercises:[
+    Exercise(id:'core_math_ce1_t1',lessonId:'core_math_ce1_tables',question:'4 sachets contiennent 5 bonbons chacun. Combien de bonbons ?',options:['9','20','25'],correctIndex:1,explanation:'4 × 5 = 20 bonbons.'),
+    Exercise(id:'core_math_ce1_t2',lessonId:'core_math_ce1_tables',question:'Quelle opération convient pour 6 rangées de 3 chaises ?',options:['6 × 3','6 − 3','6 ÷ 3'],correctIndex:0,explanation:'Six groupes de trois se calculent par 6 × 3.'),
+    Exercise(id:'core_math_ce1_t3',lessonId:'core_math_ce1_tables',question:'8 × 4 = ?',options:['24','32','36'],correctIndex:1,explanation:'8 fois 4 donne 32.'),
+  ]),
+  AnnualMathUnit(level:SchoolLevel.ce2,code:'ce2',unitOrder:3,title:'Masse et capacité',lessonId:'core_math_ce2_mass_capacity',lessonTitle:'Mesurer la masse et la capacité',summary:'Choisir kilogramme, gramme, litre et millilitre.',content:'La masse indique la quantité de matière d’un objet. On utilise le kilogramme (kg) ou le gramme (g). La capacité indique la quantité de liquide qu’un récipient peut contenir : litre (L) et millilitre (mL). 1 kg = 1 000 g et 1 L = 1 000 mL.',keyPoints:['1 kg = 1 000 g','1 L = 1 000 mL','Choisir l’unité adaptée à l’objet'],exercises:[
+    Exercise(id:'core_math_ce2_mc1',lessonId:'core_math_ce2_mass_capacity',question:'Quelle unité convient à la masse d’un sac de riz ?',options:['Kilogramme','Litre','Centimètre'],correctIndex:0,explanation:'Le kilogramme mesure la masse.'),
+    Exercise(id:'core_math_ce2_mc2',lessonId:'core_math_ce2_mass_capacity',question:'1 litre correspond à…',options:['100 mL','1 000 mL','10 000 mL'],correctIndex:1,explanation:'1 L = 1 000 mL.'),
+    Exercise(id:'core_math_ce2_mc3',lessonId:'core_math_ce2_mass_capacity',question:'2 kg correspondent à combien de grammes ?',options:['200 g','2 000 g','20 000 g'],correctIndex:1,explanation:'2 × 1 000 = 2 000 g.'),
+  ]),
+  AnnualMathUnit(level:SchoolLevel.cm1,code:'cm1',unitOrder:3,title:'Division et partage avec reste',lessonId:'core_math_cm1_division',lessonTitle:'Effectuer une division avec reste',summary:'Comprendre le quotient et le reste dans un partage.',content:'Lorsqu’on partage une quantité en groupes égaux, le quotient indique le nombre d’objets dans chaque groupe. Parfois, il reste des objets. Exemple : 17 ÷ 5 = 3 reste 2, car 5 × 3 = 15 et 17 − 15 = 2. Le reste doit être inférieur au diviseur.',keyPoints:['Dividende = diviseur × quotient + reste','Le reste est inférieur au diviseur','Vérifier la division par multiplication'],exercises:[
+    Exercise(id:'core_math_cm1_dv1',lessonId:'core_math_cm1_division',question:'17 ÷ 5 = ?',options:['3 reste 2','2 reste 3','4 reste 1'],correctIndex:0,explanation:'5 × 3 = 15 et 17 − 15 = 2.'),
+    Exercise(id:'core_math_cm1_dv2',lessonId:'core_math_cm1_division',question:'Quel est le reste de 23 ÷ 4 ?',options:['1','2','3'],correctIndex:2,explanation:'4 × 5 = 20 ; il reste 3.'),
+    Exercise(id:'core_math_cm1_dv3',lessonId:'core_math_cm1_division',question:'Dans 29 ÷ 6 = 4 reste 5, quel nombre est le diviseur ?',options:['29','6','4'],correctIndex:1,explanation:'Le diviseur est le nombre par lequel on partage : 6.'),
+  ]),
+  AnnualMathUnit(level:SchoolLevel.cm2,code:'cm2',unitOrder:3,title:'Pourcentages simples et conversions',lessonId:'core_math_cm2_percent_units',lessonTitle:'Calculer un pourcentage simple et convertir',summary:'Comprendre 10 %, 25 %, 50 % et quelques conversions usuelles.',content:'Un pourcentage exprime une part sur 100. 50 % signifie la moitié, 25 % le quart et 10 % un dixième. Pour trouver 50 % de 80, calcule 80 ÷ 2 = 40. Pour convertir une longueur, rappelle-toi que 1 km = 1 000 m et 1 m = 100 cm.',keyPoints:['50 % = la moitié','25 % = le quart','10 % = un dixième','1 km = 1 000 m'],exercises:[
+    Exercise(id:'core_math_cm2_pc1',lessonId:'core_math_cm2_percent_units',question:'50 % de 60 vaut…',options:['15','30','50'],correctIndex:1,explanation:'50 % représente la moitié : 60 ÷ 2 = 30.'),
+    Exercise(id:'core_math_cm2_pc2',lessonId:'core_math_cm2_percent_units',question:'25 % de 40 vaut…',options:['10','20','25'],correctIndex:0,explanation:'25 % représente le quart : 40 ÷ 4 = 10.'),
+    Exercise(id:'core_math_cm2_pc3',lessonId:'core_math_cm2_percent_units',question:'3 km correspondent à…',options:['300 m','3 000 m','30 000 m'],correctIndex:1,explanation:'3 × 1 000 = 3 000 m.'),
+  ]),
+]; 
 
 final annualMathSubjects = SchoolLevel.values.take(6).map((level) {
   final code = switch (level) {
@@ -89,7 +120,7 @@ final annualMathSubjects = SchoolLevel.values.take(6).map((level) {
     SchoolLevel.cm2 => 'cm2',
     _ => 'primary',
   };
-  return Subject(id:'core_math_$code',name:'Mathématiques — cours de l’année',iconName:'calculator',colorHex:'006A4E',level:level,totalChapters:2);
+  return Subject(id:'core_math_$code',name:'Mathématiques — cours de l’année',iconName:'calculator',colorHex:'006A4E',level:level,totalChapters:3);
 }).toList();
 
 final annualMathChapters = annualMathUnits.map((unit) => Chapter(

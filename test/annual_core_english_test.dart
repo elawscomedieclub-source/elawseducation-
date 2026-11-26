@@ -38,16 +38,16 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(18));
-    expect(annualCoreLessons, hasLength(42));
-    expect(annualCoreExercises, hasLength(126));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(42));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(126));
+    expect(annualCoreLessons, hasLength(48));
+    expect(annualCoreExercises, hasLength(144));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(48));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(144));
   });
 
   test('primary mathematics units have complete exercises', () {
-    expect(annualMathUnits, hasLength(12));
-    expect(annualMathLessons, hasLength(12));
-    expect(annualMathExercises, hasLength(36));
+    expect(annualMathUnits, hasLength(18));
+    expect(annualMathLessons, hasLength(18));
+    expect(annualMathExercises, hasLength(54));
     for (final lesson in annualMathLessons) {
       expect(lesson.content.trim(), isNotEmpty);
       final questions = annualMathExercises.where((e) => e.lessonId == lesson.id);
