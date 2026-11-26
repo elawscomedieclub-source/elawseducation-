@@ -51,15 +51,17 @@ void main() {
     });
 
     test('uses only recent attempts when recommending a lesson', () {
+      final recentSuccesses = List<ExerciseAttemptRecord>.generate(
+        20,
+        (index) => attempt('new_topic', true, index + 1),
+      );
       final advice = LearnerAdaptationService.buildAdvice([
-        attempt('new_topic', true, 1),
-        attempt('new_topic', true, 2),
-        attempt('new_topic', true, 3),
-        attempt('old_topic', false, 4),
-        attempt('old_topic', false, 5),
+        ...recentSuccesses,
+        attempt('old_topic', false, 21),
+        attempt('old_topic', false, 22),
       ]);
       expect(advice.lessonId, isNull);
-      expect(advice.title, 'Avançons à ton rythme');
-    });
+      expect(advice.title, 'Tu prends confiance');
+    });;
   });
 }
