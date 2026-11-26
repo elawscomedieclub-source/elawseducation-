@@ -13,6 +13,7 @@ import 'package:proftogo/data/sample/annual_core_lycee_history_civics.dart';
 import 'package:proftogo/data/sample/annual_core_seconde_physics.dart';
 import 'package:proftogo/data/sample/annual_core_secondary_english.dart';
 import 'package:proftogo/data/sample/annual_core_seconde_svt.dart';
+import 'package:proftogo/data/sample/annual_core_seconde_math.dart';
 import 'package:proftogo/data/sample/sample_data.dart';
 
 void main() {
@@ -48,10 +49,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(36));
-    expect(annualCoreLessons, hasLength(147));
-    expect(annualCoreExercises, hasLength(441));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(147));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(441));
+    expect(annualCoreLessons, hasLength(152));
+    expect(annualCoreExercises, hasLength(456));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(152));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(456));
   });
 
   test('primary mathematics units have complete exercises', () {
@@ -63,6 +64,24 @@ void main() {
       final questions = annualMathExercises.where((e) => e.lessonId == lesson.id);
       expect(questions, hasLength(3));
       for (final question in questions) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+  });
+
+  test('Seconde mathematics adds geometry, variation, algorithms and trigonometry', () {
+    expect(annualSecondeMathUnits, hasLength(11));
+    expect(annualSecondeMathLessons, hasLength(11));
+    expect(annualSecondeMathChapters, hasLength(11));
+    expect(annualSecondeMathExercises, hasLength(33));
+    expect(annualSecondeMathLessons.map((l) => l.id).toSet(), hasLength(11));
+    expect(annualSecondeMathExercises.map((e) => e.id).toSet(), hasLength(33));
+    for (final unit in annualSecondeMathUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
         expect(question.options.length, greaterThanOrEqualTo(3));
         expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
         expect(question.explanation.trim(), isNotEmpty);
