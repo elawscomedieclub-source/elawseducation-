@@ -101,6 +101,13 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
             1,
             (maximum, count) => count > maximum ? count : maximum,
           );
+          final weekAttempts = attempts.where((attempt) {
+            final localDate = attempt.timestamp.toLocal();
+            return !localDate.isBefore(activityDays.first) &&
+                localDate.isBefore(today.add(const Duration(days: 1)));
+          }).toList();
+          final weekCorrect = weekAttempts.where((attempt) => attempt.isCorrect).length;
+          final weekWrong = weekAttempts.length - weekCorrect;
           final bonusReviewQuestions = supplementalLessons
               .where((lesson) => lesson.level == selectedLevel)
               .expand((lesson) => lesson.questions.map((question) => MapEntry(lesson, question)))
@@ -169,6 +176,9 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                       const SizedBox(height: 6),
                       const Text('Tentatives réalisées, bonnes réponses et erreurs comprises.',
                           style: TextStyle(fontSize: 12)),
+                      const SizedBox(height: 10),
+                      Text('Cette semaine : ${weekAttempts.length} tentatives • $weekCorrect bonnes • $weekWrong erreurs',
+                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
                       const SizedBox(height: 12),
                       ...List.generate(activityDays.length, (index) {
                         final day = activityDays[index];
