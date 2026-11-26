@@ -5,7 +5,7 @@ import 'package:proftogo/data/sample/sample_data.dart';
 
 void main() {
   test('6e annual lessons remain accessible in existing subject chapters', () {
-    final mergedSubjects = mergeSubjectsByPath(demoSubjects, annualCoreSubjects);
+    final mergedSubjects = mergeSubjectsByPath(demoSubjects, annualCoreSubjects.whereType<Subject>());
     final lessonPrefixes = <String, String>{
       'math': 'core_math_6e_',
       'fr': 'core_fr_6e_',
@@ -54,7 +54,7 @@ void main() {
       final demoSubject = demoSubjects.firstWhere(
         (subject) => subject.id == subjectId && subject.level == SchoolLevel.sixieme,
       );
-      final annualSubject = annualCoreSubjects.firstWhere(
+      final annualSubject = annualCoreSubjects.whereType<Subject>().firstWhere(
         (subject) => subject.id == subjectId && subject.level == SchoolLevel.sixieme,
       );
       final expectedTotal = demoSubject.totalChapters >= annualSubject.totalChapters
