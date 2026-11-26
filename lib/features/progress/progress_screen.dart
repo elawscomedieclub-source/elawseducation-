@@ -108,6 +108,9 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
           }).toList();
           final weekCorrect = weekAttempts.where((attempt) => attempt.isCorrect).length;
           final weekWrong = weekAttempts.length - weekCorrect;
+          final weekAccuracy = weekAttempts.isEmpty
+              ? 0
+              : (weekCorrect / weekAttempts.length * 100).round();
           final bonusReviewQuestions = supplementalLessons
               .where((lesson) => lesson.level == selectedLevel)
               .expand((lesson) => lesson.questions.map((question) => MapEntry(lesson, question)))
@@ -179,6 +182,9 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                       const SizedBox(height: 10),
                       Text('Cette semaine : ${weekAttempts.length} tentatives • $weekCorrect bonnes • $weekWrong erreurs',
                           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+                      const SizedBox(height: 4),
+                      Text('Taux de réussite : $weekAccuracy %',
+                          style: const TextStyle(fontSize: 12, color: Color(0xFF006A4E))),
                       const SizedBox(height: 12),
                       ...List.generate(activityDays.length, (index) {
                         final day = activityDays[index];
@@ -200,8 +206,8 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                           ]),
                         );
                       }),
-                      if (attempts.isEmpty)
-                        const Text('Ton activité apparaîtra ici après tes premières réponses.',
+                      if (weekAttempts.isEmpty)
+                        const Text('Ton activité apparaîtra ici après tes premières réponses cette semaine.',
                             style: TextStyle(fontSize: 12)),
                     ],
                   ),
