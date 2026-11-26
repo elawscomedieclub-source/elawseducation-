@@ -131,5 +131,50 @@ void main() {
       expect(advice.title, 'Tu prends confiance');
     });
 
+    test('adapts advice to a learner-reported reading barrier', () {
+      final advice = LearnerAdaptationService.buildAdvice(
+        [],
+        learningBarrierCounts: {'lecture': 2},
+      );
+      expect(advice.title, 'Un appui pour lire');
+      expect(advice.message, contains('lecture vocale'));
+    });
+
+    test('adapts advice to a learner-reported comprehension barrier', () {
+      final advice = LearnerAdaptationService.buildAdvice(
+        [attempt('topic', false, 1)],
+        learningBarrierCounts: {'comprehension': 1},
+      );
+      expect(advice.title, 'Comprendre avant de répondre');
+      expect(advice.message, contains('reformule-la'));
+    });
+
+    test('adapts advice to a learner-reported method barrier', () {
+      final advice = LearnerAdaptationService.buildAdvice(
+        [attempt('topic', true, 1)],
+        learningBarrierCounts: {'methode': 3},
+      );
+      expect(advice.message, contains('exemple résolu'));
+      expect(advice.title, 'Une méthode pas à pas');
+    });
+
+    test('chooses the most frequently reported valid barrier', () {
+      final advice = LearnerAdaptationService.buildAdvice(
+        [],
+        learningBarrierCounts: {'lecture': 2, 'methode': 4, 'unknown': 99},
+      );
+      expect(advice.title, 'Une méthode pas à pas');
+    });
+
+    test('repeated errors remain priority and receive barrier-aware guidance', () {
+      final advice = LearnerAdaptationService.buildAdvice(
+        [attempt('fractions', false, 1), attempt('fractions', false, 2)],
+        lessonTitles: {'fractions': 'Les fractions'},
+        learningBarrierCounts: {'comprehension': 1},
+      );
+      expect(advice.lessonId, 'fractions');
+      expect(advice.message, contains('reformule la consigne'));
+    });
+
   });
 }
