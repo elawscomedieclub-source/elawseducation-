@@ -53,3 +53,28 @@ bool subjectMatchesPath(Subject subject, SchoolLevel level, SchoolTrack track, S
   if (subject.track != track) return false;
   return subject.series == null || subject.series == series;
 }
+/// Merge the demo and annual-core subject cards without showing the same
+/// subject twice for an identical school path. If both cards exist, retain
+/// the entry that advertises the larger annual chapter count.
+List<Subject> mergeSubjectsByPath(
+  Iterable<Subject> existingSubjects,
+  Iterable<Subject> additionalSubjects,
+) {
+  final merged = <String, Subject>{};
+  void add(Subject subject) {
+    final key = '${subject.id}|${subject.level.name}|${subject.track?.name ?? ''}|${subject.series ?? ''}';
+    final current = merged[key];
+    if (current == null || subject.totalChapters >= current.totalChapters) {
+      merged[key] = subject;
+    }
+  }
+
+  for (final subject in existingSubjects) {
+    add(subject);
+  }
+  for (final subject in additionalSubjects) {
+    add(subject);
+  }
+  return merged.values.toList();
+}
+
