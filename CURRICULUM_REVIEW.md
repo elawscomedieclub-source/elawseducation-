@@ -1,6 +1,6 @@
 # ProfTogo — audit pédagogique et couverture annuelle
 
-**Mise à jour : 25 novembre 2026**
+**Mise à jour : 26 novembre 2026**
 
 ## État quantitatif vérifié
 
@@ -77,6 +77,10 @@ La banque de cours ne suffit pas à prouver que le programme annuel officiel est
 - [Cadre d’homologation des manuels et documents pédagogiques (8 octobre 2025)](https://education.gouv.tg/homologation-des-manuels-et-documents-pedagogiques-un-nouveau-cadre-reglementaire-pour-leducation-au-togo/)
 - [Nouveaux programmes d’EPS (rentrée 2025–2026)](https://education.gouv.tg/meps-reforme-educative-de-nouveaux-programmes-deps-entrent-en-vigueur-au-togo/)
 - [Ressource officielle sur les offres de l’enseignement technique](https://education.gouv.tg/wp-content/uploads/2023/10/lien_9_1_1.pdf)
+
+## Mise en œuvre des classes-métiers — travail préparatoire
+
+Un guide de séance a été ajouté pour soutenir l’expérimentation annoncée en 2026–2027 : [GUIDE_CLASSES_METIERS_2026_2027.md](GUIDE_CLASSES_METIERS_2026_2027.md). Il propose une progression de travail (30 séances primaires, modules secondaires différenciés), des projets, une grille formative sur 20 et des consignes de sécurité. **Ce guide est une proposition de l’application, non un programme officiel homologué.** La publication ministérielle confirme la phase expérimentale en CM1-CM2 et dans les collèges/lycées scientifiques, mais la progression proposée doit être validée localement et rapprochée des instructions officielles.
 
 ## Conclusion
 
