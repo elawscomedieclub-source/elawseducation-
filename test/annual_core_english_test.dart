@@ -48,7 +48,7 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(38));
+    expect(annualCoreSubjects, hasLength(39));
     expect(annualCoreLessons, hasLength(201));
     expect(annualCoreExercises, hasLength(603));
     expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(201));
@@ -112,7 +112,7 @@ void main() {
     expect(annualPhysicsLessons, hasLength(14));
     expect(annualPhysicsExercises, hasLength(42));
     expect(annualPhysicsSubjects.map((s) => s.level).toSet(), {
-      SchoolLevel.sixieme, SchoolLevel.cinquieme, SchoolLevel.quatrieme,
+      SchoolLevel.sixieme, SchoolLevel.cinquieme, SchoolLevel.quatrieme, SchoolLevel.troisieme,
     });
     for (final lesson in annualPhysicsLessons) {
       expect(lesson.content.trim(), isNotEmpty);
@@ -282,12 +282,12 @@ void main() {
 
   test('middle-school English lessons have complete grammar and communication practice', () {
     expect(annualSecondaryEnglishUnits, hasLength(18));
-    expect(annualSecondaryEnglishChapters, hasLength(23));
+    expect(annualSecondaryEnglishChapters, hasLength(18));
     expect(annualSecondaryEnglishLessons, hasLength(18));
     expect(annualSecondaryEnglishExercises, hasLength(54));
-    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 23);
-    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_6e_') || l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 23);
-    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_6e_') || e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 69);
+    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 18);
+    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_6e_') || l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 18);
+    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_6e_') || e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 54);
     expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(18));
     expect(annualSecondaryEnglishExercises.map((e) => e.id).toSet(), hasLength(54));
     for (final unit in annualSecondaryEnglishUnits) {
@@ -371,11 +371,13 @@ void main() {
     );
     final demoCount = demoChapters.where((c) => c.subjectId == 'trois_pc').length;
     final coreChapters = annualPhysicsChapters.where((c) => c.subjectId == 'trois_pc').toList();
-    expect(demoCount, 1);
+    expect(demoCount, 6);
     expect(coreChapters, hasLength(5));
     expect(coreChapters.map((c) => c.id).toSet(), hasLength(5));
     expect(coreChapters.map((c) => c.order).toSet(), {2, 3, 4, 5, 6});
-    expect(demoCount + coreChapters.length, subject.totalChapters);
+    final annualSubject = annualPhysicsSubjects.firstWhere((s) => s.id == 'trois_pc' && s.level == SchoolLevel.troisieme);
+    expect(annualSubject.totalChapters, 11);
+    expect(demoCount + coreChapters.length, annualSubject.totalChapters);
     final lessons = annualPhysicsLessons.where((l) => l.id.startsWith('core_pct_troisieme_')).toList();
     expect(lessons, hasLength(5));
     final lessonIds = lessons.map((l) => l.id).toSet();
@@ -391,6 +393,9 @@ void main() {
         subject.series == 'A4').toList();
     expect(a4Svt, hasLength(1));
     expect(a4Svt.single.totalChapters, 11);
+    final threePc = merged.where((subject) => subject.id == 'trois_pc' && subject.level == SchoolLevel.troisieme).toList();
+    expect(threePc, hasLength(1));
+    expect(threePc.single.totalChapters, 11);
     final keys = merged.map((subject) =>
         '${subject.id}|${subject.level.name}|${subject.track?.name ?? ''}|${subject.series ?? ''}').toSet();
     expect(keys, hasLength(merged.length));
