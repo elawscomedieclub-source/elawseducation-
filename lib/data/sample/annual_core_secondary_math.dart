@@ -14,7 +14,6 @@ class AnnualSecondaryMathUnit {
   });
   String get subjectId => switch (code) {
     '6e' => 'math',
-    '6e' => 'math',
     '5e' => 'cinq_math',
     '4e' => 'quatre_math',
     '3e' => 'trois_math',
