@@ -13,7 +13,7 @@ class AnnualHistoryCivicsUnit {
     required this.keyPoints, required this.exercises,
   });
   String get subjectId => code == '6e' && domain == 'hg' ? 'hist' : 'core_${domain}_$code';
-  String get chapterId => 'core_${domain}_${code}_unit_$unitOrder';
+  String get chapterId => code == '6e' && domain == 'hg' ? (unitOrder == 4 ? 'h2' : 'h1') : 'core_${domain}_${code}_unit_$unitOrder';
 }
 
 const annualHistoryCivicsUnits = <AnnualHistoryCivicsUnit>[
