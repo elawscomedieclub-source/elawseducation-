@@ -9,6 +9,8 @@ import 'package:proftogo/data/sample/annual_core_history_civics.dart';
 import 'package:proftogo/data/sample/annual_core_secondary_math.dart';
 import 'package:proftogo/data/sample/annual_core_secondary_french.dart';
 import 'package:proftogo/data/sample/annual_core_secondary_svt.dart';
+import 'package:proftogo/data/sample/annual_core_lycee_history_civics.dart';
+import 'package:proftogo/data/sample/annual_core_seconde_physics.dart';
 
 void main() {
   test('primary English course covers CP1 through CM2 as core lessons', () {
@@ -42,11 +44,11 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(27));
-    expect(annualCoreLessons, hasLength(91));
-    expect(annualCoreExercises, hasLength(273));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(91));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(273));
+    expect(annualCoreSubjects, hasLength(34));
+    expect(annualCoreLessons, hasLength(111));
+    expect(annualCoreExercises, hasLength(333));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(111));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(333));
   });
 
   test('primary mathematics units have complete exercises', () {
@@ -143,6 +145,42 @@ void main() {
     expect(annualSecondarySvtLessons.map((l) => l.id).toSet(), hasLength(7));
     expect(annualSecondarySvtExercises.map((e) => e.id).toSet(), hasLength(21));
     for (final unit in annualSecondarySvtUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+  });
+
+  test('high-school history and civics units are complete and core', () {
+    expect(annualLyceeHistoryCivicsUnits, hasLength(12));
+    expect(annualLyceeHistoryCivicsLessons, hasLength(12));
+    expect(annualLyceeHistoryCivicsExercises, hasLength(36));
+    expect(annualLyceeHistoryCivicsSubjects, hasLength(6));
+    expect(annualLyceeHistoryCivicsLessons.map((l) => l.id).toSet(), hasLength(12));
+    expect(annualLyceeHistoryCivicsExercises.map((e) => e.id).toSet(), hasLength(36));
+    for (final unit in annualLyceeHistoryCivicsUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+  });
+
+  test('seconde physics and chemistry course covers the annual foundations', () {
+    expect(annualSecondePhysicsUnits, hasLength(8));
+    expect(annualSecondePhysicsLessons, hasLength(8));
+    expect(annualSecondePhysicsExercises, hasLength(24));
+    expect(annualSecondePhysicsSubject.totalChapters, 8);
+    expect(annualSecondePhysicsLessons.map((l) => l.id).toSet(), hasLength(8));
+    expect(annualSecondePhysicsExercises.map((e) => e.id).toSet(), hasLength(24));
+    for (final unit in annualSecondePhysicsUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
       for (final question in unit.exercises) {
