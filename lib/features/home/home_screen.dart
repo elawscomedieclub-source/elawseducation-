@@ -10,6 +10,7 @@ import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import '../../data/sample/supplemental_curriculum.dart';
+import '../../data/sample/annual_core_english.dart';
 import '../../shared/widgets/menu_button.dart';
 import '../subjects/subject_detail_screen.dart';
 import '../lesson/supplemental_curriculum_screen.dart';
@@ -66,19 +67,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final childMode = level.index <= SchoolLevel.cm2.index;
     final track = ref.watch(schoolTrackProvider);
     final series = ref.watch(schoolSeriesProvider);
-    final subjects = demoSubjects
-        .where((subject) => subjectMatchesPath(subject, level, track, series))
-        .toList();
-    final chapterIds = demoChapters
+    final subjects = [
+      ...demoSubjects.where((subject) => subjectMatchesPath(subject, level, track, series)),
+      ...annualEnglishSubjects.where((subject) => subjectMatchesPath(subject, level, track, series)),
+    ];
+    final chapterIds = [...demoChapters, ...annualEnglishChapters]
         .where((chapter) => subjects.any((subject) => subject.id == chapter.subjectId))
-        .map((chapter) => chapter.id)
-        .toSet();
-    final lessonIds = demoLessons
+        .map((chapter) => chapter.id).toSet();
+    final lessonIds = [...demoLessons, ...annualEnglishLessons]
         .where((lesson) => chapterIds.contains(lesson.chapterId))
-        .map((lesson) => lesson.id)
-        .toSet();
+        .map((lesson) => lesson.id).toSet();
     final exerciseIds = {
-      ...demoExercises
+      ...[...demoExercises, ...annualEnglishExercises]
           .where((exercise) => lessonIds.contains(exercise.lessonId))
           .map((exercise) => exercise.id),
       ...supplementalLessons
@@ -134,13 +134,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   builder: (context, lastSnapshot) {
                     final lastId = lastSnapshot.data;
                     if (lastId == null) return const SizedBox.shrink();
-                    final matchingLessons = demoLessons.where((item) => item.id == lastId);
+                    final matchingLessons = [...demoLessons, ...annualEnglishLessons].where((item) => item.id == lastId);
                     if (matchingLessons.isEmpty) return const SizedBox.shrink();
                     final lastLesson = matchingLessons.first;
-                    final matchingChapters = demoChapters.where((item) => item.id == lastLesson.chapterId);
+                    final matchingChapters = [...demoChapters, ...annualEnglishChapters].where((item) => item.id == lastLesson.chapterId);
                     if (matchingChapters.isEmpty) return const SizedBox.shrink();
                     final lastChapter = matchingChapters.first;
-                    final matchingSubjects = demoSubjects.where((item) => item.id == lastChapter.subjectId);
+                    final matchingSubjects = [...demoSubjects, ...annualEnglishSubjects].where((item) => item.id == lastChapter.subjectId);
                     if (matchingSubjects.isEmpty ||
                         !subjectMatchesPath(matchingSubjects.first, level, track, series)) {
                       return const SizedBox.shrink();
@@ -170,7 +170,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   future: _reviewFuture,
                   builder: (context, reviewSnapshot) {
                     final pending = reviewSnapshot.data ?? <String>{};
-                    final reviewExercises = demoExercises
+                    final reviewExercises = [...demoExercises, ...annualEnglishExercises]
                         .where((exercise) =>
                             pending.contains(exercise.id) &&
                             exerciseIds.contains(exercise.id))
@@ -179,7 +179,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         reviewExercises.isEmpty ? null : reviewExercises.first;
                     final matchingLessons = nextExercise == null
                         ? <Lesson>[]
-                        : demoLessons
+                        : [...demoLessons, ...annualEnglishLessons]
                             .where((lesson) => lesson.id == nextExercise.lessonId)
                             .toList();
                     final canReview = nextExercise != null && matchingLessons.isNotEmpty;
@@ -460,16 +460,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   )
                 else
                   ...subjects.map((subject) {
-                    final subjectChapterIds = demoChapters
+                    final subjectChapterIds = [...demoChapters, ...annualEnglishChapters]
                         .where((chapter) => chapter.subjectId == subject.id)
                         .map((chapter) => chapter.id)
                         .toSet();
-                    final subjectLessons = demoLessons
+                    final subjectLessons = [...demoLessons, ...annualEnglishLessons]
                         .where((lesson) => subjectChapterIds.contains(lesson.chapterId))
                         .toList();
                     final subjectLessonIds =
                         subjectLessons.map((lesson) => lesson.id).toSet();
-                    final subjectExercises = demoExercises
+                    final subjectExercises = [...demoExercises, ...annualEnglishExercises]
                         .where((exercise) => subjectLessonIds.contains(exercise.lessonId))
                         .toList();
                     final done = progress == null
