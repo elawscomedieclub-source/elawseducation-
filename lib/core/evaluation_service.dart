@@ -51,9 +51,13 @@ class EvaluationRecord {
     date: DateTime.tryParse(json['date'] as String? ?? '') ?? DateTime.now(),
   );
 
-  String get cloudId => base64Url
-      .encode(utf8.encode('${date.toIso8601String()}|$subjectId|$chapterId|$score|$correct|$total'))
-      .replaceAll('=', '');
+  String get cloudId {
+    // Preserve the historical ID for old records without chapter metadata.
+    final identity = chapterId.isEmpty
+        ? '${date.toIso8601String()}|$subjectId|$score|$correct|$total'
+        : '${date.toIso8601String()}|$subjectId|$chapterId|$score|$correct|$total';
+    return base64Url.encode(utf8.encode(identity)).replaceAll('=', '');
+  }
 }
 
 class EvaluationService {
