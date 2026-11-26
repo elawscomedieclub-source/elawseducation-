@@ -20,7 +20,7 @@ void main() {
     });
 
     test('splits a single long word safely and handles empty input', () {
-      final chunks = NarrationText.split('x' * 180, maxCharacters: 80);
+      final chunks = NarrationText.split(List<String>.filled(180, 'x').join(), maxCharacters: 80);
       expect(chunks.length, 3);
       expect(chunks.every((chunk) => chunk.length <= 80), isTrue);
       expect(NarrationText.split('   '), isEmpty);
