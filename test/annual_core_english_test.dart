@@ -49,10 +49,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(37));
-    expect(annualCoreLessons, hasLength(140));
-    expect(annualCoreExercises, hasLength(420));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(140));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(420));
+    expect(annualCoreLessons, hasLength(158));
+    expect(annualCoreExercises, hasLength(474));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(158));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(474));
   });
 
   test('Seconde C and D physics and chemistry are included as core lessons', () {
@@ -255,9 +255,9 @@ void main() {
   });
 
   test('Seconde SVT lessons are filtered by A4 versus C/D series', () {
-    expect(annualSecondeSvtUnits, hasLength(10));
-    expect(annualSecondeSvtLessons, hasLength(10));
-    expect(annualSecondeSvtExercises, hasLength(30));
+    expect(annualSecondeSvtUnits, hasLength(16));
+    expect(annualSecondeSvtLessons, hasLength(16));
+    expect(annualSecondeSvtExercises, hasLength(48));
     expect(annualSecondeCdSvtSubject.totalChapters, 6);
     expect(annualSecondeCdSvtSubject.track, SchoolTrack.scientific);
     final a4Subject = demoSubjects.firstWhere((s) => s.id == 'seconde_svt');
@@ -267,8 +267,8 @@ void main() {
     expect(subjectMatchesPath(a4Subject, SchoolLevel.seconde, SchoolTrack.scientific, 'C'), isFalse);
     expect(subjectMatchesPath(annualSecondeCdSvtSubject, SchoolLevel.seconde, SchoolTrack.scientific, 'D'), isTrue);
     expect(subjectMatchesPath(annualSecondeCdSvtSubject, SchoolLevel.seconde, SchoolTrack.generalLiterary, 'A4'), isFalse);
-    expect(annualSecondeSvtLessons.map((l) => l.id).toSet(), hasLength(10));
-    expect(annualSecondeSvtExercises.map((e) => e.id).toSet(), hasLength(30));
+    expect(annualSecondeSvtLessons.map((l) => l.id).toSet(), hasLength(16));
+    expect(annualSecondeSvtExercises.map((e) => e.id).toSet(), hasLength(48));
     for (final unit in annualSecondeSvtUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
