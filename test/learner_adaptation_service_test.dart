@@ -74,5 +74,62 @@ void main() {
       ]);
       expect(advice.title, 'Tu prends confiance');
     });
+    test('ignores repeated mistakes older than the 30-day learning window', () {
+      final now = DateTime.now().toUtc();
+      final old = now.subtract(const Duration(days: 45));
+      final advice = LearnerAdaptationService.buildAdvice([
+        ExerciseAttemptRecord(
+          exerciseId: 'old_1',
+          lessonId: 'old_topic',
+          isCorrect: false,
+          timestamp: old,
+        ),
+        ExerciseAttemptRecord(
+          exerciseId: 'old_2',
+          lessonId: 'old_topic',
+          isCorrect: false,
+          timestamp: old.subtract(const Duration(minutes: 1)),
+        ),
+        attempt('current_topic', true, 1),
+        attempt('current_topic', true, 2),
+        attempt('current_topic', true, 3),
+      ], now: now);
+      expect(advice.lessonId, isNull);
+      expect(advice.title, isNot('Une notion à retravailler'));
+    });
+
+    test('offers a gentle restart when all recorded practice is stale', () {
+      final now = DateTime.now().toUtc();
+      final old = now.subtract(const Duration(days: 40));
+      final advice = LearnerAdaptationService.buildAdvice([
+        ExerciseAttemptRecord(
+          exerciseId: 'old_1',
+          lessonId: 'old_topic',
+          isCorrect: false,
+          timestamp: old,
+        ),
+        ExerciseAttemptRecord(
+          exerciseId: 'old_2',
+          lessonId: 'old_topic',
+          isCorrect: false,
+          timestamp: old.subtract(const Duration(minutes: 1)),
+        ),
+      ], now: now);
+      expect(advice.title, 'Reprenons progressivement');
+      expect(advice.lessonId, isNull);
+    });
+
+    test('sorts attempts by timestamp before detecting a success streak', () {
+      final now = DateTime.now().toUtc();
+      final advice = LearnerAdaptationService.buildAdvice([
+        attempt('topic', false, 5),
+        attempt('topic', true, 1),
+        attempt('topic', true, 2),
+        attempt('topic', true, 3),
+        attempt('topic', true, 4),
+      ], now: now);
+      expect(advice.title, 'Tu prends confiance');
+    });
+
   });
 }
