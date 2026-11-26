@@ -145,9 +145,9 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
             }
           }
           final difficulties = d.lessonErrors.entries.where((e) =>
-            (recentWrongByLesson[e.key] ?? 0) >= 2 ||
-            (e.value >= 3 && (recentWrongByLesson[e.key] ?? 0) > 0) &&
-            lessons.any((l) => l.id == e.key),
+            lessons.any((l) => l.id == e.key) &&
+            ((recentWrongByLesson[e.key] ?? 0) >= 2 ||
+                (e.value >= 3 && (recentWrongByLesson[e.key] ?? 0) > 0)),
           ).toList()
             ..sort((a, b) {
               final byRecent = (recentWrongByLesson[b.key] ?? 0)
