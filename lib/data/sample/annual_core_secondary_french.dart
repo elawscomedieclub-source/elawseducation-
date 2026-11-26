@@ -13,6 +13,7 @@ class AnnualSecondaryFrenchUnit {
     required this.exercises,
   });
   String get subjectId => switch (code) {
+    '6e' => 'fr',
     '5e' => 'cinq_fr',
     '4e' => 'quatre_fr',
     '3e' => 'trois_fr',
