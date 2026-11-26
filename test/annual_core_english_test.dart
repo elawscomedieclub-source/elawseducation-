@@ -364,7 +364,7 @@ test('6e existing subject chapters match their declared annual totals', () {
   });
 
   test('demo and core subject cards are merged by school path', () {
-    final merged = mergeSubjectsByPath(demoSubjects, annualCoreSubjects);
+    final merged = mergeSubjectsByPath(demoSubjects, annualCoreSubjects.whereType<Subject>());
     final a4Svt = merged.where((subject) =>
         subject.id == 'seconde_svt' &&
         subject.level == SchoolLevel.seconde &&
@@ -410,7 +410,7 @@ test('6e existing subject chapters match their declared annual totals', () {
   test('every annual core chapter, lesson and exercise is reachable from its parent', () {
     final subjectIds = {
       ...demoSubjects.map((subject) => subject.id),
-      ...annualCoreSubjects.map((subject) => subject.id),
+      ...annualCoreSubjects.whereType<Subject>().map((subject) => subject.id),
     };
     final chapters = [...demoChapters, ...annualCoreChapters];
     final chapterIds = chapters.map((chapter) => chapter.id).toSet();
