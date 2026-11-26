@@ -282,12 +282,12 @@ void main() {
 
   test('middle-school English lessons have complete grammar and communication practice', () {
     expect(annualSecondaryEnglishUnits, hasLength(23));
-    expect(annualSecondaryEnglishChapters, hasLength(18));
+    expect(annualSecondaryEnglishChapters, hasLength(23));
     expect(annualSecondaryEnglishLessons, hasLength(23));
     expect(annualSecondaryEnglishExercises, hasLength(69));
-    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 18);
-    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 18);
-    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 54);
+    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 23);
+    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_6e_') || l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 23);
+    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_6e_') || e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 69);
     expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(23));
     expect(annualSecondaryEnglishExercises.map((e) => e.id).toSet(), hasLength(69));
     for (final unit in annualSecondaryEnglishUnits) {
@@ -362,8 +362,7 @@ void main() {
         .toSet();
     expect(subjectIds, containsAll(['math', 'fr', 'anglais', 'svt', 'hist']));
     final sixthCoreChapters = annualCoreChapters.where((chapter) =>
-        chapter.id.startsWith('core_secondary_6e_') ||
-        chapter.id.startsWith('core_hg_6e_unit_')).toList();
+        chapter.id.contains('_6e_unit_')).toList();
     expect(sixthCoreChapters, hasLength(24));
     expect(sixthCoreChapters.map((chapter) => chapter.id).toSet(), hasLength(24));
     for (final id in ['math', 'fr', 'anglais', 'svt']) {
