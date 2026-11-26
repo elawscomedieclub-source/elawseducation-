@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/progress_service.dart';
 
@@ -192,8 +193,21 @@ class _LessonContentScreenState extends State<LessonContentScreen> {
   Future<void> _startReading() async {
     try {
       await _tts.stop();
+      final prefs = await SharedPreferences.getInstance();
       await _tts.setLanguage('fr-FR');
-      await _tts.setSpeechRate(_speechRate);
+      final savedVoiceKey = prefs.getString('proftogo_voice_key');
+      if (savedVoiceKey != null) {
+        final separator = savedVoiceKey.lastIndexOf('|');
+        if (separator > 0) {
+          final voiceName = savedVoiceKey.substring(0, separator);
+          final voiceLocale = savedVoiceKey.substring(separator + 1);
+          if (voiceLocale.toLowerCase().startsWith('fr')) {
+            await _tts.setVoice({'name': voiceName, 'locale': voiceLocale});
+          }
+        }
+      }
+      final savedRate = prefs.getDouble('proftogo_voice_rate');
+      await _tts.setSpeechRate((savedRate ?? _speechRate).clamp(0.50, 1.0).toDouble());
       await _tts.setVolume(1.0);
       await _tts.setPitch(1.0);
       if (mounted) setState(() { _speaking = true; _paused = false; });
