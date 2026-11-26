@@ -380,4 +380,31 @@ test('6e existing subject chapters match their declared annual totals', () {
     expect(keys, hasLength(merged.length));
   });
 
+  test('all core annual lessons and exercises are connected to real course content', () {
+    final chapterIds = <String>{
+      ...demoChapters.map((chapter) => chapter.id),
+      ...annualCoreChapters.map((chapter) => chapter.id),
+    };
+    final coreLessonIds = annualCoreLessons.map((lesson) => lesson.id).toSet();
+    final coreExerciseIds = annualCoreExercises.map((exercise) => exercise.id).toSet();
+    expect(coreLessonIds, hasLength(annualCoreLessons.length));
+    expect(coreExerciseIds, hasLength(annualCoreExercises.length));
+
+    final exerciseCounts = <String, int>{};
+    for (final exercise in annualCoreExercises) {
+      exerciseCounts.update(exercise.lessonId, (count) => count + 1, ifAbsent: () => 1);
+      expect(exercise.options.length, greaterThanOrEqualTo(3), reason: exercise.id);
+      expect(exercise.correctIndex, inInclusiveRange(0, exercise.options.length - 1), reason: exercise.id);
+      expect(exercise.explanation.trim(), isNotEmpty, reason: exercise.id);
+    }
+    for (final lesson in annualCoreLessons) {
+      expect(lesson.title.trim(), isNotEmpty, reason: lesson.id);
+      expect(lesson.summary.trim(), isNotEmpty, reason: lesson.id);
+      expect(lesson.content.trim(), isNotEmpty, reason: lesson.id);
+      expect(chapterIds, contains(lesson.chapterId), reason: lesson.id);
+      expect(exerciseCounts[lesson.id], 3, reason: lesson.id);
+    }
+    expect(exerciseCounts.keys.toSet(), coreLessonIds);
+  });
+
 }
