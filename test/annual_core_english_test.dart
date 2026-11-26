@@ -46,11 +46,11 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(35));
-    expect(annualCoreLessons, hasLength(121));
-    expect(annualCoreExercises, hasLength(363));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(121));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(363));
+    expect(annualCoreSubjects, hasLength(36));
+    expect(annualCoreLessons, hasLength(129));
+    expect(annualCoreExercises, hasLength(387));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(129));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(387));
   });
 
   test('primary mathematics units have complete exercises', () {
@@ -179,10 +179,33 @@ void main() {
     expect(annualSecondePhysicsUnits, hasLength(8));
     expect(annualSecondePhysicsLessons, hasLength(8));
     expect(annualSecondePhysicsExercises, hasLength(24));
+    expect(annualSecondeCdPhysicsUnits, hasLength(8));
+    expect(annualSecondeCdPhysicsLessons, hasLength(8));
+    expect(annualSecondeCdPhysicsExercises, hasLength(24));
     expect(annualSecondePhysicsSubject.totalChapters, 8);
+    expect(annualSecondeCdPhysicsSubject.totalChapters, 8);
+    expect(annualSecondePhysicsSubject.track, SchoolTrack.generalLiterary);
+    expect(annualSecondePhysicsSubject.series, 'A4');
+    expect(annualSecondeCdPhysicsSubject.track, SchoolTrack.scientific);
+    expect(subjectMatchesPath(annualSecondePhysicsSubject, SchoolLevel.seconde, SchoolTrack.generalLiterary, 'A4'), isTrue);
+    expect(subjectMatchesPath(annualSecondePhysicsSubject, SchoolLevel.seconde, SchoolTrack.scientific, 'C'), isFalse);
+    expect(subjectMatchesPath(annualSecondeCdPhysicsSubject, SchoolLevel.seconde, SchoolTrack.scientific, 'D'), isTrue);
+    expect(subjectMatchesPath(annualSecondeCdPhysicsSubject, SchoolLevel.seconde, SchoolTrack.generalLiterary, 'A4'), isFalse);
     expect(annualSecondePhysicsLessons.map((l) => l.id).toSet(), hasLength(8));
     expect(annualSecondePhysicsExercises.map((e) => e.id).toSet(), hasLength(24));
+    expect(annualSecondeCdPhysicsLessons.map((l) => l.id).toSet(), hasLength(8));
+    expect(annualSecondeCdPhysicsExercises.map((e) => e.id).toSet(), hasLength(24));
     for (final unit in annualSecondePhysicsUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+
+    for (final unit in annualSecondeCdPhysicsUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
       for (final question in unit.exercises) {

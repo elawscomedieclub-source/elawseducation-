@@ -2,16 +2,18 @@ import '../models/models.dart';
 
 class AnnualSecondePhysicsUnit {
   final int unitOrder;
+  final String code;
   final String title, lessonId, lessonTitle, summary, content;
   final List<String> keyPoints;
   final List<Exercise> exercises;
   const AnnualSecondePhysicsUnit({
+    this.code = 'a4',
     required this.unitOrder, required this.title, required this.lessonId,
     required this.lessonTitle, required this.summary, required this.content,
     required this.keyPoints, required this.exercises,
   });
-  String get subjectId => 'core_pc_seconde';
-  String get chapterId => 'core_pc_seconde_unit_$unitOrder';
+  String get subjectId => code == 'a4' ? 'core_pc_seconde' : 'core_pc_seconde_cd';
+  String get chapterId => code == 'a4' ? 'core_pc_seconde_unit_$unitOrder' : 'core_pc_seconde_cd_unit_$unitOrder';
 }
 
 const annualSecondePhysicsUnits = <AnnualSecondePhysicsUnit>[
@@ -57,9 +59,31 @@ const annualSecondePhysicsUnits = <AnnualSecondePhysicsUnit>[
   ]),
 ];
 
+final annualSecondeCdPhysicsUnits = annualSecondePhysicsUnits.map((unit) {
+  final lessonId = unit.lessonId.replaceFirst('core_pc_2nde_', 'core_pc_2nde_cd_');
+  return AnnualSecondePhysicsUnit(
+    code:'cd',unitOrder:unit.unitOrder,title:unit.title,lessonId:lessonId,
+    lessonTitle:unit.lessonTitle,summary:unit.summary,content:unit.content,
+    keyPoints:unit.keyPoints,
+    exercises:unit.exercises.map((exercise) => Exercise(
+      id:exercise.id.replaceFirst('core_pc_2nde_', 'core_pc_2nde_cd_'),
+      lessonId:lessonId,question:exercise.question,options:exercise.options,
+      correctIndex:exercise.correctIndex,explanation:exercise.explanation,
+    )).toList(),
+  );
+}).toList();
+
+
 final annualSecondePhysicsSubject = Subject(
   id:'core_pc_seconde',name:'Physique-Chimie — cours de l’année',
-  iconName:'science',colorHex:'006A4E',level:SchoolLevel.seconde,totalChapters:8,
+  iconName:'science',colorHex:'006A4E',level:SchoolLevel.seconde,
+  track:SchoolTrack.generalLiterary,series:'A4',totalChapters:8,
+);
+
+final annualSecondeCdPhysicsSubject = Subject(
+  id:'core_pc_seconde_cd',name:'Physique-Chimie — Seconde C & D',
+  iconName:'science',colorHex:'006A4E',level:SchoolLevel.seconde,
+  track:SchoolTrack.scientific,totalChapters:8,
 );
 
 final annualSecondePhysicsChapters = annualSecondePhysicsUnits.map((unit) => Chapter(
@@ -73,3 +97,15 @@ final annualSecondePhysicsLessons = annualSecondePhysicsUnits.map((unit) => Less
 )).toList();
 
 final annualSecondePhysicsExercises = annualSecondePhysicsUnits.expand((unit)=>unit.exercises).toList();
+
+final annualSecondeCdPhysicsChapters = annualSecondeCdPhysicsUnits.map((unit) => Chapter(
+  id:unit.chapterId,subjectId:unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
+  order:unit.unitOrder,term:unit.unitOrder,totalLessons:1,
+)).toList();
+
+final annualSecondeCdPhysicsLessons = annualSecondeCdPhysicsUnits.map((unit) => Lesson(
+  id:unit.lessonId,chapterId:unit.chapterId,title:unit.lessonTitle,
+  summary:unit.summary,content:unit.content,keyPoints:unit.keyPoints,durationMinutes:25,
+)).toList();
+
+final annualSecondeCdPhysicsExercises = annualSecondeCdPhysicsUnits.expand((unit)=>unit.exercises).toList();
