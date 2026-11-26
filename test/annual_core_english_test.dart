@@ -49,10 +49,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(38));
-    expect(annualCoreLessons, hasLength(162));
-    expect(annualCoreExercises, hasLength(486));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(162));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(486));
+    expect(annualCoreLessons, hasLength(168));
+    expect(annualCoreExercises, hasLength(504));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(168));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(504));
   });
 
   test('Seconde C and D physics and chemistry are included as core lessons', () {
@@ -282,8 +282,12 @@ void main() {
 
   test('middle-school English lessons have complete grammar and communication practice', () {
     expect(annualSecondaryEnglishUnits, hasLength(10));
+    expect(annualSecondaryEnglishChapters, hasLength(10));
     expect(annualSecondaryEnglishLessons, hasLength(10));
     expect(annualSecondaryEnglishExercises, hasLength(30));
+    expect(annualCoreChapters.where((c) => c.id.startsWith('core_secondary_english_')).length, 10);
+    expect(annualCoreLessons.where((l) => l.id.startsWith('core_en_5e_') || l.id.startsWith('core_en_4e_') || l.id.startsWith('core_en_3e_')).length, 10);
+    expect(annualCoreExercises.where((e) => e.id.startsWith('core_en_5e_') || e.id.startsWith('core_en_4e_') || e.id.startsWith('core_en_3e_')).length, 30);
     expect(annualSecondaryEnglishLessons.map((l) => l.id).toSet(), hasLength(10));
     expect(annualSecondaryEnglishExercises.map((e) => e.id).toSet(), hasLength(30));
     for (final unit in annualSecondaryEnglishUnits) {
