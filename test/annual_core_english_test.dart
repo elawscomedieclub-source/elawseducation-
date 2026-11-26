@@ -49,10 +49,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(38));
-    expect(annualCoreLessons, hasLength(223));
-    expect(annualCoreExercises, hasLength(669));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(223));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(669));
+    expect(annualCoreLessons, hasLength(225));
+    expect(annualCoreExercises, hasLength(675));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(225));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(675));
   });
 
   test('Seconde C and D physics and chemistry are included as core lessons', () {
@@ -108,9 +108,9 @@ void main() {
   });
 
   test('secondary physics and chemistry courses are regular lessons', () {
-    expect(annualPhysicsUnits, hasLength(12));
-    expect(annualPhysicsLessons, hasLength(12));
-    expect(annualPhysicsExercises, hasLength(36));
+    expect(annualPhysicsUnits, hasLength(14));
+    expect(annualPhysicsLessons, hasLength(14));
+    expect(annualPhysicsExercises, hasLength(42));
     expect(annualPhysicsSubjects.map((s) => s.level).toSet(), {
       SchoolLevel.sixieme, SchoolLevel.cinquieme, SchoolLevel.quatrieme,
     });
@@ -377,6 +377,23 @@ void main() {
           annualCoreChapters.where((c) => c.subjectId == id && c.id.contains('_6e_')).length;
       expect(actualChapterCount, subject.totalChapters);
     }
+  });
+
+  test('3e physics chapters complete the existing subject and are reachable', () {
+    final subject = demoSubjects.firstWhere(
+      (s) => s.id == 'trois_pc' && s.level == SchoolLevel.troisieme,
+    );
+    final demoCount = demoChapters.where((c) => c.subjectId == 'trois_pc').length;
+    final coreChapters = annualPhysicsChapters.where((c) => c.subjectId == 'trois_pc').toList();
+    expect(demoCount, 1);
+    expect(coreChapters, hasLength(5));
+    expect(coreChapters.map((c) => c.id).toSet(), hasLength(5));
+    expect(coreChapters.map((c) => c.order).toSet(), {2, 3, 4, 5, 6});
+    expect(demoCount + coreChapters.length, subject.totalChapters);
+    final lessons = annualPhysicsLessons.where((l) => l.id.startsWith('core_pct_troisieme_')).toList();
+    expect(lessons, hasLength(5));
+    final lessonIds = lessons.map((l) => l.id).toSet();
+    expect(annualPhysicsExercises.where((e) => lessonIds.contains(e.lessonId)), hasLength(15));
   });
 
 }
