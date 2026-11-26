@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/progress_service.dart';
+import '../../core/learner_adaptation_service.dart';
 import '../lesson/exercise_screen.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
@@ -25,6 +26,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   late Future<ProgressSnapshot> _progressFuture;
+  late Future<List<ExerciseAttemptRecord>> _attemptHistoryFuture;
   late Future<String?> _lastLessonFuture;
   late Future<Set<String>> _reviewFuture;
   late final StreamSubscription<User?> _authSubscription;
@@ -33,6 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     _progressFuture = ProgressService.load();
+    _attemptHistoryFuture = ProgressService.loadAttemptHistory();
     _lastLessonFuture = ProgressService.loadLastLesson();
     _reviewFuture = ProgressService.loadReviewExerciseIds();
     // L'écran reste monté dans l'IndexedStack : recharger les données dès
@@ -41,6 +44,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (!mounted) return;
       setState(() {
         _progressFuture = ProgressService.load();
+        _attemptHistoryFuture = ProgressService.loadAttemptHistory();
         _lastLessonFuture = ProgressService.loadLastLesson();
         _reviewFuture = ProgressService.loadReviewExerciseIds();
       });
@@ -56,6 +60,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void _refreshProgress() {
     setState(() {
       _progressFuture = ProgressService.load();
+      _attemptHistoryFuture = ProgressService.loadAttemptHistory();
       _lastLessonFuture = ProgressService.loadLastLesson();
       _reviewFuture = ProgressService.loadReviewExerciseIds();
     });
@@ -510,24 +515,40 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                Card(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: ListTile(
-                    leading: Icon(Icons.lightbulb_outline_rounded,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer),
-                    title: Text('Un conseil pour réussir',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        )),
-                    subtitle: Text(
-                      'Lis la leçon, écoute les explications si tu le souhaites, puis fais les exercices sans regarder la correction.',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        height: 1.35,
+                FutureBuilder<List<ExerciseAttemptRecord>>(
+                  future: _attemptHistoryFuture,
+                  builder: (context, historySnapshot) {
+                    final titles = <String, String>{
+                      for (final lesson in [...demoLessons, ...annualCoreLessons])
+                        lesson.id: lesson.title,
+                      for (final lesson in supplementalLessons)
+                        lesson.id: lesson.title,
+                    };
+                    final advice = LearnerAdaptationService.buildAdvice(
+                      historySnapshot.data ?? const <ExerciseAttemptRecord>[],
+                      lessonTitles: titles,
+                    );
+                    final colors = Theme.of(context).colorScheme;
+                    return Card(
+                      color: colors.primaryContainer,
+                      child: ListTile(
+                        leading: Icon(Icons.lightbulb_outline_rounded,
+                            color: colors.onPrimaryContainer),
+                        title: Text(advice.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: colors.onPrimaryContainer,
+                            )),
+                        subtitle: Text(
+                          advice.message,
+                          style: TextStyle(
+                            color: colors.onPrimaryContainer,
+                            height: 1.35,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ],
             ),
