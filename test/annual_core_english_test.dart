@@ -5,6 +5,7 @@ import 'package:proftogo/data/sample/annual_core_science.dart';
 import 'package:proftogo/data/sample/annual_core_catalog.dart';
 import 'package:proftogo/data/sample/annual_core_math.dart';
 import 'package:proftogo/data/sample/annual_core_physics.dart';
+import 'package:proftogo/data/sample/annual_core_history_civics.dart';
 
 void main() {
   test('primary English course covers CP1 through CM2 as core lessons', () {
@@ -38,11 +39,11 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(21));
-    expect(annualCoreLessons, hasLength(60));
-    expect(annualCoreExercises, hasLength(180));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(60));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(180));
+    expect(annualCoreSubjects, hasLength(27));
+    expect(annualCoreLessons, hasLength(72));
+    expect(annualCoreExercises, hasLength(216));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(72));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(216));
   });
 
   test('primary mathematics units have complete exercises', () {
@@ -73,6 +74,24 @@ void main() {
       final questions = annualPhysicsExercises.where((e) => e.lessonId == lesson.id);
       expect(questions, hasLength(3));
       for (final question in questions) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+  });
+
+  test('history, geography and civics are standard middle-school courses', () {
+    expect(annualHistoryCivicsUnits, hasLength(12));
+    expect(annualHistoryCivicsLessons, hasLength(12));
+    expect(annualHistoryCivicsExercises, hasLength(36));
+    expect(annualHistoryCivicsSubjects, hasLength(6));
+    expect(annualHistoryCivicsLessons.map((l) => l.id).toSet(), hasLength(12));
+    expect(annualHistoryCivicsExercises.map((e) => e.id).toSet(), hasLength(36));
+    for (final unit in annualHistoryCivicsUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
         expect(question.options.length, greaterThanOrEqualTo(3));
         expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
         expect(question.explanation.trim(), isNotEmpty);
