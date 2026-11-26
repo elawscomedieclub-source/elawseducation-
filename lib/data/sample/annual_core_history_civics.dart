@@ -12,7 +12,7 @@ class AnnualHistoryCivicsUnit {
     required this.lessonTitle, required this.summary, required this.content,
     required this.keyPoints, required this.exercises,
   });
-  String get subjectId => 'core_${domain}_$code';
+  String get subjectId => code == '6e' && domain == 'hg' ? 'hist' : 'core_${domain}_$code';
   String get chapterId => 'core_${domain}_${code}_unit_$unitOrder';
 }
 

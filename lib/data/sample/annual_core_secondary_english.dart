@@ -13,6 +13,7 @@ class AnnualSecondaryEnglishUnit {
     required this.exercises,
   });
   String get subjectId => switch (code) {
+    '6e' => 'anglais',
     '5e' => 'cinq_ang',
     '4e' => 'quatre_ang',
     '3e' => 'trois_ang',
