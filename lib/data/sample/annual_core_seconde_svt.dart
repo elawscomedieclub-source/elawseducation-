@@ -97,6 +97,12 @@ const annualSecondeSvtUnits = <AnnualSecondeSvtUnit>[
   ]),
 ];
 
+final annualSecondeA4SvtSubject = Subject(
+  id:'seconde_svt',name:'SVT — cours annuel Seconde A4',iconName:'leaf',
+  colorHex:'2E7D32',level:SchoolLevel.seconde,track:SchoolTrack.generalLiterary,
+  series:'A4',totalChapters:10,
+);
+
 final annualSecondeCdSvtSubject = Subject(
   id:'core_svt_2nde_cd',name:'SVT — Seconde C & D',iconName:'leaf',
   colorHex:'2E7D32',level:SchoolLevel.seconde,track:SchoolTrack.scientific,
