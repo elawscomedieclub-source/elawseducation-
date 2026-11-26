@@ -59,6 +59,10 @@ Ces compléments sont des exercices de consolidation. Ils ne remplacent pas enco
 - La reconnaissance vocale et la lecture à voix haute dépendent du téléphone, du navigateur, des autorisations et des langues installées.
 - L’application ne dispose pas encore d’un espace complet de gestion des classes, des devoirs et des notes par les enseignants.
 
+## Classes-métiers — rentrée 2026–2027
+
+Un guide de mise en œuvre non homologué propose une progression de découverte des métiers, des projets adaptés au primaire CM1-CM2 et des modules différenciés pour les collèges et lycées scientifiques, avec fiche de séance, sécurité et grille d’évaluation : [Guide des classes-métiers](GUIDE_CLASSES_METIERS_2026_2027.md).
+
 ## Développement
 
 Le projet utilise Flutter et Firebase. La publication Web et la compilation Android sont automatisées par GitHub Actions.
