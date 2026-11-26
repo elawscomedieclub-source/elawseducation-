@@ -18,7 +18,36 @@ class AnnualSecondaryEnglishUnit {
     '3e' => 'trois_ang',
     _ => 'core_secondary_english_$code',
   };
-  String get chapterId => 'core_secondary_english_${code}_unit_${unitOrder}';
+  String get chapterId => switch (code) {
+    '5e' => switch (unitOrder) {
+      1 => 'cinq_a1',
+      2 => 'cinq_anglais_c2',
+      3 => 'ptg_extension_cinq_ang',
+      4 => 'ptg_year_cinq_ang_5',
+      5 => 'cinq_plus_ang',
+      6 => 'ptg_extension_cinq_ang',
+      _ => 'cinq_a1',
+    },
+    '4e' => switch (unitOrder) {
+      1 => 'quatre_a1',
+      2 => 'quatre_anglais_c2',
+      3 => 'quatre_plus_ang',
+      4 => 'ptg_extension_quatre_ang',
+      5 => 'ptg_year_quatre_ang_7',
+      6 => 'quatre_anglais_c2',
+      _ => 'quatre_a1',
+    },
+    '3e' => switch (unitOrder) {
+      1 => 'trois_a1',
+      2 => 'ptg_extension_trois_ang',
+      3 => 'ptg_year_trois_ang_5',
+      4 => 'trois_ang_c3',
+      5 => 'trois_ang_c3',
+      6 => 'ptg_year_trois_ang_7',
+      _ => 'trois_a1',
+    },
+    _ => 'core_secondary_english_${code}_unit_${unitOrder}',
+  };
 }
 
 const annualSecondaryEnglishUnits = <AnnualSecondaryEnglishUnit>[
