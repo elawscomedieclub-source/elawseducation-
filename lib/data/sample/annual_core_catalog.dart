@@ -23,6 +23,7 @@ final annualCoreSubjects = [
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsSubjects,
   secondePhysics.annualSecondePhysicsSubject,
   secondePhysics.annualSecondeCdPhysicsSubject,
+  secondeSvt.annualSecondeA4SvtSubject,
   secondeSvt.annualSecondeCdSvtSubject,
   secondeMath.annualSecondeMathSubject,
 ];
