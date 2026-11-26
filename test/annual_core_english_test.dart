@@ -49,10 +49,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(44));
-    expect(annualCoreLessons, hasLength(221));
-    expect(annualCoreExercises, hasLength(663));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(221));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(663));
+    expect(annualCoreLessons, hasLength(225));
+    expect(annualCoreExercises, hasLength(675));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(225));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(675));
   });
 
   test('Seconde C and D physics and chemistry are included as core lessons', () {
@@ -127,12 +127,12 @@ void main() {
   });
 
   test('history, geography and civics are standard middle-school courses', () {
-    expect(annualHistoryCivicsUnits, hasLength(12));
-    expect(annualHistoryCivicsLessons, hasLength(12));
-    expect(annualHistoryCivicsExercises, hasLength(36));
+    expect(annualHistoryCivicsUnits, hasLength(16));
+    expect(annualHistoryCivicsLessons, hasLength(16));
+    expect(annualHistoryCivicsExercises, hasLength(48));
     expect(annualHistoryCivicsSubjects, hasLength(6));
-    expect(annualHistoryCivicsLessons.map((l) => l.id).toSet(), hasLength(12));
-    expect(annualHistoryCivicsExercises.map((e) => e.id).toSet(), hasLength(36));
+    expect(annualHistoryCivicsLessons.map((l) => l.id).toSet(), hasLength(16));
+    expect(annualHistoryCivicsExercises.map((e) => e.id).toSet(), hasLength(48));
     for (final unit in annualHistoryCivicsUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
