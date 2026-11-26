@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/data/models/models.dart';
 import 'package:proftogo/data/sample/annual_core_catalog.dart';
+import 'package:proftogo/data/sample/annual_core_history_civics.dart' as history;
 import 'package:proftogo/data/sample/sample_data.dart';
 
 void main() {
@@ -24,9 +25,18 @@ void main() {
 
     for (final entry in lessonPrefixes.entries) {
       final subjectId = entry.key;
-      final lessons = annualCoreLessons
-          .where((lesson) => lesson.id.startsWith(entry.value))
-          .toList();
+      final lessons = subjectId == 'hist'
+          ? history.annualHistoryCivicsLessons
+              .where((lesson) => lesson.id.startsWith(entry.value))
+              .toList()
+          : annualCoreLessons
+              .where((lesson) => lesson.id.startsWith(entry.value))
+              .toList();
+      if (subjectId == 'hist') {
+        final catalogLessonIds = annualCoreLessons.map((lesson) => lesson.id).toSet();
+        expect(catalogLessonIds, containsAll(lessons.map((lesson) => lesson.id)),
+            reason: 'Les leçons d’histoire-géographie doivent être exportées dans le catalogue principal.');
+      }
       expect(lessons, hasLength(expectedLessons[subjectId]), reason: subjectId);
       expect(lessons.map((lesson) => lesson.id).toSet(), hasLength(lessons.length),
           reason: 'Les identifiants de leçons doivent être uniques pour $subjectId.');
