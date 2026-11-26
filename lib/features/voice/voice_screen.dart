@@ -75,9 +75,9 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
     });
   }
 
-  Future<void> _loadLearnerContext({String? expectedUid}) async {
+  Future<void> _loadLearnerContext({required String? expectedUid}) async {
     final requestId = ++_learnerContextRequestId;
-    final uid = expectedUid ?? FirebaseAuth.instance.currentUser?.uid;
+    final uid = expectedUid;
     try {
       final history = await ProgressService.loadAttemptHistory();
       final reviewIds = await ProgressService.loadReviewExerciseIds();
