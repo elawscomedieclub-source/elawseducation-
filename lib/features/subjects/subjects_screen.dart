@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/school_level_provider.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/annual_core_english.dart';
 import '../../data/models/models.dart';
 import 'subject_detail_screen.dart';
 import 'primary_year_plan_screen.dart';
@@ -29,9 +30,10 @@ class SubjectsScreen extends ConsumerWidget {
     final selectedLevel = ref.watch(schoolLevelProvider);
     final selectedTrack = ref.watch(schoolTrackProvider);
     final selectedSeries = ref.watch(schoolSeriesProvider);
-    final subjects = demoSubjects
-        .where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries))
-        .toList();
+    final subjects = [
+      ...demoSubjects.where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries)),
+      ...annualEnglishSubjects.where((subject) => subjectMatchesPath(subject, selectedLevel, selectedTrack, selectedSeries)),
+    ];
 
     return Scaffold(
       appBar: AppBar(
