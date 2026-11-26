@@ -93,6 +93,7 @@ final annualPhysicsSubjects = [
   Subject(id:'core_pct_sixieme',name:'Physique-Chimie et Technologie — cours de l’année',iconName:'science',colorHex:'006A4E',level:SchoolLevel.sixieme,totalChapters:3),
   Subject(id:'core_pct_cinquieme',name:'Physique-Chimie et Technologie — cours de l’année',iconName:'science',colorHex:'006A4E',level:SchoolLevel.cinquieme,totalChapters:3),
   Subject(id:'core_pct_quatrieme',name:'Physique-Chimie et Technologie — cours de l’année',iconName:'science',colorHex:'006A4E',level:SchoolLevel.quatrieme,totalChapters:3),
+  Subject(id:'trois_pc',name:'Physique-Chimie et Technologie — cours annuel de 3e',iconName:'science',colorHex:'006A4E',level:SchoolLevel.troisieme,totalChapters:11),
 ];
 
 final annualPhysicsChapters = annualPhysicsUnits.map((unit) => Chapter(
