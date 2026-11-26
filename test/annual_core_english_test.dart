@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:elawseducation/data/models/models.dart';
-import 'package:elawseducation/data/sample/annual_core_english.dart';
+import 'package:proftogo/data/models/models.dart';
+import 'package:proftogo/data/sample/annual_core_english.dart';
 
 void main() {
   test('primary English course covers CP1 through CM2 as core lessons', () {
