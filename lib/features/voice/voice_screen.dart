@@ -6,6 +6,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/school_level_provider.dart';
+import 'narration_text.dart';
 import '../../core/progress_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
@@ -26,6 +27,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
 
   String _language = 'fr-FR';
   bool _speaking = false;
+  bool _cancelNarrationRequested = false;
   bool _listening = false;
   bool _speechAvailable = false;
   bool _searched = false;
@@ -139,14 +141,15 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
     }
   }
 
-  String _prepareNarration(String raw) {
-    return raw
-        .replaceAll(RegExp(r'[#*_`~]'), '')
-        .replaceAll(RegExp(r'^\s*[-•]\s*', multiLine: true), '')
-        .replaceAll(RegExp(r'[\r\n]+'), '. ')
-        .replaceAll(RegExp(r'\s+'), ' ')
-        .replaceAll(RegExp(r'\.\s*\.'), '.')
-        .trim();
+  String _prepareNarration(String raw) => NarrationText.prepare(raw);
+
+  Future<void> _speakNarration(String text) async {
+    final chunks = NarrationText.split(text);
+    _cancelNarrationRequested = false;
+    for (final chunk in chunks) {
+      if (_cancelNarrationRequested) break;
+      await _tts.speak(chunk);
+    }
   }
 
   Future<void> _applySelectedVoice() async {
@@ -159,14 +162,17 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   }
 
   Future<void> _previewVoice() async {
-    if (_speaking) await _tts.stop();
+    if (_speaking) {
+      _cancelNarrationRequested = true;
+      await _tts.stop();
+    }
     try {
       await _tts.setLanguage(_language);
       await _applySelectedVoice();
       await _tts.setSpeechRate(_speechRate);
       await _tts.setPitch(1.0);
       await _tts.setVolume(1.0);
-      await _tts.speak(_prepareNarration('Bonjour ! Je suis ton professeur. Prenons le temps de comprendre cette leçon, étape par étape.'));
+      await _speakNarration('Bonjour ! Je suis ton professeur. Prenons le temps de comprendre cette leçon, étape par étape.');
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Cette voix ne peut pas être utilisée. Essaie une autre voix installée sur ton téléphone.')));
@@ -174,7 +180,10 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   }
 
   Future<void> _startListening() async {
-    if (_speaking) await _tts.stop();
+    if (_speaking) {
+      _cancelNarrationRequested = true;
+      await _tts.stop();
+    }
     try {
       _speechAvailable = await _speech.initialize(
         onStatus: (status) {
@@ -367,7 +376,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
       await _tts.setSpeechRate(_speechRate);
       await _tts.setVolume(1.0);
       await _tts.setPitch(1.0);
-      await _tts.speak(text);
+      await _speakNarration(text);
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -379,6 +388,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   Future<void> _speakAnswer() async {
     if (_matches.isEmpty) return;
     if (_speaking) {
+      _cancelNarrationRequested = true;
       await _tts.stop();
       if (mounted) setState(() => _speaking = false);
     } else {
@@ -388,6 +398,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
 
   @override
   void dispose() {
+    _cancelNarrationRequested = true;
     _speech.cancel();
     _tts.stop();
     _textController.dispose();
