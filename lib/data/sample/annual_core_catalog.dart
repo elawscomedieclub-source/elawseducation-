@@ -9,6 +9,7 @@ import 'annual_core_secondary_svt.dart' as secondarySvt;
 import 'annual_core_lycee_history_civics.dart' as lyceeHistoryCivics;
 import 'annual_core_seconde_physics.dart' as secondePhysics;
 import 'annual_core_seconde_svt.dart' as secondeSvt;
+import 'annual_core_secondary_english.dart' as secondaryEnglish;
 
 /// Matières du programme principal ajoutées à la banque de cours, séparées
 /// des leçons bonus et regroupées pour les écrans communs de ProfTogo.
