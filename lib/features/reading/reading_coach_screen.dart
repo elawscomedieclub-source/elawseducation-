@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import '../../core/reading_practice_service.dart';
@@ -194,15 +195,35 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
     return missed.reversed.toList();
   }
 
+  double? _savedFrenchRate;
+
   Future<void> _configureFrenchVoice() async {
     if (_voiceConfigured) return;
     _voiceConfigured = true;
     try {
       await _tts.awaitSpeakCompletion(true);
+      final prefs = await SharedPreferences.getInstance();
+      _savedFrenchRate = prefs.getDouble('proftogo_voice_rate');
+      final savedKey = prefs.getString('proftogo_voice_key');
       final rawVoices = await _tts.getVoices;
       if (rawVoices is! List) return;
       final available = rawVoices.whereType<Map>().toList();
-      final selected = selectFrenchTtsVoice(available);
+      Map<String, String>? selected;
+      if (savedKey != null) {
+        final separator = savedKey.lastIndexOf('|');
+        if (separator > 0) {
+          final name = savedKey.substring(0, separator);
+          final locale = savedKey.substring(separator + 1);
+          final match = available.where((voice) =>
+              voice['name']?.toString() == name &&
+              voice['locale']?.toString() == locale &&
+              locale.toLowerCase().startsWith('fr'));
+          if (match.isNotEmpty) {
+            selected = {'name': name, 'locale': locale};
+          }
+        }
+      }
+      selected ??= selectFrenchTtsVoice(available);
       if (selected != null) await _tts.setVoice(selected);
     } catch (_) {
       // Si le moteur ne permet pas de choisir une voix, la voix fr-FR
@@ -215,7 +236,8 @@ class _ReadingCoachScreenState extends ConsumerState<ReadingCoachScreen> {
       await _tts.stop();
       await _tts.setLanguage('fr-FR');
       await _configureFrenchVoice();
-      await _tts.setSpeechRate(rate.clamp(.30, .55).toDouble());
+      final preferredRate = rate < .40 ? rate : (_savedFrenchRate ?? rate);
+      await _tts.setSpeechRate(preferredRate.clamp(.30, 1.0).toDouble());
       await _tts.setPitch(1.0);
       await _tts.setVolume(.95);
       await _tts.speak(text);
