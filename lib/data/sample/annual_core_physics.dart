@@ -12,7 +12,7 @@ class AnnualPhysicsUnit {
     required this.summary, required this.content, required this.keyPoints,
     required this.exercises,
   });
-  String get subjectId => code == 'troisieme' ? 'trois_pc' : 'core_pct_$code';
+  String get subjectId => level == SchoolLevel.troisieme || code == 'troisieme' ? 'trois_pc' : 'core_pct_$code';
   String get chapterId => 'core_pct_${code}_unit_${unitOrder}';
 }
 
@@ -97,7 +97,7 @@ final annualPhysicsSubjects = [
 ];
 
 final annualPhysicsChapters = annualPhysicsUnits.map((unit) => Chapter(
-  id:unit.chapterId,subjectId:unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
+  id:unit.chapterId,subjectId:unit.level == SchoolLevel.troisieme ? 'trois_pc' : unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
   order:unit.unitOrder,term:unit.unitOrder,totalLessons:1,
 )).toList();
 
