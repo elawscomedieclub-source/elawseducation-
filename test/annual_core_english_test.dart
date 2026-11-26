@@ -366,9 +366,6 @@ void main() {
   });
 
   test('3e physics chapters complete the existing subject and are reachable', () {
-    final subject = demoSubjects.firstWhere(
-      (s) => s.id == 'trois_pc' && s.level == SchoolLevel.troisieme,
-    );
     final demoCount = demoChapters.where((c) => c.subjectId == 'trois_pc').length;
     final coreChapters = annualPhysicsChapters.where((c) => c.subjectId == 'trois_pc').toList();
     expect(demoCount, 6);
