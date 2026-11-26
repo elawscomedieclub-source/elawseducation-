@@ -26,8 +26,10 @@ class LearnerAdaptationService {
       );
     }
 
-    // ProgressService fournit l'historique du plus récent au plus ancien.
-    final recent = attempts.take(20).toList();
+    // Trie localement pour rester fiable même si l'appelant transmet un historique désordonné.
+    final ordered = attempts.toList()
+      ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    final recent = ordered.take(20).toList();
     final recentByLesson = <String, List<ExerciseAttemptRecord>>{};
     for (final attempt in recent) {
       final list = recentByLesson.putIfAbsent(attempt.lessonId, () => []);
