@@ -373,6 +373,10 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
               label: const Text('Écouter un exemple de cette voix'),
             ),
           ] else const Text('Les voix proposées dépendent du moteur vocal installé sur ton téléphone.'),
+          if (_voicesForLanguage.isNotEmpty)
+            const Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Text('ProfTogo privilégie les voix améliorées lorsqu’elles sont disponibles. La langue, la voix et la vitesse choisies sont réutilisées pour la lecture des cours et des questions.', style: TextStyle(fontSize: 12, color: Colors.grey)),
           const SizedBox(height: 12),
           Card(
             child: Padding(
@@ -505,7 +509,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
           ],
           const SizedBox(height: 18),
           const Text(
-            'La recherche utilise les leçons déjà intégrées à ProfTogo. Elle ne remplace pas encore un assistant intelligent capable de répondre à toutes les questions. La reconnaissance vocale dépend du service vocal et des langues disponibles sur ton appareil ou ton navigateur.',
+            'ProfTogo recherche dans les cours de ta classe et utilise tes réponses récentes pour proposer des révisions adaptées. Si une notion n’est pas présente dans les leçons, il te le signale au lieu d’inventer une réponse. La lecture utilise les voix installées sur ton téléphone : la voix exacte de ChatGPT ne peut pas être transférée dans l’application. La reconnaissance vocale dépend aussi du service et des langues disponibles sur ton appareil.',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12, color: Colors.grey),
           ),
