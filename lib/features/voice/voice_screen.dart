@@ -6,6 +6,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/school_level_provider.dart';
+import '../../core/progress_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
 import '../../data/sample/annual_core_catalog.dart';
@@ -32,6 +33,11 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   List<Map<String, dynamic>> _availableVoices = [];
   String? _selectedVoiceKey;
   List<Lesson> _matches = [];
+  List<ExerciseAttemptRecord> _attemptHistory = [];
+  Set<String> _reviewExerciseIds = {};
+  bool _learnerContextLoaded = false;
+  bool _studyPlanQuery = false;
+  String _coachMessage = '';
 
   @override
   void initState() {
@@ -50,6 +56,23 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
     });
     _tts.awaitSpeakCompletion(true);
     _loadAvailableVoices();
+    _loadLearnerContext();
+  }
+
+  Future<void> _loadLearnerContext() async {
+    try {
+      final history = await ProgressService.loadAttemptHistory();
+      final reviewIds = await ProgressService.loadReviewExerciseIds();
+      if (!mounted) return;
+      setState(() {
+        _attemptHistory = history;
+        _reviewExerciseIds = reviewIds;
+        _learnerContextLoaded = true;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _learnerContextLoaded = false);
+    }
   }
 
   String _voiceKey(Map<String, dynamic> voice) => '${voice['name']}|${voice['locale']}';
@@ -221,6 +244,17 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
       return;
     }
 
+    final studyPlanQuery = [
+      'quoi reviser', 'que reviser', 'quoi travailler', 'comment progresser',
+      'mes difficultes', 'mes difficultés', 'mon niveau', 'recommande',
+      'recommandation', 'plan de revision', 'plan de révision',
+      'a revoir', 'à revoir', 'par quoi commencer', 'aide moi a progresser',
+    ].any(question.contains) ||
+        question.contains('revis') ||
+        question.contains('révis') ||
+        question.contains('difficult') ||
+        question.contains('progres');
+
     const ignored = {
       'comment', 'pourquoi', 'quelle', 'quelles', 'quel', 'quels',
       'est', 'sont', 'une', 'des', 'les', 'dans', 'avec', 'pour',
@@ -242,19 +276,84 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
         .where((chapter) => selectedSubjectIds.contains(chapter.subjectId))
         .map((chapter) => chapter.id).toSet();
     final lessonsForLevel = [...demoLessons.whereType<Lesson>(), ...annualCoreLessons]
-        .where((lesson) => selectedChapterIds.contains(lesson.chapterId));
+        .where((lesson) => selectedChapterIds.contains(lesson.chapterId))
+        .toList();
 
-    final scored = lessonsForLevel.map((lesson) {
-      final text = _normalise(
-        '${lesson.title} ${lesson.summary} ${lesson.content} ${lesson.keyPoints.join(' ')}',
-      );
-      final score = words.where((word) => text.contains(word)).length;
-      return (lesson: lesson, score: score);
-    }).where((item) => item.score > 0).toList()
-      ..sort((a, b) => b.score.compareTo(a.score));
+    final allExercises = [...demoExercises, ...annualCoreExercises];
+    final exerciseById = {for (final exercise in allExercises) exercise.id: exercise};
+    final attemptsByLesson = <String, int>{};
+    final recentWrongByLesson = <String, int>{};
+    final recentCorrectByLesson = <String, int>{};
+    final cutoff = DateTime.now().subtract(const Duration(days: 14));
+    for (final attempt in _attemptHistory) {
+      attemptsByLesson.update(attempt.lessonId, (count) => count + 1, ifAbsent: () => 1);
+      if (!attempt.timestamp.isBefore(cutoff)) {
+        if (attempt.isCorrect) {
+          recentCorrectByLesson.update(attempt.lessonId, (count) => count + 1, ifAbsent: () => 1);
+        } else {
+          recentWrongByLesson.update(attempt.lessonId, (count) => count + 1, ifAbsent: () => 1);
+        }
+      }
+    }
+    final lessonsWithReview = <String>{};
+    for (final exerciseId in _reviewExerciseIds) {
+      final exercise = exerciseById[exerciseId];
+      if (exercise != null) lessonsWithReview.add(exercise.lessonId);
+    }
+
+    int personalPriority(Lesson lesson) {
+      final review = lessonsWithReview.contains(lesson.id) ? 100 : 0;
+      final recentWrong = recentWrongByLesson[lesson.id] ?? 0;
+      final recentCorrect = recentCorrectByLesson[lesson.id] ?? 0;
+      final notYetStudied = (attemptsByLesson[lesson.id] ?? 0) == 0 ? 5 : 0;
+      return review + recentWrong * 10 + notYetStudied - recentCorrect * 2;
+    }
+
+    List<Lesson> matches;
+    String coachMessage = '';
+    if (studyPlanQuery) {
+      final ranked = lessonsForLevel.toList()
+        ..sort((a, b) => personalPriority(b).compareTo(personalPriority(a)));
+      final due = ranked.where((lesson) =>
+        lessonsWithReview.contains(lesson.id) ||
+        (recentWrongByLesson[lesson.id] ?? 0) > 0).toList();
+      final notStudied = ranked.where((lesson) =>
+        (attemptsByLesson[lesson.id] ?? 0) == 0).toList();
+      matches = (due.isNotEmpty ? due : (notStudied.isNotEmpty ? notStudied : ranked))
+          .take(3).toList();
+
+      if (!_learnerContextLoaded) {
+        coachMessage = 'Je n’ai pas encore pu charger ton historique. Je te propose des leçons de ta classe ; tes prochaines réponses permettront d’affiner le conseil.';
+      } else if (_attemptHistory.isEmpty) {
+        coachMessage = 'Je commence à construire ton parcours. Je ne vois pas encore de réponses enregistrées : commence par ces leçons, puis je pourrai cibler tes difficultés et tes progrès.';
+      } else if (due.isNotEmpty) {
+        final recentDifficulties = recentWrongByLesson.values.fold<int>(0, (sum, value) => sum + value);
+        coachMessage = 'J’ai repéré des notions à reprendre à partir de tes erreurs récentes et de tes exercices marqués pour révision. Je les place en priorité, puis nous avancerons vers de nouvelles leçons.';
+        if (recentDifficulties > 0) {
+          coachMessage += ' ${recentDifficulties} réponse(s) incorrecte(s) ont été enregistrées sur les 14 derniers jours.';
+        }
+      } else if (notStudied.isNotEmpty) {
+        coachMessage = 'Tes réponses récentes ne signalent pas de difficulté à reprendre en priorité. Je te propose maintenant des leçons de ta classe que tu n’as pas encore travaillées';
+      } else {
+        coachMessage = 'Tu as déjà travaillé les leçons de ta classe et je ne vois pas de difficulté récente marquée. Je te propose de consolider les notions les moins récentes';
+      }
+    } else {
+      final scored = lessonsForLevel.map((lesson) {
+        final text = _normalise(
+          '${lesson.title} ${lesson.summary} ${lesson.content} ${lesson.keyPoints.join(' ')}',
+        );
+        final keywordScore = words.where((word) => text.contains(word)).length;
+        final score = keywordScore * 10 + personalPriority(lesson);
+        return (lesson: lesson, score: score, keywordScore: keywordScore);
+      }).where((item) => item.keywordScore > 0).toList()
+        ..sort((a, b) => b.score.compareTo(a.score));
+      matches = scored.take(3).map((item) => item.lesson).toList();
+    }
 
     setState(() {
-      _matches = scored.take(3).map((item) => item.lesson).toList();
+      _matches = matches;
+      _studyPlanQuery = studyPlanQuery;
+      _coachMessage = coachMessage;
       _searched = true;
     });
   }
@@ -459,10 +558,17 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
           ),
           if (_searched) ...[
             const SizedBox(height: 22),
-            const Text(
-              'Réponses trouvées dans les cours',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              _studyPlanQuery ? 'Ton plan de révision personnalisé' : 'Réponses trouvées dans les cours',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            if (_studyPlanQuery && _coachMessage.isNotEmpty)
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Text(_coachMessage),
+                ),
+              ),
             const SizedBox(height: 8),
             if (_matches.isEmpty)
               const Card(
