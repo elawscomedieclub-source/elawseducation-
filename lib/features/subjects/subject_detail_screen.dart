@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/annual_core_english.dart';
 import '../lesson/lesson_screen.dart';
 import 'evaluation_screen.dart';
 
@@ -11,18 +12,20 @@ class SubjectDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chapters = demoChapters
-        .where((chapter) => chapter.subjectId == subject.id)
-        .toList()
-      ..sort((a, b) => a.order.compareTo(b.order));
+    final chapters = [
+      ...demoChapters.where((chapter) => chapter.subjectId == subject.id),
+      ...annualEnglishChapters.where((chapter) => chapter.subjectId == subject.id),
+    ]..sort((a, b) => a.order.compareTo(b.order));
     final chapterIds = chapters.map((chapter) => chapter.id).toSet();
-    final lessons = demoLessons
-        .where((lesson) => chapterIds.contains(lesson.chapterId))
-        .toList();
+    final lessons = [
+      ...demoLessons.where((lesson) => chapterIds.contains(lesson.chapterId)),
+      ...annualEnglishLessons.where((lesson) => chapterIds.contains(lesson.chapterId)),
+    ];
     final lessonIds = lessons.map((lesson) => lesson.id).toSet();
-    final exercises = demoExercises
-        .where((exercise) => lessonIds.contains(exercise.lessonId))
-        .toList();
+    final exercises = [
+      ...demoExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
+      ...annualEnglishExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
+    ];
 
     return Scaffold(
       appBar: AppBar(title: Text(subject.name)),
