@@ -34,6 +34,12 @@ Les activités culturelles sont prévues pendant la dernière semaine avant les 
 - Les nouveaux programmes d’EPS sont entrés en vigueur à la rentrée 2025–2026.
 - Les classes-métiers et les parcours scientifiques expérimentaux doivent être identifiés comme parcours spécifiques dans le contrôle de couverture, sans les confondre avec le parcours général ordinaire.
 
+## Mise à jour pédagogique 2026–2027
+
+- Les classes-métiers sont expérimentées à partir du CM1 et du CM2 ainsi que dans les collèges et lycées scientifiques. Les activités annoncées incluent la découverte des métiers, des interventions de professionnels, des visites et des ateliers. Les deux nouvelles leçons CM1-CM2 de ProfTogo sont des supports de découverte, pas un programme officiel complet.
+- Les établissements scientifiques et les parcours STEM doivent être considérés comme des contextes d’apprentissage spécifiques ; ils ne remplacent pas les matières et séries déjà déclarées dans l’application.
+- Les contenus pédagogiques diffusés comme manuels ou documents scolaires doivent être contrôlés au regard du cadre d’homologation ministériel.
+
 ## Usage dans ProfTogo
 
 1. Utiliser les dates pour planifier le calendrier scolaire et les rappels.
@@ -47,4 +53,6 @@ Les activités culturelles sont prévues pendant la dernière semaine avant les 
 - [Togo Officiel — découpage de l’année scolaire 2026–2027](https://www.republiquetogolaise.tg/education/3007-12143-annee-scolaire-2026-2027-le-decoupage)
 - [Togo Officiel — dates des examens et concours 2026–2027](https://www.republiquetogolaise.tg/education/2810-12435-annee-scolaire-2026-2027-dates-des-examens-et-concours)
 - [Ministère — rentrée 2026–2027, classes scientifiques et classes-métiers](https://education.gouv.tg/rentree-scolaire-2026-2027-mama-omorou-donne-le-ton-au-lycee-scientifique-de-lome/)
+- [Ministère — rentrée 2026–2027, classes-métiers et établissements scientifiques](https://education.gouv.tg/rentree-scolaire-2026-2027-mama-omorou-donne-le-ton-au-lycee-scientifique-de-lome/)
+- [Ministère — cadre d’homologation des supports pédagogiques](https://education.gouv.tg/homologation-des-manuels-et-documents-pedagogiques-un-nouveau-cadre-reglementaire-pour-leducation-au-togo/)
 - [Ministère — nouveaux programmes d’EPS](https://education.gouv.tg/meps-reforme-educative-de-nouveaux-programmes-deps-entrent-en-vigueur-au-togo/)
