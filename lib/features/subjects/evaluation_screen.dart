@@ -211,6 +211,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                   const Padding(
                     padding: EdgeInsets.all(24),
                     child: Text('Aucun exercice disponible dans cette sélection. Choisis un autre chapitre ou toute la matière.', textAlign: TextAlign.center),
+                  ),
                 ])
               : ListView(
                   padding: const EdgeInsets.all(16),
