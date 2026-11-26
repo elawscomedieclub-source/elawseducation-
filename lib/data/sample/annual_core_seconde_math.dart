@@ -70,7 +70,7 @@ AnnualSecondeMathUnit(unitOrder:11,title:'Trigonométrie dans le triangle rectan
 Exercise(id:'core_math_2nde_tr1',lessonId:'core_math_2nde_trigonometry',question:'Le cosinus d’un angle aigu est…',options:['Adjacent ÷ hypoténuse','Opposé ÷ hypoténuse','Opposé ÷ adjacent'],correctIndex:0,explanation:'cos θ est le rapport du côté adjacent à l’hypoténuse.'),
 Exercise(id:'core_math_2nde_tr2',lessonId:'core_math_2nde_trigonometry',question:'Dans un triangle rectangle, l’hypoténuse est…',options:['Le côté opposé à l’angle droit','Le plus petit côté toujours','Un côté adjacent quelconque'],correctIndex:0,explanation:'L’hypoténuse est le côté en face de l’angle droit et le plus long.'),
 Exercise(id:'core_math_2nde_tr3',lessonId:'core_math_2nde_trigonometry',question:'Pour calculer un angle avec la calculatrice, vérifie…',options:['Le mode degrés ou radians','Seulement la couleur de l’écran','Le niveau de batterie uniquement'],correctIndex:0,explanation:'Le mode angulaire doit correspondre à l’unité donnée dans l’exercice.'),
-
+]),
 ];
 
 final annualSecondeMathSubject = Subject(
