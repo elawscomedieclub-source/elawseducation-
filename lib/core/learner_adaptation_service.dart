@@ -1,6 +1,6 @@
 import 'progress_service.dart';
 
-/// Conseils pédagogiques fondés uniquement sur les réponses récentes observées.
+/// Conseils pédagogiques fondés uniquement sur des réponses récentes observées.
 /// Ne déduit jamais la personnalité, l'intelligence ou un diagnostic de l'élève.
 class LearnerCoachAdvice {
   final String title;
@@ -15,6 +15,9 @@ class LearnerCoachAdvice {
 }
 
 class LearnerAdaptationService {
+  static const learningWindow = Duration(days: 30);
+  static const maxRecentAttempts = 20;
+
   static LearnerCoachAdvice buildAdvice(
     List<ExerciseAttemptRecord> attempts, {
     Map<String, String> lessonTitles = const {},
@@ -27,10 +30,24 @@ class LearnerAdaptationService {
       );
     }
 
-    // Trie localement pour rester fiable même si l'appelant transmet un historique désordonné.
-    final ordered = attempts.toList()
+    // Les données peuvent arriver dans un ordre différent selon leur source.
+    // Une difficulté ancienne ne doit pas déterminer le conseil d'aujourd'hui.
+    final referenceTime = (now ?? DateTime.now()).toUtc();
+    final cutoff = referenceTime.subtract(learningWindow);
+    final recent = attempts.where((attempt) {
+      final timestamp = attempt.timestamp.toUtc();
+      return !timestamp.isBefore(cutoff) && !timestamp.isAfter(referenceTime);
+    }).toList()
       ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
-    final recent = ordered.take(20).toList();
+
+    if (recent.isEmpty) {
+      return const LearnerCoachAdvice(
+        title: 'Reprenons progressivement',
+        message: 'Cela fait un moment que tu n’as pas fait d’exercice ici. Reprends avec une courte leçon et quelques questions faciles ; nous ajusterons la suite à tes réponses récentes.',
+      );
+    }
+
+    final boundedRecent = recent.take(maxRecentAttempts).toList();
     final recentByLesson = <String, List<ExerciseAttemptRecord>>{};
     for (final attempt in boundedRecent) {
       final list = recentByLesson.putIfAbsent(attempt.lessonId, () => []);
@@ -50,7 +67,7 @@ class LearnerAdaptationService {
       final title = lessonTitles[priorityLesson];
       final lessonName = title == null || title.trim().isEmpty
           ? 'cette leçon'
-          : '« $title »';
+          : '« ${title.trim()} »';
       return LearnerCoachAdvice(
         title: 'Une notion à retravailler',
         message: 'Tes dernières réponses montrent que $lessonName mérite un nouvel entraînement. Relis l’explication, fais un exemple guidé, puis essaie trois questions. Une erreur est une étape normale pour apprendre.',
