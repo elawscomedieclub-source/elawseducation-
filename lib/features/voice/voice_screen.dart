@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/school_level_provider.dart';
 import '../../data/models/models.dart';
@@ -26,7 +27,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   bool _listening = false;
   bool _speechAvailable = false;
   bool _searched = false;
-  double _speechRate = 0.84;
+  double _speechRate = 0.72;
   List<Map<String, dynamic>> _availableVoices = [];
   String? _selectedVoiceKey;
   List<Lesson> _matches = [];
@@ -67,27 +68,61 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
 
   Future<void> _loadAvailableVoices() async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final savedLanguage = prefs.getString('proftogo_voice_language');
+      final savedRate = prefs.getDouble('proftogo_voice_rate');
+      final savedVoiceKey = prefs.getString('proftogo_voice_key');
       final raw = await _tts.getVoices;
       if (raw is! List) return;
       final voices = raw.whereType<Map>().map((voice) => Map<String, dynamic>.from(voice)).where((voice) =>
         voice['name'] != null && voice['locale'] != null).toList();
       int quality(Map<String, dynamic> voice) => int.tryParse('${voice['quality'] ?? ''}') ?? 0;
+      int naturalScore(Map<String, dynamic> voice) {
+        final name = '${voice['name'] ?? ''}'.toLowerCase();
+        return ['neural', 'natural', 'enhanced', 'premium', 'wavenet', 'studio']
+            .where(name.contains).length;
+      }
       voices.sort((a, b) {
+        final byNatural = naturalScore(b).compareTo(naturalScore(a));
+        if (byNatural != 0) return byNatural;
         final byQuality = quality(b).compareTo(quality(a));
         if (byQuality != 0) return byQuality;
         final aNetwork = a['network_required'] == true ? 1 : 0;
         final bNetwork = b['network_required'] == true ? 1 : 0;
-        return aNetwork.compareTo(bNetwork);
+        return bNetwork.compareTo(aNetwork);
       });
       if (!mounted) return;
       setState(() {
+        _language = savedLanguage ?? _language;
+        _speechRate = (savedRate ?? _speechRate).clamp(0.50, 1.0).toDouble();
         _availableVoices = voices;
         final matching = _voicesForLanguage;
-        _selectedVoiceKey = matching.isEmpty ? null : _voiceKey(matching.first);
+        _selectedVoiceKey = matching.any((voice) => _voiceKey(voice) == savedVoiceKey)
+            ? savedVoiceKey
+            : matching.isEmpty ? null : _voiceKey(matching.first);
       });
     } catch (_) {
       // Certains moteurs vocaux ne permettent pas d'énumérer leurs voix.
     }
+  }
+
+  Future<void> _saveVoiceSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('proftogo_voice_language', _language);
+    await prefs.setDouble('proftogo_voice_rate', _speechRate);
+    if (_selectedVoiceKey != null) {
+      await prefs.setString('proftogo_voice_key', _selectedVoiceKey!);
+    }
+  }
+
+  String _prepareNarration(String raw) {
+    return raw
+        .replaceAll(RegExp(r'[#*_`~]'), '')
+        .replaceAll(RegExp(r'^\s*[-•]\s*', multiLine: true), '')
+        .replaceAll(RegExp(r'[\r\n]+'), '. ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .replaceAll(RegExp(r'\.\s*\.'), '.')
+        .trim();
   }
 
   Future<void> _applySelectedVoice() async {
@@ -105,9 +140,9 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
       await _tts.setLanguage(_language);
       await _applySelectedVoice();
       await _tts.setSpeechRate(_speechRate);
-      await _tts.setPitch(0.98);
+      await _tts.setPitch(1.0);
       await _tts.setVolume(1.0);
-      await _tts.speak('Bonjour ! Je suis ton professeur. Prenons le temps de comprendre cette leçon, étape par étape.');
+      await _tts.speak(_prepareNarration('Bonjour ! Je suis ton professeur. Prenons le temps de comprendre cette leçon, étape par étape.'));
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Cette voix ne peut pas être utilisée. Essaie une autre voix installée sur ton téléphone.')));
@@ -228,13 +263,14 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
   }
 
   Future<void> _speakLesson(Lesson lesson) async {
-    final text = '${lesson.title}. ${lesson.summary}. ${lesson.content}';
+    final keyPoints = lesson.keyPoints.isEmpty ? '' : 'Les points à retenir : ${lesson.keyPoints.join('. ')}.';
+    final text = _prepareNarration('${lesson.title}. ${lesson.summary}. ${lesson.content}. $keyPoints');
     try {
       await _tts.setLanguage(_language);
       await _applySelectedVoice();
       await _tts.setSpeechRate(_speechRate);
       await _tts.setVolume(1.0);
-      await _tts.setPitch(0.98);
+      await _tts.setPitch(1.0);
       await _tts.speak(text);
     } catch (_) {
       if (!mounted) return;
@@ -311,6 +347,7 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                         final voices = _voicesForLanguage;
                         _selectedVoiceKey = voices.isEmpty ? null : _voiceKey(voices.first);
                       });
+                      _saveVoiceSettings();
                     }
                   },
           ),
@@ -326,7 +363,10 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                 child: Text('${voice['name']} · ${voice['locale']}', overflow: TextOverflow.ellipsis),
               )).toList(),
               onChanged: (_speaking || _listening) ? null : (value) {
-                if (value != null) setState(() => _selectedVoiceKey = value);
+                if (value != null) {
+                  setState(() => _selectedVoiceKey = value);
+                  _saveVoiceSettings();
+                }
               },
             ),
             const SizedBox(height: 8),
@@ -361,7 +401,10 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
                     label: _speechRate.toStringAsFixed(2),
                     onChanged: (_speaking || _listening)
                         ? null
-                        : (value) => setState(() => _speechRate = value),
+                        : (value) {
+                            setState(() => _speechRate = value);
+                            _saveVoiceSettings();
+                          },
                   ),
                   const Text(
                     'Choisis un débit plus rapide ou plus posé. Une voix de meilleure qualité, si elle est installée, rendra aussi la lecture plus naturelle.',
