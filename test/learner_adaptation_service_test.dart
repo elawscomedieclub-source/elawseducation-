@@ -62,6 +62,17 @@ void main() {
       ]);
       expect(advice.lessonId, isNull);
       expect(advice.title, 'Tu prends confiance');
-    });;
+    });
+
+    test('sorts attempts by timestamp before identifying a recent success streak', () {
+      final advice = LearnerAdaptationService.buildAdvice([
+        attempt('fractions', false, 30),
+        attempt('fractions', true, 4),
+        attempt('fractions', true, 3),
+        attempt('fractions', true, 2),
+        attempt('fractions', true, 1),
+      ]);
+      expect(advice.title, 'Tu prends confiance');
+    });
   });
 }
