@@ -22,6 +22,7 @@ final annualCoreSubjects = [
   ...historyCivics.annualHistoryCivicsSubjects,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsSubjects,
   secondePhysics.annualSecondePhysicsSubject,
+  secondePhysics.annualSecondeCdPhysicsSubject,
   secondeSvt.annualSecondeCdSvtSubject,
   secondeMath.annualSecondeMathSubject,
 ];
@@ -36,6 +37,7 @@ final annualCoreChapters = [
   ...secondarySvt.annualSecondarySvtChapters,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsChapters,
   ...secondePhysics.annualSecondePhysicsChapters,
+  ...secondePhysics.annualSecondeCdPhysicsChapters,
   ...secondeSvt.annualSecondeSvtChapters,
   ...secondeMath.annualSecondeMathChapters,
 ];
@@ -50,6 +52,7 @@ final annualCoreLessons = [
   ...secondarySvt.annualSecondarySvtLessons,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsLessons,
   ...secondePhysics.annualSecondePhysicsLessons,
+  ...secondePhysics.annualSecondeCdPhysicsLessons,
   ...secondeSvt.annualSecondeSvtLessons,
   ...secondeMath.annualSecondeMathLessons,
 ];
@@ -64,6 +67,7 @@ final annualCoreExercises = [
   ...secondarySvt.annualSecondarySvtExercises,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsExercises,
   ...secondePhysics.annualSecondePhysicsExercises,
+  ...secondePhysics.annualSecondeCdPhysicsExercises,
   ...secondeSvt.annualSecondeSvtExercises,
   ...secondeMath.annualSecondeMathExercises,
 ];

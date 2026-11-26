@@ -48,11 +48,29 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(36));
-    expect(annualCoreLessons, hasLength(132));
-    expect(annualCoreExercises, hasLength(396));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(132));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(396));
+    expect(annualCoreSubjects, hasLength(37));
+    expect(annualCoreLessons, hasLength(140));
+    expect(annualCoreExercises, hasLength(420));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(140));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(420));
+  });
+
+  test('Seconde C and D physics and chemistry are included as core lessons', () {
+    expect(annualSecondeCdPhysicsUnits, hasLength(8));
+    expect(annualSecondeCdPhysicsChapters, hasLength(8));
+    expect(annualSecondeCdPhysicsLessons, hasLength(8));
+    expect(annualSecondeCdPhysicsExercises, hasLength(24));
+    expect(annualSecondeCdPhysicsLessons.map((l) => l.id).toSet(), hasLength(8));
+    expect(annualSecondeCdPhysicsExercises.map((e) => e.id).toSet(), hasLength(24));
+    for (final unit in annualSecondeCdPhysicsUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
   });
 
   test('primary mathematics units have complete exercises', () {
