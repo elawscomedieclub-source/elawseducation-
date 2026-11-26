@@ -382,4 +382,18 @@ void main() {
     expect(annualPhysicsExercises.where((e) => lessonIds.contains(e.lessonId)), hasLength(15));
   });
 
+  test('demo and core subject cards are merged by school path', () {
+    final merged = mergeSubjectsByPath(demoSubjects, annualCoreSubjects);
+    final a4Svt = merged.where((subject) =>
+        subject.id == 'seconde_svt' &&
+        subject.level == SchoolLevel.seconde &&
+        subject.track == SchoolTrack.generalLiterary &&
+        subject.series == 'A4').toList();
+    expect(a4Svt, hasLength(1));
+    expect(a4Svt.single.totalChapters, 11);
+    final keys = merged.map((subject) =>
+        '${subject.id}|${subject.level.name}|${subject.track?.name ?? ''}|${subject.series ?? ''}').toSet();
+    expect(keys, hasLength(merged.length));
+  });
+
 }
