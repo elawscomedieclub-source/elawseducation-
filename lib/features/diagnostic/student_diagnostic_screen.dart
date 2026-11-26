@@ -130,15 +130,29 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
           );
           final attempts = correct + wrongAttempts;
           final rate = attempts == 0 ? 0 : (correct * 100 / attempts).round();
+          // Le coach donne plus de poids aux erreurs récentes : une difficulté
+          // ancienne ne doit pas enfermer l'élève dans une étiquette.
+          final recentCutoff = now.subtract(const Duration(days: 14));
+          final recentWrongByLesson = <String, int>{};
           final latestWrongByLesson = <String, DateTime>{};
-          for (final attempt in d.attemptHistory.where((item) => !item.isCorrect)) {
+          for (final attempt in d.attemptHistory.where(
+            (item) => !item.isCorrect && !item.timestamp.isBefore(recentCutoff),
+          )) {
+            recentWrongByLesson.update(attempt.lessonId, (count) => count + 1, ifAbsent: () => 1);
             final previous = latestWrongByLesson[attempt.lessonId];
             if (previous == null || attempt.timestamp.isAfter(previous)) {
               latestWrongByLesson[attempt.lessonId] = attempt.timestamp;
             }
           }
-          final difficulties = d.lessonErrors.entries.where((e) => e.value >= 2 && lessons.any((l) => l.id == e.key)).toList()
+          final difficulties = d.lessonErrors.entries.where((e) =>
+            (recentWrongByLesson[e.key] ?? 0) >= 2 ||
+            (e.value >= 3 && (recentWrongByLesson[e.key] ?? 0) > 0) &&
+            lessons.any((l) => l.id == e.key),
+          ).toList()
             ..sort((a, b) {
+              final byRecent = (recentWrongByLesson[b.key] ?? 0)
+                  .compareTo(recentWrongByLesson[a.key] ?? 0);
+              if (byRecent != 0) return byRecent;
               final byCount = b.value.compareTo(a.value);
               if (byCount != 0) return byCount;
               final aDate = latestWrongByLesson[a.key];
@@ -156,18 +170,19 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
             final correctCount = exercises.where((e) => d.progress.correctExerciseIds.contains(e.id)).length;
             final reviewCount = exercises.where((e) => d.reviewIds.contains(e.id)).length;
             final wrongCount = exercises.fold<int>(0, (sum, e) => sum + (d.exerciseErrors[e.id] ?? 0));
+            final recentWrongCount = recentWrongByLesson[lesson.id] ?? 0;
             final status = exercises.isEmpty
                 ? 'indisponible'
                 : correctCount == exercises.length
                     ? 'reussi'
-                    : reviewCount > 0 || wrongCount >= 2
+                    : reviewCount > 0 || recentWrongCount >= 2
                         ? 'a_revoir'
                         : correctCount > 0
                             ? 'en_progres'
-                            : wrongCount > 0
+                            : recentWrongCount > 0
                                 ? 'a_reprendre'
                                 : 'a_decouvrir';
-            return _LessonProgress(lesson, exercises.length, correctCount, reviewCount, wrongCount, status);
+            return _LessonProgress(lesson, exercises.length, correctCount, reviewCount, recentWrongCount, wrongCount, status);
           }).where((item) => item.total > 0).toList()
             ..sort((a, b) {
               int rank(String status) => switch (status) {
@@ -179,6 +194,8 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
               };
               final byStatus = rank(a.status).compareTo(rank(b.status));
               if (byStatus != 0) return byStatus;
+              final byRecentWrong = b.recentWrong.compareTo(a.recentWrong);
+              if (byRecentWrong != 0) return byRecentWrong;
               final byWrong = b.wrong.compareTo(a.wrong);
               if (byWrong != 0) return byWrong;
               final byReview = b.review.compareTo(a.review);
@@ -262,7 +279,7 @@ class _StudentDiagnosticScreenState extends ConsumerState<StudentDiagnosticScree
                         const SizedBox(height: 5),
                         Text(
                           [
-                            if (nextLesson.wrong > 0) '${nextLesson.wrong} réponse(s) incorrecte(s) enregistrée(s)',
+                            if (nextLesson.recentWrong > 0) '${nextLesson.recentWrong} réponse(s) incorrecte(s) au cours des 14 derniers jours',
                             if (nextLesson.review > 0) '${nextLesson.review} exercice(s) placé(s) en révision',
                           ].join(' • '),
                           style: Theme.of(context).textTheme.bodySmall,
@@ -575,9 +592,10 @@ class _LessonProgress {
   final int total;
   final int correct;
   final int review;
+  final int recentWrong;
   final int wrong;
   final String status;
-  const _LessonProgress(this.lesson, this.total, this.correct, this.review, this.wrong, this.status);
+  const _LessonProgress(this.lesson, this.total, this.correct, this.review, this.recentWrong, this.wrong, this.status);
 }
 
 class _Diagnostic {
