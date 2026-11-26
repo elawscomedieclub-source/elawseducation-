@@ -14,12 +14,21 @@ class AnnualSecondaryMathUnit {
   });
   String get subjectId => switch (code) {
     '6e' => 'math',
+    '6e' => 'math',
     '5e' => 'cinq_math',
     '4e' => 'quatre_math',
     '3e' => 'trois_math',
     _ => 'core_secondary_math_$code',
   };
   String get chapterId => switch (code) {
+    '6e' => switch (unitOrder) {
+          1 => 'm1',
+          2 => 'm2',
+          3 => 'm4',
+          4 => 'm3',
+          5 => 'm2',
+          _ => 'm1',
+        },
     '5e' => switch (unitOrder) {
       1 => 'cinq_m1',
       2 => 'cinq_plus_math',
@@ -143,6 +152,31 @@ const annualSecondaryMathUnits = <AnnualSecondaryMathUnit>[
     Exercise(id:'core_math_3e_pw3',lessonId:'core_math_3e_powers',question:'La notation scientifique de 45 000 est…',options:['4,5 × 10⁴','45 × 10³','0,45 × 10⁵'],correctIndex:0,explanation:'4,5 est compris entre 1 et 10 et 4,5 × 10⁴ = 45 000.'),
   ]),
 
+  AnnualSecondaryMathUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:1,title:'Fractions et partage',lessonId:'core_math_6e_fractions',lessonTitle:'Représenter et comparer des fractions',summary:'Comprendre une fraction comme partage et comme nombre.',content:'Une fraction a un numérateur et un dénominateur non nul. Elle peut représenter une ou plusieurs parts égales d’un tout. Pour comparer des fractions de même dénominateur, compare les numérateurs. Une fraction peut être représentée sur une droite graduée ou par un dessin de parts égales. Simplifier une fraction consiste à diviser le numérateur et le dénominateur par un même diviseur non nul.',keyPoints:['Le dénominateur ne peut pas être zéro','Même dénominateur : comparer les numérateurs','Une fraction représente des parts égales'],exercises:[
+      Exercise(id:'core_math_6e_fr1',lessonId:'core_math_6e_fractions',question:'Dans 3/8, le dénominateur est…',options:['8','3','11'],correctIndex:0,explanation:'Le dénominateur est le nombre situé en bas : 8.'),
+      Exercise(id:'core_math_6e_fr2',lessonId:'core_math_6e_fractions',question:'Quelle fraction est la plus grande ?',options:['5/9','2/9','4/9'],correctIndex:0,explanation:'Les dénominateurs sont égaux ; 5 est le plus grand numérateur.'),
+      Exercise(id:'core_math_6e_fr3',lessonId:'core_math_6e_fractions',question:'Quel dénominateur est interdit ?',options:['0','4','12'],correctIndex:0,explanation:'Une fraction ne peut pas avoir un dénominateur nul.'),
+    ]),
+    AnnualSecondaryMathUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:2,title:'Proportionnalité et tableaux',lessonId:'core_math_6e_proportionality',lessonTitle:'Reconnaître une situation proportionnelle',summary:'Utiliser le coefficient et le passage à l’unité.',content:'Deux grandeurs sont proportionnelles si l’on multiplie chaque valeur de l’une par le même nombre pour obtenir l’autre. Ce nombre est le coefficient de proportionnalité. Le passage à l’unité permet de trouver la valeur pour une unité, puis de multiplier. Dans un tableau, les rapports correspondants sont constants.',keyPoints:['Coefficient de proportionnalité constant','Passage à l’unité','Vérifier les unités et le sens du résultat'],exercises:[
+      Exercise(id:'core_math_6e_pr1',lessonId:'core_math_6e_proportionality',question:'3 cahiers coûtent 600 F. Un cahier coûte…',options:['200 F','300 F','600 F'],correctIndex:0,explanation:'600 ÷ 3 = 200 F par cahier.'),
+      Exercise(id:'core_math_6e_pr2',lessonId:'core_math_6e_proportionality',question:'Le coefficient qui transforme 4 en 20 est…',options:['5','4','16'],correctIndex:0,explanation:'4 × 5 = 20.'),
+      Exercise(id:'core_math_6e_pr3',lessonId:'core_math_6e_proportionality',question:'Dans un tableau proportionnel, le coefficient…',options:['Reste le même','Change à chaque ligne','Est toujours nul'],correctIndex:0,explanation:'Le même coefficient relie toutes les valeurs correspondantes.'),
+    ]),
+    AnnualSecondaryMathUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:3,title:'Angles et constructions',lessonId:'core_math_6e_angles',lessonTitle:'Mesurer et construire des angles',summary:'Utiliser le rapporteur et reconnaître les angles usuels.',content:'Un angle se mesure en degrés. L’angle nul mesure 0°, l’angle aigu moins de 90°, l’angle droit 90°, l’angle obtus entre 90° et 180° et l’angle plat 180°. Pour mesurer, place le centre du rapporteur sur le sommet et aligne le zéro sur un côté. Pour construire, marque la mesure puis trace le second côté.',keyPoints:['Angle droit : 90° ; angle plat : 180°','Aligner le sommet et le côté avec le rapporteur','Lire la bonne graduation'],exercises:[
+      Exercise(id:'core_math_6e_an1',lessonId:'core_math_6e_angles',question:'Un angle droit mesure…',options:['90°','45°','180°'],correctIndex:0,explanation:'La mesure d’un angle droit est 90 degrés.'),
+      Exercise(id:'core_math_6e_an2',lessonId:'core_math_6e_angles',question:'Un angle de 35° est…',options:['Aigu','Obtus','Plat'],correctIndex:0,explanation:'35° est inférieur à 90°, donc l’angle est aigu.'),
+      Exercise(id:'core_math_6e_an3',lessonId:'core_math_6e_angles',question:'Un angle plat mesure…',options:['180°','90°','360°'],correctIndex:0,explanation:'Un angle plat forme une ligne droite et mesure 180°.'),
+    ]),
+    AnnualSecondaryMathUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:4,title:'Aires et volumes',lessonId:'core_math_6e_area_volume',lessonTitle:'Calculer des aires et des volumes simples',summary:'Distinguer longueur, aire et volume et utiliser les formules usuelles.',content:'Le périmètre mesure le contour, l’aire mesure une surface et le volume mesure l’espace occupé. L’aire d’un rectangle est longueur × largeur. Le volume d’un pavé droit est longueur × largeur × hauteur. Les aires s’expriment en unités carrées et les volumes en unités cubiques. Convertis les unités avant de comparer des mesures.',keyPoints:['Aire du rectangle : L × l','Volume du pavé droit : L × l × h','Aire : unités² ; volume : unités³'],exercises:[
+      Exercise(id:'core_math_6e_av1',lessonId:'core_math_6e_area_volume',question:'Aire d’un rectangle de 7 cm sur 4 cm ?',options:['28 cm²','22 cm','11 cm²'],correctIndex:0,explanation:'A = 7 × 4 = 28 cm².'),
+      Exercise(id:'core_math_6e_av2',lessonId:'core_math_6e_area_volume',question:'Volume d’un pavé de 2 cm × 3 cm × 4 cm ?',options:['24 cm³','9 cm²','24 cm'],correctIndex:0,explanation:'V = 2 × 3 × 4 = 24 cm³.'),
+      Exercise(id:'core_math_6e_av3',lessonId:'core_math_6e_area_volume',question:'Quelle unité mesure un volume ?',options:['m³','m²','m'],correctIndex:0,explanation:'Le volume s’exprime en unités cubiques, par exemple m³.'),
+    ]),
+    AnnualSecondaryMathUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:5,title:'Tableaux, graphiques et moyenne',lessonId:'core_math_6e_data',lessonTitle:'Lire des données et calculer une moyenne',summary:'Organiser des données et interpréter un graphique simple.',content:'Un tableau organise les données en lignes et colonnes. Un diagramme en barres compare des catégories ; un graphique peut montrer une évolution. La moyenne d’une série est la somme des valeurs divisée par leur nombre. Lis toujours le titre, les unités et l’échelle avant d’interpréter un graphique.',keyPoints:['Lire titre, axes, unités et échelle','Diagramme en barres : comparer des catégories','Moyenne = somme ÷ nombre de valeurs'],exercises:[
+      Exercise(id:'core_math_6e_dt1',lessonId:'core_math_6e_data',question:'La moyenne de 6, 8 et 10 est…',options:['8','24','6'],correctIndex:0,explanation:'(6 + 8 + 10) ÷ 3 = 24 ÷ 3 = 8.'),
+      Exercise(id:'core_math_6e_dt2',lessonId:'core_math_6e_data',question:'Avant de lire un graphique, il faut vérifier…',options:['Le titre et l’échelle','La couleur du cahier','Le nom du dessinateur seulement'],correctIndex:0,explanation:'Le titre et l’échelle donnent le sens des données.'),
+      Exercise(id:'core_math_6e_dt3',lessonId:'core_math_6e_data',question:'Un diagramme en barres sert surtout à…',options:['Comparer des catégories','Mesurer la température du corps directement','Calculer un volume'],correctIndex:0,explanation:'Les barres permettent de comparer les valeurs de différentes catégories.'),
+    ]),
 ];
 
 final annualSecondaryMathChapters = annualSecondaryMathUnits.map((unit) => Chapter(
