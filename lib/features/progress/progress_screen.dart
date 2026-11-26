@@ -255,7 +255,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.assignment_turned_in_outlined, color: Color(0xFF006A4E)),
                   title: Text('${record.subjectName} : ${record.score}/20'),
-                  subtitle: Text('${record.correct}/${record.total} bonnes réponses • ${record.date.day.toString().padLeft(2, '0')}/${record.date.month.toString().padLeft(2, '0')}/${record.date.year}'),
+                  subtitle: Text('${record.chapterTitle.isEmpty ? 'Toute la matière' : record.chapterTitle} • ${record.correct}/${record.total} bonnes réponses • ${record.date.day.toString().padLeft(2, '0')}/${record.date.month.toString().padLeft(2, '0')}/${record.date.year}'),
                   trailing: Icon(record.score >= 10 ? Icons.check_circle : Icons.trending_up,
                     color: record.score >= 10 ? Colors.green : Colors.orange),
                 )),
