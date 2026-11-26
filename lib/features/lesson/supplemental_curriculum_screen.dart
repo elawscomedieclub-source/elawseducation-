@@ -1040,7 +1040,7 @@ class _SupplementalCurriculumScreenState extends ConsumerState<SupplementalCurri
       "ce2_lire_tableau_annual" => "LIS LE TITRE, LES LIGNES ET LES COLONNES",
       "cm1_decouvrir_metiers_annual" => "DÉCOUVRE LES MÉTIERS ET LEURS COMPÉTENCES",
       "cm2_projet_metiers_annual" => "CONSTRUIS TON PROJET DE DÉCOUVERTE",
-      "sixieme_demarche_scientifique_annual" => "SUIVIS LES ÉTAPES DE LA DÉMARCHE SCIENTIFIQUE",
+      "sixieme_demarche_scientifique_annual" => "SUIS LES ÉTAPES DE LA DÉMARCHE SCIENTIFIQUE",
       "cinquieme_energie_solaire_annual" => "DE LA LUMIÈRE À L’ÉLECTRICITÉ",
       "quatrieme_experience_variables_annual" => "MODIFIE UN FACTEUR ET CONTRÔLE LES AUTRES",
       "troisieme_projet_scientifique_annual" => "DU BESOIN AU PROJET AMÉLIORÉ",
