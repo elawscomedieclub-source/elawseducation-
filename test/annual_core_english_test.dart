@@ -11,6 +11,8 @@ import 'package:proftogo/data/sample/annual_core_secondary_french.dart';
 import 'package:proftogo/data/sample/annual_core_secondary_svt.dart';
 import 'package:proftogo/data/sample/annual_core_lycee_history_civics.dart';
 import 'package:proftogo/data/sample/annual_core_seconde_physics.dart';
+import 'package:proftogo/data/sample/annual_core_seconde_svt.dart';
+import 'package:proftogo/data/sample/sample_data.dart';
 
 void main() {
   test('primary English course covers CP1 through CM2 as core lessons', () {
@@ -44,11 +46,11 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(34));
-    expect(annualCoreLessons, hasLength(111));
-    expect(annualCoreExercises, hasLength(333));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(111));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(333));
+    expect(annualCoreSubjects, hasLength(35));
+    expect(annualCoreLessons, hasLength(121));
+    expect(annualCoreExercises, hasLength(363));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(121));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(363));
   });
 
   test('primary mathematics units have complete exercises', () {
@@ -181,6 +183,32 @@ void main() {
     expect(annualSecondePhysicsLessons.map((l) => l.id).toSet(), hasLength(8));
     expect(annualSecondePhysicsExercises.map((e) => e.id).toSet(), hasLength(24));
     for (final unit in annualSecondePhysicsUnits) {
+      expect(unit.content.trim(), isNotEmpty);
+      expect(unit.exercises, hasLength(3));
+      for (final question in unit.exercises) {
+        expect(question.options.length, greaterThanOrEqualTo(3));
+        expect(question.correctIndex, inInclusiveRange(0, question.options.length - 1));
+        expect(question.explanation.trim(), isNotEmpty);
+      }
+    }
+  });
+
+  test('Seconde SVT lessons are filtered by A4 versus C/D series', () {
+    expect(annualSecondeSvtUnits, hasLength(10));
+    expect(annualSecondeSvtLessons, hasLength(10));
+    expect(annualSecondeSvtExercises, hasLength(30));
+    expect(annualSecondeCdSvtSubject.totalChapters, 6);
+    expect(annualSecondeCdSvtSubject.track, SchoolTrack.scientific);
+    final a4Subject = demoSubjects.firstWhere((s) => s.id == 'seconde_svt');
+    expect(a4Subject.track, SchoolTrack.generalLiterary);
+    expect(a4Subject.series, 'A4');
+    expect(subjectMatchesPath(a4Subject, SchoolLevel.seconde, SchoolTrack.generalLiterary, 'A4'), isTrue);
+    expect(subjectMatchesPath(a4Subject, SchoolLevel.seconde, SchoolTrack.scientific, 'C'), isFalse);
+    expect(subjectMatchesPath(annualSecondeCdSvtSubject, SchoolLevel.seconde, SchoolTrack.scientific, 'D'), isTrue);
+    expect(subjectMatchesPath(annualSecondeCdSvtSubject, SchoolLevel.seconde, SchoolTrack.generalLiterary, 'A4'), isFalse);
+    expect(annualSecondeSvtLessons.map((l) => l.id).toSet(), hasLength(10));
+    expect(annualSecondeSvtExercises.map((e) => e.id).toSet(), hasLength(30));
+    for (final unit in annualSecondeSvtUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
       for (final question in unit.exercises) {
