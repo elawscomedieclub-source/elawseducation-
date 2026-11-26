@@ -249,7 +249,11 @@ class _VoiceScreenState extends ConsumerState<VoiceScreen> {
       'mes difficultes', 'mes difficultés', 'mon niveau', 'recommande',
       'recommandation', 'plan de revision', 'plan de révision',
       'a revoir', 'à revoir', 'par quoi commencer', 'aide moi a progresser',
-    ].any(question.contains);
+    ].any(question.contains) ||
+        question.contains('revis') ||
+        question.contains('révis') ||
+        question.contains('difficult') ||
+        question.contains('progres');
 
     const ignored = {
       'comment', 'pourquoi', 'quelle', 'quelles', 'quel', 'quels',
