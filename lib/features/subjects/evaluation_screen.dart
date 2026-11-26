@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
-import '../../data/sample/annual_core_english.dart';
+import '../../data/sample/annual_core_catalog.dart';
 
 class EvaluationScreen extends StatefulWidget {
   final Subject subject;
@@ -32,17 +32,17 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   List<Exercise> _buildQuestions() {
     final chapterIds = [
       ...demoChapters,
-      ...annualEnglishChapters,
+      ...annualCoreChapters,
     ].where((chapter) => chapter.subjectId == widget.subject.id &&
             (_selectedChapterId.isEmpty || chapter.id == _selectedChapterId))
         .map((chapter) => chapter.id).toSet();
     final lessonIds = [
       ...demoLessons.whereType<Lesson>(),
-      ...annualEnglishLessons,
+      ...annualCoreLessons,
     ].where((lesson) => chapterIds.contains(lesson.chapterId)).map((lesson) => lesson.id).toSet();
     final pool = [
       ...demoExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
-      ...annualEnglishExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
+      ...annualCoreExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
     ]..shuffle(Random());
     // Une évaluation reste courte et réalisable sur téléphone.
     return pool.take(20).toList();
@@ -51,7 +51,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   Widget _chapterSelector() {
     final chapters = [
       ...demoChapters.where((chapter) => chapter.subjectId == widget.subject.id),
-      ...annualEnglishChapters.where((chapter) => chapter.subjectId == widget.subject.id),
+      ...annualCoreChapters.where((chapter) => chapter.subjectId == widget.subject.id),
     ]..sort((a, b) => a.order.compareTo(b.order));
     return Card(
       margin: const EdgeInsets.only(bottom: 14),
@@ -178,7 +178,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
       chapterId: _selectedChapterId,
       chapterTitle: _selectedChapterId.isEmpty
           ? 'Toute la matière'
-          : [...demoChapters, ...annualEnglishChapters].firstWhere((chapter) => chapter.id == _selectedChapterId).title,
+          : [...demoChapters, ...annualCoreChapters].firstWhere((chapter) => chapter.id == _selectedChapterId).title,
       date: DateTime.now(),
     );
 

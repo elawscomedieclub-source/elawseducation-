@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/data/models/models.dart';
 import 'package:proftogo/data/sample/annual_core_english.dart';
+import 'package:proftogo/data/sample/annual_core_science.dart';
+import 'package:proftogo/data/sample/annual_core_catalog.dart';
 
 void main() {
   test('primary English course covers CP1 through CM2 as core lessons', () {
@@ -30,4 +32,15 @@ void main() {
       }
     }
   });
+  test('primary science and technology lessons are part of the core catalog', () {
+    expect(annualScienceUnits, hasLength(12));
+    expect(annualScienceLessons, hasLength(12));
+    expect(annualScienceExercises, hasLength(36));
+    expect(annualCoreSubjects, hasLength(12));
+    expect(annualCoreLessons, hasLength(30));
+    expect(annualCoreExercises, hasLength(90));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(30));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(90));
+  });
+
 }
