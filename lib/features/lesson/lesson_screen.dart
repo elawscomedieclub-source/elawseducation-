@@ -5,6 +5,7 @@ import '../../core/progress_service.dart';
 
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/annual_core_english.dart';
 import 'exercise_screen.dart';
 import 'apc_lesson_guide.dart';
 import 'apc_mission_screen.dart';
@@ -18,7 +19,10 @@ class LessonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lessons = demoLessons.where((lesson) => lesson.chapterId == chapter.id).toList();
+    final lessons = [
+      ...demoLessons.where((lesson) => lesson.chapterId == chapter.id),
+      ...annualEnglishLessons.where((lesson) => lesson.chapterId == chapter.id),
+    ];
 
     return Scaffold(
       appBar: AppBar(title: Text(chapter.title)),
@@ -69,9 +73,10 @@ class LessonScreen extends StatelessWidget {
           ...lessons.asMap().entries.map((entry) {
             final index = entry.key;
             final lesson = entry.value;
-            final exerciseCount = demoExercises
-                .where((exercise) => exercise.lessonId == lesson.id)
-                .length;
+            final exerciseCount = [
+              ...demoExercises.where((exercise) => exercise.lessonId == lesson.id),
+              ...annualEnglishExercises.where((exercise) => exercise.lessonId == lesson.id),
+            ].length;
             return Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Card(
