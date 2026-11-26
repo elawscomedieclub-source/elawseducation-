@@ -14,12 +14,21 @@ class AnnualSecondarySvtUnit {
   });
   String get subjectId => switch (code) {
     '6e' => 'svt',
+    '6e' => 'svt',
     '5e' => 'cinq_svt',
     '4e' => 'quatre_svt',
     '3e' => 'trois_svt',
     _ => 'core_svt_$code',
   };
   String get chapterId => switch (code) {
+    '6e' => switch (unitOrder) {
+          1 => 's1',
+          2 => 's1',
+          3 => 's2',
+          4 => 's2',
+          5 => 's1',
+          _ => 's1',
+        },
     '5e' => switch (unitOrder) {
       1 => 'cinq_s1',
       2 => 'cinq_svt_c2',
@@ -143,6 +152,31 @@ const annualSecondarySvtUnits = <AnnualSecondarySvtUnit>[
     Exercise(id:'core_svt_3e_rc3',lessonId:'core_svt_3e_respiration_circulation',question:'Les cellules utilisent le dioxygène avec les nutriments pour…',options:['Libérer de l’énergie','Fabriquer des roches','Arrêter leur activité'],correctIndex:0,explanation:'La respiration cellulaire libère l’énergie utilisable par les cellules.'),
   ]),
 
+  AnnualSecondarySvtUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:1,title:'Diversité et classification du vivant',lessonId:'core_svt_6e_biodiversity',lessonTitle:'Classer les êtres vivants',summary:'Observer des caractères communs pour organiser la diversité du vivant.',content:'Les êtres vivants présentent une grande diversité. Pour les classer, on observe des caractères visibles ou observables et on regroupe ceux qui partagent des caractères communs. Une classification scientifique repose sur des caractères partagés, et non uniquement sur le milieu de vie ou l’utilité pour l’être humain. Les espèces vivent dans des milieux variés et dépendent de leur environnement.',keyPoints:['Observer des caractères communs','Classer selon des critères partagés','La biodiversité comprend la diversité des espèces et des milieux'],exercises:[
+      Exercise(id:'core_svt_6e_bd1',lessonId:'core_svt_6e_biodiversity',question:'Pour classer des êtres vivants, on observe…',options:['Des caractères communs','Leur prix au marché','Leur couleur préférée'],correctIndex:0,explanation:'La classification repose sur des caractères observables partagés.'),
+      Exercise(id:'core_svt_6e_bd2',lessonId:'core_svt_6e_biodiversity',question:'La biodiversité désigne notamment…',options:['La diversité des êtres vivants','Uniquement les animaux domestiques','Les objets fabriqués'],correctIndex:0,explanation:'La biodiversité comprend les espèces, leur diversité et les milieux.'),
+      Exercise(id:'core_svt_6e_bd3',lessonId:'core_svt_6e_biodiversity',question:'Une classification scientifique utilise…',options:['Des caractères partagés','Des préférences personnelles seulement','La taille uniquement dans tous les cas'],correctIndex:0,explanation:'Les groupes sont établis à partir de caractères communs.'),
+    ]),
+    AnnualSecondarySvtUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:2,title:'Chaînes alimentaires et relations',lessonId:'core_svt_6e_food_chains',lessonTitle:'Comprendre les relations alimentaires',summary:'Identifier producteurs, consommateurs et liens alimentaires.',content:'Une chaîne alimentaire montre qui mange qui. Elle commence souvent par un producteur, comme une plante verte, puis présente des consommateurs. La flèche indique le transfert de matière et d’énergie de l’organisme mangé vers celui qui le mange. Plusieurs chaînes peuvent former un réseau alimentaire. Les décomposeurs recyclent les restes organiques.',keyPoints:['Producteurs et consommateurs','La flèche va de l’aliment vers le consommateur','Les décomposeurs recyclent la matière'],exercises:[
+      Exercise(id:'core_svt_6e_fc1',lessonId:'core_svt_6e_food_chains',question:'Dans herbe → criquet → grenouille, le producteur est…',options:['L’herbe','Le criquet','La grenouille'],correctIndex:0,explanation:'L’herbe produit sa matière organique grâce à la photosynthèse.'),
+      Exercise(id:'core_svt_6e_fc2',lessonId:'core_svt_6e_food_chains',question:'La flèche d’une chaîne alimentaire indique…',options:['Le transfert de l’aliment vers le consommateur','Le sens du vent','La taille des animaux'],correctIndex:0,explanation:'La flèche va de l’organisme consommé vers le consommateur.'),
+      Exercise(id:'core_svt_6e_fc3',lessonId:'core_svt_6e_food_chains',question:'Les décomposeurs contribuent à…',options:['Recycler la matière organique','Créer le Soleil','Supprimer toute matière'],correctIndex:0,explanation:'Ils transforment les restes organiques et recyclent la matière.'),
+    ]),
+    AnnualSecondarySvtUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:3,title:'Digestion et besoins alimentaires',lessonId:'core_svt_6e_digestion',lessonTitle:'Découvrir le trajet et la transformation des aliments',summary:'Repérer les organes digestifs et comprendre le rôle de la digestion.',content:'Les aliments passent par la bouche, l’œsophage, l’estomac puis l’intestin. Les mouvements du tube digestif et les sucs digestifs transforment les aliments en nutriments. Les nutriments sont absorbés dans l’intestin grêle et transportés par le sang. Une alimentation variée, une eau potable et une bonne hygiène contribuent à la santé.',keyPoints:['Trajet : bouche, œsophage, estomac, intestin','Digestion : aliments transformés en nutriments','Absorption dans l’intestin grêle'],exercises:[
+      Exercise(id:'core_svt_6e_dg1',lessonId:'core_svt_6e_digestion',question:'La digestion commence dans…',options:['La bouche','Le cœur','Les poumons'],correctIndex:0,explanation:'La mastication et la salive commencent la digestion dans la bouche.'),
+      Exercise(id:'core_svt_6e_dg2',lessonId:'core_svt_6e_digestion',question:'Les nutriments passent principalement dans le sang au niveau…',options:['De l’intestin grêle','De la trachée','Des cheveux'],correctIndex:0,explanation:'L’intestin grêle assure l’absorption de nombreux nutriments.'),
+      Exercise(id:'core_svt_6e_dg3',lessonId:'core_svt_6e_digestion',question:'Une bonne hygiène alimentaire comprend…',options:['Laver les mains et consommer une eau sûre','Manger des aliments contaminés','Ne jamais boire d’eau'],correctIndex:0,explanation:'L’hygiène des mains et de l’eau aide à prévenir les maladies.'),
+    ]),
+    AnnualSecondarySvtUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:4,title:'Respiration et besoins des êtres vivants',lessonId:'core_svt_6e_respiration',lessonTitle:'Comprendre les échanges respiratoires',summary:'Relier respiration, dioxygène et besoins des organismes.',content:'De nombreux êtres vivants prélèvent du dioxygène dans leur milieu et rejettent du dioxyde de carbone. Les animaux terrestres utilisent souvent des poumons, les poissons des branchies et certains organismes des surfaces d’échange. La respiration permet aux cellules de libérer de l’énergie à partir de nutriments. Les échanges respiratoires dépendent du milieu et de l’organisation de l’organisme.',keyPoints:['Prélèvement de dioxygène et rejet de CO₂ chez de nombreux organismes','Poumons, branchies ou autres surfaces d’échange','La respiration cellulaire libère de l’énergie'],exercises:[
+      Exercise(id:'core_svt_6e_rs1',lessonId:'core_svt_6e_respiration',question:'Les poissons prélèvent généralement le dioxygène dans l’eau grâce…',options:['Aux branchies','Aux feuilles','Aux racines'],correctIndex:0,explanation:'Les branchies assurent les échanges respiratoires des poissons.'),
+      Exercise(id:'core_svt_6e_rs2',lessonId:'core_svt_6e_respiration',question:'La respiration cellulaire permet de…',options:['Libérer de l’énergie','Fabriquer des roches','Arrêter les échanges'],correctIndex:0,explanation:'Les cellules libèrent de l’énergie à partir des nutriments.'),
+      Exercise(id:'core_svt_6e_rs3',lessonId:'core_svt_6e_respiration',question:'Un gaz souvent rejeté par les animaux lors de la respiration est…',options:['Le dioxyde de carbone','L’hélium','L’ozone uniquement'],correctIndex:0,explanation:'Le dioxyde de carbone est un produit des échanges respiratoires.'),
+    ]),
+    AnnualSecondarySvtUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:5,title:'Pollution et protection du milieu',lessonId:'core_svt_6e_environment',lessonTitle:'Agir pour protéger son environnement',summary:'Identifier des sources de pollution et des actions de protection.',content:'La pollution peut affecter l’air, l’eau et le sol. Les déchets, les eaux usées et certains produits chimiques peuvent nuire aux êtres vivants. Pour protéger le milieu, on réduit les déchets, trie et collecte, évite les rejets dans les cours d’eau, protège la végétation et utilise les ressources avec soin. Les actions collectives et les règles d’assainissement améliorent la santé du milieu.',keyPoints:['Pollution de l’air, de l’eau et du sol','Collecter et réduire les déchets','Assainissement et protection de la végétation'],exercises:[
+      Exercise(id:'core_svt_6e_env1',lessonId:'core_svt_6e_environment',question:'Quel geste protège un cours d’eau ?',options:['Ne pas y jeter de déchets','Y déverser des huiles','Y laver des produits chimiques'],correctIndex:0,explanation:'La collecte des déchets évite la pollution de l’eau.'),
+      Exercise(id:'core_svt_6e_env2',lessonId:'core_svt_6e_environment',question:'La pollution peut toucher…',options:['L’air, l’eau et le sol','Uniquement les bâtiments','Seulement les océans'],correctIndex:0,explanation:'Les polluants peuvent affecter différents milieux naturels.'),
+      Exercise(id:'core_svt_6e_env3',lessonId:'core_svt_6e_environment',question:'Une action collective utile est…',options:['Organiser la collecte des déchets','Brûler tous les plastiques','Boucher les caniveaux'],correctIndex:0,explanation:'La collecte et l’assainissement limitent la dispersion des déchets.'),
+    ]),
 ];
 
 final annualSecondarySvtChapters = annualSecondarySvtUnits.map((unit) => Chapter(
