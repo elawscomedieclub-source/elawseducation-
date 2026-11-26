@@ -23,6 +23,20 @@ void main() {
       }
     });
 
+    test('les choix de chaque exercice sont distincts', () {
+      final exercises = [...demoExercises, ...annualCoreExercises];
+      for (final exercise in exercises) {
+        final normalizedOptions = exercise.options
+            .map((option) => option.trim().toLowerCase())
+            .toSet();
+        expect(
+          normalizedOptions.length,
+          exercise.options.length,
+          reason: 'Choix répété dans l’exercice ${exercise.id}',
+        );
+      }
+    });
+
     test('la banque ne contient pas les coquilles françaises fréquentes repérées', () {
       final texts = <String>[
         for (final lesson in [...demoLessons, ...annualCoreLessons])
