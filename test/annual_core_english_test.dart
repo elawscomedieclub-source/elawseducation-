@@ -47,11 +47,11 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(35));
-    expect(annualCoreLessons, hasLength(141));
-    expect(annualCoreExercises, hasLength(423));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(141));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(423));
+    expect(annualCoreSubjects, hasLength(36));
+    expect(annualCoreLessons, hasLength(147));
+    expect(annualCoreExercises, hasLength(441));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(147));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(441));
   });
 
   test('primary mathematics units have complete exercises', () {
