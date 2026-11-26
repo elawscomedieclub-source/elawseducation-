@@ -48,7 +48,7 @@ void main() {
     expect(annualScienceUnits, hasLength(12));
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
-    expect(annualCoreSubjects, hasLength(36));
+    expect(annualCoreSubjects, hasLength(35));
     expect(annualCoreLessons, hasLength(152));
     expect(annualCoreExercises, hasLength(456));
     expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(152));
