@@ -100,7 +100,7 @@ const annualSecondeSvtUnits = <AnnualSecondeSvtUnit>[
 final annualSecondeA4SvtSubject = Subject(
   id:'seconde_svt',name:'SVT — cours annuel Seconde A4',iconName:'leaf',
   colorHex:'2E7D32',level:SchoolLevel.seconde,track:SchoolTrack.generalLiterary,
-  series:'A4',totalChapters:10,
+  series:'A4',totalChapters:11,
 );
 
 final annualSecondeCdSvtSubject = Subject(
