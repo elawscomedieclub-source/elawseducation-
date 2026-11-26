@@ -78,4 +78,34 @@ void main() {
         lessThan(questions.length));
   });
 
+
+  test('les 13 compléments 2026-2027 sont présents et leurs quiz sont valides', () {
+    const ids = [
+      'cp1_hygiene_lavage_mains',
+      'cp2_securite_route_annual',
+      'ce1_economiser_eau_annual',
+      'ce2_lire_tableau_annual',
+      'cm1_decouvrir_metiers_annual',
+      'cm2_projet_metiers_annual',
+      'sixieme_demarche_scientifique_annual',
+      'cinquieme_energie_solaire_annual',
+      'quatrieme_experience_variables_annual',
+      'troisieme_projet_scientifique_annual',
+      'seconde_orientation_parcours_annual',
+      'premiere_revision_active_annual',
+      'terminale_plan_revision_annual',
+    ];
+    for (final id in ids) {
+      final lesson = supplementalLessons.firstWhere((item) => item.id == id);
+      expect(lesson.questions, hasLength(3), reason: lesson.title);
+      for (final question in lesson.questions) {
+        expect(question.choices, hasLength(3), reason: question.id);
+        expect(question.choices.toSet(), hasLength(3), reason: question.id);
+        expect(question.correctIndex, inInclusiveRange(0, 2), reason: question.id);
+        expect(question.explanation.trim(), isNotEmpty, reason: question.id);
+      }
+    }
+    expect(ids, hasLength(13));
+  });
+
 }
