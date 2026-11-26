@@ -11,6 +11,8 @@ class EvaluationRecord {
   final int score;
   final int correct;
   final int total;
+  final String chapterId;
+  final String chapterTitle;
   final DateTime date;
 
   const EvaluationRecord({
@@ -20,6 +22,8 @@ class EvaluationRecord {
     required this.score,
     required this.correct,
     required this.total,
+    this.chapterId = '',
+    this.chapterTitle = '',
     required this.date,
   });
 
@@ -30,6 +34,8 @@ class EvaluationRecord {
     'score': score,
     'correct': correct,
     'total': total,
+    'chapterId': chapterId,
+    'chapterTitle': chapterTitle,
     'date': date.toIso8601String(),
   };
 
@@ -40,11 +46,13 @@ class EvaluationRecord {
     score: json['score'] as int? ?? 0,
     correct: json['correct'] as int? ?? 0,
     total: json['total'] as int? ?? 0,
+    chapterId: json['chapterId'] as String? ?? '',
+    chapterTitle: json['chapterTitle'] as String? ?? '',
     date: DateTime.tryParse(json['date'] as String? ?? '') ?? DateTime.now(),
   );
 
   String get cloudId => base64Url
-      .encode(utf8.encode('${date.toIso8601String()}|$subjectId|$score|$correct|$total'))
+      .encode(utf8.encode('${date.toIso8601String()}|$subjectId|$chapterId|$score|$correct|$total'))
       .replaceAll('=', '');
 }
 
