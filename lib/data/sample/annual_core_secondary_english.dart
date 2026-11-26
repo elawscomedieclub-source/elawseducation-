@@ -20,6 +20,14 @@ class AnnualSecondaryEnglishUnit {
     _ => 'core_secondary_english_$code',
   };
   String get chapterId => switch (code) {
+    '6e' => switch (unitOrder) {
+          1 => 'a1',
+          2 => 'a2',
+          3 => 'a2',
+          4 => 'a2',
+          5 => 'a2',
+          _ => 'a1',
+        },
     '5e' => switch (unitOrder) {
       1 => 'cinq_a1',
       2 => 'cinq_anglais_c2',
@@ -143,6 +151,31 @@ const annualSecondaryEnglishUnits = <AnnualSecondaryEnglishUnit>[
     Exercise(id:'core_en_3e_ew3',lessonId:'core_en_3e_exam_writing',question:'At the end of writing, check…',options:['Grammar, spelling and punctuation','Only the page colour','Nothing'],correctIndex:0,explanation:'A final check helps correct language errors.'),
   ]),
 
+  AnnualSecondaryEnglishUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:1,title:'Personal pronouns and the verb be',lessonId:'core_en_6e_pronouns_be',lessonTitle:'Introduce yourself and others',summary:'Use subject pronouns and am/is/are in simple sentences.',content:'Subject pronouns are I, you, he, she, it, we and they. The verb be has the forms am, is and are: I am a student; she is my friend; they are classmates. Use be to give names, age, origin and simple descriptions. In questions, put am/is/are before the subject: Are you ready?',keyPoints:['I am; he/she/it is; you/we/they are','Subject pronouns replace names','Question: Am/Is/Are + subject?'],exercises:[
+      Exercise(id:'core_en_6e_pb1',lessonId:'core_en_6e_pronouns_be',question:'I ___ a student.',options:['am','is','are'],correctIndex:0,explanation:'I is followed by am.'),
+      Exercise(id:'core_en_6e_pb2',lessonId:'core_en_6e_pronouns_be',question:'Mariam is my friend. ___ is kind.',options:['She','He','They'],correctIndex:0,explanation:'She replaces a female singular name.'),
+      Exercise(id:'core_en_6e_pb3',lessonId:'core_en_6e_pronouns_be',question:'Choose the correct question.',options:['Are you ready?','You are ready?','Do you are ready?'],correctIndex:0,explanation:'Put are before the subject you.'),
+    ]),
+    AnnualSecondaryEnglishUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:2,title:'There is/are and prepositions',lessonId:'core_en_6e_there_prepositions',lessonTitle:'Describe your classroom',summary:'Use there is/are and place prepositions to describe surroundings.',content:'Use there is with one thing and there are with more than one: There is a desk. There are four chairs. Prepositions of place include in, on, under, next to, behind and in front of. Use a/an with a singular countable noun and plural nouns without a/an.',keyPoints:['There is + singular; there are + plural','Prepositions: in, on, under, next to','a/an with singular countable nouns'],exercises:[
+      Exercise(id:'core_en_6e_tp1',lessonId:'core_en_6e_there_prepositions',question:'___ a board in the classroom.',options:['There is','There are','There be'],correctIndex:0,explanation:'A board is singular, so use there is.'),
+      Exercise(id:'core_en_6e_tp2',lessonId:'core_en_6e_there_prepositions',question:'The book is ___ the bag.',options:['in','between of','at under'],correctIndex:0,explanation:'In means inside.'),
+      Exercise(id:'core_en_6e_tp3',lessonId:'core_en_6e_there_prepositions',question:'___ three windows in the room.',options:['There are','There is','It is'],correctIndex:0,explanation:'Three windows is plural, so use there are.'),
+    ]),
+    AnnualSecondaryEnglishUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:3,title:'Present simple and daily routines',lessonId:'core_en_6e_present_simple',lessonTitle:'Talk about everyday activities',summary:'Use the present simple for habits and daily routines.',content:'The present simple describes habits and routines. With I, you, we and they, use the base verb: I go to school. With he, she and it, add -s or -es: She goes. Use do/does in questions and don’t/doesn’t in negatives. Add time expressions such as every day, in the morning and on Sundays.',keyPoints:['I/you/we/they + base verb','He/she/it + -s/-es','Do/Does questions; don’t/doesn’t negatives'],exercises:[
+      Exercise(id:'core_en_6e_ps1',lessonId:'core_en_6e_present_simple',question:'He ___ to school every day.',options:['goes','go','going'],correctIndex:0,explanation:'With he, the present simple verb takes -s or -es.'),
+      Exercise(id:'core_en_6e_ps2',lessonId:'core_en_6e_present_simple',question:'___ you play football?',options:['Do','Does','Are'],correctIndex:0,explanation:'Use do with you to form a present simple question.'),
+      Exercise(id:'core_en_6e_ps3',lessonId:'core_en_6e_present_simple',question:'She ___ like coffee.',options:['doesn’t','don’t','isn’t'],correctIndex:0,explanation:'Use doesn’t + base verb with she.'),
+    ]),
+    AnnualSecondaryEnglishUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:4,title:'Food and countable nouns',lessonId:'core_en_6e_food',lessonTitle:'Talk about food and quantities',summary:'Use countable nouns, a/an, some and any in simple contexts.',content:'Countable nouns have singular and plural forms: an orange, two oranges. Use a before a consonant sound and an before a vowel sound. Some is common in affirmative sentences: I have some rice. Any is common in questions and negatives: Do you have any eggs? Rice is usually uncountable; eggs are countable.',keyPoints:['a/an + singular countable noun','some in affirmatives','any in questions and negatives'],exercises:[
+      Exercise(id:'core_en_6e_fd1',lessonId:'core_en_6e_food',question:'___ apple',options:['an','a','some'],correctIndex:0,explanation:'Apple begins with a vowel sound, so use an.'),
+      Exercise(id:'core_en_6e_fd2',lessonId:'core_en_6e_food',question:'Do you have ___ eggs?',options:['any','a','much'],correctIndex:0,explanation:'Any is common in questions with plural countable nouns.'),
+      Exercise(id:'core_en_6e_fd3',lessonId:'core_en_6e_food',question:'Which noun is usually uncountable?',options:['rice','mangoes','chairs'],correctIndex:0,explanation:'Rice is generally treated as uncountable in English.'),
+    ]),
+    AnnualSecondaryEnglishUnit(level:SchoolLevel.sixieme,code:'6e',unitOrder:5,title:'Classroom instructions and can',lessonId:'core_en_6e_classroom_can',lessonTitle:'Understand instructions and express ability',summary:'Use imperative classroom phrases and can/can’t.',content:'Classroom instructions include listen, read, write, open your book and work in pairs. The imperative uses the base verb. Can expresses ability or permission: I can swim; Can I ask a question? Can’t expresses inability or prohibition depending on context. After can or can’t, use the base verb without to.',keyPoints:['Imperative: base verb','Can/can’t + base verb','Use polite phrases: please, may I…?'],exercises:[
+      Exercise(id:'core_en_6e_cc1',lessonId:'core_en_6e_classroom_can',question:'“Open your book” is…',options:['An instruction','A question','A past action'],correctIndex:0,explanation:'The imperative gives an instruction.'),
+      Exercise(id:'core_en_6e_cc2',lessonId:'core_en_6e_classroom_can',question:'I can ___.',options:['swim','to swim','swimming'],correctIndex:0,explanation:'Can is followed by the base verb.'),
+      Exercise(id:'core_en_6e_cc3',lessonId:'core_en_6e_classroom_can',question:'Which phrase is polite?',options:['May I come in, please?','Come in now!','I come in?'],correctIndex:0,explanation:'May I… please? is a polite request.'),
+    ]),
 ];
 
 final annualSecondaryEnglishChapters = annualSecondaryEnglishUnits.map((unit) => Chapter(

@@ -39,7 +39,7 @@ final annualCoreChapters = [
   ...science.annualScienceChapters,
   ...math.annualMathChapters,
   ...physics.annualPhysicsChapters,
-  ...historyCivics.annualHistoryCivicsChapters,
+  ...historyCivics.annualHistoryCivicsChapters.where((chapter) => !['h1', 'h2'].contains(chapter.id)),
   ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_')),
   ...secondaryFrench.annualSecondaryFrenchChapters.where((chapter) => chapter.id.startsWith('core_secondary_french_6e_unit_')),
   ...secondarySvt.annualSecondarySvtChapters.where((chapter) => chapter.id.startsWith('core_secondary_svt_6e_unit_')),
