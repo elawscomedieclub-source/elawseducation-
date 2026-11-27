@@ -79,4 +79,4 @@ Le catalogue national NUSROPE sépare les cycles :
 - [Programmes d’EPS entrés en vigueur en 2025–2026](https://education.gouv.tg/meps-reforme-educative-de-nouveaux-programmes-deps-entrent-en-vigueur-au-togo/)
 - [Présentation des filières techniques et professionnelles](https://education.gouv.tg/wp-content/uploads/2023/10/lien_9_1_1.pdf)
 
-**État actuel :** la structure de ProfTogo comprend les 13 niveaux et les parcours du lycée, mais la vérification officielle exhaustive de chaque chapitre, trimestre et série demeure à terminer. Cette matrice rend les écarts visibles au lieu de les masquer derrière un chiffre global de leçons.
+**État actuel :** la structure de ProfTogo comprend les 13 niveaux et les parcours du lycée. Le placement technique des chapitres sur T1/T2/T3 et le filtrage des compositions sont implémentés ; la correspondance exacte avec les progressions officielles, les manuels et les séries doit encore être vérifiée chapitre par chapitre et validée par les enseignants. Cette matrice rend les écarts visibles au lieu de les masquer derrière un chiffre global de leçons.

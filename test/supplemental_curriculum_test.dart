@@ -2075,10 +2075,44 @@ void main() {
       }
     });
 
-    test('la banque bonus contient au moins 292 leçons et 937 questions', () {
-      expect(supplementalLessons.length, greaterThanOrEqualTo(292));
+
+    test('les 13 nouveaux cours transversaux sont complets et leurs réponses vérifiées', () {
+      const expected = <String, List<String>>{
+        'transversal_cp1_eps_signal': ['Faire un échauffement progressif', 'S’arrêter et écouter', 'Garder un espace autour de soi'],
+        'transversal_cp2_musique_pulsation': ['Un battement régulier', 'Écouter et suivre la vitesse', 'Le signal après avoir écouté'],
+        'transversal_ce1_arts_formes': ['Un triangle', 'Une ligne', 'Ranger et nettoyer le matériel'],
+        'transversal_ce2_eps_regles': ['Respecter les règles et les autres', 'Me placer pour recevoir une passe', 'Écouter les règles et vérifier l’espace'],
+        'transversal_cm1_musique_rythme': ['Un battement régulier', 'Les sons et les silences', 'Des frappes de mains ou de pieds'],
+        'transversal_cm2_arts_affiche': ['Un titre court et lisible', 'Clair et concis', 'Utiliser des contrastes et laisser des espaces'],
+        'transversal_sixieme_eps_echauffement': ['Progressivement avant l’activité', 'Ralentir et respirer calmement', 'S’arrêter et prévenir l’enseignant'],
+        'transversal_cinquieme_arts_profondeur': ['Plus petit', 'Montrer qu’un objet en cache partiellement un autre', 'La hauteur du regard dans la scène'],
+        'transversal_quatrieme_musique_sequence': ['Un motif organisé de sons et de silences', 'Qu’on ne produit pas de son pendant ce temps', 'Compter les temps et écouter le groupe'],
+        'transversal_troisieme_eps_endurance': ['Choisir une allure régulière et adaptée', 'Respecter les pauses et les consignes pour boire', 'S’arrêter et prévenir l’enseignant'],
+        'transversal_seconde_oral_expose': ['Une introduction, un développement et une conclusion', 'Illustrer une idée ou un argument', 'Relier deux parties du discours'],
+        'transversal_premiere_methodologie_notes': ['Repérer les idées et mots-clés', 'Être signalée et attribuée à sa source', 'Le titre et l’auteur ou l’organisme'],
+        'transversal_terminale_oral_argumente': ['Une idée, un argument et un exemple', 'Examiner une limite ou un autre point de vue', 'Répondre clairement à la question'],
+      };
+      final lessons = {for (final lesson in supplementalLessons) lesson.id: lesson};
+      expect(expected, hasLength(13));
+      for (final entry in expected.entries) {
+        final lesson = lessons[entry.key];
+        expect(lesson, isNotNull, reason: entry.key);
+        expect(lesson!.questions, hasLength(3), reason: lesson.title);
+        expect(lesson.example.trim(), isNotEmpty, reason: lesson.title);
+        expect(lesson.explanation.trim(), isNotEmpty, reason: lesson.title);
+        for (var i = 0; i < lesson.questions.length; i++) {
+          final question = lesson.questions[i];
+          expect(question.choices[question.correctIndex], entry.value[i], reason: question.id);
+          expect(question.choices.map((choice) => choice.trim().toLowerCase()).toSet(), hasLength(3), reason: question.id);
+          expect(question.explanation.trim(), isNotEmpty, reason: question.id);
+        }
+      }
+    });
+
+    test('la banque bonus contient au moins 305 leçons et 976 questions', () {
+      expect(supplementalLessons.length, greaterThanOrEqualTo(305));
       expect(supplementalLessons.expand((lesson) => lesson.questions).length,
-          greaterThanOrEqualTo(937));
+          greaterThanOrEqualTo(976);
     });
 
     test('chaque niveau dispose désormais d’au moins douze leçons bonus', () {

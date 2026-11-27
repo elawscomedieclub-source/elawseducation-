@@ -6,36 +6,36 @@
 
 - La branche principale contient les changements récents de répartition annuelle par trimestre (commits #81 à #83) : les chapitres annuels sont répartis sur T1/T2/T3, les compositions filtrent les exercices par trimestre, des contrôles de qualité des exercices annuels ont été ajoutés et le calcul de répartition de la physique C/D a été corrigé.
 - Le coach de progression adapte aussi ses conseils aux résultats récents et aux difficultés déclarées par l’élève (lecture, compréhension, méthode), avec tests dédiés.
-- La dernière exécution GitHub Actions du 27 novembre (run 1185) a réussi les jobs de publication Web et de construction/publication APK ; le déploiement GitHub Pages (run 1186) a également réussi.
-- L’APK joint dans cette conversation porte le code de version Android **1090**. Le succès du pipeline confirme une compilation réussie, mais ne remplace pas le test manuel de l’application sur téléphone.
+- La version précédente a été publiée avec succès (run 1185 pour Web et APK ; run 1186 pour GitHub Pages). Les 13 nouveaux cours et leurs tests seront vérifiés par le pipeline déclenché par le présent commit.
+- L’APK joint dans cette conversation porte le code de version Android **1090**. Une nouvelle compilation APK sera produite par le pipeline de cette extension ; le test manuel sur téléphone reste nécessaire.
 
 ## État quantitatif vérifié
 
-- Total arithmétique base principale + bonus : **1 085 leçons et 3 265 exercices/questions** (volume total, sans prétendre à l’homologation ni à l’exhaustivité).
+- Total arithmétique base principale + bonus : **1 098 leçons et 3 304 exercices/questions** (volume total, sans prétendre à l’homologation ni à l’exhaustivité).
 
 - Base principale : **165 matières, 280 chapitres, 793 leçons et 2 328 exercices** (chiffres indiqués par la documentation actuelle du projet).
-- Banque bonus : **292 leçons et 937 questions**, réparties sur les 13 niveaux.
-- Les bonus comprennent 66 leçons de renforcement ajoutées lors des révisions récentes : 27 leçons initiales, 26 compléments et 13 leçons de mise à jour 2026–2027, chacune avec 3 questions.
+- Banque bonus : **305 leçons et 976 questions**, réparties sur les 13 niveaux.
+- Les bonus comprennent 79 leçons de renforcement et de transversalité ajoutées lors des révisions récentes : 27 leçons initiales, 26 compléments et 13 leçons de mise à jour 2026–2027, chacune avec 3 questions.
 - Tests dédiés : identifiants, présence des niveaux, choix distincts, explications, réponses attendues des leçons ajoutées et seuils de volume.
 
 ## Répartition actuelle de la banque bonus
 
 | Niveau | Leçons bonus | Questions bonus |
 |---|---:|---:|
-| CP1 | 38 | 115 |
-| CP2 | 38 | 137 |
-| CE1 | 19 | 60 |
-| CE2 | 41 | 134 |
-| CM1 | 18 | 56 |
-| CM2 | 17 | 51 |
-| 6e | 17 | 55 |
-| 5e | 17 | 54 |
-| 4e | 18 | 58 |
-| 3e | 17 | 54 |
-| 2nde | 17 | 53 |
-| 1ère | 17 | 53 |
-| Terminale | 18 | 57 |
-| **Total** | **292** | **937**
+| CP1 | 39 | 118 |
+| CP2 | 39 | 140 |
+| CE1 | 20 | 63 |
+| CE2 | 42 | 137 |
+| CM1 | 19 | 59 |
+| CM2 | 18 | 54 |
+| 6e | 18 | 58 |
+| 5e | 18 | 57 |
+| 4e | 19 | 61 |
+| 3e | 18 | 57 |
+| 2nde | 18 | 56 |
+| 1ère | 18 | 56 |
+| Terminale | 19 | 60 |
+| **Total** | **305** | **976**
 
 Les nombres de questions sont calculés à partir des leçons du dépôt et peuvent différer d’une question de certains rapports historiques si ceux-ci comptaient les éléments de façon différente. Les tests Flutter restent la source de validation technique.
 
@@ -54,6 +54,7 @@ Les 13 dernières leçons de mise à jour 2026–2027 couvrent notamment :
 - ressources économiques, reproduction des plantes, Pythagore, argumentation ;
 - atomes et molécules, analyse du récit, fonctions affines, histoire des échanges atlantiques ;
 - fréquence des ondes et synthèse de documents en Terminale.
+- Les 13 nouveaux cours transversaux : EPS au CP1, musique au CP2, arts plastiques au CE1, jeu collectif au CE2, rythme musical au CM1, affiche au CM2, échauffement en 6e, perspective en 5e, séquence rythmique en 4e, endurance en 3e, exposé en 2nde, prise de notes en 1ère et oral argumenté en Terminale.
 
 ## Vérification du programme officiel : méthode à poursuivre
 
