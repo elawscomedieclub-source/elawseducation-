@@ -6,7 +6,7 @@
 
 - La branche principale contient les changements récents de répartition annuelle par trimestre (commits #81 à #83) : les chapitres annuels sont répartis sur T1/T2/T3, les compositions filtrent les exercices par trimestre, des contrôles de qualité des exercices annuels ont été ajoutés et le calcul de répartition de la physique C/D a été corrigé.
 - Le coach de progression adapte aussi ses conseils aux résultats récents et aux difficultés déclarées par l’élève (lecture, compréhension, méthode), avec tests dédiés.
-- La version précédente a été publiée avec succès (run 1185 pour Web et APK ; run 1186 pour GitHub Pages). Les 13 nouveaux cours et leurs tests seront vérifiés par le pipeline déclenché par le présent commit.
+- Le commit `700d6629aa` (13 cours transversaux + test de corrigés) est validé : run 1189, jobs Web, APK et publication immédiate réussis ; run 1190, build et déploiement GitHub Pages réussis. La compilation est confirmée, mais un test manuel de l’APK sur téléphone reste nécessaire.
 - L’APK joint dans cette conversation porte le code de version Android **1090**. Une nouvelle compilation APK sera produite par le pipeline de cette extension ; le test manuel sur téléphone reste nécessaire.
 
 ## État quantitatif vérifié
