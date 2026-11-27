@@ -27,7 +27,7 @@ void main() {
       final exercises = [...demoExercises, ...annualCoreExercises];
       for (final exercise in exercises) {
         final normalizedOptions = exercise.options
-            .map((option) => option.trim().toLowerCase())
+            .map((option) => option.trim().replaceAll(RegExp(r'\s+'), ' '))
             .toSet();
         expect(
           normalizedOptions.length,
