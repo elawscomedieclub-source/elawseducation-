@@ -52,6 +52,13 @@ class _CompositionScreenState extends State<CompositionScreen> {
   }
 
   String? get _selectedSubjectName {
+    // Completion-screen exercise pools use the original subject label.
+    for (final subject in demoSubjects) {
+      if (subject.id == _selectedSubjectId &&
+          subjectMatchesPath(subject, widget.level, widget.track, widget.series)) {
+        return subject.name;
+      }
+    }
     for (final subject in _availableSubjects) {
       if (subject.id == _selectedSubjectId) return subject.name;
     }

@@ -173,7 +173,7 @@ const annualSecondaryEnglishUnits = <AnnualSecondaryEnglishUnit>[
 
 final annualSecondaryEnglishChapters = annualSecondaryEnglishUnits.map((unit) => Chapter(
   id:unit.chapterId,subjectId:unit.subjectId,title:'Unit ${unit.unitOrder} — ${unit.title}',
-  order:unit.unitOrder,term:unit.unitOrder,totalLessons:1,
+  order:unit.unitOrder,term: termForAnnualUnit(unit.unitOrder, annualSecondaryEnglishUnits.where((item) => item.code == unit.code).length),totalLessons:1,
 )).toList();
 
 final annualSecondaryEnglishLessons = annualSecondaryEnglishUnits.map((unit) => Lesson(

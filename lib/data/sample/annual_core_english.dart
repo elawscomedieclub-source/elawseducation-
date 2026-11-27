@@ -237,7 +237,7 @@ final annualEnglishSubjects = SchoolLevel.values.take(6).map((level) {
 final annualEnglishChapters = annualEnglishUnits.map((unit) => Chapter(
   id: unit.chapterId, subjectId: unit.subjectId,
   title: 'Unité ${unit.unitOrder} — ${unit.unitTitle}',
-  order: unit.unitOrder, term: unit.unitOrder,
+  order: unit.unitOrder, term: termForAnnualUnit(unit.unitOrder, annualEnglishUnits.where((item) => item.code == unit.code).length),
   totalLessons: 1,
 )).toList();
 
