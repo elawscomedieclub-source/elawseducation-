@@ -61,7 +61,7 @@ void main() {
         expect(exercise.options.length, greaterThanOrEqualTo(2),
             reason: 'Moins de deux choix pour ${exercise.id}');
         final options = exercise.options
-            .map((option) => option.trim().replaceAll(RegExp(r'\\s+'), ' ').toLowerCase())
+            .map((option) => option.trim().replaceAll(RegExp(r'\s+'), ' ').toLowerCase())
             .toList();
         expect(options.every((option) => option.isNotEmpty), isTrue,
             reason: 'Choix vide pour ${exercise.id}');
