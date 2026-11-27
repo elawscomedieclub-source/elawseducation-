@@ -27,6 +27,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   late Future<ProgressSnapshot> _progressFuture;
   late Future<List<ExerciseAttemptRecord>> _attemptHistoryFuture;
+  late Future<Map<String, int>> _learningBarrierFuture;
   late Future<String?> _lastLessonFuture;
   late Future<Set<String>> _reviewFuture;
   late final StreamSubscription<User?> _authSubscription;
@@ -36,6 +37,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
     _progressFuture = ProgressService.load();
     _attemptHistoryFuture = ProgressService.loadAttemptHistory();
+    _learningBarrierFuture = ProgressService.loadLearningBarrierCounts();
     _lastLessonFuture = ProgressService.loadLastLesson();
     _reviewFuture = ProgressService.loadReviewExerciseIds();
     // L'écran reste monté dans l'IndexedStack : recharger les données dès
@@ -45,6 +47,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       setState(() {
         _progressFuture = ProgressService.load();
         _attemptHistoryFuture = ProgressService.loadAttemptHistory();
+      _learningBarrierFuture = ProgressService.loadLearningBarrierCounts();
+        _learningBarrierFuture = ProgressService.loadLearningBarrierCounts();
         _lastLessonFuture = ProgressService.loadLastLesson();
         _reviewFuture = ProgressService.loadReviewExerciseIds();
       });
@@ -524,29 +528,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       for (final lesson in supplementalLessons)
                         lesson.id: lesson.title,
                     };
-                    final advice = LearnerAdaptationService.buildAdvice(
-                      historySnapshot.data ?? const <ExerciseAttemptRecord>[],
-                      lessonTitles: titles,
-                    );
-                    final colors = Theme.of(context).colorScheme;
-                    return Card(
-                      color: colors.primaryContainer,
-                      child: ListTile(
-                        leading: Icon(Icons.lightbulb_outline_rounded,
-                            color: colors.onPrimaryContainer),
-                        title: Text(advice.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: colors.onPrimaryContainer,
-                            )),
-                        subtitle: Text(
-                          advice.message,
-                          style: TextStyle(
-                            color: colors.onPrimaryContainer,
-                            height: 1.35,
+                    return FutureBuilder<Map<String, int>>(
+                      future: _learningBarrierFuture,
+                      builder: (context, barrierSnapshot) {
+                        final advice = LearnerAdaptationService.buildAdvice(
+                          historySnapshot.data ?? const <ExerciseAttemptRecord>[],
+                          lessonTitles: titles,
+                          learningBarrierCounts:
+                              barrierSnapshot.data ?? const <String, int>{},
+                        );
+                        final colors = Theme.of(context).colorScheme;
+                        return Card(
+                          color: colors.primaryContainer,
+                          child: ListTile(
+                            leading: Icon(Icons.lightbulb_outline_rounded,
+                                color: colors.onPrimaryContainer),
+                            title: Text(advice.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  color: colors.onPrimaryContainer,
+                                )),
+                            subtitle: Text(
+                              advice.message,
+                              style: TextStyle(
+                                color: colors.onPrimaryContainer,
+                                height: 1.35,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     );
                   },
                 ),
