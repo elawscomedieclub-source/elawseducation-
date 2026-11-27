@@ -32,3 +32,14 @@ La banque bonus a aussi des contrôles de volume et de cohérence séparés.
 ## État
 
 La validation CI confirme que les références et les données contrôlées sont cohérentes selon les tests existants. La couverture complète du programme togolais reste à prouver par une matrice de compétences et une revue pédagogique.
+
+
+## Vérification de publication — 27 novembre 2026 (mise à jour)
+
+Après l'audit structurel, les deux workflows du commit `5b3c2daf735e409337b52ac425d39ce043d65b72` ont terminé avec succès :
+
+- Publication Android/Web : [workflow 46081231436](https://github.com/elawscomedieclub-source/elawseducation-/actions/runs/46081231436) — `success`.
+- GitHub Pages : [workflow 46081230663](https://github.com/elawscomedieclub-source/elawseducation-/actions/runs/46081230663) — `success`.
+- L'artefact Android `PROFTOGO-APK-Android` est présent dans le workflow Android, taille 33 964 515 octets (environ 34 MB). Il est disponible dans la section **Artifacts** du workflow ; ce contrôle confirme la présence de l'artefact, pas une installation testée sur téléphone.
+
+Cette réussite valide la compilation et la publication par les workflows, pas encore l'exhaustivité officielle des cours. La prochaine étape de contenu reste le rapprochement des chapitres réellement liés avec les volumes déclarés et les compétences officielles, sans suppression ni réduction de la banque existante.
