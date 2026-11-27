@@ -59,3 +59,19 @@ ProfTogo propose un [guide de mise en œuvre des classes-métiers 2026–2027](G
 - [Ministère — rentrée 2026–2027, classes scientifiques et classes-métiers](https://education.gouv.tg/rentree-scolaire-2026-2027-mama-omorou-donne-le-ton-au-lycee-scientifique-de-lome/)
 - [Ministère — cadre d’homologation des supports pédagogiques](https://education.gouv.tg/homologation-des-manuels-et-documents-pedagogiques-un-nouveau-cadre-reglementaire-pour-leducation-au-togo/)
 - [Ministère — nouveaux programmes d’EPS](https://education.gouv.tg/meps-reforme-educative-de-nouveaux-programmes-deps-entrent-en-vigueur-au-togo/)
+
+
+## Précisions sur les parcours scientifiques — mise à jour du 27 novembre 2026
+
+- La circulaire N°030/2025/MEPS/CAB/SG prévoit pour les classes scientifiques expérimentales de 4e et 3e un effectif équilibré entre filles et garçons et un emploi du temps aménagé avec **3 heures hebdomadaires supplémentaires en sciences**. Ce renforcement doit être représenté comme un parcours expérimental distinct dans l’audit, et non ajouté au programme horaire de tous les élèves de 4e/3e.
+- Pour la rentrée 2026–2027, les autorités ont annoncé l’ouverture de **16 nouveaux collèges scientifiques** répartis dans les sept Directions régionales de l’éducation. ProfTogo doit donc prévoir un champ de parcours/établissement scientifique dans son suivi, sans présumer que tous les élèves suivent les mêmes activités ou le même emploi du temps.
+- Les classes-métiers sont annoncées en phase expérimentale à partir du CM et dans les collèges/lycées scientifiques pour 2026–2027. Les activités de découverte, visites, interventions de professionnels et projets doivent rester identifiées comme supports d’accompagnement tant que la progression détaillée officielle n’est pas disponible.
+
+### Limite pédagogique
+
+Ces annonces décrivent des dispositifs et des conditions de mise en œuvre, pas un référentiel complet de chapitres. Elles ne justifient pas de créer artificiellement des leçons ou de déplacer les chapitres existants. Les contenus et séquences seront ajoutés uniquement après consultation du document officiel intégral et validation pédagogique.
+
+Sources :
+- [Ministère — circulaire 030/2025 sur les classes scientifiques 4e/3e](https://education.gouv.tg/wp-content/uploads/2025/09/Note-Circulaire-Dispositif-experimental-Classes-Scientifiques-4e-et-3e.pdf)
+- [Togo Officiel — ouverture de 16 nouveaux collèges scientifiques, rentrée 2026–2027](https://www.republiquetogolaise.tg/education/1108-12177-le-togo-ouvre-16-nouveaux-colleges-scientifiques)
+- [Ministère — rentrée 2026–2027 et classes-métiers](https://education.gouv.tg/rentree-scolaire-2026-2027-mama-omorou-donne-le-ton-au-lycee-scientifique-de-lome/)
