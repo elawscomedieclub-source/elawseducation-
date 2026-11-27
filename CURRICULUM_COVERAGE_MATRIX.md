@@ -108,3 +108,12 @@ Références de recherche :
 - Catalogue NUSROPE — notice Projet apprendre / Guide pédagogique 3e : https://nusrope.education.gouv.tg/opac_css/index.php?id=18&lvl=publisher_see
 - Catalogue NUSROPE — cycles et parcours du secondaire 2 : https://nusrope.education.gouv.tg/opac_css/
 - Ministère — cadre d’homologation des documents pédagogiques (arrêté N°319/2025/MEPS/CAB/SG, 8 octobre 2025) : https://education.gouv.tg/homologation-des-manuels-et-documents-pedagogiques-un-nouveau-cadre-reglementaire-pour-leducation-au-togo/
+
+
+### Classes scientifiques expérimentales de 4e et 3e — circulaire 030/2025
+
+Le ministère a publié la circulaire N°030/2025/MEPS/CAB/SG relative au dispositif expérimental des classes scientifiques de 4e et 3e. ProfTogo doit donc distinguer, dans l’audit de couverture, le tronc commun de 4e/3e et le parcours expérimental scientifique lorsqu’il est activé par l’établissement. Ne pas appliquer automatiquement une progression expérimentale à tous les élèves de ces niveaux.
+
+**État de vérification :** l’existence du dispositif et ses niveaux sont confirmés par la circulaire ministérielle ; les horaires, contenus détaillés et conditions locales d’application doivent être relevés dans le document intégral et vérifiés avec l’établissement avant d’ajouter des chapitres obligatoires.
+
+Source ministérielle : https://education.gouv.tg/wp-content/uploads/2025/09/Note-Circulaire-Dispositif-experimental-Classes-Scientifiques-4e-et-3e.pdf
