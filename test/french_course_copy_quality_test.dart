@@ -37,6 +37,26 @@ void main() {
       }
     });
 
+    test('les choix des quiz bonus sont distincts et la bonne réponse existe', () {
+      for (final lesson in supplementalLessons) {
+        for (final question in lesson.questions) {
+          final normalizedChoices = question.choices
+              .map((choice) => choice.trim().replaceAll(RegExp(r'\\s+'), ' '))
+              .toSet();
+          expect(
+            normalizedChoices.length,
+            question.choices.length,
+            reason: 'Choix répété dans le quiz bonus ${question.id}',
+          );
+          expect(
+            question.correctIndex,
+            inInclusiveRange(0, question.choices.length - 1),
+            reason: 'Bonne réponse hors des choix dans ${question.id}',
+          );
+        }
+      }
+    });
+
     test('la banque ne contient pas les coquilles françaises fréquentes repérées', () {
       final texts = <String>[
         for (final lesson in [...demoLessons, ...annualCoreLessons])
