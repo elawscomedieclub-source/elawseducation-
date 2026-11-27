@@ -80,7 +80,7 @@ final annualSecondeMathSubject = Subject(
 );
 final annualSecondeMathChapters = annualSecondeMathUnits.map((unit)=>Chapter(
   id:unit.chapterId,subjectId:unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
-  order:unit.unitOrder,term:unit.unitOrder,totalLessons:1,
+  order:unit.unitOrder,term: termForAnnualUnit(unit.unitOrder, annualSecondeMathUnits.where((item) => true).length),totalLessons:1,
 )).toList();
 final annualSecondeMathLessons = annualSecondeMathUnits.map((unit)=>Lesson(
   id:unit.lessonId,chapterId:unit.chapterId,title:unit.lessonTitle,
