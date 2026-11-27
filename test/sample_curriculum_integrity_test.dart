@@ -91,4 +91,29 @@ void main() {
       );
     }
   });
+
+  test('every annual-core chapter is attached to a declared subject within its yearly chapter plan', () {
+    final declaredSubjects = <Subject>[
+      ...demoSubjects,
+      ...annualCoreSubjects,
+    ];
+    final chaptersBySubject = <String, List<Chapter>>{};
+    for (final chapter in annualCoreChapters) {
+      chaptersBySubject.putIfAbsent(chapter.subjectId, () => <Chapter>[]).add(chapter);
+    }
+
+    for (final entry in chaptersBySubject.entries) {
+      final matches = declaredSubjects
+          .where((subject) => subject.id == entry.key)
+          .toList();
+      expect(matches, isNotEmpty,
+          reason: 'Matière non déclarée pour les chapitres annuels : ${entry.key}');
+      final planned = matches.fold<int>(
+          0, (maximum, subject) =>
+              subject.totalChapters > maximum ? subject.totalChapters : maximum);
+      expect(entry.value.length, lessThanOrEqualTo(planned),
+          reason: 'Les chapitres annuels dépassent le plan déclaré pour ${entry.key}');
+    }
+  });
+
 }
