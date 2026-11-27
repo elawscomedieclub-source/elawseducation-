@@ -120,3 +120,10 @@ Les sources institutionnelles consultées aujourd’hui précisent les priorité
 2. Pour chaque chapitre, enregistrer le titre exact, la source, le niveau de confiance, les prérequis, le trimestre proposé et la validation enseignant.
 3. Marquer comme « à confirmer » tout contenu reposant sur un catalogue ancien ou une progression non datée.
 4. Ne pas augmenter artificiellement le total des chapitres : les comptes doivent être recalculés depuis les données réelles du dépôt, en distinguant leçons, chapitres, questions et exercices.
+
+
+### Nouvelle ressource pédagogique repérée — 27 novembre 2026
+
+- Le catalogue NUSROPE référence un **Guide pédagogique du MEN (Togo), édition Projet apprendre, 2025**, classé pour la 3e du secondaire 1. La notice indique une première mise en circulation le 19 février 2026 et signale un PDF numérique nommé `Guide_1_v180225.pdf`. Cette ressource doit être récupérée puis comparée au cours ProfTogo de 3e, en particulier aux compétences, séquences, exemples et évaluations. La notice du catalogue confirme l’existence et le classement du guide, mais ne suffit pas à valider le contenu de l’application tant que le PDF n’a pas été examiné. Source : https://nusrope.education.gouv.tg/opac_css/index.php?id=18&lvl=publisher_see.
+
+- Priorité de travail : commencer par le guide 3e récemment référencé, puis étendre la recherche à chaque niveau et série en privilégiant les documents MEN datés plutôt que les progressions génériques. Si une notice indique un document numérique sans fournir son contenu exploitable, garder la ligne marquée « source à récupérer », sans inventer de chapitre.
