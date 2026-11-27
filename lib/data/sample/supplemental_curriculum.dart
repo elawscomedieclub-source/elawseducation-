@@ -1014,7 +1014,7 @@ const supplementalLessons = <SupplementalLesson>[
      SupplementalQuestion('bonus_4e_conservation_4','Dans 2 H₂ + O₂ → 2 H₂O, le nombre d’atomes d’oxygène est…',['1 de chaque côté','2 de chaque côté','4 à gauche et 2 à droite'],1,'O₂ contient 2 oxygènes et 2 H₂O contiennent aussi 2 oxygènes.')]),
 
   // Renforcement ciblé : ces leçons complètent les niveaux qui avaient le moins de ressources bonus.
-  SupplementalLesson('cm1_multiples_diviseurs', SchoolLevel.cm1, 'Mathématiques', 'T1 — Multiples et diviseurs',
+  SupplementalLesson('cm1_multiples_diviseurs', SchoolLevel.cm1, 'Mathématiques', 'Multiples et diviseurs',
     'Un multiple d’un nombre s’obtient en le multipliant par un entier. Un diviseur partage un nombre sans reste.',
     '24 est un multiple de 6 car 6 × 4 = 24. 5 est un diviseur de 20 car 20 ÷ 5 = 4.',
     [SupplementalQuestion('cm1_multiples_diviseurs_q1', '24 est un multiple de…', ['5', '6', '7'], 1, '6 × 4 = 24.'),
@@ -1713,7 +1713,7 @@ const supplementalLessons = <SupplementalLesson>[
     'Une droite se prolonge des deux côtés. Deux points distincts déterminent une droite. Deux droites peuvent être sécantes, parallèles ou perpendiculaires.',
     'Tracer une droite passant par A et B, puis une droite perpendiculaire à celle-ci avec une équerre.',
     [SupplementalQuestion('official_6e_math_t1_droites_q1','Deux points distincts A et B déterminent…',['Un cercle','Une droite','Un angle droit'],1,'Deux points distincts déterminent une seule droite.'), SupplementalQuestion('official_6e_math_t1_droites_q2','Deux droites parallèles…',['Ne se coupent pas dans le plan','Se coupent toujours à 90°','Ont forcément la même longueur'],0,'Deux droites parallèles du plan ne se rencontrent pas.'), SupplementalQuestion('official_6e_math_t1_droites_q3','Pour tracer une perpendiculaire, on utilise…',['Un thermomètre','Une balance','Une équerre'],2,'L’équerre permet de construire un angle droit.')]),
-  SupplementalLesson('official_6e_math_t1_multiples', SchoolLevel.sixieme, 'Mathématiques', 'Multiples et diviseurs',
+  SupplementalLesson('official_6e_math_t1_multiples', SchoolLevel.sixieme, 'Mathématiques', 'T1 — Multiples et diviseurs',
     'Un multiple d’un nombre s’obtient en le multipliant par un entier. Un diviseur partage un nombre sans reste. Par exemple, 12 est un multiple de 3 et 3 est un diviseur de 12.',
     'Écrire les premiers multiples de 4 : 4, 8, 12, 16, 20.',
     [SupplementalQuestion('official_6e_math_t1_multiples_q1','Quel nombre est un multiple de 5 ?',['12','20','23'],1,'20 = 5 × 4, donc 20 est un multiple de 5.'), SupplementalQuestion('official_6e_math_t1_multiples_q2','Quel nombre est un diviseur de 18 ?',['5','7','6'],2,'18 ÷ 6 = 3 sans reste.'), SupplementalQuestion('official_6e_math_t1_multiples_q3','Le nombre 15 est un multiple de…',['3','4','8'],0,'15 = 3 × 5.')]),

@@ -2111,6 +2111,45 @@ void main() {
 
 
     test('les 8 compléments de mathématiques 6e ciblent la progression T1 NUSROPE', () {
+      const expectedAnswers = <String, String>{
+        'official_6e_math_t1_droites_q1': 'Une droite',
+        'official_6e_math_t1_droites_q2': 'Ne se coupent pas dans le plan',
+        'official_6e_math_t1_droites_q3': 'Une équerre',
+        'official_6e_math_t1_multiples_q1': '20',
+        'official_6e_math_t1_multiples_q2': '6',
+        'official_6e_math_t1_multiples_q3': '3',
+        'official_6e_math_t1_divisibilite_q1': '46',
+        'official_6e_math_t1_divisibilite_q2': '75',
+        'official_6e_math_t1_divisibilite_q3': 'Oui, car 1 + 2 + 3 = 6',
+        'official_6e_math_t1_segments_q1': 'Deux extrémités',
+        'official_6e_math_t1_segments_q2': 'AM = MB',
+        'official_6e_math_t1_segments_q3': '5 cm',
+        'official_6e_math_t1_decimaux_q1': '3,9',
+        'official_6e_math_t1_decimaux_q2': '4,5',
+        'official_6e_math_t1_decimaux_q3': 'Les virgules',
+        'official_6e_math_t1_operations_q1': '56',
+        'official_6e_math_t1_operations_q2': '7',
+        'official_6e_math_t1_operations_q3': '18 − 11',
+        'official_6e_math_t1_angles_q1': '90°',
+        'official_6e_math_t1_angles_q2': '180°',
+        'official_6e_math_t1_angles_q3': 'Un rapporteur',
+        'official_6e_math_t1_calcul_programme_q1': '11',
+        'official_6e_math_t1_calcul_programme_q2': '20',
+        'official_6e_math_t1_calcul_programme_q3': '3 × 4',
+      };
+      final questionsById = {
+        for (final lesson in supplementalLessons)
+          for (final question in lesson.questions
+          where question.id.startsWith('official_6e_math_t1_'))
+            question.id: question,
+      };
+      expect(expectedAnswers, hasLength(24));
+      for (final entry in expectedAnswers.entries) {
+        final question = questionsById[entry.key];
+        expect(question, isNotNull, reason: entry.key);
+        expect(question!.choices[question.correctIndex], entry.value,
+            reason: 'Corrigé attendu : \${entry.key}');
+      }
       final byId = {for (final lesson in supplementalLessons) lesson.id: lesson};
       expect(byId.keys.where((id) => id.startsWith('official_6e_math_t1_')).length, 8);
       const ids = [
