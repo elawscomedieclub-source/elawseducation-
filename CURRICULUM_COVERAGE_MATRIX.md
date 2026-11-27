@@ -91,3 +91,20 @@ Références :
 - https://education.gouv.tg/programme-allege-et-actualise-du-college/
 - https://education.gouv.tg/wp-content/uploads/2025/09/NOTE-N%C2%B0-033_Nouveaux-programmes-EPS.pdf
 - https://education.gouv.tg/education-nationale-le-secteur-renforce-ses-outils-strategiques-devaluation-des-apprentissages/
+
+
+## Suivi de récupération des sources — 27 novembre 2026
+
+| Source repérée | Niveau / parcours | Ce que la notice permet d’affirmer | État pour ProfTogo |
+|---|---|---|---|
+| Guide pédagogique, MEN (Togo), Projet apprendre, 2025 — fichier catalogue `Guide_1_v180225.pdf` | 3e, secondaire 1 | Le catalogue NUSROPE affiche le titre, l’auteur institutionnel, l’éditeur, l’année et le classement 3e. | **Source repérée, contenu PDF non encore exploité** : ne pas transformer la notice en liste de chapitres. Récupérer le fichier, relever les compétences/séquences/pages, puis comparer à la base 3e. |
+| Catalogue NUSROPE — cycle secondaire 2 | 2nde A4/CD, 1ère A4/C/D, Terminale A4/C/D | La page consultée affiche ces parcours distinctement et une catégorie secondaire 2 sans documents listés. | **Écart documentaire à traiter** : rechercher les référentiels et progressions de chaque série ailleurs dans les sources du ministère/établissements ; ne pas conclure que les programmes n’existent pas. |
+
+### Traçabilité obligatoire avant ajout d’un cours issu d’un document
+
+Pour chaque contenu nouvellement importé, inscrire dans le journal de contrôle : titre exact de la source, organisme/auteur, année ou version, URL ou identifiant de catalogue, page(s), niveau, matière, compétence visée, trimestre proposé, et statut de validation. Si le document est un guide pédagogique ou un manuel plutôt que le programme officiel, le marquer comme **source d’appui** et non comme programme officiel.
+
+Références de recherche :
+- Catalogue NUSROPE — notice Projet apprendre / Guide pédagogique 3e : https://nusrope.education.gouv.tg/opac_css/index.php?id=18&lvl=publisher_see
+- Catalogue NUSROPE — cycles et parcours du secondaire 2 : https://nusrope.education.gouv.tg/opac_css/
+- Ministère — cadre d’homologation des documents pédagogiques (arrêté N°319/2025/MEPS/CAB/SG, 8 octobre 2025) : https://education.gouv.tg/homologation-des-manuels-et-documents-pedagogiques-un-nouveau-cadre-reglementaire-pour-leducation-au-togo/
