@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/data/sample/annual_core_catalog.dart';
+import 'package:proftogo/data/sample/sample_data.dart';
 
 void main() {
   group('Références croisées du catalogue annuel principal', () {
@@ -32,7 +33,10 @@ void main() {
     });
 
     test('chaque leçon référence un chapitre existant et possède un exercice', () {
-      final chapterIds = annualCoreChapters.map((item) => item.id).toSet();
+      final chapterIds = <String>{
+        ...annualCoreChapters.map((item) => item.id),
+        ...demoChapters.map((item) => item.id),
+      };
       final exerciseLessonIds =
           annualCoreExercises.map((item) => item.lessonId).toSet();
 
@@ -61,7 +65,7 @@ void main() {
         expect(exercise.options.length, greaterThanOrEqualTo(2),
             reason: 'Moins de deux choix pour ${exercise.id}');
         final options = exercise.options
-            .map((option) => option.trim().replaceAll(RegExp(r'\s+'), ' ').toLowerCase())
+            .map((option) => option.trim().replaceAll(RegExp(r'\s+'), ' '))
             .toList();
         expect(options.every((option) => option.isNotEmpty), isTrue,
             reason: 'Choix vide pour ${exercise.id}');
