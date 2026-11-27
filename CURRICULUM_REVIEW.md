@@ -15,7 +15,7 @@
 
 - Base principale : **165 matières, 280 chapitres, 793 leçons et 2 328 exercices** (chiffres indiqués par la documentation actuelle du projet).
 - Banque bonus : **305 leçons et 976 questions**, réparties sur les 13 niveaux.
-- Les bonus comprennent 79 leçons de renforcement et de transversalité ajoutées lors des révisions récentes : 27 leçons initiales, 26 compléments et 13 leçons de mise à jour 2026–2027, chacune avec 3 questions.
+- La banque bonus comprend 79 ajouts : 27 leçons initiales, 26 compléments, 13 leçons de mise à jour 2026–2027 et 13 cours transversaux, chacun avec 3 questions.
 - Tests dédiés : identifiants, présence des niveaux, choix distincts, explications, réponses attendues des leçons ajoutées et seuils de volume.
 
 ## Répartition actuelle de la banque bonus

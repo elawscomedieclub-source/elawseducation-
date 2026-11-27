@@ -2112,7 +2112,7 @@ void main() {
     test('la banque bonus contient au moins 305 leçons et 976 questions', () {
       expect(supplementalLessons.length, greaterThanOrEqualTo(305));
       expect(supplementalLessons.expand((lesson) => lesson.questions).length,
-          greaterThanOrEqualTo(976);
+          greaterThanOrEqualTo(976));
     });
 
     test('chaque niveau dispose désormais d’au moins douze leçons bonus', () {
