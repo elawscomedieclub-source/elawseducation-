@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/evaluation_service.dart';
 import '../../data/models/models.dart';
 import '../../data/sample/sample_data.dart';
+import '../../data/sample/annual_core_catalog.dart';
 import 'cp2_completion_screen.dart';
 import 'ce1_completion_screen.dart';
 import 'ce2_completion_screen.dart';
@@ -35,6 +36,27 @@ class _CompositionScreenState extends State<CompositionScreen> {
   bool _submitted = false;
   bool _saving = false;
   int _correct = 0;
+
+  List<Subject> get _availableSubjects {
+    final matched = mergeSubjectsByPath(demoSubjects, annualCoreSubjects)
+        .where((subject) => subjectMatchesPath(
+            subject, widget.level, widget.track, widget.series));
+    final byId = <String, Subject>{};
+    for (final subject in matched) {
+      final current = byId[subject.id];
+      if (current == null || subject.totalChapters > current.totalChapters) {
+        byId[subject.id] = subject;
+      }
+    }
+    return byId.values.toList()..sort((a, b) => a.name.compareTo(b.name));
+  }
+
+  String? get _selectedSubjectName {
+    for (final subject in _availableSubjects) {
+      if (subject.id == _selectedSubjectId) return subject.name;
+    }
+    return null;
+  }
 
   String get _preparationTitle => switch (widget.level) {
     SchoolLevel.cm2 => 'Préparation au CEPD',
@@ -69,9 +91,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
   }
 
   List<Exercise> _extraExercisesForSelectedTerm() {
-    final selectedName = _selectedSubjectId == null
-        ? null
-        : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name;
+    final selectedName = _selectedSubjectName;
     return switch (widget.level) {
       SchoolLevel.cp2 => Cp2CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
       SchoolLevel.ce1 => Ce1CompletionScreen.assessmentExercisesForTerm(_term, subjectName: selectedName),
