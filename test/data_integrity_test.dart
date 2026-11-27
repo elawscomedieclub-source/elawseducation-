@@ -413,6 +413,42 @@ void main() {
       }
     });
 
+    test('les cours bonus ont des identifiants uniques et un contenu exploitable', () {
+      expect(_idsAreUnique(supplementalLessons.map((lesson) => lesson.id)), isTrue,
+          reason: 'Identifiant de cours bonus répété');
+      final questionIds = supplementalLessons.expand((lesson) => lesson.questions.map((question) => question.id));
+      expect(_idsAreUnique(questionIds), isTrue,
+          reason: 'Identifiant de question bonus répété');
+      for (final lesson in supplementalLessons) {
+        expect(lesson.title.trim(), isNotEmpty,
+            reason: 'Titre vide pour le cours bonus ${lesson.id}');
+        expect(lesson.explanation.trim(), isNotEmpty,
+            reason: 'Explication vide pour le cours bonus ${lesson.id}');
+        expect(lesson.example.trim(), isNotEmpty,
+            reason: 'Exemple vide pour le cours bonus ${lesson.id}');
+        expect(lesson.questions, isNotEmpty,
+            reason: 'Aucune question pour le cours bonus ${lesson.id}');
+        for (final question in lesson.questions) {
+          expect(question.prompt.trim(), isNotEmpty,
+              reason: 'Question vide : ${question.id}');
+          expect(question.choices.length, greaterThanOrEqualTo(2),
+              reason: 'Moins de deux choix : ${question.id}');
+          expect(question.choices.every((choice) => choice.trim().isNotEmpty), isTrue,
+              reason: 'Choix vide : ${question.id}');
+          final normalized = question.choices
+              .map((choice) => choice.trim().toLowerCase())
+              .toSet();
+          expect(normalized.length, question.choices.length,
+              reason: 'Choix dupliqués : ${question.id}');
+          expect(question.correctIndex,
+              inInclusiveRange(0, question.choices.length - 1),
+              reason: 'Réponse correcte hors choix : ${question.id}');
+          expect(question.explanation.trim(), isNotEmpty,
+              reason: 'Correction vide : ${question.id}');
+        }
+      }
+    });
+
   });
 }
 
