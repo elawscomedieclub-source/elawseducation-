@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:proftogo/data/sample/sample_data.dart';
+import 'package:proftogo/data/models/models.dart';
 import 'package:proftogo/data/sample/annual_core_catalog.dart';
 
 void main() {
