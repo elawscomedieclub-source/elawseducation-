@@ -399,6 +399,20 @@ void main() {
       }
     });
 
+    test('les choix des exercices principaux sont lisibles et distincts', () {
+      for (final exercise in demoExercises) {
+        expect(exercise.options.length, greaterThanOrEqualTo(2),
+            reason: 'Moins de deux choix pour ${exercise.id}');
+        expect(exercise.options.every((option) => option.trim().isNotEmpty),
+            isTrue, reason: 'Choix vide pour ${exercise.id}');
+        final normalized = exercise.options
+            .map((option) => option.trim().toLowerCase())
+            .toSet();
+        expect(normalized.length, exercise.options.length,
+            reason: 'Choix répétés pour ${exercise.id}');
+      }
+    });
+
   });
 }
 
