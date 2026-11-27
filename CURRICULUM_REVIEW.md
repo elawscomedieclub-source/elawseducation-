@@ -11,11 +11,11 @@
 
 ## État quantitatif vérifié
 
-- Total arithmétique base principale + bonus : **1 098 leçons et 3 304 exercices/questions** (volume total, sans prétendre à l’homologation ni à l’exhaustivité).
+- Total arithmétique base principale + bonus : **1 106 leçons et 3 328 exercices/questions** (volume total, sans prétendre à l’homologation ni à l’exhaustivité).
 
 - Base principale : **165 matières, 280 chapitres, 793 leçons et 2 328 exercices** (chiffres indiqués par la documentation actuelle du projet).
-- Banque bonus : **305 leçons et 976 questions**, réparties sur les 13 niveaux.
-- La banque bonus comprend 79 ajouts : 27 leçons initiales, 26 compléments, 13 leçons de mise à jour 2026–2027 et 13 cours transversaux, chacun avec 3 questions.
+- Banque bonus : **313 leçons et 1 000 questions**, réparties sur les 13 niveaux.
+- La banque bonus comprend 87 ajouts : 27 leçons initiales, 26 compléments, 13 leçons de mise à jour 2026–2027, 13 cours transversaux et 8 cours ciblés de mathématiques 6e (24 questions).
 - Tests dédiés : identifiants, présence des niveaux, choix distincts, explications, réponses attendues des leçons ajoutées et seuils de volume.
 
 ## Répartition actuelle de la banque bonus
@@ -28,7 +28,7 @@
 | CE2 | 42 | 137 |
 | CM1 | 19 | 59 |
 | CM2 | 18 | 54 |
-| 6e | 18 | 58 |
+| 6e | 26 | 82 |
 | 5e | 18 | 57 |
 | 4e | 19 | 61 |
 | 3e | 18 | 57 |
@@ -58,6 +58,7 @@ Les 13 dernières leçons de mise à jour 2026–2027 couvrent notamment :
 
 
 ### Sources officielles examinées — mise à jour du 27 novembre 2026
+- Le catalogue NUSROPE publie une planification de mathématiques 6e pour le premier trimestre : droites du plan, arithmétique (nombres naturels, multiples/diviseurs, divisibilité), segments, décimaux et opérations, angles et programme de calcul. Huit cours d’entraînement ciblent ces thèmes. Cette planification publiée doit être confirmée par l’enseignant pour l’année 2026–2027. Source : https://nusrope.education.gouv.tg/opac_css/doc_num.php?explnum_id=19.
 
 - Le ministère a rappelé que le programme allégé du collège avait été établi en tenant compte de **25 semaines effectives**, des horaires disciplinaires et des profils de sortie ; il cite aussi les thèmes transversaux (TIC, climat, citoyenneté, énergie, santé, prévention). La matrice doit donc contrôler les contenus et la durée, pas seulement le nombre de chapitres. Source : https://education.gouv.tg/programme-allege-et-actualise-du-college/ (10 avril 2018).
 - La circulaire interministérielle **N°033/2025/MEPS/METFPA** rend les nouveaux programmes d’EPS applicables à partir de 2025–2026 et demande aux inspections de les mettre à disposition des établissements. La banque EPS ajoutée dans ProfTogo est un complément général ; les contenus précis devront être rapprochés du programme EPS remis par l’inspection, sans déduire la progression de la seule circulaire. Source PDF : https://education.gouv.tg/wp-content/uploads/2025/09/NOTE-N%C2%B0-033_Nouveaux-programmes-EPS.pdf.

@@ -2109,10 +2109,38 @@ void main() {
       }
     });
 
-    test('la banque bonus contient au moins 305 leçons et 976 questions', () {
-      expect(supplementalLessons.length, greaterThanOrEqualTo(305));
+
+    test('les 8 compléments de mathématiques 6e ciblent la progression T1 NUSROPE', () {
+      const expected = <String, List<String>>{
+        'official_6e_math_t1_droites': ['Une droite','Deux points distincts déterminent…',['Un cercle','Une droite','Un angle droit']],
+        'official_6e_math_t1_multiples': ['Multiples et diviseurs','Quel nombre est un multiple de 5 ?',['12','20','23']],
+      };
+      final byId = {for (final lesson in supplementalLessons) lesson.id: lesson};
+      expect(byId.keys.where((id) => id.startsWith('official_6e_math_t1_')).length, 8);
+      const ids = [
+        'official_6e_math_t1_droites','official_6e_math_t1_multiples',
+        'official_6e_math_t1_divisibilite','official_6e_math_t1_segments',
+        'official_6e_math_t1_decimaux','official_6e_math_t1_operations',
+        'official_6e_math_t1_angles','official_6e_math_t1_calcul_programme',
+      ];
+      for (final id in ids) {
+        final lesson = byId[id];
+        expect(lesson, isNotNull, reason: id);
+        expect(lesson!.level, SchoolLevel.sixieme, reason: id);
+        expect(lesson.subject, 'Mathématiques', reason: id);
+        expect(lesson.questions, hasLength(3), reason: id);
+        for (final q in lesson.questions) {
+          expect(q.choices, hasLength(3), reason: q.id);
+          expect(q.correctIndex, inInclusiveRange(0, 2), reason: q.id);
+          expect(q.explanation.trim(), isNotEmpty, reason: q.id);
+        }
+      }
+    });
+
+    test('la banque bonus contient au moins 313 leçons et 1000 questions', () {
+      expect(supplementalLessons.length, greaterThanOrEqualTo(313));
       expect(supplementalLessons.expand((lesson) => lesson.questions).length,
-          greaterThanOrEqualTo(976));
+          greaterThanOrEqualTo(1000));
     });
 
     test('chaque niveau dispose désormais d’au moins douze leçons bonus', () {
