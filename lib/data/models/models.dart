@@ -50,11 +50,16 @@ class UserProgress extends Equatable {
 /// Répartit les unités d'une matière sur trois trimestres sans laisser
 /// les unités 4+ hors des compositions. Pour 2 unités, elles sont placées en
 /// T1 et T3 ; pour 3 unités ou plus, T1, T2 et T3 sont représentés.
+/// Répartit les unités d'une matière sur les trois trimestres.
 int termForAnnualUnit(int unitOrder, int unitsInSubject) {
   if (unitsInSubject <= 1) return 1;
-  final boundedOrder = unitOrder.clamp(1, unitsInSubject);
+  final boundedOrder = unitOrder < 1
+      ? 1
+      : (unitOrder > unitsInSubject ? unitsInSubject : unitOrder);
   final term = ((boundedOrder - 1) * 3 ~/ (unitsInSubject - 1)) + 1;
-  return term.clamp(1, 3);
+  if (term < 1) return 1;
+  if (term > 3) return 3;
+  return term;
 }
 
 bool subjectMatchesPath(Subject subject, SchoolLevel level, SchoolTrack track, String series) {
