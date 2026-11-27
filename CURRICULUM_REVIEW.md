@@ -103,3 +103,20 @@ Un guide de séance a été ajouté pour soutenir l’expérimentation annoncée
 ## Conclusion
 
 ProfTogo dispose d’une base principale substantielle et d’une banque bonus renforcée. Le filtrage technique par trimestre est en place ; la finalisation pédagogique exige encore la validation officielle du placement des chapitres, un relevé de couverture chapitre par chapitre et une relecture de chaque matière/série. Ne pas annoncer l’application comme « programme annuel intégralement homologué » avant cette vérification.
+
+
+## Actualisation documentaire — 27 novembre 2026
+
+Les sources institutionnelles consultées aujourd’hui précisent les priorités de l’audit :
+
+- Le catalogue NUSROPE sépare explicitement le secondaire 2 par série (2nde A4/CD, 1ère A4/C/D, Terminale A4/C4/D) et distingue l’enseignement secondaire technique et la formation professionnelle. La couverture du lycée doit donc être comptée et vérifiée par série, et non uniquement par niveau générique. [Catalogue NUSROPE](https://nusrope.education.gouv.tg/opac_css/index.php).
+- L’aide-mémoire de la revue sectorielle conjointe de l’éducation (juin 2025) indique des états d’avancement différenciés pour les manuels : certains manuels du primaire étaient distribués, d’autres en cours d’édition ; au secondaire 1, les manuels de sciences de 6e étaient élaborés/édités, ceux de 5e élaborés et ceux de 4e en cours d’élaboration. Ces informations sont un état daté de 2025, pas une preuve de disponibilité actuelle. [Aide-mémoire RSCE 2025](https://education.gouv.tg/wp-content/uploads/2025/10/Aide-me%CC%81moire-RSCE_Togo_2025.pdf).
+- Le portail officiel de planification publie désormais le tableau de bord éducatif 2025–2026. Il peut servir de contexte statistique pour les rapports, mais ne remplace pas les curricula disciplinaires. [Tableaux de bord de l’éducation](https://planifeducation.gouv.tg/index.php/publications/).
+- Le ministère annonce pour 2026–2027 une rentrée le 14 septembre 2026 et une fin d’année le 16 juillet 2027, avec une période de détente du 12 au 21 février 2027. Le calendrier annuel de ProfTogo doit être aligné sur la décision officielle et les dates de congés, sans convertir automatiquement ces dates en répartition des chapitres. [Découpage officiel 2026–2027](https://www.republiquetogolaise.tg/education/3007-12143-annee-scolaire-2026-2027-le-decoupage).
+
+### Suite de l’audit
+
+1. Établir une matrice de couverture séparée pour chaque série du secondaire 2.
+2. Pour chaque chapitre, enregistrer le titre exact, la source, le niveau de confiance, les prérequis, le trimestre proposé et la validation enseignant.
+3. Marquer comme « à confirmer » tout contenu reposant sur un catalogue ancien ou une progression non datée.
+4. Ne pas augmenter artificiellement le total des chapitres : les comptes doivent être recalculés depuis les données réelles du dépôt, en distinguant leçons, chapitres, questions et exercices.
