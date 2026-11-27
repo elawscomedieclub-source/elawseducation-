@@ -2139,16 +2139,16 @@ void main() {
       };
       final questionsById = {
         for (final lesson in supplementalLessons)
-          for (final question in lesson.questions
-          where question.id.startsWith('official_6e_math_t1_'))
-            question.id: question,
+          for (final question in lesson.questions)
+            if (question.id.startsWith('official_6e_math_t1_'))
+              question.id: question,
       };
       expect(expectedAnswers, hasLength(24));
       for (final entry in expectedAnswers.entries) {
         final question = questionsById[entry.key];
         expect(question, isNotNull, reason: entry.key);
         expect(question!.choices[question.correctIndex], entry.value,
-            reason: 'Corrigé attendu : \${entry.key}');
+            reason: 'Corrigé attendu : ${entry.key}');
       }
       final byId = {for (final lesson in supplementalLessons) lesson.id: lesson};
       expect(byId.keys.where((id) => id.startsWith('official_6e_math_t1_')).length, 8);
