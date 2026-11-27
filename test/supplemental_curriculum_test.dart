@@ -2111,10 +2111,6 @@ void main() {
 
 
     test('les 8 compléments de mathématiques 6e ciblent la progression T1 NUSROPE', () {
-      const expected = <String, List<String>>{
-        'official_6e_math_t1_droites': ['Une droite','Deux points distincts déterminent…',['Un cercle','Une droite','Un angle droit']],
-        'official_6e_math_t1_multiples': ['Multiples et diviseurs','Quel nombre est un multiple de 5 ?',['12','20','23']],
-      };
       final byId = {for (final lesson in supplementalLessons) lesson.id: lesson};
       expect(byId.keys.where((id) => id.startsWith('official_6e_math_t1_')).length, 8);
       const ids = [
