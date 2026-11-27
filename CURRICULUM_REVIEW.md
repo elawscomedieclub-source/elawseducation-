@@ -1,6 +1,6 @@
 # ProfTogo — audit pédagogique et couverture annuelle
 
-**Mise à jour : 26 novembre 2026**
+**Mise à jour : 27 novembre 2026**
 
 ## État quantitatif vérifié
 
@@ -48,6 +48,14 @@ Les 13 dernières leçons de mise à jour 2026–2027 couvrent notamment :
 - atomes et molécules, analyse du récit, fonctions affines, histoire des échanges atlantiques ;
 - fréquence des ondes et synthèse de documents en Terminale.
 
+## Compositions et répartition trimestrielle — mise à jour du 27 novembre 2026
+
+- Les compositions trimestrielles intègrent désormais les exercices de la banque annuelle principale, en plus des exercices de la banque classique (PR #79 et #80).
+- Les chapitres des banques annuelles sont répartis sur T1, T2 et T3 à partir de leur ordre et du nombre d'unités de la matière (PR #81). Cette répartition est un **outil provisoire de planification**, pas une progression ministérielle officielle.
+- Des tests contrôlent les trimestres valides et la couverture des trois périodes. Le contrôle a identifié puis corrigé une erreur spécifique dans la liste de Physique-Chimie de Seconde C/D (PR #83).
+- Une vérification automatisée de la banque annuelle contrôle les questions, les choix distincts, l'index de réponse, les explications et les liens leçon-exercice (PR #82).
+- Les chapitres des banques classique, bonus et des parcours spécialisés doivent encore être rapprochés des calendriers de classe et des progressions réellement adoptées par les enseignants. Le trimestre affecté automatiquement ne doit pas être présenté comme officiel sans cette vérification.
+
 ## Vérification du programme officiel : méthode à poursuivre
 
 La banque de cours ne suffit pas à prouver que le programme annuel officiel est complet. Il faut contrôler, pour chaque niveau et chaque matière :
@@ -67,7 +75,7 @@ La banque de cours ne suffit pas à prouver que le programme annuel officiel est
 - À la rentrée 2026–2027, les classes-métiers sont expérimentées à partir du CM1-CM2 et dans les collèges/lycées scientifiques ; les collèges et lycées scientifiques sont renforcés. Les leçons ProfTogo sur les métiers sont des supports de découverte, pas un référentiel professionnel homologué.
 - L’arrêté ministériel n°319/2025 du 8 octobre 2025 établit un cadre d’homologation des manuels et documents pédagogiques. ProfTogo ne doit pas être présenté comme homologué sans décision officielle. Les cours d’EPS de l’application doivent être rapprochés de ces documents.
 - Le collège comprend des thématiques transversales (citoyenneté, compétences de vie, climat, TIC, énergie, prévention et santé) à relier explicitement aux chapitres.
-- L’application n’affecte pas encore toutes les leçons à un trimestre ; le filtre trimestriel des compositions reste à développer et vérifier.
+- Le filtre trimestriel des compositions est maintenant relié aux banques classique et annuelle. La répartition automatique des chapitres annuels est heuristique ; l’affectation officielle de toutes les leçons, des bonus et des parcours spécialisés reste à contrôler avec les progressions des établissements.
 
 ## Sources de référence
 
