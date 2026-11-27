@@ -47,7 +47,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       setState(() {
         _progressFuture = ProgressService.load();
         _attemptHistoryFuture = ProgressService.loadAttemptHistory();
-      _learningBarrierFuture = ProgressService.loadLearningBarrierCounts();
         _learningBarrierFuture = ProgressService.loadLearningBarrierCounts();
         _lastLessonFuture = ProgressService.loadLastLesson();
         _reviewFuture = ProgressService.loadReviewExerciseIds();
@@ -65,6 +64,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     setState(() {
       _progressFuture = ProgressService.load();
       _attemptHistoryFuture = ProgressService.loadAttemptHistory();
+      _learningBarrierFuture = ProgressService.loadLearningBarrierCounts();
       _lastLessonFuture = ProgressService.loadLastLesson();
       _reviewFuture = ProgressService.loadReviewExerciseIds();
     });
