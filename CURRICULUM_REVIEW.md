@@ -35,7 +35,7 @@
 | 2nde | 18 | 56 |
 | 1ère | 18 | 56 |
 | Terminale | 19 | 60 |
-| **Total** | **305** | **976**
+| **Total** | **313** | **1 000**
 
 Les nombres de questions sont calculés à partir des leçons du dépôt et peuvent différer d’une question de certains rapports historiques si ceux-ci comptaient les éléments de façon différente. Les tests Flutter restent la source de validation technique.
 
