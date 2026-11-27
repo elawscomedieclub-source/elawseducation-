@@ -88,7 +88,7 @@ final annualSecondeCdPhysicsSubject = Subject(
 
 final annualSecondePhysicsChapters = annualSecondePhysicsUnits.map((unit) => Chapter(
   id:unit.chapterId,subjectId:unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
-  order:unit.unitOrder,term:unit.unitOrder,totalLessons:1,
+  order:unit.unitOrder,term: termForAnnualUnit(unit.unitOrder, annualSecondePhysicsUnits.where((item) => item.code == unit.code).length),totalLessons:1,
 )).toList();
 
 final annualSecondePhysicsLessons = annualSecondePhysicsUnits.map((unit) => Lesson(
@@ -100,7 +100,7 @@ final annualSecondePhysicsExercises = annualSecondePhysicsUnits.expand((unit)=>u
 
 final annualSecondeCdPhysicsChapters = annualSecondeCdPhysicsUnits.map((unit) => Chapter(
   id:unit.chapterId,subjectId:unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
-  order:unit.unitOrder,term:unit.unitOrder,totalLessons:1,
+  order:unit.unitOrder,term: termForAnnualUnit(unit.unitOrder, annualSecondePhysicsUnits.where((item) => item.code == unit.code).length),totalLessons:1,
 )).toList();
 
 final annualSecondeCdPhysicsLessons = annualSecondeCdPhysicsUnits.map((unit) => Lesson(
