@@ -41,7 +41,7 @@ void main() {
       for (final lesson in supplementalLessons) {
         for (final question in lesson.questions) {
           final normalizedChoices = question.choices
-              .map((choice) => choice.trim().replaceAll(RegExp(r'\\s+'), ' '))
+              .map((choice) => choice.trim().replaceAll(RegExp(r'\s+'), ' '))
               .toSet();
           expect(
             normalizedChoices.length,
