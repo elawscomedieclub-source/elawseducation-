@@ -80,3 +80,14 @@ Le catalogue national NUSROPE sépare les cycles :
 - [Présentation des filières techniques et professionnelles](https://education.gouv.tg/wp-content/uploads/2023/10/lien_9_1_1.pdf)
 
 **État actuel :** la structure de ProfTogo comprend les 13 niveaux et les parcours du lycée. Le placement technique des chapitres sur T1/T2/T3 et le filtrage des compositions sont implémentés ; la correspondance exacte avec les progressions officielles, les manuels et les séries doit encore être vérifiée chapitre par chapitre et validée par les enseignants. Cette matrice rend les écarts visibles au lieu de les masquer derrière un chiffre global de leçons.
+
+## Repères officiels ajoutés à l’audit
+
+- **Collège :** le ministère indique que la révision des programmes a pris en compte 25 semaines effectives et des profils de sortie par niveau ; les thèmes transversaux sont à tracer explicitement.
+- **EPS :** la circulaire interministérielle N°033/2025 fixe l’entrée en vigueur des nouveaux programmes en 2025–2026. Obtenir les documents détaillés auprès de l’inspection avant de certifier les séquences de ProfTogo.
+- **Secondaire 1 :** l’analyse ministérielle/CNEA de novembre 2025 couvre Français, Mathématiques et Physique-Chimie-Technologie ; auditer les compétences, leur progression entre 6e et 3e, puis les items d’évaluation.
+
+Références :
+- https://education.gouv.tg/programme-allege-et-actualise-du-college/
+- https://education.gouv.tg/wp-content/uploads/2025/09/NOTE-N%C2%B0-033_Nouveaux-programmes-EPS.pdf
+- https://education.gouv.tg/education-nationale-le-secteur-renforce-ses-outils-strategiques-devaluation-des-apprentissages/

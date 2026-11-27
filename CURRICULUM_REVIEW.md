@@ -7,7 +7,7 @@
 - La branche principale contient les changements récents de répartition annuelle par trimestre (commits #81 à #83) : les chapitres annuels sont répartis sur T1/T2/T3, les compositions filtrent les exercices par trimestre, des contrôles de qualité des exercices annuels ont été ajoutés et le calcul de répartition de la physique C/D a été corrigé.
 - Le coach de progression adapte aussi ses conseils aux résultats récents et aux difficultés déclarées par l’élève (lecture, compréhension, méthode), avec tests dédiés.
 - Le commit `700d6629aa` (13 cours transversaux + test de corrigés) est validé : run 1189, jobs Web, APK et publication immédiate réussis ; run 1190, build et déploiement GitHub Pages réussis. La compilation est confirmée, mais un test manuel de l’APK sur téléphone reste nécessaire.
-- L’APK joint dans cette conversation porte le code de version Android **1090**. Une nouvelle compilation APK sera produite par le pipeline de cette extension ; le test manuel sur téléphone reste nécessaire.
+- Le workflow Android fixe le numéro de build à partir du numéro d’exécution GitHub Actions. Utiliser l’APK téléchargée depuis l’exécution récente, pas l’ancien fichier joint (code 1090). Le test manuel sur téléphone reste nécessaire.
 
 ## État quantitatif vérifié
 
@@ -55,6 +55,13 @@ Les 13 dernières leçons de mise à jour 2026–2027 couvrent notamment :
 - atomes et molécules, analyse du récit, fonctions affines, histoire des échanges atlantiques ;
 - fréquence des ondes et synthèse de documents en Terminale.
 - Les 13 nouveaux cours transversaux : EPS au CP1, musique au CP2, arts plastiques au CE1, jeu collectif au CE2, rythme musical au CM1, affiche au CM2, échauffement en 6e, perspective en 5e, séquence rythmique en 4e, endurance en 3e, exposé en 2nde, prise de notes en 1ère et oral argumenté en Terminale.
+
+
+### Sources officielles examinées — mise à jour du 27 novembre 2026
+
+- Le ministère a rappelé que le programme allégé du collège avait été établi en tenant compte de **25 semaines effectives**, des horaires disciplinaires et des profils de sortie ; il cite aussi les thèmes transversaux (TIC, climat, citoyenneté, énergie, santé, prévention). La matrice doit donc contrôler les contenus et la durée, pas seulement le nombre de chapitres. Source : https://education.gouv.tg/programme-allege-et-actualise-du-college/ (10 avril 2018).
+- La circulaire interministérielle **N°033/2025/MEPS/METFPA** rend les nouveaux programmes d’EPS applicables à partir de 2025–2026 et demande aux inspections de les mettre à disposition des établissements. La banque EPS ajoutée dans ProfTogo est un complément général ; les contenus précis devront être rapprochés du programme EPS remis par l’inspection, sans déduire la progression de la seule circulaire. Source PDF : https://education.gouv.tg/wp-content/uploads/2025/09/NOTE-N%C2%B0-033_Nouveaux-programmes-EPS.pdf.
+- Le ministère rapporte qu’en novembre 2025 le CNEA a analysé les curricula du secondaire 1 pour le français, les mathématiques et la physique-chimie-technologie, dans le cadre de l’élaboration d’échelles de compétences et d’items d’évaluation. Priorité de l’audit : vérifier la cohérence verticale/horizontale de ces trois disciplines et aligner les exercices sur les compétences, pas seulement sur les intitulés de cours. Source : https://education.gouv.tg/education-nationale-le-secteur-renforce-ses-outils-strategiques-devaluation-des-apprentissages/ (2 décembre 2025).
 
 ## Vérification du programme officiel : méthode à poursuivre
 
