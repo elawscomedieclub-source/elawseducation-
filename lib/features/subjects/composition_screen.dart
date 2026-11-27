@@ -90,26 +90,33 @@ class _CompositionScreenState extends State<CompositionScreen> {
   }
 
   List<Exercise> _buildQuestions() {
-    final subjects = demoSubjects
+    final subjects = _availableSubjects
         .where((subject) =>
-            subjectMatchesPath(subject, widget.level, widget.track, widget.series) &&
-            (_selectedSubjectId == null || subject.id == _selectedSubjectId))
+            _selectedSubjectId == null || subject.id == _selectedSubjectId)
         .toList();
 
     final pools = <List<Exercise>>[];
     for (final subject in subjects) {
-      final chapterIds = demoChapters
-          .where((chapter) => chapter.subjectId == subject.id && chapter.term == _term)
-          .map((chapter) => chapter.id)
-          .toSet();
-      final lessonIds = demoLessons
-          .where((lesson) => chapterIds.contains(lesson.chapterId))
-          .map((lesson) => lesson.id)
-          .toSet();
-      final pool = demoExercises
-          .where((exercise) => lessonIds.contains(exercise.lessonId))
-          .toList()
-        ..shuffle(Random());
+      final chapterIds = <String>{
+        ...demoChapters
+            .where((chapter) => chapter.subjectId == subject.id && chapter.term == _term)
+            .map((chapter) => chapter.id),
+        ...annualCoreChapters
+            .where((chapter) => chapter.subjectId == subject.id && chapter.term == _term)
+            .map((chapter) => chapter.id),
+      };
+      final lessonIds = <String>{
+        ...demoLessons
+            .where((lesson) => chapterIds.contains(lesson.chapterId))
+            .map((lesson) => lesson.id),
+        ...annualCoreLessons
+            .where((lesson) => chapterIds.contains(lesson.chapterId))
+            .map((lesson) => lesson.id),
+      };
+      final pool = <Exercise>[
+        ...demoExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
+        ...annualCoreExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
+      ]..shuffle(Random());
       if (pool.isNotEmpty) pools.add(pool);
     }
 
@@ -139,24 +146,33 @@ class _CompositionScreenState extends State<CompositionScreen> {
   }
 
   int _availableExerciseCount() {
-    final subjects = demoSubjects
+    final subjects = _availableSubjects
         .where((subject) =>
-            subjectMatchesPath(subject, widget.level, widget.track, widget.series) &&
-            (_selectedSubjectId == null || subject.id == _selectedSubjectId))
+            _selectedSubjectId == null || subject.id == _selectedSubjectId)
         .toList();
-    final chapterIds = demoChapters
-        .where((chapter) =>
-            subjects.any((subject) => subject.id == chapter.subjectId) &&
-            chapter.term == _term)
-        .map((chapter) => chapter.id)
-        .toSet();
-    final lessonIds = demoLessons
-        .where((lesson) => chapterIds.contains(lesson.chapterId))
-        .map((lesson) => lesson.id)
-        .toSet();
+    final subjectIds = subjects.map((subject) => subject.id).toSet();
+    final chapterIds = <String>{
+      ...demoChapters
+          .where((chapter) => subjectIds.contains(chapter.subjectId) && chapter.term == _term)
+          .map((chapter) => chapter.id),
+      ...annualCoreChapters
+          .where((chapter) => subjectIds.contains(chapter.subjectId) && chapter.term == _term)
+          .map((chapter) => chapter.id),
+    };
+    final lessonIds = <String>{
+      ...demoLessons
+          .where((lesson) => chapterIds.contains(lesson.chapterId))
+          .map((lesson) => lesson.id),
+      ...annualCoreLessons
+          .where((lesson) => chapterIds.contains(lesson.chapterId))
+          .map((lesson) => lesson.id),
+    };
     final baseCount = demoExercises
-        .where((exercise) => lessonIds.contains(exercise.lessonId))
-        .length;
+            .where((exercise) => lessonIds.contains(exercise.lessonId))
+            .length +
+        annualCoreExercises
+            .where((exercise) => lessonIds.contains(exercise.lessonId))
+            .length;
     return baseCount + _extraExercisesForSelectedTerm().length;
   }
 
@@ -240,7 +256,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
                   decoration: const InputDecoration(labelText: 'Matière', border: OutlineInputBorder()),
                   items: [
                     const DropdownMenuItem<String?>(value: null, child: Text('Toutes les matières')),
-                    ...demoSubjects.where((s) => subjectMatchesPath(s, widget.level, widget.track, widget.series)).map((s) => DropdownMenuItem<String?>(value: s.id, child: Text(s.name))),
+                    ..._availableSubjects.map((s) => DropdownMenuItem<String?>(value: s.id, child: Text(s.name))),
                   ],
                   onChanged: _started ? null : (value) => setState(() => _selectedSubjectId = value),
                 ),
@@ -285,7 +301,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
           if (_started && _questions.isNotEmpty) ...[
             Card(child: Padding(padding: const EdgeInsets.all(14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('Classe : ${widget.level.label}${widget.level.index >= SchoolLevel.seconde.index ? ' • ${widget.track.label} • Série ${widget.series}' : ''} • Trimestre : T$_term'),
-              Text('Matière : ${_selectedSubjectId == null ? 'Toutes les matières' : demoSubjects.firstWhere((s) => s.id == _selectedSubjectId).name}'),
+              Text('Matière : ${_selectedSubjectId == null ? 'Toutes les matières' : (_selectedSubjectName ?? 'Matière sélectionnée')}'),
               Text('${_questions.length} questions • Note sur 20 • ${(20 / _questions.length).toStringAsFixed(1)} point(s) par bonne réponse'),
               const SizedBox(height: 8),
               LinearProgressIndicator(value: _answers.length / _questions.length),
@@ -351,7 +367,7 @@ class _CompositionScreenState extends State<CompositionScreen> {
               ),
           ],
           const SizedBox(height: 18),
-          const Text('Important : ces sujets sont des entraînements générés à partir des exercices présents dans ProfTogo. Ils ne constituent pas des sujets officiels du ministère et les trimestres ne sont pas encore associés individuellement à chaque leçon.', style: TextStyle(fontSize: 12)),
+          const Text('Important : ces sujets sont des entraînements générés à partir des exercices des banques classique, annuelle et des compléments disponibles. Ils ne constituent pas des sujets officiels du ministère. Le trimestre est déterminé par le chapitre associé ; la progression doit être vérifiée avec l’enseignant.', style: TextStyle(fontSize: 12)),
         ],
       ),
     );
