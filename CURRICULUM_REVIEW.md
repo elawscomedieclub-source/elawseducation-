@@ -127,3 +127,16 @@ Les sources institutionnelles consultées aujourd’hui précisent les priorité
 - Le catalogue NUSROPE référence un **Guide pédagogique du MEN (Togo), édition Projet apprendre, 2025**, classé pour la 3e du secondaire 1. La notice indique une première mise en circulation le 19 février 2026 et signale un PDF numérique nommé `Guide_1_v180225.pdf`. Cette ressource doit être récupérée puis comparée au cours ProfTogo de 3e, en particulier aux compétences, séquences, exemples et évaluations. La notice du catalogue confirme l’existence et le classement du guide, mais ne suffit pas à valider le contenu de l’application tant que le PDF n’a pas été examiné. Source : https://nusrope.education.gouv.tg/opac_css/index.php?id=18&lvl=publisher_see.
 
 - Priorité de travail : commencer par le guide 3e récemment référencé, puis étendre la recherche à chaque niveau et série en privilégiant les documents MEN datés plutôt que les progressions génériques. Si une notice indique un document numérique sans fournir son contenu exploitable, garder la ligne marquée « source à récupérer », sans inventer de chapitre.
+
+
+## Contrôle technique confirmé — 27 novembre 2026
+
+- Le commit `06b317e2add18f95d76417d7feed7d3d3c59bcf2` a passé les workflows Web et Android : tests d’intégrité des données, vérification Flutter, construction du site et construction APK. Exécution : https://github.com/elawscomedieclub-source/elawseducation-/actions/runs/46010280388.
+- L’artefact `PROFTOGO-APK-Android` a été créé pour cette exécution (SHA du code : `06b317e2add18f95d76417d7feed7d3d3c59bcf2`). Il s’agit d’un artefact GitHub Actions, pas d’une installation testée physiquement sur téléphone.
+- Le test ajouté vérifie que chaque chapitre annuel référence une matière déclarée et ne dépasse pas le total de chapitres planifié pour cette matière. Cela contrôle la cohérence des données ; cela ne prouve pas l’exactitude de la progression officielle.
+
+## Référence réglementaire à intégrer à l’audit des sources
+
+Le ministère a publié l’arrêté N°319/2025/MEPS/CAB/SG du 8 octobre 2025 fixant le cadre d’homologation des manuels et documents pédagogiques destinés au préscolaire, au primaire et au secondaire général. Le ministère indique que l’homologation doit être visible sur la troisième page de couverture et que les documents concernés doivent respecter la procédure. Pour ProfTogo, chaque document-source utilisé pour établir une leçon devra donc être enregistré avec son titre, son niveau, son année, son statut d’homologation vérifiable et les pages utilisées. Une ressource de catalogue ou un guide pédagogique ne doit pas être présenté automatiquement comme un programme officiel homologué. Source ministérielle : https://education.gouv.tg/homologation-des-manuels-et-documents-pedagogiques-un-nouveau-cadre-reglementaire-pour-leducation-au-togo/.
+
+Le catalogue NUSROPE classe les ressources séparément pour le primaire, le secondaire 1, le secondaire 2 et les filières techniques/professionnelles. La matrice de couverture doit conserver cette distinction, en particulier pour les séries du lycée et les cours professionnels : https://nusrope.education.gouv.tg/opac_css/.
