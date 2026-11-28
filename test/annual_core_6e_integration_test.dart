@@ -120,7 +120,7 @@ void main() {
   });
   test('3e probabilities use a distinct chapter from functions', () {
     final functions = annualCoreLessons.singleWhere((lesson) => lesson.id == 'core_math_3e_functions');
-    final probabilities = annualCoreLessons.singleWhere((lesson) => lesson.id == 'core_math_3e_probabilities');
+    final probabilities = annualCoreLessons.singleWhere((lesson) => lesson.id == 'core_math_3e_probability');
     expect(functions.chapterId, 'ptg_year_trois_math_7');
     expect(probabilities.chapterId, 'ptg_year_trois_math_8');
     expect(functions.chapterId, isNot(probabilities.chapterId));
