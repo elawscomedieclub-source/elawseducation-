@@ -98,15 +98,6 @@ const annualHistoryCivicsUnits = <AnnualHistoryCivicsUnit>[
       Exercise(id:'core_hg_6e_tg2',lessonId:'core_hg_6e_togo_geography',question:'La chaîne de l’Atakora est un élément…',options:['Du relief','Du climat uniquement','De la population'],correctIndex:0,explanation:'L’Atakora est un ensemble de reliefs du Togo.'),
       Exercise(id:'core_hg_6e_tg3',lessonId:'core_hg_6e_togo_geography',question:'Les ressources en eau sont importantes pour…',options:['Les populations et l’agriculture','Uniquement les routes','Aucune activité humaine'],correctIndex:0,explanation:'L’eau est nécessaire aux usages domestiques, agricoles et économiques.'),
     ]),
-];
-
-final annualHistoryCivicsSubjects = [
-  Subject(id:'core_hg_5e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.cinquieme,totalChapters:2),
-  Subject(id:'core_hg_4e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.quatrieme,totalChapters:2),
-  Subject(id:'core_hg_3e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.troisieme,totalChapters:2),
-  Subject(id:'core_ecm_5e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.cinquieme,totalChapters:2),
-  Subject(id:'core_ecm_4e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.quatrieme,totalChapters:2),
-  Subject(id:'core_ecm_3e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.troisieme,totalChapters:2),
   AnnualHistoryCivicsUnit(level:SchoolLevel.sixieme,code:'6e',domain:'hg',unitOrder:5,title:'Lire une carte et utiliser l’échelle',lessonId:'core_hg_6e_map_scale',lessonTitle:'Se repérer sur une carte du Togo',summary:'Lire le titre, la légende, l’orientation et l’échelle d’une carte.',content:'Une carte représente un espace à une échelle réduite. Le titre indique le sujet, la légende explique les symboles, l’orientation aide à trouver le nord et l’échelle relie les distances sur la carte aux distances réelles. Pour situer une localité du Togo, utilise les régions, les villes, les cours d’eau et les pays voisins comme repères.',keyPoints:['Lire le titre et la légende','Repérer le nord et les directions','Utiliser l’échelle pour estimer une distance'],exercises:[
     Exercise(id:'core_hg_6e_map_scale_1',lessonId:'core_hg_6e_map_scale',question:'La légende d’une carte sert à…',options:['Expliquer les symboles','Donner la météo','Remplacer l’échelle'],correctIndex:0,explanation:'La légende explique les signes et couleurs de la carte.'),
     Exercise(id:'core_hg_6e_map_scale_2',lessonId:'core_hg_6e_map_scale',question:'Quel élément indique le nord ?',options:['L’orientation','Le titre','La légende seule'],correctIndex:0,explanation:'L’orientation indique les directions.'),
@@ -137,6 +128,16 @@ final annualHistoryCivicsSubjects = [
     Exercise(id:'core_hg_6e_citizenship_peace_2',lessonId:'core_hg_6e_citizenship_peace',question:'Un bien public doit être…',options:['Protégé et utilisé avec soin','Détruit','Réservé à une seule personne'],correctIndex:0,explanation:'Les biens publics appartiennent à la collectivité.'),
     Exercise(id:'core_hg_6e_citizenship_peace_3',lessonId:'core_hg_6e_citizenship_peace',question:'La citoyenneté responsable comprend…',options:['Le respect des règles et des droits','Le refus de toute coopération','La violence'],correctIndex:0,explanation:'Le citoyen respecte les droits et les règles communes.'),
   ]),
+];
+
+final annualHistoryCivicsSubjects = [
+  Subject(id:'core_hg_5e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.cinquieme,totalChapters:2),
+  Subject(id:'core_hg_4e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.quatrieme,totalChapters:2),
+  Subject(id:'core_hg_3e',name:'Histoire-Géographie — cours de l’année',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.troisieme,totalChapters:2),
+  Subject(id:'core_ecm_5e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.cinquieme,totalChapters:2),
+  Subject(id:'core_ecm_4e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.quatrieme,totalChapters:2),
+  Subject(id:'core_ecm_3e',name:'Éducation civique et morale — cours de l’année',iconName:'groups',colorHex:'8E5AA7',level:SchoolLevel.troisieme,totalChapters:2),
+
 ];
 
 final annualHistoryCivicsChapters = annualHistoryCivicsUnits.map((unit) => Chapter(
