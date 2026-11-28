@@ -43,7 +43,18 @@ final annualCoreChapters = [
   ...historyCivics.annualHistoryCivicsChapters,
   ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_')),
   ...secondaryFrench.annualSecondaryFrenchChapters.where((chapter) => chapter.id.startsWith('core_secondary_french_6e_unit_')),
-  ...secondarySvt.annualSecondarySvtChapters.where((chapter) => chapter.id.startsWith('core_secondary_svt_6e_unit_')),
+  ...secondarySvt.annualSecondarySvtChapters
+      .where((chapter) => chapter.id.startsWith('core_secondary_svt_6e_unit_'))
+      .map((chapter) => Chapter(
+        id: chapter.id,
+        subjectId: chapter.subjectId,
+        title: chapter.title,
+        order: chapter.order,
+        term: termForAnnualUnit(chapter.order, 13),
+        totalLessons: chapter.totalLessons,
+        completedLessons: chapter.completedLessons,
+        isCompleted: chapter.isCompleted,
+      )),
   ...svt6eExtension.annualSecondarySvt6eExtensionChapters,
   ...secondaryEnglish.annualSecondaryEnglishChapters.where((chapter) => chapter.id.startsWith('core_secondary_english_6e_unit_')),
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsChapters,
