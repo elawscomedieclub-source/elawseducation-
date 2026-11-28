@@ -118,4 +118,14 @@ void main() {
       );
     }
   });
+  test('3e probabilities use a distinct chapter from functions', () {
+    final functions = annualCoreLessons.singleWhere((lesson) => lesson.id == 'core_math_3e_functions');
+    final probabilities = annualCoreLessons.singleWhere((lesson) => lesson.id == 'core_math_3e_probabilities');
+    expect(functions.chapterId, 'ptg_year_trois_math_7');
+    expect(probabilities.chapterId, 'ptg_year_trois_math_8');
+    expect(functions.chapterId, isNot(probabilities.chapterId));
+    final chapterIds = <String>{...demoChapters.map((chapter) => chapter.id), ...annualCoreChapters.map((chapter) => chapter.id)};
+    expect(chapterIds, contains(probabilities.chapterId));
+    expect(annualCoreChapters.where((chapter) => chapter.id == probabilities.chapterId), hasLength(1));
+  });
 }
