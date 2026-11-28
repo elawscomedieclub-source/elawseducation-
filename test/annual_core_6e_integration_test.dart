@@ -70,4 +70,32 @@ void main() {
       expect(chapter.term, termForAnnualUnit(chapter.order, 10));
     }
   });
+  test('5e French, English and SVT annual lessons and exercises stay linked', () {
+    final chapterIds = <String>{
+      ...demoChapters.map((chapter) => chapter.id),
+      ...annualCoreChapters.map((chapter) => chapter.id),
+    };
+    final expectedByPrefix = <String, int>{
+      'core_fr_5e_': 6,
+      'core_en_5e_': 6,
+      'core_svt_5e_': 6,
+    };
+    for (final entry in expectedByPrefix.entries) {
+      final lessons = annualCoreLessons
+          .where((lesson) => lesson.id.startsWith(entry.key))
+          .toList();
+      expect(lessons, hasLength(entry.value), reason: entry.key);
+      expect(lessons.map((lesson) => lesson.id).toSet(),
+          hasLength(entry.value), reason: entry.key);
+      final lessonIds = lessons.map((lesson) => lesson.id).toSet();
+      for (final lesson in lessons) {
+        expect(chapterIds, contains(lesson.chapterId), reason: lesson.id);
+      }
+      expect(
+        annualCoreExercises.where((exercise) => lessonIds.contains(exercise.lessonId)),
+        hasLength(entry.value *  3),
+        reason: entry.key,
+      );
+    }
+  });
 }
