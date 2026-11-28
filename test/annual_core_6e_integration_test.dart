@@ -55,4 +55,19 @@ void main() {
       expect(chapterIds, contains(lesson.chapterId), reason: lesson.id);
     }
   });
+  test('5e annual math extension keeps units 7-10 and correct trimester placement', () {
+    final extensionIds = <String>{
+      'ptg_year_cinq_math_8', 'ptg_year_cinq_math_9',
+      'ptg_year_cinq_math_10', 'ptg_year_cinq_math_11',
+    };
+    final chapters = annualCoreChapters
+        .where((chapter) => extensionIds.contains(chapter.id))
+        .toList()
+      ..sort((a, b) => a.order.compareTo(b.order));
+    expect(chapters, hasLength(4));
+    expect(chapters.map((chapter) => chapter.order), [7, 8, 9, 10]);
+    for (final chapter in chapters) {
+      expect(chapter.term, termForAnnualUnit(chapter.order, 10));
+    }
+  });
 }
