@@ -45,3 +45,16 @@ const annualSecondarySvt6eExtensionUnits = <AnnualSecondarySvtUnit>[
     Exercise(id:'core_svt_6e_viv3',lessonId:'core_svt_6e_viviparity',question:'Le suivi de grossesse est assuré par…',options:['Des professionnels de santé','Des conseils anonymes sans source','Des animaux'],correctIndex:0,explanation:'Le suivi médical accompagne la santé de la mère et du fœtus.'),
   ]),
 ];
+
+final annualSecondarySvt6eExtensionChapters = annualSecondarySvt6eExtensionUnits.map((unit) => Chapter(
+  id:unit.chapterId,subjectId:unit.subjectId,title:'Unité ${unit.unitOrder} — ${unit.title}',
+  order:unit.unitOrder,term:termForAnnualUnit(unit.unitOrder, 13),totalLessons:1,
+)).toList();
+
+final annualSecondarySvt6eExtensionLessons = annualSecondarySvt6eExtensionUnits.map((unit) => Lesson(
+  id:unit.lessonId,chapterId:unit.chapterId,title:unit.lessonTitle,
+  summary:unit.summary,content:unit.content,keyPoints:unit.keyPoints,durationMinutes:30,
+)).toList();
+
+final annualSecondarySvt6eExtensionExercises =
+    annualSecondarySvt6eExtensionUnits.expand((unit) => unit.exercises).toList();
