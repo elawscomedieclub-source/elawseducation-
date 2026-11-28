@@ -29,7 +29,7 @@ final annualCoreSubjects = [
   secondeSvt.annualSecondeCdSvtSubject,
   secondeMath.annualSecondeMathSubject,
   // Les chapitres de 6e complètent les matières déjà affichées dans l’application.
-  Subject(id:'math',name:'Mathématiques — programme annuel de 6e',iconName:'calculator',colorHex:'1976D2',level:SchoolLevel.sixieme,totalChapters:14),
+  Subject(id:'math',name:'Mathématiques — programme annuel de 6e',iconName:'calculator',colorHex:'1976D2',level:SchoolLevel.sixieme,totalChapters:23),
   Subject(id:'fr',name:'Français — programme annuel de 6e',iconName:'book-open',colorHex:'8E24AA',level:SchoolLevel.sixieme,totalChapters:12),
   Subject(id:'anglais',name:'Anglais — programme annuel de 6e',iconName:'translate',colorHex:'00897B',level:SchoolLevel.sixieme,totalChapters:12),
   Subject(id:'svt',name:'SVT — programme annuel de 6e',iconName:'leaf',colorHex:'558B2F',level:SchoolLevel.sixieme,totalChapters:20),
