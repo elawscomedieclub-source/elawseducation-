@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_icons/phosphor_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/subjects/subjects_screen.dart';
 import '../../features/progress/progress_screen.dart';
@@ -110,6 +111,27 @@ class _MainScaffoldState extends State<MainScaffold> {
                 },
               ),
               _menuItem(Icons.person_outline, 'Mon profil', 4),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.download_rounded, color: Color(0xFF006A4E)),
+                title: const Text('Télécharger l’application APK', style: TextStyle(fontWeight: FontWeight.w900)),
+                subtitle: const Text('Installer ProfTogo sur Android'),
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  final uri = Uri.parse(
+                    'https://github.com/elawscomedieclub-source/elawseducation-/releases/latest/download/PROFTOGO.apk',
+                  );
+                  final opened = await launchUrl(
+                    uri,
+                    mode: LaunchMode.externalApplication,
+                  );
+                  if (!opened && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Impossible d’ouvrir le téléchargement. Réessaie avec ta connexion Internet.')),
+                    );
+                  }
+                },
+              ),
               const Divider(),
               const ListTile(leading: Icon(Icons.info_outline), title: Text('À propos de PROFTOGO'), subtitle: Text('Application éducative pour le Togo')),
                             const Padding(padding: EdgeInsets.all(12), child: Text('APPRENDRE • COMPRENDRE • RÉUSSIR', style: TextStyle(color: Colors.grey, fontSize: 12))),
