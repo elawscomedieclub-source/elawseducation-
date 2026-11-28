@@ -54,7 +54,7 @@ const demoSubjects = <Subject>[
   Subject(id:'quatre_svt',name:'Sciences de la vie et de la Terre',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.quatrieme,totalChapters:7,progress:0),
   Subject(id:'quatre_ang',name:'Anglais',iconName:'translate',colorHex:'#F9A825',level:SchoolLevel.quatrieme,totalChapters:7,progress:0),
 
-  Subject(id:'trois_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.troisieme,totalChapters:7,progress:0),
+  Subject(id:'trois_math',name:'Mathématiques',iconName:'calculator',colorHex:'#006A4E',level:SchoolLevel.troisieme,totalChapters:8,progress:0),
   Subject(id:'trois_fr',name:'Français',iconName:'book',colorHex:'#D21034',level:SchoolLevel.troisieme,totalChapters:7,progress:0),
   Subject(id:'trois_svt',name:'Sciences de la vie et de la Terre',iconName:'leaf',colorHex:'#2E7D32',level:SchoolLevel.troisieme,totalChapters:7,progress:0),
   Subject(id:'trois_pc',name:'Physique-Chimie et Technologie',iconName:'science',colorHex:'#1565C0',level:SchoolLevel.troisieme,totalChapters:6,progress:0),
