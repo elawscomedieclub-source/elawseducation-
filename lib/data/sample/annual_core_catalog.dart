@@ -41,7 +41,7 @@ final annualCoreChapters = <Chapter>[
   ...math.annualMathChapters,
   ...physics.annualPhysicsChapters,
   ...historyCivics.annualHistoryCivicsChapters,
-  ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_')),
+  ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_') || const {'ptg_year_cinq_math_8','ptg_year_cinq_math_9','ptg_year_cinq_math_10','ptg_year_cinq_math_11'}.contains(chapter.id)),
   ...secondaryFrench.annualSecondaryFrenchChapters.where((chapter) => chapter.id.startsWith('core_secondary_french_6e_unit_')),
   ...secondarySvt.annualSecondarySvtChapters
       .where((chapter) => chapter.id.startsWith('core_secondary_svt_6e_unit_'))
