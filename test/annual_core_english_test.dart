@@ -49,10 +49,10 @@ void main() {
     expect(annualScienceLessons, hasLength(12));
     expect(annualScienceExercises, hasLength(36));
     expect(annualCoreSubjects, hasLength(44));
-    expect(annualCoreLessons, hasLength(262));
-    expect(annualCoreExercises, hasLength(786));
-    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(262));
-    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(786));
+    expect(annualCoreLessons, hasLength(266));
+    expect(annualCoreExercises, hasLength(798));
+    expect(annualCoreLessons.map((l) => l.id).toSet(), hasLength(266));
+    expect(annualCoreExercises.map((e) => e.id).toSet(), hasLength(798));
   });
 
   test('Seconde C and D physics and chemistry are included as core lessons', () {
@@ -145,11 +145,11 @@ void main() {
   });
 
   test('middle-school mathematics lessons cover fractions, geometry and functions', () {
-    expect(annualSecondaryMathUnits, hasLength(32));
-    expect(annualSecondaryMathLessons, hasLength(32));
-    expect(annualSecondaryMathExercises, hasLength(96));
-    expect(annualSecondaryMathLessons.map((l) => l.id).toSet(), hasLength(32));
-    expect(annualSecondaryMathExercises.map((e) => e.id).toSet(), hasLength(96));
+    expect(annualSecondaryMathUnits, hasLength(36));
+    expect(annualSecondaryMathLessons, hasLength(36));
+    expect(annualSecondaryMathExercises, hasLength(108));
+    expect(annualSecondaryMathLessons.map((l) => l.id).toSet(), hasLength(36));
+    expect(annualSecondaryMathExercises.map((e) => e.id).toSet(), hasLength(108));
     for (final unit in annualSecondaryMathUnits) {
       expect(unit.content.trim(), isNotEmpty);
       expect(unit.exercises, hasLength(3));
@@ -314,7 +314,7 @@ void main() {
       ...annualSecondaryEnglishLessons,
       ...annualSecondarySvtLessons,
     ];
-    expect(lessons, hasLength(115));
+    expect(lessons, hasLength(119));
     final demoChapterIds = {
       ...demoChapters.map((chapter) => chapter.id),
       ...annualCoreChapters.map((chapter) => chapter.id),
