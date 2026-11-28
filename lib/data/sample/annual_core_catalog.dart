@@ -30,6 +30,7 @@ final annualCoreSubjects = <Subject>[
   secondeMath.annualSecondeMathSubject,
   // Les chapitres de 6e complètent les matières déjà affichées dans l’application.
   Subject(id:'math',name:'Mathématiques — programme annuel de 6e',iconName:'calculator',colorHex:'1976D2',level:SchoolLevel.sixieme,totalChapters:23),
+  Subject(id:'cinq_math',name:'Mathématiques — compléments annuels de 5e',iconName:'calculator',colorHex:'1976D2',level:SchoolLevel.cinquieme,totalChapters:10),
   Subject(id:'fr',name:'Français — programme annuel de 6e',iconName:'book-open',colorHex:'8E24AA',level:SchoolLevel.sixieme,totalChapters:19),
   Subject(id:'anglais',name:'Anglais — programme annuel de 6e',iconName:'translate',colorHex:'00897B',level:SchoolLevel.sixieme,totalChapters:19),
   Subject(id:'svt',name:'SVT — programme annuel de 6e',iconName:'leaf',colorHex:'558B2F',level:SchoolLevel.sixieme,totalChapters:20),
@@ -41,7 +42,8 @@ final annualCoreChapters = <Chapter>[
   ...math.annualMathChapters,
   ...physics.annualPhysicsChapters,
   ...historyCivics.annualHistoryCivicsChapters,
-  ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_') || const {'ptg_year_cinq_math_8','ptg_year_cinq_math_9','ptg_year_cinq_math_10','ptg_year_cinq_math_11'}.contains(chapter.id)),
+  ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_')),
+  ...secondaryMath.annualSecondaryMathChapters.where((chapter) => const {'ptg_year_cinq_math_8','ptg_year_cinq_math_9','ptg_year_cinq_math_10','ptg_year_cinq_math_11'}.contains(chapter.id)).toList().asMap().entries.map((entry) => Chapter(id:entry.value.id,subjectId:entry.value.subjectId,title:entry.value.title,order:entry.key + 1,term:termForAnnualUnit(entry.key + 1,4),totalLessons:entry.value.totalLessons,completedLessons:entry.value.completedLessons,isCompleted:entry.value.isCompleted)),
   ...secondaryFrench.annualSecondaryFrenchChapters.where((chapter) => chapter.id.startsWith('core_secondary_french_6e_unit_')),
   ...secondarySvt.annualSecondarySvtChapters
       .where((chapter) => chapter.id.startsWith('core_secondary_svt_6e_unit_'))
