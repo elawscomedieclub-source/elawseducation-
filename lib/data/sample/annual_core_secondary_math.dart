@@ -47,7 +47,7 @@ class AnnualSecondaryMathUnit {
       2 => 'ptg_year_trois_math_7',
       3 => 'ptg_year_trois_math_6',
       4 => 'trois_m1',
-      5 => 'ptg_year_trois_math_7',
+      5 => 'ptg_year_trois_math_8',
       6 => 'trois_math_c2',
       _ => 'ptg_year_trois_math_5',
     },
