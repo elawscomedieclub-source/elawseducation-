@@ -45,25 +45,16 @@ Après l'audit structurel, les deux workflows du commit `5b3c2daf735e409337b52ac
 Cette réussite valide la compilation et la publication par les workflows, pas encore l'exhaustivité officielle des cours. La prochaine étape de contenu reste le rapprochement des chapitres réellement liés avec les volumes déclarés et les compétences officielles, sans suppression ni réduction de la banque existante.
 
 
-## Contrôle ciblé des unités déclarées de 6e — 28 novembre 2026
+## Vérification corrigée des volumes de 6e — 28 novembre 2026
 
-J'ai relu les déclarations d'unités dans les fichiers Dart qui alimentent le catalogue annuel et leur transformation en chapitres. Ce comptage porte sur les unités explicitement déclarées avec le code `6e` dans ces modules, pas sur une validation du programme officiel.
+**Correction de l'interprétation précédente :** le contrôle du 27/28 novembre comparait à tort les nombres de chapitres des matières fusionnées (14/12/12/12/10) aux seules unités ajoutées par les modules secondaires (5/5/5/5/4). Les nombres de la colonne « totalChapters » comprennent aussi les chapitres déjà présents dans les pages de matières de démonstration. Les 5/5/5/5/4 unités des modules secondaires ne représentent donc pas, à elles seules, la totalité des chapitres des pages 6e.
 
-| Matière de 6e | Chapitres annoncés dans le catalogue | Unités explicitement déclarées dans le module examiné |
-|---|---:|---:|
-| Mathématiques | 14 | 5 |
-| Français | 12 | 5 |
-| Anglais | 12 | 5 |
-| SVT | 12 | 5 |
-| Histoire-Géographie | 10 | 4 |
+Le test `annual_core_6e_integration_test.dart` vérifie actuellement :
+- 5 leçons et 5 chapitres ajoutés pour Mathématiques, Français, Anglais et SVT ;
+- 4 leçons et 4 chapitres ajoutés pour Histoire-Géographie ;
+- l'existence des chapitres référencés par ces leçons ;
+- le total fusionné de chaque matière, égal au nombre de chapitres de démonstration déjà présents plus les unités annuelles ajoutées.
 
-Les chapitres de ces modules sont générés à partir des unités déclarées ; les filtres de `annualCoreChapters` incluent les unités de 6e des modules secondaire mathématiques, français, SVT et anglais. Le rapprochement révèle donc un écart structurel important entre les volumes affichés et les unités explicites de ces sources. Il ne faut pas interpréter les nombres annoncés (14/12/12/12/10) comme déjà remplis.
+Ainsi, les volumes 14/12/12/12/10 sont cohérents avec le total fusionné attendu par le test d'intégration actuel. L'audit précédent ne permettait pas de conclure que 9 ou 7 chapitres étaient manquants : cette conclusion est retirée.
 
-### Action de correction
-
-- Ne pas modifier à la baisse les nombres déclarés et ne pas supprimer les contenus existants.
-- Ajouter les unités manquantes dans les modules concernés, après vérification du programme de 6e et de la répartition par trimestre.
-- Chaque nouvelle unité devra contenir une leçon réelle et des exercices corrigés, avec des identifiants stables et des références officielles à renseigner.
-- Ajouter un test qui compare le nombre de chapitres réellement liés à chaque matière avec `totalChapters`, et qui échoue si un volume annoncé n'est pas atteint.
-
-**État de ce contrôle : écart identifié, contenu à compléter.** Aucun chapitre manquant n'est déclaré « ajouté » tant que le code et les tests ne l'ont pas confirmé.
+**Limite restante :** ce test confirme la cohérence interne des volumes et des références, mais il ne prouve pas que chaque chapitre correspond à une compétence officielle du programme togolais, ni que la progression trimestrielle est complète. La prochaine vérification doit porter sur une matrice de compétences officielles et sur le contenu réel des chapitres, sans supprimer ni réduire les cours ou exercices existants.
