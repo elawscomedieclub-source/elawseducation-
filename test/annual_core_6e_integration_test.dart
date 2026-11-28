@@ -10,7 +10,7 @@ void main() {
       'math': 'core_math_6e_', 'fr': 'core_fr_6e_',
       'anglais': 'core_en_6e_', 'svt': 'core_svt_6e_', 'hist': 'core_hg_6e_',
     };
-    final expected = <String, int>{'math': 5, 'fr': 5, 'anglais': 5, 'svt': 5, 'hist': 4};
+    final expected = <String, int>{'math': 5, 'fr': 5, 'anglais': 5, 'svt': 13, 'hist': 4};
     final allChapterIds = <String>{
       ...demoChapters.map((chapter) => chapter.id),
       ...annualCoreChapters.map((chapter) => chapter.id),
