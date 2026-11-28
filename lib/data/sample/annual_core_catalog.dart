@@ -31,7 +31,7 @@ final annualCoreSubjects = [
   // Les chapitres de 6e complètent les matières déjà affichées dans l’application.
   Subject(id:'math',name:'Mathématiques — programme annuel de 6e',iconName:'calculator',colorHex:'1976D2',level:SchoolLevel.sixieme,totalChapters:23),
   Subject(id:'fr',name:'Français — programme annuel de 6e',iconName:'book-open',colorHex:'8E24AA',level:SchoolLevel.sixieme,totalChapters:19),
-  Subject(id:'anglais',name:'Anglais — programme annuel de 6e',iconName:'translate',colorHex:'00897B',level:SchoolLevel.sixieme,totalChapters:12),
+  Subject(id:'anglais',name:'Anglais — programme annuel de 6e',iconName:'translate',colorHex:'00897B',level:SchoolLevel.sixieme,totalChapters:19),
   Subject(id:'svt',name:'SVT — programme annuel de 6e',iconName:'leaf',colorHex:'558B2F',level:SchoolLevel.sixieme,totalChapters:20),
   Subject(id:'hist',name:'Histoire-Géographie — programme annuel de 6e',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.sixieme,totalChapters:10),
 ];
