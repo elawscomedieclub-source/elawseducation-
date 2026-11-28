@@ -6,6 +6,7 @@ import 'annual_core_history_civics.dart' as historyCivics;
 import 'annual_core_secondary_math.dart' as secondaryMath;
 import 'annual_core_secondary_french.dart' as secondaryFrench;
 import 'annual_core_secondary_svt.dart' as secondarySvt;
+import 'annual_core_secondary_svt_6e_extension.dart' as svt6eExtension;
 import '../models/models.dart';
 import 'annual_core_lycee_history_civics.dart' as lyceeHistoryCivics;
 import 'annual_core_seconde_physics.dart' as secondePhysics;
@@ -31,7 +32,7 @@ final annualCoreSubjects = [
   Subject(id:'math',name:'Mathématiques — programme annuel de 6e',iconName:'calculator',colorHex:'1976D2',level:SchoolLevel.sixieme,totalChapters:14),
   Subject(id:'fr',name:'Français — programme annuel de 6e',iconName:'book-open',colorHex:'8E24AA',level:SchoolLevel.sixieme,totalChapters:12),
   Subject(id:'anglais',name:'Anglais — programme annuel de 6e',iconName:'translate',colorHex:'00897B',level:SchoolLevel.sixieme,totalChapters:12),
-  Subject(id:'svt',name:'SVT — programme annuel de 6e',iconName:'leaf',colorHex:'558B2F',level:SchoolLevel.sixieme,totalChapters:12),
+  Subject(id:'svt',name:'SVT — programme annuel de 6e',iconName:'leaf',colorHex:'558B2F',level:SchoolLevel.sixieme,totalChapters:20),
   Subject(id:'hist',name:'Histoire-Géographie — programme annuel de 6e',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.sixieme,totalChapters:10),
 ];
 final annualCoreChapters = [
@@ -43,6 +44,7 @@ final annualCoreChapters = [
   ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_')),
   ...secondaryFrench.annualSecondaryFrenchChapters.where((chapter) => chapter.id.startsWith('core_secondary_french_6e_unit_')),
   ...secondarySvt.annualSecondarySvtChapters.where((chapter) => chapter.id.startsWith('core_secondary_svt_6e_unit_')),
+  ...svt6eExtension.annualSecondarySvt6eExtensionChapters,
   ...secondaryEnglish.annualSecondaryEnglishChapters.where((chapter) => chapter.id.startsWith('core_secondary_english_6e_unit_')),
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsChapters,
   ...secondePhysics.annualSecondePhysicsChapters,
@@ -59,6 +61,7 @@ final annualCoreLessons = [
   ...secondaryMath.annualSecondaryMathLessons,
   ...secondaryFrench.annualSecondaryFrenchLessons,
   ...secondarySvt.annualSecondarySvtLessons,
+  ...svt6eExtension.annualSecondarySvt6eExtensionLessons,
   ...secondaryEnglish.annualSecondaryEnglishLessons,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsLessons,
   ...secondePhysics.annualSecondePhysicsLessons,
@@ -75,6 +78,7 @@ final annualCoreExercises = [
   ...secondaryMath.annualSecondaryMathExercises,
   ...secondaryFrench.annualSecondaryFrenchExercises,
   ...secondarySvt.annualSecondarySvtExercises,
+  ...svt6eExtension.annualSecondarySvt6eExtensionExercises,
   ...secondaryEnglish.annualSecondaryEnglishExercises,
   ...lyceeHistoryCivics.annualLyceeHistoryCivicsExercises,
   ...secondePhysics.annualSecondePhysicsExercises,
