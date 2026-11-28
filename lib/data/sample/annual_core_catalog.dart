@@ -16,7 +16,7 @@ import 'annual_core_seconde_math.dart' as secondeMath;
 
 /// Matières du programme principal ajoutées à la banque de cours, séparées
 /// des leçons bonus et regroupées pour les écrans communs de ProfTogo.
-final annualCoreSubjects = [
+final annualCoreSubjects = <Subject>[
   ...english.annualEnglishSubjects,
   ...science.annualScienceSubjects,
   ...math.annualMathSubjects,
@@ -35,7 +35,7 @@ final annualCoreSubjects = [
   Subject(id:'svt',name:'SVT — programme annuel de 6e',iconName:'leaf',colorHex:'558B2F',level:SchoolLevel.sixieme,totalChapters:20),
   Subject(id:'hist',name:'Histoire-Géographie — programme annuel de 6e',iconName:'globe',colorHex:'0288D1',level:SchoolLevel.sixieme,totalChapters:16),
 ];
-final annualCoreChapters = [
+final annualCoreChapters = <Chapter>[
   ...english.annualEnglishChapters,
   ...science.annualScienceChapters,
   ...math.annualMathChapters,
@@ -63,7 +63,7 @@ final annualCoreChapters = [
   ...secondeSvt.annualSecondeSvtChapters,
   ...secondeMath.annualSecondeMathChapters,
 ];
-final annualCoreLessons = [
+final annualCoreLessons = <Lesson>[
   ...english.annualEnglishLessons,
   ...science.annualScienceLessons,
   ...math.annualMathLessons,
@@ -80,7 +80,7 @@ final annualCoreLessons = [
   ...secondeSvt.annualSecondeSvtLessons,
   ...secondeMath.annualSecondeMathLessons,
 ];
-final annualCoreExercises = [
+final annualCoreExercises = <Exercise>[
   ...english.annualEnglishExercises,
   ...science.annualScienceExercises,
   ...math.annualMathExercises,
