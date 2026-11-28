@@ -43,3 +43,27 @@ Après l'audit structurel, les deux workflows du commit `5b3c2daf735e409337b52ac
 - L'artefact Android `PROFTOGO-APK-Android` est présent dans le workflow Android, taille 33 964 515 octets (environ 34 MB). Il est disponible dans la section **Artifacts** du workflow ; ce contrôle confirme la présence de l'artefact, pas une installation testée sur téléphone.
 
 Cette réussite valide la compilation et la publication par les workflows, pas encore l'exhaustivité officielle des cours. La prochaine étape de contenu reste le rapprochement des chapitres réellement liés avec les volumes déclarés et les compétences officielles, sans suppression ni réduction de la banque existante.
+
+
+## Contrôle ciblé des unités déclarées de 6e — 28 novembre 2026
+
+J'ai relu les déclarations d'unités dans les fichiers Dart qui alimentent le catalogue annuel et leur transformation en chapitres. Ce comptage porte sur les unités explicitement déclarées avec le code `6e` dans ces modules, pas sur une validation du programme officiel.
+
+| Matière de 6e | Chapitres annoncés dans le catalogue | Unités explicitement déclarées dans le module examiné |
+|---|---:|---:|
+| Mathématiques | 14 | 5 |
+| Français | 12 | 5 |
+| Anglais | 12 | 5 |
+| SVT | 12 | 5 |
+| Histoire-Géographie | 10 | 4 |
+
+Les chapitres de ces modules sont générés à partir des unités déclarées ; les filtres de `annualCoreChapters` incluent les unités de 6e des modules secondaire mathématiques, français, SVT et anglais. Le rapprochement révèle donc un écart structurel important entre les volumes affichés et les unités explicites de ces sources. Il ne faut pas interpréter les nombres annoncés (14/12/12/12/10) comme déjà remplis.
+
+### Action de correction
+
+- Ne pas modifier à la baisse les nombres déclarés et ne pas supprimer les contenus existants.
+- Ajouter les unités manquantes dans les modules concernés, après vérification du programme de 6e et de la répartition par trimestre.
+- Chaque nouvelle unité devra contenir une leçon réelle et des exercices corrigés, avec des identifiants stables et des références officielles à renseigner.
+- Ajouter un test qui compare le nombre de chapitres réellement liés à chaque matière avec `totalChapters`, et qui échoue si un volume annoncé n'est pas atteint.
+
+**État de ce contrôle : écart identifié, contenu à compléter.** Aucun chapitre manquant n'est déclaré « ajouté » tant que le code et les tests ne l'ont pas confirmé.
