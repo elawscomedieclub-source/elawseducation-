@@ -43,7 +43,7 @@ final annualCoreChapters = <Chapter>[
   ...physics.annualPhysicsChapters,
   ...historyCivics.annualHistoryCivicsChapters,
   ...secondaryMath.annualSecondaryMathChapters.where((chapter) => chapter.id.startsWith('core_secondary_math_6e_unit_')),
-  ...secondaryMath.annualSecondaryMathChapters.where((chapter) => const {'ptg_year_cinq_math_8','ptg_year_cinq_math_9','ptg_year_cinq_math_10','ptg_year_cinq_math_11'}.contains(chapter.id)).toList().asMap().entries.map((entry) => Chapter(id:entry.value.id,subjectId:entry.value.subjectId,title:entry.value.title,order:entry.key + 1,term:termForAnnualUnit(entry.key + 1,4),totalLessons:entry.value.totalLessons,completedLessons:entry.value.completedLessons,isCompleted:entry.value.isCompleted)),
+  ...secondaryMath.annualSecondaryMathChapters.where((chapter) => const {'ptg_year_cinq_math_8','ptg_year_cinq_math_9','ptg_year_cinq_math_10','ptg_year_cinq_math_11'}.contains(chapter.id)).map((chapter) => Chapter(id:chapter.id,subjectId:chapter.subjectId,title:chapter.title,order:chapter.order,term:termForAnnualUnit(chapter.order,10),totalLessons:chapter.totalLessons,completedLessons:chapter.completedLessons,isCompleted:chapter.isCompleted)),
   ...secondaryFrench.annualSecondaryFrenchChapters.where((chapter) => chapter.id.startsWith('core_secondary_french_6e_unit_')),
   ...secondarySvt.annualSecondarySvtChapters
       .where((chapter) => chapter.id.startsWith('core_secondary_svt_6e_unit_'))
